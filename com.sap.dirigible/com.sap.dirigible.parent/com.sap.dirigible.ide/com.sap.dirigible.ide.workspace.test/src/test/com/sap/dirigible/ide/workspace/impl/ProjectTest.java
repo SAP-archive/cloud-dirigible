@@ -122,7 +122,7 @@ public class ProjectTest {
 	@Test(expected = CoreException.class)
 	public void whileCreatingProjectOccursIOExceptionCoreExceptiponThrown() throws Exception {
 		when(pathValidationStatus.isOK()).thenReturn(true);
-		doThrow(IOException.class).when(projectEntity).create();
+		doThrow(new IOException()).when(projectEntity).create();
 
 		project.create(progressMonitor);
 

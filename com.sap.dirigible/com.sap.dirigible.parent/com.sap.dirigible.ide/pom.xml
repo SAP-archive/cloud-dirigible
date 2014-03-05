@@ -131,16 +131,16 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>com.springsource.javax.servlet</artifactId>
-			<version>2.5.0</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.log4j</groupId>
-			<artifactId>com.springsource.org.apache.log4j</artifactId>
-			<version>1.2.16</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -162,17 +162,17 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>com.springsource.org.apache.commons.collections</artifactId>
+			<groupId>org.apache.directory.studio</groupId>
+			<artifactId>org.apache.commons.collections</artifactId>
 			<version>3.2.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>com.springsource.org.apache.commons.lang</artifactId>
-			<version>2.5.0</version>
+			<groupId>org.apache.directory.studio</groupId>
+			<artifactId>org.apache.commons.lang</artifactId>
+			<version>2.6</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -185,42 +185,44 @@
 			<scope>compile</scope>
 		</dependency>
 
+ 
 		<dependency>
-			<groupId>com.sap.org.apache.httpcomponents</groupId>
-			<artifactId>org.apache.httpcomponents.httpcore</artifactId>
-			<version>4.2.4</version>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.3.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>com.sap.org.apache.httpcomponents</groupId>
-			<artifactId>org.apache.httpcomponents.httpclient</artifactId>
-			<version>4.2.5</version>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
+ 
+ 
 		<dependency>
-			<groupId>org.apache.commons</groupId>
+			<groupId>org.apache.directory.studio</groupId>
 			<artifactId>org.apache.commons.logging</artifactId>
-			<version>1.1.1</version>
+			<version>1.1.3</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>com.springsource.org.apache.commons.fileupload</artifactId>
-			<version>1.2.1</version>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>com.springsource.org.apache.velocity</artifactId>
-			<version>1.6.2</version>
+			<groupId>velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.5</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -235,8 +237,8 @@
 
 		<dependency>
 			<groupId>org.apache.derby</groupId>
-			<artifactId>com.springsource.org.apache.derby</artifactId>
-			<version>10.5.1000001.764942</version>
+			<artifactId>derby</artifactId>
+			<version>10.10.1.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

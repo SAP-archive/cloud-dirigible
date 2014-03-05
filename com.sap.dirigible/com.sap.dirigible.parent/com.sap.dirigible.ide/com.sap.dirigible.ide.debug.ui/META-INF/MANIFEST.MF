@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.rap.ui;bundle-version="1.5.1",
  com.sap.dirigible.ide.editor.text;bundle-version="1.0.0",
  com.sap.dirigible.ide.debug.model;bundle-version="1.0.0",
  com.sap.dirigible.repository.ext;bundle-version="1.0.0",
- com.google.gson;bundle-version="2.2.3"
+ com.google.gson
 Export-Package: com.sap.dirigible.ide.debug.ui
 Import-Package: javax.servlet,
  javax.servlet.http

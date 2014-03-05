@@ -16,4 +16,4 @@ Require-Bundle: org.apache.felix.gogo.command;bundle-version="0.8.0",
  org.eclipse.equinox.console;bundle-version="1.0.0",
  org.eclipse.core.net;bundle-version="1.2.100",
  javax.servlet,
- slf4j.api;bundle-version="1.7.5"
+ org.slf4j.api

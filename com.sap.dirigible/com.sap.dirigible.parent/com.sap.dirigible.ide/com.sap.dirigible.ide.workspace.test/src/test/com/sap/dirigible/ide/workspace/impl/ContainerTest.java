@@ -200,7 +200,7 @@ public class ContainerTest {
 	@Test(expected = CoreException.class)
 	public void whenErrorOccursDuringExtractingMembersCoreExceptionShouldBeThrows()
 			throws Exception {
-		doThrow(IOException.class).when(expectedEntity).getCollectionsNames();
+		doThrow(new IOException()).when(expectedEntity).getCollectionsNames();
 
 		container.members(true);
 

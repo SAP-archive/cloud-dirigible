@@ -7,4 +7,4 @@ Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.logging
 Import-Package: org.osgi.framework,
- org.slf4j;version="1.7.5"
+ org.slf4j

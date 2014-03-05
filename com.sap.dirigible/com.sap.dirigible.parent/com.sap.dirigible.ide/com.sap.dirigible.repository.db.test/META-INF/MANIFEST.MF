@@ -9,11 +9,12 @@ Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.repository.db.test;singleton:=true
 Fragment-Host: com.sap.dirigible.repository.db
 Require-Bundle: com.sap.dirigible.repository.api,
- org.mockito.mockito-all;bundle-version="1.9.5"
+ org.mockito,
+ org.objenesis
 Import-Package: org.apache.derby.jdbc,
  org.junit,
  org.junit.runner,
  org.junit.runners,
- org.slf4j;version="1.7.5"
+ org.slf4j
 
 

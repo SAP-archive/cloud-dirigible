@@ -5,7 +5,7 @@ Bundle-SymbolicName: com.sap.dirigible.ide.jgit.connector;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.jgit;bundle-version="2.3.1",
+Require-Bundle: org.eclipse.jgit,
  com.sap.dirigible.ide.workspace;bundle-version="1.0.0",
  com.sap.dirigible.ide.workspace.ui,
  com.sap.dirigible.repository.api,

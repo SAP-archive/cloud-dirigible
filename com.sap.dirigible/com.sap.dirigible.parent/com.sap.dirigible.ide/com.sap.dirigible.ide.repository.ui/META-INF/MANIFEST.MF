@@ -24,4 +24,4 @@ Import-Package: com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,
  javax.servlet,
  javax.servlet.http,
- org.slf4j;version="1.7.5"
+ org.slf4j

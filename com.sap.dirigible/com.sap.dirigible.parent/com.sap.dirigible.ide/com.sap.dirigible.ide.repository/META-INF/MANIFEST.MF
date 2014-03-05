@@ -13,4 +13,4 @@ Require-Bundle: com.sap.dirigible.ide.datasource;bundle-version="1.0.0",
  com.sap.dirigible.repository.db;bundle-version="1.0.0",
  javax.servlet
 Import-Package: javax.servlet.http,
- org.slf4j;version="1.7.5"
+ org.slf4j

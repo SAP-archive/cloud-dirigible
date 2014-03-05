@@ -154,7 +154,7 @@ public class FolderTest {
 		when(status.isOK()).thenReturn(true);
 		when(project.exists()).thenReturn(true);
 		when(project.isOpen()).thenReturn(true);
-		doThrow(IOException.class).when(folderEntity).create();
+		doThrow(new IOException()).when(folderEntity).create();
 
 		folder.create(0, true, progressMonitor);
 
