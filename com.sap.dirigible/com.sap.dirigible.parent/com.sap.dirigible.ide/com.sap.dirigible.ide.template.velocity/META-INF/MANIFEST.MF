@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dirigible Velocity Generators
+Bundle-SymbolicName: com.sap.dirigible.ide.template.velocity
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: SAP
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.apache.velocity,
+ org.apache.velocity.app,
+ org.apache.velocity.context
+Export-Package: com.sap.dirigible.ide.template.velocity

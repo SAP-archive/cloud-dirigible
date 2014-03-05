@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.sap.dirigible.ide</groupId>
+		<artifactId>com.sap.dirigible.ide.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+  <artifactId>com.sap.dirigible.ide.bridge.ext</artifactId>
+  <packaging>jar</packaging>
+  
+  <properties>
+		<war.project.directory>../com.sap.dirigible.ide.war.build</war.project.directory>
+  </properties>
+
+  <build>
+    <plugins>
+    		<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-jar-plugin</artifactId>
+      		</plugin>
+  			<plugin> 
+                    <artifactId>maven-dependency-plugin</artifactId> 
+                        <executions> 
+                            <execution> 
+                            	<id>copy-dependencies-lib</id>
+                                <phase>install</phase> 
+                                <goals> 
+                                    <goal>copy-dependencies</goal> 
+                                </goals> 
+                                <configuration> 
+                                    <outputDirectory>${war.project.directory}/src/main/webapp/WEB-INF/lib</outputDirectory>
+                                </configuration> 
+                            </execution> 
+                            <execution> 
+                            	<id>copy-dependencies-plugins</id>
+                                <phase>install</phase> 
+                                <goals> 
+                                    <goal>copy-dependencies</goal> 
+                                </goals> 
+                                <configuration> 
+                                    <outputDirectory>${war.project.directory}/src/main/webapp/WEB-INF/plugins</outputDirectory>
+                                </configuration> 
+                            </execution>
+                        </executions> 
+                </plugin> 
+		</plugins>
+	</build>
+
+  <dependencies>
+  
+  		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		
+  </dependencies>
+  
+</project>

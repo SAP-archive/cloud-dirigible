@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.is.command.IntegrationServiceCommandHandler"
+               icon="icons/wizard_integration-service.png"
+               label="Integration Service"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.is.command.IntegrationServiceCommandHandler"
+               icon="icons/wizard_integration-service.png"
+               label="Integration Service"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.sap.dirigible.ide.template.ui.is.command.IntegrationServiceCommandHandler"
+            id="com.sap.dirigible.ide.template.ui.is.command.IntegrationServiceCommandHandler"
+            name="Integration Service">
+      </command>
+   </extension>
+   
+   <extension
+         point="com.sap.dirigible.ide.template.type">
+      <template
+            category="IntegrationServices"
+            image="/icons/content-based-routing-header.png"
+            location="/com/sap/dirigible/ide/template/ui/is/templates/content-based-routing-header.routes"
+            text="Content Based Routing by Header Parameter">
+         <parameter
+               value="routeId">
+         </parameter>
+         <parameter
+               value="endpointAddress">
+         </parameter>
+         <parameter
+               value="parameterName">
+         </parameter>
+      </template>
+      <!--
+      <template
+            category="IntegrationServices"
+            image="/icons/proxy-rest-service-with-xslt-transformation.png"
+            location="/com/sap/dirigible/ide/template/ui/is/templates/proxy-rest-service-with-xslt-transformation.routes"
+            text="Proxy REST Service with XSLT Transformation">
+         <parameter
+               value="routeId">
+         </parameter>
+         <parameter
+               value="endpointAddress">
+         </parameter>
+         <parameter
+               value="originalEndpoint">
+         </parameter>
+         <parameter
+               value="projectName">
+         </parameter>
+         <parameter
+               value="fileName">
+         </parameter>
+      </template>
+      -->
+      <template
+            category="IntegrationServices"
+            image="/icons/proxy-rest-service-shielding-js.png"
+            location="/com/sap/dirigible/ide/template/ui/is/templates/proxy-rest-service-shielding-js.routes"
+            text="Proxy REST Service Shielding a JavaScript Service">
+         <parameter
+               value="routeId">
+         </parameter>
+         <parameter
+               value="endpointAddress">
+         </parameter>
+         <parameter
+               value="originalEndpoint">
+         </parameter>
+         <parameter
+               value="projectName">
+         </parameter>
+         <parameter
+               value="fileName">
+         </parameter>
+      </template>
+      <!--
+      <template
+            category="IntegrationServices"
+            image="/icons/web-service-provider-with-javascript-implementation.png"
+            location="/com/sap/dirigible/ide/template/ui/is/templates/web-service-provider-with-javascript-implementation.routes"
+            text="Web Service Provider with JavaScript Implementation">
+         <parameter
+               value="routeId">
+         </parameter>
+         <parameter
+               value="endpointAddress">
+         </parameter>
+         <parameter
+               value="projectName">
+         </parameter>
+         <parameter
+               value="fileName">
+         </parameter>
+      </template>
+      -->
+      <template
+            category="IntegrationServices"
+            image="/icons/scheduled-job-trigger-js.png"
+            location="/com/sap/dirigible/ide/template/ui/is/templates/scheduled-job-trigger-js.routes"
+            text="Scheduled Job Triggering a JavaScript Service">
+         <parameter
+               value="routeId">
+         </parameter>
+         <parameter
+               value="endpointAddress">
+         </parameter>
+         <parameter
+               value="projectName">
+         </parameter>
+         <parameter
+               value="fileName">
+         </parameter>
+      </template>
+      
+   </extension>
+   
+</plugin>

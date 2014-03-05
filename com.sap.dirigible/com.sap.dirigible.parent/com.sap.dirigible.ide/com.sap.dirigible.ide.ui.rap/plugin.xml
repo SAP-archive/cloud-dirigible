@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.rap.ui.layouts">
+      <layout
+            id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy"
+            name="Fancy Layout">
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.LogoInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.Logo"
+               name="Logo">
+         </layoutSet>
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.HeaderInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.header"
+               name="Header">
+         </layoutSet>
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.FooterInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.footer"
+               name="Footer">
+         </layoutSet>
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.MenuBarInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.menubar"
+               name="MenuBar">
+         </layoutSet>
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.PerspectiveSwitcherInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.perspective"
+               name="Perspective Switcher">
+         </layoutSet>
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.StackInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.stack"
+               name="Fancy Stack">
+         </layoutSet>
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.ConfigDialogInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.configdialog"
+               name="Config Dialog">
+         </layoutSet>
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.CoolbarInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.coolbar"
+               name="Coolbar">
+         </layoutSet>
+         <layoutSet
+               class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.CoolbarOverflowInitializer"
+               id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.coolbaroverflow"
+               name="Coolbar Overflow">
+         </layoutSet>
+      </layout>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.branding">
+      <branding
+            favicon="resources/themes/fancy/images/favicon.png"
+            id="com.sap.dirigible.ide.ui.rap.branding"
+            themeId="com.sap.dirigible.ide.ui.rap.theme.fancy"
+            title="Dirigible">
+         <presentationFactory
+               defaultLayoutId="com.sap.dirigible.ide.ui.rap.layoutsets.fancy"
+               id="com.sap.dirigible.ide.ui.rap.presentation.fancy"
+               name="Dirigible Presentation Factory"
+               viewActionsVisible="false">
+            <defaultStackPresentation
+                  id="com.sap.dirigible.ide.ui.rap.stacks.stackPresentation">
+            </defaultStackPresentation>
+         </presentationFactory>
+      </branding>
+   </extension>
+
+   <extension
+         point="org.eclipse.rap.ui.stackPresentations">
+      <stackPresentation
+            actionClass="com.sap.dirigible.ide.ui.rap.stacks.ConfigAction"
+            class="com.sap.dirigible.ide.ui.rap.stacks.ViewStackPresentation"
+            id="com.sap.dirigible.ide.ui.rap.stacks.stackPresentation"
+            name="com.sap.dirigible.ide.ui.rap.stacks.stackPresentation"
+            type="editor">
+      </stackPresentation>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.themes">
+      <theme
+            file="resources/themes/fancy/fancy.css"
+            id="com.sap.dirigible.ide.ui.rap.theme.fancy"
+            name="Dirigible Fancy Theme">
+      </theme>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.entrypoint">
+      <entrypoint
+            brandingId="com.sap.dirigible.ide.ui.rap.branding"
+            class="com.sap.dirigible.ide.ui.rap.entry.DirigibleWorkbench"
+            id="com.sap.dirigible.ide.ui.rap.entry.DefaultEntrypoint"
+            path="/index.html">
+      </entrypoint>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.entrypoint">
+      <entrypoint
+            brandingId="com.sap.dirigible.ide.ui.rap.branding"
+            class="com.sap.dirigible.ide.ui.rap.entry.DirigibleWorkbench"
+            id="com.sap.dirigible.ide.ui.rap.entry.DefaultEntrypoint"
+            path="/dirigible">
+      </entrypoint>
+   </extension>
+   <extension
+         point="org.eclipse.ui.presentationFactories">
+      <factory
+            class="com.sap.dirigible.ide.ui.rap.presentation.fancy.FancyPresentationFactory"
+            id="com.sap.dirigible.ide.ui.rap.presentation.fancy"
+            name="Dirigible Presentation Factory">
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:showPerspective">
+         <dynamic
+               class="com.sap.dirigible.ide.ui.rap.menu.perspectives.PerspectivesContribution"
+               id="com.sap.dirigible.ide.ui.rap.menu.perspectives.PerspectivesContribution">
+         </dynamic>
+      </menuContribution>
+   </extension>
+
+	<extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/ping"
+            base-name="resources/ping.html">
+      </resource>
+   </extension>
+</plugin>

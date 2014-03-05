@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="com.sap.dirigible.ide.war.build" default="dist" basedir=".">
+	
+	<description />
+	
+	<!-- set global properties for this build -->
+	<property name="version" value="1.0.0.201212141010" />
+	<property name="webinf" value="src/main/webapp/WEB-INF" />
+
+
+	<target name="dist" depends="clean" description="generate the distribution">
+
+		<mkdir dir="./${webinf}/lib" />
+		<mkdir dir="./${webinf}/plugins" />
+
+		<copy todir="./${webinf}/plugins" flatten="true">
+			<fileset dir=".." includes="**/target/*.jar" excludes="**/target/com.sap.dirigible.ide.bridge*.jar" />
+		</copy>
+		
+		<move todir="./${webinf}/plugins">
+			<fileset dir="./${webinf}/plugins" includes="**/*.jar"/>
+			<mapper type="regexp" from="(.*)-(.*)\.jar" to="\1_\2.jar"/>
+		</move>
+		
+		<move todir="./${webinf}/plugins">
+			<fileset dir="./${webinf}/plugins" includes="**/*.jar"/>
+			<mapper type="regexp" from="(.*)-(.*)\.jar" to="\1_\2.jar"/>
+		</move>
+		<!--
+		<move todir="./${webinf}/lib">
+			<fileset dir="./${webinf}/lib" includes="**/*.jar"/>
+			<mapper type="regexp" from="(.*)-(.*)\.jar" to="\1_\2.jar"/>
+		</move>
+		-->
+		<delete>
+		    <fileset dir="./${webinf}/plugins" includes="javax.servlet-3.0.0*.jar"/>
+		</delete>
+		
+		<delete>
+		    <fileset dir="./${webinf}/plugins" includes="*.test_*.jar"/>
+		</delete>
+		
+		<copy todir="./${webinf}/lib" flatten="true">
+			<fileset dir=".." includes="**/target/com.sap.dirigible.ide.bridge*.jar" />
+		</copy>
+		
+		<delete>
+		    <fileset dir="./${webinf}/plugins" includes="*-*.jar"/>
+		</delete>
+
+		<!--
+		<delete>
+		    <fileset dir="./${webinf}/lib" includes="slf4j*api*.jar"/>
+		</delete>
+		
+		<delete>
+		    <fileset dir="./${webinf}/lib" includes="*-*.jar"/>
+		</delete>
+		-->
+		
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="./target" />
+	</target>
+	
+</project>

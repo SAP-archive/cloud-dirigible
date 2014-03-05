@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+
+<target name="Dirigible Runtime - latest release" sequenceNumber="240">
+
+<locations>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.rap.examples.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.rap.sdk.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.rap.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.help.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.rcp.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/releases/kepler/"/>
+</location>
+<!--
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="com.sap.dirigible.orbit.feature.feature.group" version="0.0.0"/>
+<repository location="http://nexus:8081/nexus/content/repositories/build.snapshots.unzip/com/sap/dirigible/orbit/com.sap.dirigible.orbit/1.0.0-SNAPSHOT/com.sap.dirigible.orbit-1.0.0-SNAPSHOT.zip-unzip/"/>
+</location>
+-->
+</locations>
+<launcherArgs>
+<vmArgs>-Dosgi.noShutdown=true -Declipse.ignoreApp=true</vmArgs>
+<programArgs>-console -consolelog</programArgs>
+</launcherArgs>
+</target>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.html.command.HtmlCommandHandler"
+               icon="icons/wizard_user-interface.png"
+               label="User Interface"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.html.command.HtmlCommandHandler"
+               icon="icons/wizard_user-interface.png"
+               label="User Interface"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.html.command.WikiCommandHandler"
+               icon="icons/wizard_wiki.png"
+               label="Wiki Page"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.html.command.WikiCommandHandler"
+               icon="icons/wizard_wiki.png"
+               label="Wiki Page"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.dirigible.ide.workspace.ui.view.Menu.generate">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.html.command.HtmlForEntityCommandHandler"
+               icon="icons/wizard_user-interface.png"
+               label="User Interface for Entity Service"
+               style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <instanceof
+                              value="org.eclipse.core.resources.IFile">
+                        </instanceof>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="entity">
+                        </test>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.sap.dirigible.ide.template.ui.html.command.HtmlCommandHandler"
+            id="com.sap.dirigible.ide.template.ui.html.command.HtmlCommandHandler"
+            name="User Interface">
+      </command>
+      <command
+            defaultHandler="com.sap.dirigible.ide.template.ui.html.command.WikiCommandHandler"
+            id="com.sap.dirigible.ide.template.ui.html.command.WikiCommandHandler"
+            name="Wiki Page">
+      </command>
+      <command
+            defaultHandler="com.sap.dirigible.ide.template.ui.html.command.HtmlForEntityCommandHandler"
+            id="com.sap.dirigible.ide.template.ui.html.command.HtmlForEntityCommandHandler"
+            name="User Interface for Entity Service">
+      </command>
+   </extension>
+   <extension
+         point="com.sap.dirigible.ide.template.type">
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-entity-list.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/angular/list/ui-for-entity-list.html"
+            text="List Of Entities">
+      </template>
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-entity-details.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/angular/list_and_details/ui-for-entity-list-and-details.html"
+            text="List and Details View">
+      </template>
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-entity-manage.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/angular/list_and_manage/ui-for-entity-manage.html"
+            text="List and Manage View">
+      </template>
+	  <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-display-entity.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/angular/display_single_entity/ui-for-display-single-entity.html"
+            text="Display Single Entity">
+      </template>
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-new-entity.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/angular/new_or_edit/ui-for-new-or-edit-entity.html"
+            text="New or Edit Entity">
+      </template>
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-entity-list-openui5.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/open_ui5/list/ui-for-entity-list-open-ui5.html"
+            text="List Of Entities (OpenUI5)">
+      </template>
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-entity-details-openui5.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/open_ui5/list_and_details/ui-for-entity-list-and-details-open-ui5.html"
+            text="List and Details View (OpenUI5)">
+      </template>
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-entity-manage-openui5.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/open_ui5/list_and_manage/ui-for-entity-list-and-manage-open-ui5.html"
+            text="List and Manage View (OpenUI5)">
+      </template>
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-display-entity-openui5.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/open_ui5/display_single_entity/ui-for-display-single-entity-open-ui5.html"
+            text="Display Single Entity (OpenUI5)">
+      </template>
+      <template
+            category="EntityUserInterface"
+            image="/icons/ui-for-new-entity-openui5.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/open_ui5/new_or_edit/ui-for-entity-new-or-edit-open-ui5.html"
+            text="New or Edit Entity (OpenUI5)">
+      </template>
+      
+      <template
+            category="WebContent"
+            image="/icons/index-page.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/index-page.html"
+            text="Index Page with Main Menu, Header and Footer">
+      </template>
+      <template
+            category="WebContent"
+            image="/icons/sample-form.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/form-sample.html"
+            text="Sample Form">
+      </template>
+      <template
+            category="WebContent"
+            image="/icons/index-page-openui5.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/index-page-openui5.html"
+            text="Index Page with Main Menu (OpenUI5)">
+      </template>
+      <template
+            category="WebContent"
+            image="/icons/sample-form-openui5.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/form-sample-openui5.html"
+            text="Sample Form (OpenUI5)">
+      </template>
+      
+      <template
+            category="WikiContent"
+            image="/icons/wiki-page.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/wiki-page.wiki"
+            text="Wiki Page">
+      </template>
+      <template
+            category="WikiContent"
+            image="/icons/wiki-notation-guide.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/wiki-notation-guide.wiki"
+            text="Wiki Notation Guide">
+      </template>
+   </extension>
+   
+</plugin>

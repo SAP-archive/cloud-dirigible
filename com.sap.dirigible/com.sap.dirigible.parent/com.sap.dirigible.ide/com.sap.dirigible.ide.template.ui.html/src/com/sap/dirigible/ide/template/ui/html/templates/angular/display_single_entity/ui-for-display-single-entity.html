@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="NewOrEditEntity">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>${pageTitle}</title>
+
+<link rel="stylesheet"
+	href="../../components/bootstrap/dist/css/bootstrap.min.css">
+<script
+	src="../../components/angular/angular.min.js"></script>
+<script
+	src="../../components/angular-resource/angular-resource.min.js"></script>
+</head>
+<body>
+	<div id="wrap" ng-controller="ModelController">
+		<div class="container well">
+            <div ng-show="urlParameter">
+                <div ng-show="exist">
+#foreach ($tableColumn in $tableColumns) 
+                    <label>${tableColumn.getName()}</label>
+                    <input type="text" class="form-control" ng-model="entity.${tableColumn.getName()}" readonly>
+                    <br>
+#end 
+                </div>
+                
+                <div ng-hide="exist">
+                    <div class="alert alert-warning">
+                        <strong>Warning!</strong>
+                        Entity with 
+#foreach ($tableColumn in $tableColumns) 
+#if ($tableColumn.isKey())
+						${tableColumn.getName()}
+#end
+#end
+                        = '{{urlParameter}}' does not exists!
+                    </div>
+                </div>
+                
+            </div>
+            <div ng-hide="urlParameter">
+                <div class="alert alert-danger">
+                    <strong>Oh snap!</strong> Missing or invalid parameter!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function getURLParameter(name) { 
+            return decodeURIComponent((
+                    new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)
+                    || [,""])[1].replace(/\+/g, '%20'))
+                    || null; 
+        }
+        
+		var url = '${serviceFileName}';
+
+		var app = angular.module('NewOrEditEntity', [ 'ngResource' ]);
+        app.factory('Model', ['$resource', function($resource) {
+            return $resource(url, null,{'update': { method:'PUT' }});
+        }]);
+		app.controller('ModelController', [ '$scope', '$http', 'Model',
+				function($scope, $http, Model) {
+                    var primaryKey;
+#foreach ($tableColumn in $tableColumns) 
+#if ($tableColumn.isKey())
+    				primaryKey = '${tableColumn.getName()}';
+#end 
+#end                    
+                    $scope.urlParameter = getURLParameter(primaryKey);
+                    $scope.exist = true;
+                    
+                    if($scope.urlParameter){
+                    	var getUrl = url + '?' + primaryKey + '=' + $scope.urlParameter;
+                        $http.get(getUrl)
+                            .success(function(result){
+            				    $scope.entity=result;    
+                            })
+                            .error(function(){
+                                $scope.exist = false;
+                            })
+			    	}
+		} ]);
+	</script>
+
+</body>
+</html>

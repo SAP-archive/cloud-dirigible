@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dirigible Template Common
+Bundle-SymbolicName: com.sap.dirigible.ide.template.ui.common;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: SAP
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.rap.ui;bundle-version="1.4.2",
+ com.sap.org.eclipse.ui.ide;bundle-version="1.4.0",
+ org.eclipse.core.resources;bundle-version="3.6.0",
+ com.sap.dirigible.ide.workspace.ui;bundle-version="1.0.0",
+ com.sap.dirigible.ide.common;bundle-version="1.0.0"
+Export-Package: com.sap.dirigible.ide.template.ui.common
+Import-Package: com.sap.dirigible.ide.common.io,
+ com.sap.dirigible.ide.logging,
+ com.sap.dirigible.ide.template.velocity,
+ com.sap.dirigible.ide.ui.common.validation,
+ com.sap.dirigible.ide.workspace,
+ com.sap.dirigible.ide.workspace.ui.viewer

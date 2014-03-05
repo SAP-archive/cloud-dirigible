@@ -1,0 +1,8 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route id="${routeId}">
+        <from uri="servlet:///${endpointAddress}" />
+	    <to uri="xslt:http://localhost:8001/dirigible-services/registry/IntegrationServices/${projectName}/${fileNameNoExtension}_in.xsl"/>
+	    <to uri="${originalEndpoint}"/>
+	    <to uri="xslt:http://localhost:8001/dirigible-services/registry/IntegrationServices/${projectName}/${fileNameNoExtension}_out.xsl"/>
+	</route>
+</routes>

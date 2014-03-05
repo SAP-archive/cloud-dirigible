@@ -1,0 +1,252 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.sap.dirigible</groupId>
+		<artifactId>com.sap.dirigible.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+
+	<groupId>com.sap.dirigible.ide</groupId>
+	<artifactId>com.sap.dirigible.ide.parent</artifactId>
+	<packaging>pom</packaging>
+	<url>http://www.dirigible.io</url>
+
+	<organization>
+		<name>SAP AG</name>
+		<url>http://www.sap.com</url>
+	</organization>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tycho-version>0.18.0</tycho-version>
+		<war.project.directory>../com.sap.dirigible.ide.war.build</war.project.directory>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>0.18.0</version>
+				<configuration>
+					<resolver>p2</resolver>
+					<pomDependencies>consider</pomDependencies>
+					<ignoreTychoRepositories>true</ignoreTychoRepositories>
+					<target>
+						<artifact>
+							<groupId>com.sap.dirigible.ide</groupId>
+							<artifactId>com.sap.dirigible.ide.target</artifactId>
+							<version>1.0.0-SNAPSHOT</version>
+							<classifier>com.sap.dirigible.ide</classifier>
+						</artifact>
+					</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${war.project.directory}/src/main/webapp/WEB-INF/plugins</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>com.sap.dirigible.ide.target</module>
+		<module>com.sap.dirigible.ide.target.dependencies</module>
+		<module>com.sap.dirigible.repository.api</module>
+		<module>com.sap.dirigible.repository.db</module>
+		<module>com.sap.dirigible.repository.db.test</module>
+		<module>com.sap.dirigible.repository.ext</module>
+		<module>com.sap.dirigible.ide.bridge</module>
+		<module>com.sap.dirigible.ide.bridge.ext</module>
+		<module>com.sap.dirigible.ide.common</module>
+		<module>com.sap.dirigible.ide.logging</module>
+		<module>com.sap.dirigible.ide.ui.rap</module>
+		<module>com.sap.dirigible.ide.workspace</module>
+		<module>com.sap.dirigible.ide.workspace.test</module>
+		<module>com.sap.dirigible.ide.workspace.ui</module>
+		<module>com.sap.dirigible.ide.workspace.wizard.project</module>
+		<module>com.sap.dirigible.ide.repository</module>
+		<module>com.sap.dirigible.ide.datasource</module>
+		<module>com.sap.dirigible.ide.ui.common</module>
+		<module>com.sap.org.eclipse.ui.ide</module>
+		<module>com.sap.rap.ui.shared</module>
+		<module>com.sap.dirigible.ide.ui.widget.extbrowser</module>
+		<module>com.sap.dirigible.ide.ui.widget.connection</module>
+		<module>com.sap.dirigible.ide.repository.ui</module>
+		<module>com.sap.dirigible.ide.editor.text</module>
+		<module>com.sap.dirigible.ide.editor.js</module>
+		<module>com.sap.dirigible.ide.db.viewer</module>
+		<module>com.sap.dirigible.ide.db.publish</module>
+		<module>com.sap.dirigible.ide.ui.publish</module>
+		<module>com.sap.dirigible.ide.publish</module>
+		<module>com.sap.dirigible.ide.publish.test</module>
+		<module>com.sap.dirigible.ide.publish.ui</module>
+		<module>com.sap.dirigible.ide.scripts.publish</module>
+		<module>com.sap.dirigible.ide.cheatsheets</module>
+		<module>com.sap.dirigible.ide.integration.publish</module>
+		<module>com.sap.dirigible.ide.services.security.manager</module>
+		<module>com.sap.dirigible.ide.template.velocity</module>
+		<module>com.sap.dirigible.ide.template.ui.common</module>
+		<module>com.sap.dirigible.ide.template.ui.common.test</module>
+		<module>com.sap.dirigible.ide.template.ui.db</module>
+		<module>com.sap.dirigible.ide.template.ui.js</module>
+		<module>com.sap.dirigible.ide.template.ui.html</module>
+		<module>com.sap.dirigible.ide.template.ui.is</module>
+		<module>com.sap.org.eclipse.rap.rwt.supplemental.filedialog</module>
+		<module>com.sap.dirigible.ide.registry</module>
+		<module>com.sap.dirigible.ide.debug.model</module>
+		<module>com.sap.dirigible.ide.debug.ui</module>
+		<module>com.sap.dirigible.ide.designer</module>
+		<module>com.sap.dirigible.ide.template.ui.tc</module>
+		<module>com.sap.dirigible.ide.template.ui.sc</module>
+		<module>com.sap.dirigible.ide.security.publish</module>
+		<module>com.sap.dirigible.ide.jgit.connector</module>
+
+		<!-- this module must be the last one -->
+		<module>com.sap.dirigible.ide.war.build</module>
+	</modules>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>com.springsource.javax.servlet</artifactId>
+			<version>2.5.0</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.log4j</groupId>
+			<artifactId>com.springsource.org.apache.log4j</artifactId>
+			<version>1.2.16</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.collections</artifactId>
+			<version>3.2.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.lang</artifactId>
+			<version>2.5.0</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sap.org.apache.httpcomponents</groupId>
+			<artifactId>org.apache.httpcomponents.httpcore</artifactId>
+			<version>4.2.4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sap.org.apache.httpcomponents</groupId>
+			<artifactId>org.apache.httpcomponents.httpclient</artifactId>
+			<version>4.2.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>org.apache.commons.logging</artifactId>
+			<version>1.1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.fileupload</artifactId>
+			<version>1.2.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>com.springsource.org.apache.velocity</artifactId>
+			<version>1.6.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.3</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>com.springsource.org.apache.derby</artifactId>
+			<version>10.5.1000001.764942</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

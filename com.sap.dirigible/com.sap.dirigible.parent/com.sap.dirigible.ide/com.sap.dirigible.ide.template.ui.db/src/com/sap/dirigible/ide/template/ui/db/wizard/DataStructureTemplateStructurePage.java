@@ -1,0 +1,333 @@
+/*******************************************************************************
+ * Copyright (c) 2014 SAP AG or an SAP affiliate company. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ *******************************************************************************/
+
+package com.sap.dirigible.ide.template.ui.db.wizard;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
+
+import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
+
+public class DataStructureTemplateStructurePage extends WizardPage {
+
+	private static final long serialVersionUID = -1988896787139142411L;
+
+	private static final String REMOVE = Messages.DataStructureTemplateStructurePage_REMOVE;
+
+	private static final String ADD = Messages.DataStructureTemplateStructurePage_ADD;
+
+	private static final String TREE_DEFAULT = Messages.DataStructureTemplateStructurePage_TREE_DEFAULT;
+
+	private static final String TREE_PK = Messages.DataStructureTemplateStructurePage_TREE_PK;
+
+	private static final String TREE_NN = Messages.DataStructureTemplateStructurePage_TREE_NN;
+
+	private static final String TREE_LENGTH = Messages.DataStructureTemplateStructurePage_TREE_LENGTH;
+
+	private static final String TREE_TYPE = Messages.DataStructureTemplateStructurePage_TREE_TYPE;
+
+	private static final String TREE_NAME = Messages.DataStructureTemplateStructurePage_TREE_NAME;
+
+	private static final String COLUMN_DEFINITIONS = Messages.DataStructureTemplateStructurePage_COLUMN_DEFINITIONS;
+
+	private static final String ADD_COLUMN_DEFINITIONS_FOR_THE_SELECTED_DATA_STRUCTURE = Messages.DataStructureTemplateStructurePage_ADD_COLUMN_DEFINITIONS_FOR_THE_SELECTED_DATA_STRUCTURE;
+
+	private static final String DEFINITION_OF_COLUMNS = Messages.DataStructureTemplateStructurePage_DEFINITION_OF_COLUMNS;
+
+	private static final String REMOVE_COLUMN = Messages.DataStructureTemplateStructurePage_REMOVE_COLUMN;
+
+	private static final String ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THE_SELECTED_COLUMN = Messages.DataStructureTemplateStructurePage_ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THE_SELECTED_COLUMN;
+
+//	private static final Logger logger = Logger
+//			.getLogger(DataStructureTemplateStructurePage.class);
+
+	private static final String PAGE_NAME = "com.sap.dirigible.ide.template.ui.db.wizard.DataStructureTemplateStructurePage"; //$NON-NLS-1$
+
+	private TableTemplateModel model;
+
+	private TreeViewer typeViewer;
+
+	private Button addButton;
+
+	private Button removeButton;
+
+	private ColumnDefinition[] columnDefinitions;
+
+	protected DataStructureTemplateStructurePage(TableTemplateModel model) {
+		super(PAGE_NAME);
+		this.model = model;
+		setTitle(DEFINITION_OF_COLUMNS);
+		setDescription(ADD_COLUMN_DEFINITIONS_FOR_THE_SELECTED_DATA_STRUCTURE);
+	}
+
+	@Override
+	public void createControl(Composite parent) {
+		final Composite composite = new Composite(parent, SWT.NONE);
+		setControl(composite);
+		composite.setLayout(new GridLayout());
+		createColumnsField(composite);
+		final Composite compositeButtons = new Composite(composite, SWT.NONE);
+		compositeButtons.setLayout(new RowLayout());
+		createButtonsField(compositeButtons);
+
+		checkPageStatus();
+		// hide all error messages initially (independently from 'page complete'
+		// state)
+		hideErrorMessages();
+	}
+
+	class DataStructureTemplateStructurePageViewContentProvider implements
+			ITreeContentProvider {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 9053893213315991958L;
+
+		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
+			//
+		}
+
+		public void dispose() {
+			//
+		}
+
+		public Object[] getElements(Object inputElement) {
+			if (inputElement instanceof Object[]) {
+				return (Object[]) inputElement;
+			}
+			if (inputElement instanceof Collection) {
+				return ((Collection<?>) inputElement).toArray();
+			}
+			return new Object[0];
+		}
+
+		@Override
+		public Object[] getChildren(Object parentElement) {
+			return null;
+		}
+
+		@Override
+		public Object getParent(Object element) {
+			return null;
+		}
+
+		@Override
+		public boolean hasChildren(Object element) {
+			return false;
+		}
+	}
+
+	private void createColumnsField(Composite parent) {
+		final Label label = new Label(parent, SWT.NONE);
+		label.setText(COLUMN_DEFINITIONS);
+		label.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, false));
+
+		typeViewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL
+				| SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+		typeViewer.getControl().setLayoutData(
+				new GridData(SWT.FILL, SWT.FILL, true, true));
+		typeViewer
+				.setContentProvider(new DataStructureTemplateStructurePageViewContentProvider());
+		typeViewer
+				.setLabelProvider(new DataStructureTemplateStructurePageLabelProvider());
+		Tree tree = typeViewer.getTree();
+		tree.setHeaderVisible(true);
+		createTreeHeader(tree);
+		columnDefinitions = createColumnDefinitions();
+		typeViewer.setInput(columnDefinitions);
+		typeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				updateColumnDefinitions();
+				checkPageStatus();
+			}
+		});
+		updateColumnDefinitions();
+		checkPageStatus();
+
+	}
+
+	private void createTreeHeader(Tree tree) {
+		TreeColumn column = new TreeColumn(tree, SWT.LEFT);
+		column.setText(TREE_NAME);
+		column.setWidth(150);
+		column = new TreeColumn(tree, SWT.LEFT);
+		column.setText(TREE_TYPE);
+		column.setWidth(100);
+		column = new TreeColumn(tree, SWT.RIGHT);
+		column.setText(TREE_LENGTH);
+		column.setWidth(70);
+		column = new TreeColumn(tree, SWT.CENTER);
+		column.setText(TREE_NN);
+		column.setWidth(50);
+		column = new TreeColumn(tree, SWT.CENTER);
+		column.setText(TREE_PK);
+		column.setWidth(50);
+		column = new TreeColumn(tree, SWT.LEFT);
+		column.setText(TREE_DEFAULT);
+		column.setWidth(100);
+	}
+
+	private void createButtonsField(Composite parent) {
+		addButton = new Button(parent, SWT.BORDER);
+		addButton.setText(ADD);
+		// addButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+		// false));
+		addButton.addSelectionListener(new SelectionListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 7621468345508014093L;
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				addClicked();
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				addClicked();
+			}
+		});
+
+		removeButton = new Button(parent, SWT.BORDER);
+		removeButton.setText(REMOVE);
+		// removeButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+		// false));
+		removeButton.addSelectionListener(new SelectionListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -301365843089640919L;
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				removeClicked();
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				removeClicked();
+			}
+		});
+
+	}
+
+	protected void addClicked() {
+		ColumnDefinition columnDefinition = new ColumnDefinition();
+		AddColumnDialog addColumnDialog = new AddColumnDialog(columnDefinition,
+				columnDefinitions.clone(), getShell());
+		int result = addColumnDialog.open();
+		if (result == Dialog.OK) {
+			columnDefinitions = (ColumnDefinition[]) typeViewer.getInput();
+			columnDefinitions = Arrays.copyOf(columnDefinitions,
+					columnDefinitions.length + 1);
+			columnDefinitions[columnDefinitions.length - 1] = columnDefinition;
+			typeViewer.setInput(columnDefinitions);
+			updateColumnDefinitions();
+			checkPageStatus();
+		}
+	}
+
+	protected void removeClicked() {
+		if (typeViewer.getTree().getSelection() != null
+				&& typeViewer.getTree().getSelection().length > 0) {
+			int selectionIndex = typeViewer.getTree().indexOf(
+					typeViewer.getTree().getSelection()[0]);
+			if (selectionIndex >= 0
+					&& selectionIndex < columnDefinitions.length) {
+				boolean result = MessageDialog.openQuestion(null,
+						REMOVE_COLUMN,
+						ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THE_SELECTED_COLUMN);
+				if (result) {
+					columnDefinitions = (ColumnDefinition[]) typeViewer
+							.getInput();
+					columnDefinitions = srinkArray(columnDefinitions,
+							selectionIndex);
+					typeViewer.setInput(columnDefinitions);
+					updateColumnDefinitions();
+					checkPageStatus();
+				}
+			}
+		}
+	}
+
+	private ColumnDefinition[] srinkArray(ColumnDefinition[] oldarray,
+			int selectionIndex) {
+		ColumnDefinition[] newarray = new ColumnDefinition[oldarray.length - 1];
+		int k = 0;
+		for (int x = 0; x < oldarray.length - 1; x++) {
+			if (x == selectionIndex) {
+				k += 1;
+			}
+			newarray[x] = oldarray[x + k];
+		}
+		return newarray;
+	}
+
+	private void updateColumnDefinitions() {
+		ColumnDefinition[] columnDefinitions = (ColumnDefinition[]) typeViewer
+				.getInput();
+		model.setColumnDefinitions(columnDefinitions);
+	}
+
+	private ColumnDefinition[] createColumnDefinitions() {
+		List<ColumnDefinition> columnDefinitions = new ArrayList<ColumnDefinition>();
+		return columnDefinitions.toArray(new ColumnDefinition[] {});
+	}
+
+	private void checkPageStatus() {
+		IValidationStatus status = model.validateColumnDefinitions();
+		if (status.hasErrors()) {
+			setErrorMessage(status.getMessage());
+			setPageComplete(false);
+		} else if (status.hasWarnings()) {
+			setErrorMessage(status.getMessage());
+			setPageComplete(true);
+		} else {
+			setErrorMessage(null);
+			setPageComplete(true);
+		}
+	}
+
+	/**
+	 * Hides all error messages from the UI.
+	 */
+	private void hideErrorMessages() {
+		setErrorMessage(null);
+	}
+}

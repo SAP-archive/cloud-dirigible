@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Integration Services Publisher
+Bundle-SymbolicName: com.sap.dirigible.ide.integration.publish;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: SAP
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.sap.dirigible.ide.repository;bundle-version="1.0.0",
+ org.eclipse.core.runtime;bundle-version="3.7.0",
+ org.eclipse.rap.rwt;bundle-version="1.4.2",
+ com.sap.dirigible.ide.logging;bundle-version="1.0.0"
+Import-Package: com.sap.dirigible.ide.common,
+ com.sap.dirigible.ide.common.io,
+ com.sap.dirigible.ide.publish;version="1.0.0",
+ com.sap.dirigible.repository.api,
+ com.sap.dirigible.repository.db,
+ javax.servlet.http,
+ org.eclipse.core.resources

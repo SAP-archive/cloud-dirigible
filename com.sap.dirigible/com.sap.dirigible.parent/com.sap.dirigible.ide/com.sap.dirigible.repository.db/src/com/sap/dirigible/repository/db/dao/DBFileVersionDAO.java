@@ -1,0 +1,362 @@
+/*******************************************************************************
+ * Copyright (c) 2014 SAP AG or an SAP affiliate company. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ *******************************************************************************/
+
+package com.sap.dirigible.repository.db.dao;
+
+import java.io.ByteArrayInputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.sap.dirigible.repository.db.DBBaseException;
+import com.sap.dirigible.repository.db.DBRepository;
+
+public class DBFileVersionDAO {
+
+	private static Logger logger = LoggerFactory
+			.getLogger(DBFileVersionDAO.class.getCanonicalName());
+
+	private DBRepositoryDAO dbRepositoryDAO;
+
+	DBFileVersionDAO(DBRepositoryDAO dbRepositoryDAO) {
+		this.dbRepositoryDAO = dbRepositoryDAO;
+	}
+
+	/**
+	 * Getter for DBRepositoryDAO object
+	 * 
+	 * @return
+	 */
+	public DBRepositoryDAO getDbRepositoryDAO() {
+		return dbRepositoryDAO;
+	}
+
+	/**
+	 * Getter for the Repository instance
+	 * 
+	 * @return
+	 */
+	protected DBRepository getRepository() {
+		return this.dbRepositoryDAO.getRepository();
+	}
+
+	/**
+	 * Check whether the database schema is initialized
+	 * 
+	 * @return
+	 */
+	protected void checkInitialized() {
+		this.dbRepositoryDAO.checkInitialized();
+	}
+
+	/**
+	 * Query the database and retrieve the database object based on the provided
+	 * path
+	 * 
+	 * @param path
+	 * @return
+	 * @throws DBBaseException
+	 */
+	public DBFileVersion getFileVersionByPath(String path, int version)
+			throws DBBaseException {
+		logger.debug(this.getClass().getCanonicalName(),
+				"entering getFileVersionByPath"); //$NON-NLS-1$
+
+		checkInitialized();
+
+		if (path == null || "".equals(path.trim())) { //$NON-NLS-1$
+			return null;
+		}
+
+		DBFileVersion dbFileVersion = null;
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = getRepository().getDbUtils().getConnection();
+			String script = getRepository().getDbUtils().readScript(connection,
+					DBScriptsMap.SCRIPT_GET_FILE_VERSION_BY_PATH,
+					this.getClass());
+			preparedStatement = getRepository().getDbUtils()
+					.getPreparedStatement(connection, script);
+			preparedStatement.setString(1, path);
+			preparedStatement.setInt(2, version);
+			ResultSet resultSet = null;
+			try {
+				resultSet = preparedStatement.executeQuery();
+
+				if (resultSet.next()) {
+					dbFileVersion = DBMapper.dbToFileVersion(getRepository(),
+							resultSet);
+				}
+			} finally {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			}
+
+		} catch (Exception e) {
+			throw new DBBaseException(e);
+		} finally {
+			getRepository().getDbUtils().closeStatement(preparedStatement);
+			getRepository().getDbUtils().closeConnection(connection);
+		}
+		logger.debug(this.getClass().getCanonicalName(),
+				"exiting getFileVersionByPath"); //$NON-NLS-1$
+		return dbFileVersion;
+	}
+
+	private int insertFileVersion(String path, byte[] bytes,
+			String contentType, String createdBy, int type)
+			throws DBBaseException {
+		logger.debug(this.getClass().getCanonicalName(),
+				"entering insertFileVersion"); //$NON-NLS-1$
+
+		checkInitialized();
+
+		int version = getNextVersion(path);
+		if (bytes == null) {
+			bytes = new byte[] {};
+		}
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = getRepository().getDbUtils().getConnection();
+			String script = getRepository().getDbUtils().readScript(connection,
+					DBScriptsMap.SCRIPT_INSERT_FILE_VERSION, this.getClass());
+			preparedStatement = getRepository().getDbUtils()
+					.getPreparedStatement(connection, script);
+
+			int i = 0;
+			preparedStatement.setString(++i, path);
+			preparedStatement.setInt(++i, version);
+			preparedStatement.setBinaryStream(++i, new ByteArrayInputStream(
+					bytes), bytes.length);
+			preparedStatement.setInt(++i, type);
+			preparedStatement.setString(++i, contentType);
+			preparedStatement.setString(++i, createdBy);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} finally {
+			getRepository().getDbUtils().closeStatement(preparedStatement);
+			getRepository().getDbUtils().closeConnection(connection);
+		}
+		logger.debug(this.getClass().getCanonicalName(),
+				"exiting insertFileVersion"); //$NON-NLS-1$
+		return version;
+	}
+
+	private int getNextVersion(String path) {
+		logger.debug(this.getClass().getCanonicalName(),
+				"entering getNextVersion"); //$NON-NLS-1$
+
+		checkInitialized();
+
+		if (path == null || "".equals(path.trim())) { //$NON-NLS-1$
+			return 0;
+		}
+
+		int version = 0;
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = getRepository().getDbUtils().getConnection();
+			String script = getRepository().getDbUtils().readScript(connection,
+					DBScriptsMap.SCRIPT_GET_NEXT_FILE_VERSION_BY_PATH,
+					this.getClass());
+			preparedStatement = getRepository().getDbUtils()
+					.getPreparedStatement(connection, script);
+			preparedStatement.setString(1, path);
+			ResultSet resultSet = null;
+			try {
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					version = resultSet.getInt(1);
+				}
+			} finally {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			}
+
+		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} finally {
+			getRepository().getDbUtils().closeStatement(preparedStatement);
+			getRepository().getDbUtils().closeConnection(connection);
+		}
+		logger.debug(this.getClass().getCanonicalName(),
+				"exiting getNextVersion"); //$NON-NLS-1$
+		return (version + 1);
+	}
+
+	/**
+	 * Create the file version (text or binary) at the given path
+	 * 
+	 * @param path
+	 * @param bytes
+	 * @param isBinary
+	 * @param contentType
+	 * @return
+	 * @throws DBBaseException
+	 */
+	public DBFileVersion createFileVersion(String path, byte[] bytes,
+			boolean isBinary, String contentType) throws DBBaseException {
+
+		checkInitialized();
+
+		if (path == null || "".equals(path.trim())) { //$NON-NLS-1$
+			return null;
+		}
+
+		if (isBinary) {
+			return null;
+		}
+
+		String createdBy = getRepository().getUser();
+
+		DBFileVersion fileVersion = null;
+		String collectionPath = path.substring(0,
+				path.lastIndexOf(DBRepository.PATH_DELIMITER));
+		DBFolder parent = getDbRepositoryDAO().getDbFolderDAO().createFolder(
+				collectionPath);
+		if (parent != null) {
+			int version = insertFileVersion(path, bytes, contentType,
+					createdBy, isBinary ? DBMapper.OBJECT_TYPE_BINARY
+							: DBMapper.OBJECT_TYPE_DOCUMENT);
+			fileVersion = getFileVersionByPath(path, version);
+		}
+		return fileVersion;
+	}
+
+	public List<DBFileVersion> getFileVersionsByPath(String path) {
+		logger.debug(this.getClass().getCanonicalName(),
+				"entering getFileVersionsByPath"); //$NON-NLS-1$
+
+		checkInitialized();
+
+		if (path == null || "".equals(path.trim())) { //$NON-NLS-1$
+			return null;
+		}
+
+		List<DBFileVersion> dbFileVersions = new ArrayList<DBFileVersion>();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = getRepository().getDbUtils().getConnection();
+			String script = getRepository().getDbUtils().readScript(connection,
+					DBScriptsMap.SCRIPT_GET_FILE_VERSIONS_BY_PATH,
+					this.getClass());
+			preparedStatement = getRepository().getDbUtils()
+					.getPreparedStatement(connection, script);
+			preparedStatement.setString(1, path);
+			ResultSet resultSet = null;
+			try {
+				resultSet = preparedStatement.executeQuery();
+
+				while (resultSet.next()) {
+					DBFileVersion dbFileVersion = DBMapper.dbToFileVersion(
+							getRepository(), resultSet);
+					dbFileVersions.add(dbFileVersion);
+				}
+			} finally {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			}
+
+		} catch (Exception e) {
+			throw new DBBaseException(e);
+		} finally {
+			getRepository().getDbUtils().closeStatement(preparedStatement);
+			getRepository().getDbUtils().closeConnection(connection);
+		}
+		logger.debug(this.getClass().getCanonicalName(),
+				"exiting getFileVersionsByPath"); //$NON-NLS-1$
+		return dbFileVersions;
+	}
+
+	public void removeAllFileVersions(String path) throws DBBaseException {
+		logger.debug(this.getClass().getCanonicalName(),
+				"entering removeAllFileVersions"); //$NON-NLS-1$
+
+		checkInitialized();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = getRepository().getDbUtils().getConnection();
+			String script = getRepository().getDbUtils().readScript(connection,
+					DBScriptsMap.SCRIPT_REMOVE_ALL_FILE_VERSIONS,
+					this.getClass());
+			preparedStatement = getRepository().getDbUtils()
+					.getPreparedStatement(connection, script);
+
+			int i = 0;
+			preparedStatement.setString(++i, path);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} finally {
+			getRepository().getDbUtils().closeStatement(preparedStatement);
+			getRepository().getDbUtils().closeConnection(connection);
+		}
+		logger.debug(this.getClass().getCanonicalName(),
+				"exiting removeAllFileVersions"); //$NON-NLS-1$
+	}
+	
+	public void removeAllFileVersionsBeforeDate(Date date) throws DBBaseException {
+		logger.debug(this.getClass().getCanonicalName(),
+				"entering removeAllFileVersionsBeforeDate"); //$NON-NLS-1$
+
+		checkInitialized();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = getRepository().getDbUtils().getConnection();
+			String script = getRepository().getDbUtils().readScript(connection,
+					DBScriptsMap.SCRIPT_REMOVE_ALL_FILE_VERSIONS_BEFORE_DATE,
+					this.getClass());
+			preparedStatement = getRepository().getDbUtils()
+					.getPreparedStatement(connection, script);
+
+			int i = 0;
+			preparedStatement.setDate(++i, new java.sql.Date(date.getTime()));
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} finally {
+			getRepository().getDbUtils().closeStatement(preparedStatement);
+			getRepository().getDbUtils().closeConnection(connection);
+		}
+		logger.debug(this.getClass().getCanonicalName(),
+				"exiting removeAllFileVersionsBeforeDate"); //$NON-NLS-1$
+	}
+	
+	
+
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Security"
+            id="com.sap.dirigible.ide.services.security">
+      </category>
+      <view
+            name="Security Manager"
+            icon="icons/shield.png"
+            category="com.sap.dirigible.ide.services.security"
+            class="com.sap.dirigible.ide.services.security.manager.views.SecurityManagerView"
+            id="com.sap.dirigible.ide.services.security.manager.views.SecurityManagerView">
+      </view>
+   </extension>
+
+</plugin>

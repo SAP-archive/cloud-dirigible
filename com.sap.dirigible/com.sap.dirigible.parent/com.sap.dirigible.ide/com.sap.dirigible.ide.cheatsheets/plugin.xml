@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.cheatsheets.cheatSheetContent">
+      <category
+            id="com.sap.dirigible.ide.workspace.ui.create"
+            name="Create Artifact">
+      </category>
+      <category
+            id="com.sap.dirigible.ide.workspace.ui.scenario"
+            name="Execute Scenario">
+      </category>
+      <cheatsheet
+            category="com.sap.dirigible.ide.workspace.ui.create"
+            composite="false"
+            contentFile="resources/createProjectCheatSheet.xml"
+            id="com.sap.dirigible.ide.workspace.ui.create_project"
+            name="Create Project">
+      </cheatsheet>
+      <cheatsheet
+            category="com.sap.dirigible.ide.workspace.ui.create"
+            composite="false"
+            contentFile="resources/createDataStructureCheatSheet.xml"
+            id="com.sap.dirigible.ide.workspace.ui.create_data_structure"
+            name="Create Data Structure">
+      </cheatsheet>
+      <cheatsheet
+            category="com.sap.dirigible.ide.workspace.ui.create"
+            composite="false"
+            contentFile="resources/createUserInterfaceCheatSheet.xml"
+            id="com.sap.dirigible.ide.workspace.ui.create_user_interface"
+            name="Create User Interface">
+      </cheatsheet>
+      <cheatsheet
+            category="com.sap.dirigible.ide.workspace.ui.create"
+            composite="false"
+            contentFile="resources/createJavaScriptServiceCheatSheet.xml"
+            id="com.sap.dirigible.ide.workspace.ui.create_java_script_service"
+            name="Create JavaScript Service">
+      </cheatsheet>
+      <cheatsheet
+            category="com.sap.dirigible.ide.workspace.ui.create"
+            composite="false"
+            contentFile="resources/createIntegrationServiceCheatSheet.xml"
+            id="com.sap.dirigible.ide.workspace.ui.create_integration_service"
+            name="Create Integration Service">
+      </cheatsheet>
+      <cheatsheet
+            category="com.sap.dirigible.ide.workspace.ui.scenario"
+            composite="false"
+            contentFile="resources/createEntityServiceCheatSheet.xml"
+            id="com.sap.dirigible.ide.workspace.ui.create_entity_service"
+            name="Create Entity Service">
+      </cheatsheet>
+   </extension>
+
+</plugin>
