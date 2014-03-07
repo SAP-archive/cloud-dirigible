@@ -23,7 +23,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tycho-version>0.18.0</tycho-version>
+		<tycho-version>0.19.0</tycho-version>
 		<war.project.directory>../com.sap.dirigible.ide.war.build</war.project.directory>
 	</properties>
 
@@ -32,7 +32,7 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
-				<version>0.18.0</version>
+				<version>${tycho-version}</version>
 				<configuration>
 					<resolver>p2</resolver>
 					<pomDependencies>consider</pomDependencies>
@@ -75,7 +75,9 @@
 		<module>com.sap.dirigible.ide.target.dependencies</module>
 		<module>com.sap.dirigible.repository.api</module>
 		<module>com.sap.dirigible.repository.db</module>
+		<!-- 
 		<module>com.sap.dirigible.repository.db.test</module>
+		 -->
 		<module>com.sap.dirigible.repository.ext</module>
 		<module>com.sap.dirigible.ide.bridge</module>
 		<module>com.sap.dirigible.ide.bridge.ext</module>
@@ -83,7 +85,9 @@
 		<module>com.sap.dirigible.ide.logging</module>
 		<module>com.sap.dirigible.ide.ui.rap</module>
 		<module>com.sap.dirigible.ide.workspace</module>
+		<!--
 		<module>com.sap.dirigible.ide.workspace.test</module>
+		-->
 		<module>com.sap.dirigible.ide.workspace.ui</module>
 		<module>com.sap.dirigible.ide.workspace.wizard.project</module>
 		<module>com.sap.dirigible.ide.repository</module>
@@ -100,7 +104,9 @@
 		<module>com.sap.dirigible.ide.db.publish</module>
 		<module>com.sap.dirigible.ide.ui.publish</module>
 		<module>com.sap.dirigible.ide.publish</module>
+		<!--
 		<module>com.sap.dirigible.ide.publish.test</module>
+		-->
 		<module>com.sap.dirigible.ide.publish.ui</module>
 		<module>com.sap.dirigible.ide.scripts.publish</module>
 		<module>com.sap.dirigible.ide.cheatsheets</module>
@@ -108,7 +114,9 @@
 		<module>com.sap.dirigible.ide.services.security.manager</module>
 		<module>com.sap.dirigible.ide.template.velocity</module>
 		<module>com.sap.dirigible.ide.template.ui.common</module>
+		<!--
 		<module>com.sap.dirigible.ide.template.ui.common.test</module>
+		-->
 		<module>com.sap.dirigible.ide.template.ui.db</module>
 		<module>com.sap.dirigible.ide.template.ui.js</module>
 		<module>com.sap.dirigible.ide.template.ui.html</module>
@@ -218,11 +226,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
+ 
 		<dependency>
-			<groupId>velocity</groupId>
+			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
-			<version>1.5</version>
+			<version>1.7</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
