@@ -5,16 +5,17 @@ Bundle-SymbolicName: com.sap.dirigible.ide.target.dependencies
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.apache.felix.gogo.command;bundle-version="0.8.0",
- org.apache.felix.gogo.runtime;bundle-version="0.8.0",
- org.apache.felix.gogo.shell;bundle-version="0.8.0",
- org.eclipse.equinox.http.servlet;bundle-version="1.1.300",
- org.eclipse.equinox.http.servletbridge;bundle-version="1.0.200",
- org.eclipse.equinox.security;bundle-version="1.0.1",
- org.eclipse.equinox.util;bundle-version="1.0.400",
- org.eclipse.equinox.ds;bundle-version="1.4.0",
- org.eclipse.equinox.console;bundle-version="1.0.0",
- org.eclipse.core.net;bundle-version="1.2.100",
+Require-Bundle: org.apache.felix.gogo.command,
+ org.apache.felix.gogo.runtime,
+ org.apache.felix.gogo.shell,
+ org.eclipse.equinox.http.servlet,
+ org.eclipse.equinox.http.servletbridge,
+ org.eclipse.equinox.security,
+ org.eclipse.equinox.util,
+ org.eclipse.equinox.ds,
+ org.eclipse.equinox.console,
+ org.eclipse.core.net,
  javax.servlet,
  org.slf4j.api,
- org.apache.velocity;bundle-version="1.5.0"
+ org.apache.velocity,
+ com.google.gson

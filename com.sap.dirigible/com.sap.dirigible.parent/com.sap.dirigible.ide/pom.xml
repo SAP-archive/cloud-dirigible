@@ -134,7 +134,7 @@
 		<!-- this module must be the last one -->
 		<module>com.sap.dirigible.ide.war.build</module>
 	</modules>
-
+<!-- 
 	<dependencies>
 
 		<dependency>
@@ -258,5 +258,6 @@
 		</dependency>
 
 	</dependencies>
-
+ -->
+ 
 </project>
