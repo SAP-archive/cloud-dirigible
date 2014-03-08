@@ -18,4 +18,5 @@ Require-Bundle: org.apache.felix.gogo.command,
  javax.servlet,
  org.slf4j.api,
  org.apache.velocity,
- com.google.gson
+ com.google.gson,
+ org.slf4j.log4j;bundle-version="1.7.2"
