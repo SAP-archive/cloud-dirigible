@@ -21,7 +21,6 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.naming.NamingException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -71,7 +70,7 @@ public class RegistrySecureRolesFilter extends AbstractRegistrySecureFilter {
 					SecurityManager securityManager = SecurityManager
 							.getInstance(RepositoryFacade.getInstance()
 									.getRepository(request), RepositoryFacade
-									.getInstance().lookupDataSource());
+									.getInstance().getDataSource());
 					List<String> roles = securityManager
 							.getRolesForLocation(location);
 					for (Iterator<String> iterator = roles.iterator(); iterator
@@ -84,8 +83,6 @@ public class RegistrySecureRolesFilter extends AbstractRegistrySecureFilter {
 				}
 			}
 		} catch (RepositoryException e) {
-			logger.error(e.getMessage(), e);
-		} catch (NamingException e) {
 			logger.error(e.getMessage(), e);
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);

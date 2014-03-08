@@ -73,7 +73,7 @@ public class MemoryLogRecordDAO {
 		try {
 			checkDB();
 
-			DataSource dataSource = RepositoryFacade.getInstance().lookupDataSource();
+			DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
@@ -98,7 +98,7 @@ public class MemoryLogRecordDAO {
 	}
 
 	private static void checkDB() throws NamingException, SQLException {
-		DataSource dataSource = RepositoryFacade.getInstance().lookupDataSource();
+		DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
@@ -122,7 +122,7 @@ public class MemoryLogRecordDAO {
 		try {
 			checkDB();
 
-			DataSource dataSource = RepositoryFacade.getInstance().lookupDataSource();
+			DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
@@ -150,7 +150,7 @@ public class MemoryLogRecordDAO {
 		try {
 			checkDB();
 
-			DataSource dataSource = RepositoryFacade.getInstance().lookupDataSource();
+			DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();

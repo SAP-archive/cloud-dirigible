@@ -470,13 +470,14 @@
   	
   	
 	<!-- Security -->
-
+<!--
 	<resource-ref>
 		<res-ref-name>PasswordStorage</res-ref-name>
 		<res-type>com.sap.jpaas.service.securestore.password.PasswordStorage</res-type>
 	</resource-ref>
+-->	
 	<login-config>
-		<auth-method>FORM</auth-method>
+		<auth-method>BASIC</auth-method>
 	</login-config>
 	
 	<!-- Registry Services -->

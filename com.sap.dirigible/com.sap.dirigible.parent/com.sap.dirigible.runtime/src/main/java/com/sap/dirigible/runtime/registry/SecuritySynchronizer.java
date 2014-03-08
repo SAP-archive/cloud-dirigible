@@ -66,7 +66,7 @@ public class SecuritySynchronizer implements Runnable {
 		SecurityManager securityManager = null;
 		try {
 			DataSource dataSource = RepositoryFacade.getInstance()
-					.lookupDataSource();
+					.getDataSource();
 			IRepository repository = RepositoryFacade.getInstance()
 					.getRepository(null);
 			// TODO

@@ -69,14 +69,10 @@ public abstract class AbstractScriptExecutor {
 		registerDefaultVariable(scope, "out", System.out); //$NON-NLS-1$
 		// put the default data source
 		DataSource dataSource = null;
-		try {
-			if (repository instanceof DBRepository) {
-				dataSource = ((DBRepository) repository).getDataSource();
-			} else {
-				dataSource = RepositoryFacade.getInstance().lookupDataSource();
-			}
-		} catch (NamingException e) {
-			logger.error(CANNOT_LOOKUP_DEFAULT_DATA_SOURCE + e.getMessage());
+		if (repository instanceof DBRepository) {
+			dataSource = ((DBRepository) repository).getDataSource();
+		} else {
+			dataSource = RepositoryFacade.getInstance().getDataSource();
 		}
 		registerDefaultVariable(scope, "datasource", dataSource); //$NON-NLS-1$
 		// put request

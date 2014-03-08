@@ -20,18 +20,33 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
+import org.apache.derby.jdbc.EmbeddedDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.RepositoryException;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.db.WrappedDataSource;
 
 public class RepositoryFacade {
+	
+	private static final Logger logger = LoggerFactory.getLogger(RepositoryFacade.class);
 
 	private static final String JAVA_COMP_ENV_JDBC_DEFAULT_DB = "java:comp/env/jdbc/DefaultDB"; //$NON-NLS-1$
+	
+	private static final String LOCAL_DB_ACTION = "create"; //$NON-NLS-1$
+	
+	private static final String LOCAL_DB_NAME = "derby"; //$NON-NLS-1$
 
 	private static final String REPOSITORY = "repository-instance"; //$NON-NLS-1$
 
 	private static RepositoryFacade instance;
+	
+	private static EmbeddedDataSource localDataSource;
+
+	private WrappedDataSource dataSource;
+
 
 	private RepositoryFacade() {
 
@@ -54,20 +69,46 @@ public class RepositoryFacade {
 		}
 
 		try {
-			DataSource dataSource = lookupDataSource();
+			DataSource dataSource = getDataSource();
 			String user = getUser(request);
 			repository = new DBRepository(dataSource, user, false);
 			saveRepositoryInstance(request, repository);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new RepositoryException(e);
 		}
 
 		return repository;
 	}
 
-	public DataSource lookupDataSource() throws NamingException {
-		final InitialContext ctx = new InitialContext();
-		return new WrappedDataSource((DataSource) ctx.lookup(JAVA_COMP_ENV_JDBC_DEFAULT_DB)); 
+	public DataSource getDataSource() {
+		if (dataSource == null) {
+			dataSource = (WrappedDataSource) lookupDataSource();
+			if (dataSource == null) {
+				dataSource = createLocal();
+			}
+		}
+		return dataSource;
+	}
+	
+	private DataSource lookupDataSource() {
+		InitialContext ctx;
+		try {
+			ctx = new InitialContext();
+			return new WrappedDataSource((DataSource) ctx.lookup(JAVA_COMP_ENV_JDBC_DEFAULT_DB));
+		} catch (NamingException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
+
+	private WrappedDataSource createLocal() {
+		localDataSource = new EmbeddedDataSource();
+		localDataSource.setDatabaseName(LOCAL_DB_NAME);
+		localDataSource.setCreateDatabase(LOCAL_DB_ACTION);
+		logger.error("Embedded DataSource is used!");
+		WrappedDataSource wrappedDataSource = new WrappedDataSource(localDataSource); 
+		return wrappedDataSource;
 	}
 
 	public static String getUser(HttpServletRequest request) {
@@ -89,8 +130,7 @@ public class RepositoryFacade {
 		try {
 			return (IRepository) request.getSession().getAttribute(REPOSITORY);
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		return null;
 	}

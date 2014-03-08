@@ -49,7 +49,7 @@ public class AccessLogLocationsDAO {
 			checkDB();
 			
 			DataSource dataSource = RepositoryFacade.getInstance()
-					.lookupDataSource();
+					.getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
@@ -79,7 +79,7 @@ public class AccessLogLocationsDAO {
 			checkDB();
 			
 			DataSource dataSource = RepositoryFacade.getInstance()
-					.lookupDataSource();
+					.getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
@@ -107,7 +107,7 @@ public class AccessLogLocationsDAO {
 			checkDB();
 			
 			DataSource dataSource = RepositoryFacade.getInstance()
-					.lookupDataSource();
+					.getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
@@ -135,7 +135,7 @@ public class AccessLogLocationsDAO {
 			checkDB();
 			
 			DataSource dataSource = RepositoryFacade.getInstance()
-					.lookupDataSource();
+					.getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
@@ -158,7 +158,7 @@ public class AccessLogLocationsDAO {
 	
 	private static  void checkDB() throws NamingException, SQLException {
 		DataSource dataSource = RepositoryFacade.getInstance()
-				.lookupDataSource();
+				.getDataSource();
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
