@@ -43,7 +43,7 @@ public class RepositoryFacade {
 
 	private static RepositoryFacade instance;
 	
-	private static EmbeddedDataSource localDataSource;
+	private static DataSource localDataSource;
 
 	private WrappedDataSource dataSource;
 
@@ -103,10 +103,15 @@ public class RepositoryFacade {
 	}
 
 	private WrappedDataSource createLocal() {
-		localDataSource = new EmbeddedDataSource();
-		localDataSource.setDatabaseName(LOCAL_DB_NAME);
-		localDataSource.setCreateDatabase(LOCAL_DB_ACTION);
+		localDataSource = (DataSource) System.getProperties().get(LOCAL_DB_NAME); 
+		if (localDataSource == null) {
+			localDataSource = new EmbeddedDataSource();
+			((EmbeddedDataSource)localDataSource).setDatabaseName(LOCAL_DB_NAME);
+			((EmbeddedDataSource)localDataSource).setCreateDatabase(LOCAL_DB_ACTION);
+			System.getProperties().put(LOCAL_DB_NAME, localDataSource);
+		}
 		logger.error("Embedded DataSource is used!");
+		
 		WrappedDataSource wrappedDataSource = new WrappedDataSource(localDataSource); 
 		return wrappedDataSource;
 	}

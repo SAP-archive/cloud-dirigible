@@ -38,7 +38,7 @@ public class DataSourceFacade {
 	public static final Logger logger = Logger.getLogger(DataSourceFacade.class
 			.getCanonicalName());
 
-	private static EmbeddedDataSource localDataSource;
+	private static DataSource localDataSource;
 
 	private static DataSourceFacade instance;
 
@@ -73,9 +73,13 @@ public class DataSourceFacade {
 	}
 
 	private WrappedDataSource createLocal() {
-		localDataSource = new EmbeddedDataSource();
-		localDataSource.setDatabaseName(LOCAL_DB_NAME);
-		localDataSource.setCreateDatabase(LOCAL_DB_ACTION);
+		localDataSource = (DataSource) System.getProperties().get(LOCAL_DB_NAME);
+		if (localDataSource == null) { 
+			localDataSource = new EmbeddedDataSource();
+			((EmbeddedDataSource)localDataSource).setDatabaseName(LOCAL_DB_NAME);
+			((EmbeddedDataSource)localDataSource).setCreateDatabase(LOCAL_DB_ACTION);
+			System.getProperties().put(LOCAL_DB_NAME, localDataSource);
+		}
 		logger.warn(EMBEDDED_DATA_SOURCE_IS_USED);
 		WrappedDataSource wrappedDataSource = new WrappedDataSource(localDataSource); 
 		return wrappedDataSource;
