@@ -19,19 +19,58 @@ On one hand in this project were implied the lessons learned from the standard t
 ### Try ###
 
 Dirigible project is deployed and tested against the [HANA Cloud Platform](https://account.hana.ondemand.com/).
-You can start by creating your own unlimited free trial account at [https://account.hanatrial.ondemand.com/](https://account.hanatrial.ondemand.com/).
+
+You can start by creating your own unlimited free trial account at [https://account.hanatrial.ondemand.com/](https://account.hanatrial.ondemand.com/) with HANA database underneath.
+
 Sandbox instance with restricted functionality is available at: [http://sandbox.dirigible.io](http://sandbox.dirigible.io).
 
 
-Build
+Get Started
 -----
 
-### Maven ###
+##### Build #####
 
-1. Clone the repository 'https://github.com/SAP/dirigible.git' or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip). 
-2. Build the project with Maven running a "mvn clean install". The build should pass successfully.
-3. The two produced WAR files dirigible-ide*.war and dirigible-runtime*.war are ready to be deployed on [HANA Cloud Platform](https://account.hana.ondemand.com/) with the [Cloud SDK](https://tools.hana.ondemand.com/#cloud)
-4. Import the project as existing Maven project into your local Eclipse environment
+
+1. Get the [Maven](http://maven.apache.org/) build tool version 3.0.x
+2. Clone the repository <https://github.com/SAP/dirigible.git> or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip). 
+3. Go to the folder *com.sap.dirigible.parent*
+4. Build the project executing:
+
+        mvn clean install
+
+5. The build should pass successfully
+6. The two produced WAR files dirigible-ide\*.war and dirigible-runtime\*.war are ready to be deployed
+
+##### Deploy #####
+###### HANA Cloud Platform ######
+
+1.  Deploy on [HANA Cloud Platform](https://account.hana.ondemand.com/) with the [Cloud SDK](https://tools.hana.ondemand.com/#cloud).
+2. Get the SDK from <https://tools.hana.ondemand.com/#cloud>
+3. Go to *neo-java-web-sdk-1.xxx/tools* folder
+4. Prepare your own *\*.properties* file based on the samples, including your account, application, user and the folder with the WAR files
+5. Deploy with command:
+
+        neo.sh deploy your-descriptor.properties -password your-password
+
+###### Tomcat ######
+
+1. The same WAR files can be deployed on [Tomcat](http://tomcat.apache.org/) Web Container. In this case the built-in Derby database will be used.
+3. For simplicity rename the WAR respectively *dirigible-ide.war* for IDE and *dirigible.war* for Runtime
+2. Open a Web Browser and go to location
+
+        http://localhost:8080/dirigible-ide (IDE)
+        http://localhost:8080/dirigible     (Runtime)
+
+###### Eclipse ######
+
+1. The IDE part can be run directly via the Eclipse. This is useful for easy testing of new features during development
+2. Import the project as existing Maven project into your local Eclipse environment
+3. Go to project *com.sap.dirigible.ide.target* and open the file with the same name with the Target Editor
+4. Click on the *Set as Target Platform* link and wait until the required bundles get synchronized
+5. Use *dirigible-local.launch* file to *Run As* configuration
+6. Open a Web Browser and go to location
+
+        http://localhost:8080/dirigible
 
 
 Additional Information
@@ -47,8 +86,8 @@ This project is copyrighted by [SAP AG](http://www.sap.com/) and made available 
 File an [issue](https://github.com/SAP/dirigible/issues) or send us a [pull request](https://github.com/SAP/dirigible/pulls).
 
 
-References
-----------
+### References ###
+
 
 - Project Home
 [http://www.dirigible.io](http://www.dirigible.io)
