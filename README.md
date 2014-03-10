@@ -9,7 +9,7 @@ Introduction
 Dirigible is an open source project that provides Integrated Development Environment as a Service (IDEaaS) as well as the runtime engines integration for the running applications.
 The applications created with Dirigible comply with the Dynamic Applications concepts and structure.
 The environment itself runs directly in the browser, therefore does not require additional downloads and installations.
-It packs all the needed components, which makes it self-contained and well integrated software bundle that can be deployed on any Java based Web Server such as Tomcat, Jetty, JBoss connected via JDBC to the RDBMS of your choice.
+It packs all the needed components, which makes it self-contained and well integrated software bundle that can be deployed on any Java based Web Server such as Tomcat, Jetty, JBoss connected via JDBC to the RDBMS of your choice (currently supported versions for RDBMS are HANA 1.x and MaxDB, experimental - Sybase ASE).
 
 ### Background ###
 
@@ -30,7 +30,6 @@ Get Started
 
 ##### Build #####
 
-
 1. Get the [Maven](http://maven.apache.org/) build tool version 3.0.x
 2. Clone the repository <https://github.com/SAP/dirigible.git> or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip). 
 3. Go to the folder *com.sap.dirigible.parent*
@@ -41,14 +40,18 @@ Get Started
 5. The build should pass successfully
 6. The two produced WAR files dirigible-ide\*.war and dirigible-runtime\*.war are ready to be deployed
 
+
+##### Download #####
+1. Alternatively you can download the WAR files produced by the latest release from: 
+https://github.com/SAP/dirigible/releases/
+
 ##### Deploy #####
 ###### HANA Cloud Platform ######
 
 1.  Deploy on [HANA Cloud Platform](https://account.hana.ondemand.com/) with the [Cloud SDK](https://tools.hana.ondemand.com/#cloud).
 2. Get the SDK from <https://tools.hana.ondemand.com/#cloud>
 3. Go to *neo-java-web-sdk-1.xxx/tools* folder
-4. Prepare your own *\*.properties* file based on the samples, including your account, application, user and the folder with the WAR files
-5. Deploy with command:
+4. Deploy with command:
 
         neo deploy --account <your_account> --application <application_name> --user <your_user> --host <target_landscape_host> --source <source_directory> --password <your_password>
 
@@ -98,7 +101,7 @@ File an [issue](https://github.com/SAP/dirigible/issues) or send us a [pull requ
 [http://www.dirigible.io](http://www.dirigible.io)
 
 - Help Portal
-[http://help.dirigible.io](http://help.dirigible.io)
+[http://help.dirigible.io](http://help.dirigible.io) or PDF https://github.com/SAP/dirigible/raw/master/docs/dirigible_help.pdf
 
 - Simple Samples
 [http://samples.dirigible.io](http://samples.dirigible.io)
