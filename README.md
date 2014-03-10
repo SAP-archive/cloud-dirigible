@@ -50,7 +50,12 @@ Get Started
 4. Prepare your own *\*.properties* file based on the samples, including your account, application, user and the folder with the WAR files
 5. Deploy with command:
 
-        neo.sh deploy your-descriptor.properties -password your-password
+        neo deploy --account <your_account> --application <application_name> --user <your_user> --host <target_landscape_host> --source <source_directory> --password <your_password>
+
+6. Start with command:
+
+        neo start --account <your_account> --application <application_name> --user <your_user> --host <target_landscape_host> --password <your_password> -y
+        
 
 ###### Tomcat ######
 
