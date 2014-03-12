@@ -17,6 +17,7 @@ package com.sap.dirigible.ide.workspace.wizard.project.sample;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +38,14 @@ import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.image.ImageUtils;
 import com.sap.dirigible.ide.jgit.connector.JGitConnector;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.logging.Logger;
@@ -58,27 +61,28 @@ public class SampleProjectWizardGitTemplatePage extends WizardPage {
 	private static final String PAGE_TITLE = Messages.SampleProjectWizardGitTemplatePage_PAGE_TITLE;
 	private static final String PAGE_DESCRIPTION = Messages.SampleProjectWizardGitTemplatePage_PAGE_DESCRIPTION;
 	private static final String ERROR_ON_LOADING_GIT_TEMPLATES_FOR_GENERATION = Messages.SampleProjectWizardGitTemplatePage_ERROR_ON_LOADING_GIT_TEMPLATES_FOR_GENERATION;
+	private static final String HELP_DIRECTORY = "HelpDirectory";
+	public static final String TEMP_DIRECTORY_PREFIX = "com.sap.dirigible.jgit."; //$NON-NLS-1$
+	protected static final String SELECT_TEMPLATE_TYPE_FORM_THE_LIST = "Select template from the list";
 	private static final String GIT_TEMPLATE_DIRECTORY = "com.sap.dirigible.ide.workspace.wizard.project.sample";
-
 	private static final Logger logger = Logger
 			.getLogger(SampleProjectWizardGitTemplatePage.class);
 
-	//private static final String PROXY_PROPERTIES_FILE_LOCATION = "proxy.properties"; //$NON-NLS-1$
-	//private static final String DEFAULT_PROXY_VALUE = "false"; //$NON-NLS-1$
-	//private static final String PROXY = "proxy"; //$NON-NLS-1$
+	
+//    private static final String PROXY_PROPERTIES_FILE_LOCATION = "proxy.properties"; //$NON-NLS-1$
+//	private static final String DEFAULT_PROXY_VALUE = "false"; //$NON-NLS-1$
+//	private static final String PROXY = "proxy"; //$NON-NLS-1$
 //	public static final String HTTP_PROXY_HOST = "http.proxyHost"; //$NON-NLS-1$
 //	public static final String HTTP_PROXY_PORT = "http.proxyPort"; //$NON-NLS-1$
 //	public static final String HTTPS_PROXY_HOST = "https.proxyHost"; //$NON-NLS-1$
 //	public static final String HTTPS_PROXY_PORT = "https.proxyPort"; //$NON-NLS-1$
 //	public static final String HTTP_NON_PROXY_HOSTS = "http.nonProxyHosts"; //$NON-NLS-1$
-	public static final String TEMP_DIRECTORY_PREFIX = "com.sap.dirigible.jgit."; //$NON-NLS-1$
-
-	protected static final String SELECT_TEMPLATE_TYPE_FORM_THE_LIST = "Select template from the list";
 
 	private final SampleProjectWizardModel model;
 
 	private TableViewer typeViewer;
-
+	private Label labelPreview;
+	
 	public SampleProjectWizardGitTemplatePage(SampleProjectWizardModel model) {
 		super(PAGE_NAME);
 		setTitle(PAGE_TITLE);
@@ -92,10 +96,26 @@ public class SampleProjectWizardGitTemplatePage extends WizardPage {
 		setControl(composite);
 		composite.setLayout(new GridLayout());
 		createTypeField(composite);
-
+		createPreviewLabel(composite);
+		
 		checkPageStatus();
 	}
-
+	
+	private static final Image previewImage = ImageUtils.createImage(getIconURL("preview.png"));
+	
+	public static URL getIconURL(String iconName) {
+		URL url = ImageUtils.getIconURL("com.sap.dirigible.ide.workspace.wizard.project", "/icons/", iconName);
+		return url;
+	}
+	
+	private void createPreviewLabel(final Composite composite) {
+		labelPreview = new Label(composite,SWT.NONE);
+		labelPreview.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true));
+		labelPreview.setBounds(0,0,450,300);
+		labelPreview.setBackground(new org.eclipse.swt.graphics.Color(null, 0,0,0));
+		labelPreview.setImage(previewImage);
+	}
+	
 	private void createTypeField(Composite parent) {
 		final Label label = new Label(parent, SWT.NONE);
 		label.setText(Messages.SampleProjectWizardGitTemplatePage_AVAILABLE_GIT_TEMPLATES);
@@ -122,12 +142,16 @@ public class SampleProjectWizardGitTemplatePage extends WizardPage {
 						|| !(selection.getFirstElement() instanceof ProjectTemplateType)) {
 					setPageComplete(false);
 					setErrorMessage(SELECT_TEMPLATE_TYPE_FORM_THE_LIST);
+					labelPreview.setImage(previewImage);
+					labelPreview.pack(true);
 				} else {
 					setErrorMessage(null);
 					ProjectTemplateType gitTemplate = ((ProjectTemplateType) selection
 							.getFirstElement());
 					getModel().setTemplate(gitTemplate);
 					checkPageStatus();
+					labelPreview.setImage(gitTemplate.getImagePreview());
+					labelPreview.pack(true);
 				}
 			}
 		});
@@ -149,7 +173,7 @@ public class SampleProjectWizardGitTemplatePage extends WizardPage {
 		File gitDirectory = null;
 		boolean isCloned = false;
 
-		File file = GitFileUtils.createTempDirectory("HelpDirectory");
+		File file = GitFileUtils.createTempDirectory(HELP_DIRECTORY);
 		File tempDirectory = file.getParentFile();
 		GitFileUtils.deleteDirectory(file);
 
@@ -177,7 +201,7 @@ public class SampleProjectWizardGitTemplatePage extends WizardPage {
 		List<ProjectTemplateType> projectTemplateTypesList = new ArrayList<ProjectTemplateType>();
 
 		for (File projectTemplate : gitDirectory.listFiles()) {
-			if (!projectTemplate.getName().equalsIgnoreCase(".git")) {
+			if (!projectTemplate.getName().equalsIgnoreCase(".git") && projectTemplate.isDirectory()) {
 
 				projectTemplateTypesList.add(ProjectTemplateType
 						.createGitTemplateType(projectTemplate));
