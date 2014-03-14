@@ -29,7 +29,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sap.dirigible.runtime.filter.XSSUtils;
+
 public class LoggingServlet extends HttpServlet {
+	private static final String B_CLOSE = "</b>";
+	private static final String B = "<b>";
+	private static final String A_HREF_JAVASCRIPT_LOCATION_RELOAD_TRUE_REFRESH_A = "<a href=\"javascript:location.reload(true);\">Refresh</a>";
+	private static final String LOG_FILES_A_CLOSE = "\">Log Files</a>";
+	private static final String SMALL_CLOSE = "</small>";
+	private static final String SMALL = "<small>";
+	private static final String BR = "<br/>";
+	private static final String HR = "<hr>";
+	private static final String TD_TR = "</td></tr>";
+	private static final String TD_TD = "</td><td>";
+	private static final String TR_TD = "<tr><td>";
+	private static final String A_HREF_END = "</a>";
+	private static final String A_HREF_CLOSE = "\">";
+	private static final String A_HREF = "<a href=\"";
+	private static final String TR_TD_B_LOG_FILES_B_TD_TD_B_LAST_MODIFIED_B_TD_TR = "<tr><td><b>Log Files</b></td><td><b>Last modified</b></td></tr>";
 	private static final String TABLE_CLOSE = "</table>";
 	private static final String TABLE_OPEN = "<table  border=\"0\">";
 	private static final String FONT_CLOSE = "</font>";
@@ -77,14 +94,13 @@ public class LoggingServlet extends HttpServlet {
 		StringBuilder fileLinks = new StringBuilder(HTML_START);
 		fileLinks.append(FONT_ARIAL_OPEN);
 		fileLinks.append(TABLE_OPEN);
-		fileLinks.append("<tr><td><b>Log Files</b></td><td><b>Last modified</b></td></tr>");
+		fileLinks.append(TR_TD_B_LOG_FILES_B_TD_TD_B_LAST_MODIFIED_B_TD_TR);
 
 		for (File loggingFile : loggingDirectory.listFiles()) {
-			String fileName = loggingFile.getName();
-			String lastModified = dateFormat.format(loggingFile.lastModified());
-			String a = "<a href=\"" + LOGGING_FILE_LOCATION + fileName + "\">" + fileName + "</a>";
-			fileLinks.append("<tr>" + "<td>" + a + "</td>" + "<td>" + lastModified + "</td>"
-					+ "</tr>");
+			String fileName = XSSUtils.stripXSS(loggingFile.getName());
+			String lastModified = XSSUtils.stripXSS(dateFormat.format(loggingFile.lastModified()));
+			String a = A_HREF + LOGGING_FILE_LOCATION + fileName + A_HREF_CLOSE + fileName + A_HREF_END;
+			fileLinks.append(TR_TD + a + TD_TD + lastModified + TD_TR);
 		}
 
 		fileLinks.append(TABLE_CLOSE);
@@ -112,7 +128,8 @@ public class LoggingServlet extends HttpServlet {
 				writer.print(FONT_ARIAL_OPEN);
 				printBeforeLogFile(writer);
 				while ((line = reader.readLine()) != null) {
-					writer.println("<br><small>" + line+"</small>");
+					writer.print(BR);
+					writer.println(SMALL + XSSUtils.stripXSS(line) + SMALL_CLOSE);
 				}
 				printAfterLogFile(writer);
 				writer.print(FONT_CLOSE);
@@ -132,20 +149,19 @@ public class LoggingServlet extends HttpServlet {
 
 	private void printBeforeLogFile(PrintWriter writer) {
 		printScript(writer);
-		writer.print("<hr>");
+		writer.print(HR);
 	}
 
 	private void printAfterLogFile(PrintWriter writer) {
-		writer.print("<hr>");
+		writer.print(HR);
 		printScript(writer);
 	}
 
 	private void printScript(PrintWriter writer) {
 		writer.print(TABLE_OPEN);
-		String linkLogList = "<a href=\"" + LOGGING_FILES_LIST_LOCATION + "\">Log Files</a>";
-		String linkRefresh = "<a href=\"javascript:location.reload(true);\">Refresh</a>";
-		writer.print("<tr><td><b>" + linkLogList + "</b></td><td><b>" + linkRefresh
-				+ "</b></td></tr>");
+		String linkLogList = A_HREF + LOGGING_FILES_LIST_LOCATION + LOG_FILES_A_CLOSE;
+		String linkRefresh = A_HREF_JAVASCRIPT_LOCATION_RELOAD_TRUE_REFRESH_A;
+		writer.print(TR_TD + B + linkLogList + B_CLOSE + TD_TD + B + linkRefresh + B_CLOSE + TD_TR);
 		writer.print(TABLE_CLOSE);
 		writer.flush();
 	}

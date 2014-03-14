@@ -22,10 +22,6 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
-
 public class XSSRequestWrapper extends HttpServletRequestWrapper {
 
 	public XSSRequestWrapper(HttpServletRequest request) {
@@ -35,7 +31,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getParameter(String name) {
 		String parameter = super.getParameter(name);
-		return stripXSS(parameter);
+		return XSSUtils.stripXSS(parameter);
 	}
 
 	@Override
@@ -47,7 +43,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getQueryString() {
 		String query = super.getQueryString();
-		return stripXSS(query);
+		return XSSUtils.stripXSS(query);
 	}
 
 	@Override
@@ -59,23 +55,14 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getHeader(String name) {
 		String header = super.getHeader(name);
-		return stripXSS(header);
+		return XSSUtils.stripXSS(header);
 	}
 
-	private String stripXSS(String value) {
-		if (value != null) {
-			value = StringEscapeUtils.escapeHtml(value);
-			value = StringEscapeUtils.escapeJavaScript(value);
-			value = value.replaceAll("", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			value = Jsoup.clean(value, Whitelist.none());
-		}
-		return value;
-	}
-
+	
 	private String[] stripXSS(String[] values) {
 		String encodedValues[] = new String[values.length];
 		for (int i = 0; i < values.length; i++) {
-			encodedValues[i] = stripXSS(values[i]);
+			encodedValues[i] = XSSUtils.stripXSS(values[i]);
 		}
 		return encodedValues;
 	}
@@ -85,7 +72,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 		for (Entry<String, String[]> next : parameterMap.entrySet()) {
 			String key = next.getKey();
 			String[] values = next.getValue();
-			encodedMap.put(stripXSS(key), stripXSS(values));
+			encodedMap.put(XSSUtils.stripXSS(key), stripXSS(values));
 		}
 		return encodedMap;
 	}
