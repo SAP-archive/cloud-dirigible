@@ -31,7 +31,7 @@ Get Started
 ##### Build #####
 
 1. Get the [Maven](http://maven.apache.org/) build tool version 3.0.x
-2. Clone the repository <https://github.com/SAP/dirigible.git> or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip). 
+2. Clone the repository <https://github.com/SAP/cloud-dirigible.git> or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip). 
 3. Go to the folder *com.sap.dirigible.parent*
 4. Build the project executing:
 
