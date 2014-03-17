@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sap.dirigible</groupId>
 	<artifactId>com.sap.dirigible.parent</artifactId>
@@ -8,13 +8,13 @@
 	<packaging>pom</packaging>
 	<name>com.sap.dirigible.parent</name>
 	<description>Dirigible Parent</description>
-	
+
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
+		<artifactId>oss-parent</artifactId> 
 		<version>7</version>
 	</parent>
-
+ 
 	<inceptionYear>2010</inceptionYear>
 
 	<licenses>
@@ -24,12 +24,12 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<modules>
 		<module>com.sap.dirigible.ide</module>
 		<module>com.sap.dirigible.runtime</module>
 	</modules>
-	
+
 	<url>http://www.dirigible.io</url>
 	<organization>
 		<name>SAP AG</name>
@@ -38,22 +38,27 @@
 	<scm>
 		<url>https://github.com/SAP/dirigible</url>
 	</scm>
-	
+
+	<properties>
+		<tycho-version>0.18.0</tycho-version>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <version>2.4</version>
-			    <configuration>
-			        <source>1.6</source>
-			        <target>1.6</target>
-			    </configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -146,46 +151,52 @@
 					</configuration>
 				</plugin>
 				<plugin>
-				    <groupId>org.codehaus.mojo</groupId>
-				    <artifactId>emma-maven-plugin</artifactId>
-				    <version>1.0-alpha-3</version>
-				    <!-- inherited>true</inherited -->
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>emma-maven-plugin</artifactId>
+					<version>1.0-alpha-3</version>
+					<!-- inherited>true</inherited -->
+					<configuration>
+						<filters>
+							<filter>-com.sap.dirigible.*</filter>
+						</filters>
+						<!-- verbose>true</verbose -->
+					</configuration>
+				</plugin>
+				 
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
+				 
+				 <plugin>
+				    <groupId>org.eclipse.tycho</groupId>
+				    <artifactId>target-platform-configuration</artifactId>
+				    
 				    <configuration>
-				            <filters>
-				                    <filter>-com.sap.dirigible.*</filter>
-				            </filters>
-				            <!-- verbose>true</verbose -->
-				   </configuration>
-				  </plugin>
+				        <dependency-resolution>
+				            <extraRequirements>
+				                <requirement>
+				                    <type>eclipse-plugin</type>
+				                    <id>org.hamcrest</id>
+				                    <versionRange>0.0.0</versionRange>
+				                </requirement>
+				            </extraRequirements>
+				        </dependency-resolution>
+				    </configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-	
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>javax.mail</groupId>
-				<artifactId>javax.mail.api</artifactId>
-				<version>1.5.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<version>1.9.5</version>
-			</dependency>
-			<dependency>
-				<groupId>ant</groupId>
-				<artifactId>ant</artifactId>
-				<version>1.7.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-all</artifactId>
-				<version>1.3</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	
+
+	<repositories>
+	    <repository>
+	        <id>orbit-kepler</id>
+	        <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
+	        <layout>p2</layout>
+	    </repository>
+	</repositories>
+
 	<issueManagement>
 		<url>https://github.com/SAP/dirigible/issues</url>
 	</issueManagement>

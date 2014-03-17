@@ -11,4 +11,5 @@ Require-Bundle: org.junit,
  org.eclipse.core.resources,
  com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,
- org.mockito
+ org.mockito,
+ org.objenesis
