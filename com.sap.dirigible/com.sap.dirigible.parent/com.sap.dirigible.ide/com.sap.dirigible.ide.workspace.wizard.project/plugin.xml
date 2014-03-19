@@ -15,8 +15,7 @@
       </command>
       
       <command
-            defaultHandler="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImportHandler"
-            id="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImportHandler"
+            id="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImport"
             name="Sample">
       </command>
       
@@ -29,8 +28,19 @@
             id="com.sap.dirigible.ide.workspace.ui.commands.DataExportHandler"
             name="Data">
       </command>
-       
    </extension>
+   
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+       <propertyTester
+			properties="SamplesProjectPropertyTester"
+			namespace="com.sap.dirigible.ide.workspace.wizard.project.sample.property.tester"
+            class="com.sap.dirigible.ide.workspace.wizard.project.sample.property.tester.SamplesProjectPropertyTester"
+            id="com.sap.dirigible.ide.workspace.wizard.project.sample.property.tester.SamplesProjectPropertyTester"
+            type="java.lang.Object">
+       </propertyTester>
+	</extension>
+	
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
@@ -56,7 +66,7 @@
             </command>
             
              <command
-                  commandId="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImportHandler"
+                  commandId="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImport"
                   icon="icons/icon-sample.png"
                   label="Sample"
                   style="push">
@@ -120,7 +130,7 @@
             </command>
             
             <command
-                  commandId="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImportHandler"
+                  commandId="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImport"
                   icon="icons/icon-sample.png"
                   label="Sample"
                   style="push">
@@ -179,6 +189,13 @@
                </iterate>
             </with>
          </activeWhen>
+      </handler>
+      <handler
+     		class="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImportHandler"
+            commandId="com.sap.dirigible.ide.workspace.wizard.project.commands.SampleImport">
+         <enabledWhen>
+			<test property="com.sap.dirigible.ide.workspace.wizard.project.sample.property.tester.SamplesProjectPropertyTester"></test>
+         </enabledWhen>
       </handler>
    </extension>
    <extension

@@ -35,6 +35,7 @@ public class Messages extends NLS {
 	public static String SampleProjectWizardMainPage_PAGE_DESCRIPTION;
 	public static String SampleProjectWizard_WINDOW_TITLE;
 	public static String SampleProjectWizardGitTemplatePage_AVAILABLE_GIT_TEMPLATES;
+	public static String SampleProjectWizardGitTemplatePage_SELECT_TEMPLATE_TYPE_FORM_THE_LIST;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

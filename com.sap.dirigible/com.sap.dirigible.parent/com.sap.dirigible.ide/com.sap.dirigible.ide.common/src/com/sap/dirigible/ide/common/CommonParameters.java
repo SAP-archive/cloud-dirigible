@@ -179,6 +179,8 @@ public class CommonParameters {
 
 	public static final String ROLE_OPERATOR = "Operator";
 	
+	public static final String ROLE_DEVELOPER = "Developer";
+	
 	public static final String DIRIGIBLE_DEBUGGER_BRIDGE = "dirigible.debugger.bridge"; //$NON-NLS-1$
 	
 	public static final String DIRIGIBLE_RUNTIME_BRIDGE = "dirigible.runtime.bridge"; //$NON-NLS-1$

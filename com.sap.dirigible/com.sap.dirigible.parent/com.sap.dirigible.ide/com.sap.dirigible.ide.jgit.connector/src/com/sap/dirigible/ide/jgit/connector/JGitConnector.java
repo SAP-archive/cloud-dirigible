@@ -84,7 +84,6 @@ public class JGitConnector {
 	public static final String HTTP_NON_PROXY_HOSTS = "http.nonProxyHosts"; //$NON-NLS-1$
 	public static final String TEMP_DIRECTORY_PREFIX = "com.sap.dirigible.jgit."; //$NON-NLS-1$
 	private static final String ADD_ALL_NEW_FILES = "."; //$NON-NLS-1$
-	
 
 	private static final Logger logger = Logger.getLogger(JGitConnector.class);
 
@@ -98,96 +97,98 @@ public class JGitConnector {
 	}
 
 	private static void loadProxy() throws IOException {
-//		if (System.getProperty(HTTP_PROXY_HOST) == null) {
-//			InputStream in = JGitConnector.class
-//					.getResourceAsStream(PROXY_PROPERTIES_FILE_LOCATION);
-//			Properties properties = new Properties();
-//			properties.load(in);
-//
-//			String proxy = properties.getProperty(PROXY, DEFAULT_PROXY_VALUE);
-//			boolean needsProxy = Boolean.parseBoolean(proxy);
-//
-//			if (needsProxy) {
-//				final String httpProxyHost = properties.getProperty(HTTP_PROXY_HOST);
-//				final String httpProxyPort = properties.getProperty(HTTP_PROXY_PORT);
-//				final String httpsProxyHost = properties.getProperty(HTTPS_PROXY_HOST);
-//				final String httpsProxyPort = properties.getProperty(HTTPS_PROXY_PORT);
-//
-//				System.setProperty(HTTP_PROXY_HOST, httpProxyHost);
-//				System.setProperty(HTTP_PROXY_PORT, httpProxyPort);
-//				System.setProperty(HTTPS_PROXY_HOST, httpsProxyHost);
-//				System.setProperty(HTTPS_PROXY_PORT, httpsProxyPort);
-//			}
-			
-			String parameterHTTP_PROXY_HOST = CommonParameters.get(HTTP_PROXY_HOST);
-			if (parameterHTTP_PROXY_HOST != null) {
-				System.setProperty(HTTP_PROXY_HOST, parameterHTTP_PROXY_HOST);
-				logger.debug("HTTP_PROXY_HOST:" + parameterHTTP_PROXY_HOST);
-			} else {
-				logger.debug("HTTP_PROXY_HOST not set");
-			}
-			String parameterHTTP_PROXY_PORT = CommonParameters.get(HTTP_PROXY_PORT);
-			if (parameterHTTP_PROXY_PORT != null) {
-				System.setProperty(HTTP_PROXY_PORT, parameterHTTP_PROXY_PORT);
-				logger.debug("HTTP_PROXY_PORT:" + parameterHTTP_PROXY_PORT);
-			} else {
-				logger.debug("HTTP_PROXY_PORT not set");
-			}
-			String parameterHTTPS_PROXY_HOST = CommonParameters.get(HTTPS_PROXY_HOST);
-			if (parameterHTTPS_PROXY_HOST != null) {
-				System.setProperty(HTTPS_PROXY_HOST, parameterHTTPS_PROXY_HOST);
-				logger.debug("HTTPS_PROXY_HOST:" + parameterHTTPS_PROXY_HOST);
-			} else {
-				logger.debug("HTTPS_PROXY_HOST not set");
-			}
-			String parameterHTTPS_PROXY_PORT = CommonParameters.get(HTTPS_PROXY_PORT);
-			if (parameterHTTPS_PROXY_PORT != null) {
-				System.setProperty(HTTPS_PROXY_PORT, parameterHTTPS_PROXY_PORT);
-				logger.debug("HTTPS_PROXY_PORT:" + parameterHTTPS_PROXY_PORT);
-			} else {
-				logger.debug("HTTPS_PROXY_PORT not set");
-			}
-			String parameterHTTP_NON_PROXY_HOSTS = CommonParameters.get(HTTP_NON_PROXY_HOSTS);
-			if (parameterHTTP_NON_PROXY_HOSTS != null) {
-				System.setProperty(HTTP_NON_PROXY_HOSTS, parameterHTTP_NON_PROXY_HOSTS);
-				logger.debug("HTTP_NON_PROXY_HOSTS:" + parameterHTTP_NON_PROXY_HOSTS);
-			} else {
-				logger.debug("HTTP_NON_PROXY_HOSTS not set");
-			}
-			
-			
-			try {
-				// Create a trust manager that does not validate certificate chains
-				TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-				    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-				        return null;
-				    }
-				    public void checkClientTrusted(X509Certificate[] certs, String authType) {
-				    }
-				    public void checkServerTrusted(X509Certificate[] certs, String authType) {
-				    }
-				} };
-				// Install the all-trusting trust manager
-				final SSLContext sc = SSLContext.getInstance("SSL");
-				sc.init(null, trustAllCerts, new java.security.SecureRandom());
-				HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-				// Create all-trusting host name verifier
-				HostnameVerifier allHostsValid = new HostnameVerifier() {
-				    public boolean verify(String hostname, SSLSession session) {
-				        return true;
-				    }
-				};
+		// if (System.getProperty(HTTP_PROXY_HOST) == null) {
+		// InputStream in = JGitConnector.class
+		// .getResourceAsStream(PROXY_PROPERTIES_FILE_LOCATION);
+		// Properties properties = new Properties();
+		// properties.load(in);
+		//
+		// String proxy = properties.getProperty(PROXY, DEFAULT_PROXY_VALUE);
+		// boolean needsProxy = Boolean.parseBoolean(proxy);
+		//
+		// if (needsProxy) {
+		// final String httpProxyHost = properties.getProperty(HTTP_PROXY_HOST);
+		// final String httpProxyPort = properties.getProperty(HTTP_PROXY_PORT);
+		// final String httpsProxyHost =
+		// properties.getProperty(HTTPS_PROXY_HOST);
+		// final String httpsProxyPort =
+		// properties.getProperty(HTTPS_PROXY_PORT);
+		//
+		// System.setProperty(HTTP_PROXY_HOST, httpProxyHost);
+		// System.setProperty(HTTP_PROXY_PORT, httpProxyPort);
+		// System.setProperty(HTTPS_PROXY_HOST, httpsProxyHost);
+		// System.setProperty(HTTPS_PROXY_PORT, httpsProxyPort);
+		// }
 
-				// Install the all-trusting host verifier
-				HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-			} catch (KeyManagementException e) {
-				throw new IOException(e);
-			} catch (NoSuchAlgorithmException e) {
-				throw new IOException(e);
-			}
-			
-			
-//		}
+		String parameterHTTP_PROXY_HOST = CommonParameters.get(HTTP_PROXY_HOST);
+		if (parameterHTTP_PROXY_HOST != null) {
+			System.setProperty(HTTP_PROXY_HOST, parameterHTTP_PROXY_HOST);
+			logger.debug("HTTP_PROXY_HOST:" + parameterHTTP_PROXY_HOST);
+		} else {
+			logger.debug("HTTP_PROXY_HOST not set");
+		}
+		String parameterHTTP_PROXY_PORT = CommonParameters.get(HTTP_PROXY_PORT);
+		if (parameterHTTP_PROXY_PORT != null) {
+			System.setProperty(HTTP_PROXY_PORT, parameterHTTP_PROXY_PORT);
+			logger.debug("HTTP_PROXY_PORT:" + parameterHTTP_PROXY_PORT);
+		} else {
+			logger.debug("HTTP_PROXY_PORT not set");
+		}
+		String parameterHTTPS_PROXY_HOST = CommonParameters.get(HTTPS_PROXY_HOST);
+		if (parameterHTTPS_PROXY_HOST != null) {
+			System.setProperty(HTTPS_PROXY_HOST, parameterHTTPS_PROXY_HOST);
+			logger.debug("HTTPS_PROXY_HOST:" + parameterHTTPS_PROXY_HOST);
+		} else {
+			logger.debug("HTTPS_PROXY_HOST not set");
+		}
+		String parameterHTTPS_PROXY_PORT = CommonParameters.get(HTTPS_PROXY_PORT);
+		if (parameterHTTPS_PROXY_PORT != null) {
+			System.setProperty(HTTPS_PROXY_PORT, parameterHTTPS_PROXY_PORT);
+			logger.debug("HTTPS_PROXY_PORT:" + parameterHTTPS_PROXY_PORT);
+		} else {
+			logger.debug("HTTPS_PROXY_PORT not set");
+		}
+		String parameterHTTP_NON_PROXY_HOSTS = CommonParameters.get(HTTP_NON_PROXY_HOSTS);
+		if (parameterHTTP_NON_PROXY_HOSTS != null) {
+			System.setProperty(HTTP_NON_PROXY_HOSTS, parameterHTTP_NON_PROXY_HOSTS);
+			logger.debug("HTTP_NON_PROXY_HOSTS:" + parameterHTTP_NON_PROXY_HOSTS);
+		} else {
+			logger.debug("HTTP_NON_PROXY_HOSTS not set");
+		}
+
+		try {
+			// Create a trust manager that does not validate certificate chains
+			TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+				public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+
+				public void checkClientTrusted(X509Certificate[] certs, String authType) {
+				}
+
+				public void checkServerTrusted(X509Certificate[] certs, String authType) {
+				}
+			} };
+			// Install the all-trusting trust manager
+			final SSLContext sc = SSLContext.getInstance("SSL");
+			sc.init(null, trustAllCerts, new java.security.SecureRandom());
+			HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+			// Create all-trusting host name verifier
+			HostnameVerifier allHostsValid = new HostnameVerifier() {
+				public boolean verify(String hostname, SSLSession session) {
+					return true;
+				}
+			};
+
+			// Install the all-trusting host verifier
+			HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+		} catch (KeyManagementException e) {
+			throw new IOException(e);
+		} catch (NoSuchAlgorithmException e) {
+			throw new IOException(e);
+		}
+
+		// }
 	}
 
 	private static void deleteTempDirectories() throws IOException {
@@ -261,8 +262,7 @@ public class JGitConnector {
 	 * @throws NoFilepatternException
 	 * @throws GitAPIException
 	 */
-	private void add(String filePattern) throws IOException, NoFilepatternException,
-			GitAPIException {
+	public void add(String filePattern) throws IOException, NoFilepatternException, GitAPIException {
 		AddCommand addCommand = git.add();
 		addCommand.addFilepattern(filePattern);
 		addCommand.call();
