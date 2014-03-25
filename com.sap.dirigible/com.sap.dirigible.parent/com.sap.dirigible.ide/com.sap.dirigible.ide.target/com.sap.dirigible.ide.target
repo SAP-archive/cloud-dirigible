@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
 
-<target name="Dirigible Runtime - latest release" sequenceNumber="242">
+<target name="Dirigible Runtime - latest release" sequenceNumber="243">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.examples.feature.feature.group" version="0.0.0"/>
@@ -40,8 +40,8 @@
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.jgit.feature.group" version="3.3.0.201403021825-r"/>
-<unit id="org.eclipse.jgit.http.apache.feature.group" version="3.3.0.201403021825-r"/>
+<unit id="org.eclipse.jgit.feature.group" version="3.3.1.201403241930-r"/>
+<unit id="org.eclipse.jgit.http.apache.feature.group" version="3.3.1.201403241930-r"/>
 <repository location="http://download.eclipse.org/egit/updates/"/>
 </location>
 </locations>
