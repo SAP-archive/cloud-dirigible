@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="NewOrEditEntity">
+<html lang="en" ng-app>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,12 +12,12 @@
 <link rel="stylesheet"
 	href="../../components/bootstrap/dist/css/bootstrap.min.css">
 <script
-	src=../../components/angular/angular.min.js>
+	src="../../components/angular/angular.min.js"></script>
 <script
 	src="../../components/angular-resource/angular-resource.min.js"></script>
 </head>
 <body>
-	<div id="wrap" ng-controller="ModelController">
+	<div id="wrap" ng-controller="NewOrEditController">
 		<div class="container well">
             <div ng-show="urlParameter">
             	<div class="alert alert-danger" ng-show="errorMessage">
@@ -76,91 +76,83 @@
             </div>
             <div ng-hide="urlParameter">
                 <div class="alert alert-danger">
-                    <strong>Oh snap!</strong> Missing or invalid parameter!
+            		<strong>Oh snap!</strong> Missing or invalid parameter! Valid parameter is <strong>'{{ primaryKey }}'</strong>
                 </div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        function getURLParameter(name) { 
-            return decodeURIComponent((
-                    new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)
-                    || [,""])[1].replace(/\+/g, '%20'))
-                    || null; 
+	function getURLParameter(name) { 
+		return decodeURIComponent((
+			new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)
+			|| [,""])[1].replace(/\+/g, '%20'))|| null; 
         }
         
-		var url = '${serviceFileName}';
 
-		var app = angular.module('NewOrEditEntity', [ 'ngResource' ]);
-        app.factory('Model', ['$resource', function($resource) {
-            return $resource(url, null,{'update': { method:'PUT' }});
-        }]);
-		app.controller('ModelController', [ '$scope', '$http', 'Model',
-				function($scope, $http, Model) {
-                    var primaryKey;
+	function NewOrEditController($scope, $http) {
+		var url = '${serviceFileName}';
 #foreach ($tableColumn in $tableColumns) 
 #if ($tableColumn.isKey())
-    				primaryKey = '${tableColumn.getName()}';
+  		$scope.primaryKey = '${tableColumn.getName()}';
 #end 
 #end                    
-                    $scope.urlParameter = getURLParameter(primaryKey);
-                    $scope.exist = true;
-                    $scope.errorMessage = null;
-                    $scope.successfullyUpdated = false;
+		$scope.urlParameter = getURLParameter($scope.primaryKey);
+        $scope.exist = true;
+        $scope.errorMessage = null;
+        $scope.successfullyUpdated = false;
                     
-                    if($scope.urlParameter){
-                    	var getUrl = url + '?' + primaryKey + '=' + $scope.urlParameter;
-                        $http.get(getUrl)
-                            .success(function(result){
-            				    $scope.entity=result;    
-                            })
-                            .error(function(){
-                                $scope.exist = false;
-                            })
-			    	}
-                    
-                    $scope.saveEntity = function(){
-                        $http.post(url ,$scope.entity)
-                            .success(function (data){
-                                var documentURL = document.URL.toString();
-                                documentURL = documentURL.substring(0, documentURL.lastIndexOf('=')+1);
-                                documentURL+=parseInt(data);
-                                window.location = documentURL;
-                                $scope.errorMessage = null;
-                            })
-                            .error(function (response){
-                            	$scope.errorMessage = response.err.message;
-                            });
-                    }
-                    
-                    $scope.updateEntity = function(){
-                        Model.update({ primaryKey:$scope.entity[primaryKey] }, $scope.entity, function(response){
-                            $scope.successfullyUpdated = true;
-                            $scope.errorMessage = null;
-                        }, function(response){
-                        	$scope.successfullyUpdated = false;
-                            $scope.errorMessage = response.data.err.message;
-                        });
+        if($scope.urlParameter){
+        	var getUrl = url + '?' + $scope.primaryKey + '=' + $scope.urlParameter;
 
-                    }
+        	$http.get(getUrl)
+        	.success(function(response){
+            	$scope.entity=response;    
+			}).error(function(response){
+            	$scope.exist = false;
+			});
+		}
                     
-                    $scope.cancelSave = function(){
-                        $scope.entity = {};
-                    }
+        $scope.saveEntity = function(){
+        	$http.post(url ,$scope.entity)
+        	.success(function(response){
+            	var documentURL = document.URL.toString();
+				documentURL = documentURL.substring(0, documentURL.lastIndexOf('=')+1);
+            	documentURL+=parseInt(response);
+                window.location = documentURL;
+                $scope.errorMessage = null;
+			}).error(function(response){
+            	$scope.errorMessage = response.err.message;
+			});
+		}
+                    
+        $scope.updateEntity = function(){
+        	$http.put(url, $scope.entity)
+        	.success(function (response){
+        		$scope.successfullyUpdated = true;
+                $scope.errorMessage = null;
+            }).error(function(response){
+                $scope.successfullyUpdated = false;
+                $scope.errorMessage = response.data.err.message;
+            });
+		}
+                    
+        $scope.cancelSave = function(){
+            $scope.entity = {};
+		}
 
-                    $scope.cancelUpdate = function(){
-                    	$scope.errorMessage = null;
-                        $http.get(getUrl)
-                            .success(function(result){
-                			    $scope.entity=result;    
-                            })
-                            .error(function(){
-                                $scope.exist = false;
-                            });
-                    }
+        $scope.cancelUpdate = function(){
+        	$scope.errorMessage = null;
+        	
+        	$http.get(getUrl)
+        	.success(function(response){
+				$scope.entity=response;    
+			}).error(function(response){
+            	$scope.exist = false;
+			});
+		}
                     
-		} ]);
+	}
 	</script>
 
 </body>
