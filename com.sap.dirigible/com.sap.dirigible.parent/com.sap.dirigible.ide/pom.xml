@@ -76,6 +76,7 @@
 		<module>com.sap.dirigible.repository.db</module>
 		<module>com.sap.dirigible.repository.db.test</module>
 		<module>com.sap.dirigible.repository.ext</module>
+		<module>com.sap.dirigible.repository.ext.test</module>
 		<module>com.sap.dirigible.ide.bridge</module>
 		<module>com.sap.dirigible.ide.bridge.ext</module>
 		<module>com.sap.dirigible.ide.common</module>
@@ -103,6 +104,7 @@
 		<module>com.sap.dirigible.ide.publish</module>
 		<module>com.sap.dirigible.ide.publish.ui</module>
 		<module>com.sap.dirigible.ide.scripts.publish</module>
+		<module>com.sap.dirigible.ide.extensions.publish</module>
 		<!--
 		<module>com.sap.dirigible.ide.publish.test</module>
 		-->

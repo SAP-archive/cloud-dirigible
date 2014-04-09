@@ -25,5 +25,6 @@ public interface ICommonConstants {
 		public final static String WEB_CONTENT = "WebContent"; //$NON-NLS-1$
 		public final static String SECURITY_CONSTRAINTS = "SecurityConstraints"; //$NON-NLS-1$
 		public final static String WIKI_CONTENT = "WikiContent"; //$NON-NLS-1$
+		public final static String EXTENSION_DEFINITIONS = "ExtensionDefinitions"; //$NON-NLS-1$
 	}
 }

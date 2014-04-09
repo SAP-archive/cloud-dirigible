@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
 import com.sap.dirigible.runtime.mail.MailSender;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
@@ -118,6 +119,9 @@ public abstract class AbstractScriptExecutor {
 		// EscapeUtils
 		StringEscapeUtils stringEscapeUtils = new StringEscapeUtils();
 		registerDefaultVariable(scope, "xss", stringEscapeUtils); //$NON-NLS-1$
+		// Extension Manager
+		ExtensionManager extensionManager = new ExtensionManager(repository, dataSource);
+		registerDefaultVariable(scope, "extensionManager", extensionManager); //$NON-NLS-1$
 	}
 
 	public byte[] readResourceData(IRepository repository, String repositoryPath) throws IOException {

@@ -73,10 +73,14 @@ public class DBUtils {
 	 * @param path
 	 * @return the SQL script as a String
 	 */
-	public String readScript(Connection conn, String path, Class<?> clazz) {
+	public String readScript(Connection conn, String path, Class<?> clazz) throws IOException {
 		logger.debug(this.getClass().getCanonicalName(), "entering readScript"); //$NON-NLS-1$
 		String sql = null;
 		InputStream in = clazz.getResourceAsStream(path);
+		if (in == null) {
+			throw new IOException("SQL script does not exist: " + path);
+		}
+		
 		BufferedInputStream bufferedInput = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PrintWriter writer = new PrintWriter(baos);

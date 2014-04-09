@@ -86,6 +86,8 @@ public class RegistrySecureRolesFilter extends AbstractRegistrySecureFilter {
 			logger.error(e.getMessage(), e);
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
 		}
 		return false;
 	}

@@ -17,13 +17,6 @@ package com.sap.dirigible.ide.repository.ui.viewer;
 
 import java.net.URL;
 
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.resource.LocalResourceManager;
-import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
@@ -62,6 +55,8 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 	public static final URL TYPE_GROOVY_ICON_URL = getIconURL("icon-groovy.png"); //$NON-NLS-1$
 	public static final URL TYPE_WIKI_ICON_URL = getIconURL("icon-wiki.png"); //$NON-NLS-1$
 	public static final URL TYPE_BATCH_ICON_URL = getIconURL("icon-batch.png"); //$NON-NLS-1$
+	public static final URL TYPE_EXTENSION_POINT_ICON_URL = getIconURL("icon-extension-point.png"); //$NON-NLS-1$
+	public static final URL TYPE_EXTENSION_ICON_URL = getIconURL("icon-extension.png"); //$NON-NLS-1$
 
 	public static URL getIconURL(String iconName) {
 		URL url = ImageUtils.getIconURL("com.sap.dirigible.ide.repository.ui", "/resources/icons/", iconName);
@@ -154,6 +149,12 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 		}
 		if (resourceName.endsWith("wikis")) { //$NON-NLS-1$
 			return createImage(TYPE_BATCH_ICON_URL);
+		}
+		if (resourceName.endsWith("extensionpoint")) { //$NON-NLS-1$
+			return createImage(TYPE_EXTENSION_POINT_ICON_URL);
+		}
+		if (resourceName.endsWith("extension")) { //$NON-NLS-1$
+			return createImage(TYPE_EXTENSION_ICON_URL);
 		}
 
 		return createImage(TYPE_UNKNOWN_ICON_URL);

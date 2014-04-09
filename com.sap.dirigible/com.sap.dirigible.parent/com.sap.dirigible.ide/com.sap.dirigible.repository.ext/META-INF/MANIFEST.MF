@@ -1,7 +1,9 @@
 Manifest-Version: 1.0
 Export-Package: com.sap.dirigible.repository.ext.db,
  com.sap.dirigible.repository.ext.debug,
- com.sap.dirigible.repository.ext.security
+ com.sap.dirigible.repository.ext.extensions,
+ com.sap.dirigible.repository.ext.security,
+ com.sap.dirigible.repository.ext.utils
 Bundle-ActivationPolicy: lazy
 Bundle-Name: Dirigible Repository Extensions
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

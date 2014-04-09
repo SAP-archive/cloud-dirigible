@@ -29,6 +29,7 @@ public class DBScriptsMap {
 	public static final String SCRIPT_CREATE_SCHEMA_3 = "/com/sap/dirigible/repository/db/sql/create_schema_3.sql"; //$NON-NLS-1$
 	public static final String SCRIPT_CREATE_SCHEMA_4 = "/com/sap/dirigible/repository/db/sql/create_schema_4.sql"; //$NON-NLS-1$
 	public static final String SCRIPT_CREATE_SCHEMA_5 = "/com/sap/dirigible/repository/db/sql/create_schema_5.sql"; //$NON-NLS-1$
+	public static final String SCRIPT_CREATE_SCHEMA_6 = "/com/sap/dirigible/repository/db/sql/create_schema_6.sql"; //$NON-NLS-1$
 
 	public static final String SCRIPT_GET_BINARY = "/com/sap/dirigible/repository/db/sql/get_binary.sql"; //$NON-NLS-1$
 	public static final String SCRIPT_GET_DOCUMENT = "/com/sap/dirigible/repository/db/sql/get_document.sql"; //$NON-NLS-1$

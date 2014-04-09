@@ -113,6 +113,8 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBBaseException(e);
+		} catch (IOException e) {
+			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
@@ -143,6 +145,8 @@ public class DBFileDAO extends DBObjectDAO {
 					+ "%"); //$NON-NLS-1$
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
@@ -289,6 +293,8 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBBaseException(e);
+		} catch (IOException e) {
+			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
@@ -331,6 +337,8 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement.setString(3, resource.getPath());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
@@ -407,6 +415,8 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBBaseException(e);
+		} catch (IOException e) {
+			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
@@ -436,6 +446,8 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement.setString(1, resource.getPath());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
@@ -542,6 +554,8 @@ public class DBFileDAO extends DBObjectDAO {
 				preparedStatement.executeUpdate();
 			} catch (SQLException e) {
 				throw new DBBaseException(e);
+			} catch (IOException e) {
+				throw new DBBaseException(e);
 			} finally {
 				getRepository().getDbUtils().closeStatement(preparedStatement);
 				getRepository().getDbUtils().closeConnection(connection);
@@ -571,6 +585,8 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement.setString(1, resource.getPath());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);

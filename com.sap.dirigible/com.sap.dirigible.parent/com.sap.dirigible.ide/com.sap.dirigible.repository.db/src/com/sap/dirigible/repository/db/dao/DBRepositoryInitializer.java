@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.repository.db.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -27,6 +28,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
 
 /**
@@ -35,6 +37,8 @@ import com.sap.dirigible.repository.db.DBRepository;
  * 
  */
 public class DBRepositoryInitializer {
+
+	private static final String EXTENSION_POINTS = Messages.getString("DBRepositoryInitializer.EXTENSION_POINTS"); //$NON-NLS-1$
 
 	private static final String INITIALIZING_SCRIPT_VERSION_S_FROM_S_ABOUT_S = Messages.getString("DBRepositoryInitializer.INITIALIZING_SCRIPT_VERSION_S_FROM_S_ABOUT_S"); //$NON-NLS-1$
 
@@ -88,6 +92,10 @@ public class DBRepositoryInitializer {
 				DBScriptsMap.SCRIPT_CREATE_SCHEMA_4));
 		scriptDescriptors.add(new ScriptDescriptor(5, SECURITY_FEATURES,
 				DBScriptsMap.SCRIPT_CREATE_SCHEMA_5));
+		scriptDescriptors.add(new ScriptDescriptor(6, EXTENSION_POINTS,
+				DBScriptsMap.SCRIPT_CREATE_SCHEMA_6));
+		
+		
 	}
 
 	DBRepositoryInitializer(DBRepository repository, Connection connection,
@@ -136,10 +144,14 @@ public class DBRepositoryInitializer {
 					INITIALIZING_SCRIPT_VERSION_S_FROM_S_ABOUT_S,
 					scriptDescriptor.version, scriptDescriptor.location,
 					scriptDescriptor.description));
-			String script = getRepository().getDbUtils().readScript(connection,
-					scriptDescriptor.location, this.getClass());
-			result = getRepository().getDbUtils().executeUpdate(connection,
-					script);
+			try {
+				String script = getRepository().getDbUtils().readScript(connection,
+						scriptDescriptor.location, this.getClass());
+				result = getRepository().getDbUtils().executeUpdate(connection,
+						script);
+			} catch (IOException e) {
+				logger.error(e.getMessage());
+			}
 			if (!result) {
 				break;
 			}
@@ -202,7 +214,8 @@ public class DBRepositoryInitializer {
 
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
-			// forceRecreate();
+		} catch (IOException e) {
+			logger.error(e.getMessage());
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);

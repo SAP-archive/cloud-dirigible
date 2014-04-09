@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.repository.ext.security;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,33 +33,33 @@ import org.slf4j.LoggerFactory;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepositoryPath;
 import com.sap.dirigible.repository.db.DBUtils;
+import com.sap.dirigible.repository.ext.utils.RequestUtils;
 
 public class SecurityManager {
 
+	private static final Logger logger = LoggerFactory.getLogger(SecurityManager.class);
+	
 	private static final String LOCATION_S_AND_S_DOES_NOT_EXIST = Messages.getString("SecurityManager.LOCATION_S_AND_S_DOES_NOT_EXIST"); //$NON-NLS-1$
 
 	private static final String LOCATION_S_DOES_NOT_EXIST = Messages.getString("SecurityManager.LOCATION_S_DOES_NOT_EXIST"); //$NON-NLS-1$
 
 	private static final String DATABASE_ERROR = Messages.getString("SecurityManager.DATABASE_ERROR"); //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(SecurityManager.class);
-
 	private static final String EVERYONE_ROLE = "Everyone"; //$NON-NLS-1$
 
-	private static final String INSERT_ACCESS = "/com/sap/dirigible/repository/security/sql/insert_access.sql"; //$NON-NLS-1$
+	private static final String INSERT_ACCESS = "/com/sap/dirigible/repository/ext/security/sql/insert_access.sql"; //$NON-NLS-1$
 
-	private static final String GET_ROLES_BY_LOCATION = "/com/sap/dirigible/repository/security/sql/get_roles_by_location.sql"; //$NON-NLS-1$
+	private static final String GET_ROLES_BY_LOCATION = "/com/sap/dirigible/repository/ext/security/sql/get_roles_by_location.sql"; //$NON-NLS-1$
 
-	private static final String GET_ROLES_BY_LOCATION_AND_ROLE = "/com/sap/dirigible/repository/security/sql/get_roles_by_location_and_role.sql"; //$NON-NLS-1$
+	private static final String GET_ROLES_BY_LOCATION_AND_ROLE = "/com/sap/dirigible/repository/ext/security/sql/get_roles_by_location_and_role.sql"; //$NON-NLS-1$
 
-	private static final String GET_ACCESS_LOCATIONS = "/com/sap/dirigible/repository/security/sql/get_access_locations.sql"; //$NON-NLS-1$
+	private static final String GET_ACCESS_LOCATIONS = "/com/sap/dirigible/repository/ext/security/sql/get_access_locations.sql"; //$NON-NLS-1$
 
-	private static final String REMOVE_BY_LOCATION = "/com/sap/dirigible/repository/security/sql/remove_by_location.sql"; //$NON-NLS-1$
+	private static final String REMOVE_BY_LOCATION = "/com/sap/dirigible/repository/ext/security/sql/remove_by_location.sql"; //$NON-NLS-1$
 
-	private static final String REMOVE_BY_LOCATION_AND_ROLE = "/com/sap/dirigible/repository/security/sql/remove_by_location_and_role.sql"; //$NON-NLS-1$
+	private static final String REMOVE_BY_LOCATION_AND_ROLE = "/com/sap/dirigible/repository/ext/security/sql/remove_by_location_and_role.sql"; //$NON-NLS-1$
 
-	private static final String GET_ACCESS_LIST = "/com/sap/dirigible/repository/security/sql/get_access_list.sql"; //$NON-NLS-1$
+	private static final String GET_ACCESS_LIST = "/com/sap/dirigible/repository/ext/security/sql/get_access_list.sql"; //$NON-NLS-1$
 
 	private static SecurityManager instance;
 
@@ -142,7 +143,7 @@ public class SecurityManager {
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
-			if (!isSecuredLocation(connection, location)) {
+			if (!isSecuredLocationInternal(connection, location)) {
 				insertLocation(connection, location, null, request);
 			}
 		} catch (Exception e) {
@@ -163,7 +164,7 @@ public class SecurityManager {
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
-			if (!isSecuredLocation(connection, location, roleName)) {
+			if (!isSecuredLocationInternal(connection, location, roleName)) {
 				insertLocation(connection, location, roleName, request);
 			}
 		} catch (Exception e) {
@@ -183,7 +184,7 @@ public class SecurityManager {
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
-			if (isSecuredLocation(connection, location)) {
+			if (isSecuredLocationInternal(connection, location)) {
 				removeLocation(connection, location);
 			} else {
 				throw new SecurityException(String.format(
@@ -207,7 +208,7 @@ public class SecurityManager {
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
-			if (isSecuredLocation(connection, location, roleName)) {
+			if (isSecuredLocationInternal(connection, location, roleName)) {
 				removeLocationWithRole(connection, location, roleName);
 			} else {
 				throw new SecurityException(String.format(
@@ -227,7 +228,7 @@ public class SecurityManager {
 	}
 
 	private List<String> getSecuredLocations(Connection connection)
-			throws SQLException {
+			throws SQLException, IOException {
 		List<String> securedLocations = new ArrayList<String>();
 		Statement statement = null;
 		try {
@@ -247,7 +248,7 @@ public class SecurityManager {
 	}
 
 	private List<SecurityLocationMetadata> getAccessList(Connection connection)
-			throws SQLException {
+			throws SQLException, IOException {
 		List<SecurityLocationMetadata> securedLocations = new ArrayList<SecurityLocationMetadata>();
 		Statement statement = null;
 		try {
@@ -279,8 +280,21 @@ public class SecurityManager {
 		return securedLocations;
 	}
 
-	public boolean isSecuredLocation(Connection connection, String location)
-			throws SQLException {
+	public boolean isSecuredLocation(String location)
+			throws SQLException, IOException {
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			return isSecuredLocationInternal(connection, location);
+		} finally {
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+	
+	private boolean isSecuredLocationInternal(Connection connection, String location)
+			throws SQLException, IOException {
 		PreparedStatement statement = null;
 		try {
 			String script = getDBUtils().readScript(connection,
@@ -299,8 +313,21 @@ public class SecurityManager {
 		return false;
 	}
 
-	public boolean isSecuredLocation(Connection connection, String location,
-			String roleName) throws SQLException {
+	public boolean isSecuredLocation(String location, String roleName)
+			throws SQLException, IOException {
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			return isSecuredLocationInternal(connection, location, roleName);
+		} finally {
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+
+	public boolean isSecuredLocationInternal(Connection connection, String location,
+			String roleName) throws SQLException, IOException {
 		PreparedStatement statement = null;
 		try {
 			String script = getDBUtils().readScript(connection,
@@ -321,7 +348,7 @@ public class SecurityManager {
 	}
 
 	public List<String> getRolesForLocation(String location)
-			throws SQLException {
+			throws SQLException, IOException {
 		List<String> securedRoles = new ArrayList<String>();
 		Connection connection = dataSource.getConnection();
 		try {
@@ -362,7 +389,7 @@ public class SecurityManager {
 	}
 
 	private void insertLocation(Connection connection, String location,
-			String roleName, HttpServletRequest request) throws SQLException {
+			String roleName, HttpServletRequest request) throws SQLException, IOException {
 		PreparedStatement statement = null;
 		try {
 			String script = getDBUtils().readScript(connection, INSERT_ACCESS,
@@ -374,7 +401,7 @@ public class SecurityManager {
 			} else {
 				statement.setString(2, roleName);
 			}
-			statement.setString(3, getUser(request));
+			statement.setString(3, RequestUtils.getUser(request));
 
 			statement.executeUpdate();
 		} finally {
@@ -385,7 +412,7 @@ public class SecurityManager {
 	}
 
 	private void removeLocation(Connection connection, String location)
-			throws SQLException {
+			throws SQLException, IOException {
 		PreparedStatement statement = null;
 		try {
 			String script = getDBUtils().readScript(connection,
@@ -401,7 +428,7 @@ public class SecurityManager {
 	}
 
 	private void removeLocationWithRole(Connection connection, String location,
-			String roleName) throws SQLException {
+			String roleName) throws SQLException, IOException {
 
 		if (roleName == null) {
 			removeLocation(connection, location);
@@ -421,18 +448,6 @@ public class SecurityManager {
 				statement.close();
 			}
 		}
-	}
-
-	public String getUser(HttpServletRequest request) {
-		String user = "GUEST"; // shared one //$NON-NLS-1$
-		try {
-			if ((request != null) && (request.getUserPrincipal() != null)) {
-				user = request.getUserPrincipal().getName();
-			}
-		} catch (Exception e) {
-			// TODO - do nothing
-		}
-		return user;
 	}
 
 }

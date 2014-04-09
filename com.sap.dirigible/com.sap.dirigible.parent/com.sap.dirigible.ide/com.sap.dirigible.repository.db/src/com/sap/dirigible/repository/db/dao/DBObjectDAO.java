@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.repository.db.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -116,6 +117,8 @@ public class DBObjectDAO {
 				}
 	
 			} catch (SQLException e) {
+				throw new DBBaseException(e);
+			} catch (IOException e) {
 				throw new DBBaseException(e);
 			} finally {
 				getRepository().getDbUtils().closeStatement(preparedStatement);

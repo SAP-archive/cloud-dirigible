@@ -16,6 +16,7 @@
 package com.sap.dirigible.repository.db.dao;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -158,6 +159,8 @@ public class DBFileVersionDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBBaseException(e);
+		} catch (IOException e) {
+			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
@@ -202,6 +205,8 @@ public class DBFileVersionDAO {
 			}
 
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
@@ -320,6 +325,8 @@ public class DBFileVersionDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBBaseException(e);
+		} catch (IOException e) {
+			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
@@ -348,6 +355,8 @@ public class DBFileVersionDAO {
 			preparedStatement.setDate(++i, new java.sql.Date(date.getTime()));
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);

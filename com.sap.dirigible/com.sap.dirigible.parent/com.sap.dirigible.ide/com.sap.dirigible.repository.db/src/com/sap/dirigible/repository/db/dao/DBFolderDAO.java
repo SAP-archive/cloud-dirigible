@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.repository.db.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -158,6 +159,8 @@ public class DBFolderDAO extends DBObjectDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBBaseException(e);
+		} catch (IOException e) {
+			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
@@ -190,6 +193,8 @@ public class DBFolderDAO extends DBObjectDAO {
 					+ "%"); //$NON-NLS-1$
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
@@ -227,6 +232,8 @@ public class DBFolderDAO extends DBObjectDAO {
 				empty = (resultSet.getInt(1) <= 1);
 			}
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
@@ -278,6 +285,8 @@ public class DBFolderDAO extends DBObjectDAO {
 			}
 			return dbObjects;
 		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);

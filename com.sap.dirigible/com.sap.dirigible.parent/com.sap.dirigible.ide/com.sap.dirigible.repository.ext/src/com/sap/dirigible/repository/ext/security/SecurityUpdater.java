@@ -35,6 +35,9 @@ import com.sap.dirigible.repository.ext.db.AbstractDataUpdater;
 
 public class SecurityUpdater extends AbstractDataUpdater {
 
+	private static final String NODE_ROLE = "role";
+	private static final String NODE_ROLES = "roles";
+	private static final String NODE_LOCATION = "location";
 	public static final String EXTENSION_ACCESS = ".access"; //$NON-NLS-1$
 	public static final String REGISTRY_SECURITY_CONSTRAINTS_DEFAULT = "/db/dirigible/registry/public/SecurityConstraints"; //$NON-NLS-1$
 
@@ -88,11 +91,11 @@ public class SecurityUpdater extends AbstractDataUpdater {
 		JsonArray scDefinitionArray = parseAccess(scDefinition);
 		for (Iterator<?> iter = scDefinitionArray.iterator(); iter.hasNext();) {
 			JsonObject locationObject = (JsonObject) iter.next();
-			String locationName = locationObject.get("location").getAsString(); //$NON-NLS-1$
-			JsonArray rolesArray = locationObject.get("roles").getAsJsonArray(); //$NON-NLS-1$
+			String locationName = locationObject.get(NODE_LOCATION).getAsString(); //$NON-NLS-1$
+			JsonArray rolesArray = locationObject.get(NODE_ROLES).getAsJsonArray(); //$NON-NLS-1$
 			for (Iterator<?> iter2 = rolesArray.iterator(); iter2.hasNext();) {
 				JsonObject rolesObject = (JsonObject) iter2.next();
-				String roleName = rolesObject.get("role").getAsString(); //$NON-NLS-1$
+				String roleName = rolesObject.get(NODE_ROLE).getAsString(); //$NON-NLS-1$
 				updateRole(locationName, roleName, request);
 			}
 		}
