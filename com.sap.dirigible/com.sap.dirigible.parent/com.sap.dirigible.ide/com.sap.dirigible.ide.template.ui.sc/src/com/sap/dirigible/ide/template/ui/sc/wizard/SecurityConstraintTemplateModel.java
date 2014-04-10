@@ -18,6 +18,7 @@ package com.sap.dirigible.ide.template.ui.sc.wizard;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
+import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 import com.sap.dirigible.ide.ui.common.validation.ValidationStatus;
@@ -51,7 +52,8 @@ public class SecurityConstraintTemplateModel extends GenerationModel {
 			IPath location = new Path(getTargetLocation())
 					.append(getFileName());
 			// TODO - more precise test for the location ../TestCases/...
-			if (location.toString().indexOf("SecurityConstraints") == -1) { //$NON-NLS-1$
+			if (location.toString().indexOf(
+					ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS) == -1) { //$NON-NLS-1$
 				return ValidationStatus
 						.createError(TARGET_LOCATION_IS_NOT_ALLOWED);
 			}

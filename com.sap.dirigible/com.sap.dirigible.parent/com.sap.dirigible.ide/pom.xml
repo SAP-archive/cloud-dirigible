@@ -125,6 +125,7 @@
 		<module>com.sap.dirigible.ide.designer</module>
 		<module>com.sap.dirigible.ide.template.ui.tc</module>
 		<module>com.sap.dirigible.ide.template.ui.sc</module>
+		<module>com.sap.dirigible.ide.template.ui.ed</module>
 		<module>com.sap.dirigible.ide.security.publish</module>
 		<module>com.sap.dirigible.ide.jgit.connector</module>
 

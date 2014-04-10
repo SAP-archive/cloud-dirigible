@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.ed.command.ExtensionDefinitionCommandHandler"
+               icon="icons/wizard_extension-definition.png"
+               label="Extension Definition"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.sap.dirigible.ide.template.ui.ed.command.ExtensionDefinitionCommandHandler"
+            id="com.sap.dirigible.ide.template.ui.ed.command.ExtensionDefinitionCommandHandler"
+            name="Extension Definition">
+      </command>
+   </extension>
+   <extension
+         point="com.sap.dirigible.ide.template.type">
+      <template
+            category="ExtensionDefinitions"
+            image="/icons/extension-point.png"
+            location="/com/sap/dirigible/ide/template/ui/ed/templates/extensionpoint.extensionpoint"
+            text="Extension Point">
+      </template>
+	  <template
+            category="ExtensionDefinitions"
+            image="/icons/extension.png"
+            location="/com/sap/dirigible/ide/template/ui/ed/templates/extension.extension"
+            text="Extension">
+      </template>
+   </extension>
+</plugin>

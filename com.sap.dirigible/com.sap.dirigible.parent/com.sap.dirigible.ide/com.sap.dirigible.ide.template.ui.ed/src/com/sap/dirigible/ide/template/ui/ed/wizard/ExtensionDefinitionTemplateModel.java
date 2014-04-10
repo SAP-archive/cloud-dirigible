@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.template.ui.tc.wizard;
+package com.sap.dirigible.ide.template.ui.ed.wizard;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -23,9 +23,9 @@ import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 import com.sap.dirigible.ide.ui.common.validation.ValidationStatus;
 
-public class TestCaseTemplateModel extends GenerationModel {
+public class ExtensionDefinitionTemplateModel extends GenerationModel {
 
-	private static final String TARGET_LOCATION_IS_NOT_ALLOWED = Messages.TestCaseTemplateModel_TARGET_LOCATION_IS_NOT_ALLOWED;
+	private static final String TARGET_LOCATION_IS_NOT_ALLOWED = Messages.ExtensionDefinitionTemplateModel_TARGET_LOCATION_IS_NOT_ALLOWED;
 
 	@Override
 	public IValidationStatus validate() {
@@ -37,6 +37,7 @@ public class TestCaseTemplateModel extends GenerationModel {
 		if (locationStatus.hasErrors()) {
 			return locationStatus;
 		}
+
 		return ValidationStatus.getValidationStatus(locationStatus,
 				templateStatus);
 	}
@@ -52,7 +53,7 @@ public class TestCaseTemplateModel extends GenerationModel {
 					.append(getFileName());
 			// TODO - more precise test for the location ../TestCases/...
 			if (location.toString().indexOf(
-					ICommonConstants.ARTIFACT_TYPE.TEST_CASES) == -1) { //$NON-NLS-1$
+					ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS) == -1) {
 				return ValidationStatus
 						.createError(TARGET_LOCATION_IS_NOT_ALLOWED);
 			}
@@ -64,4 +65,5 @@ public class TestCaseTemplateModel extends GenerationModel {
 		}
 		return status;
 	}
+
 }
