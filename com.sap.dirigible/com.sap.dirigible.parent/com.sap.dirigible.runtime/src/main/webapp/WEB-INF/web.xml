@@ -222,7 +222,7 @@
 		<description>Search Servlet</description>
 		<display-name>Search Servlet</display-name>
 		<servlet-name>SearchServlet</servlet-name>
-		<servlet-class>com.sap.dirigible.runtime.registry.SearchServlet</servlet-class>
+		<servlet-class>com.sap.dirigible.runtime.search.SearchServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SearchServlet</servlet-name>

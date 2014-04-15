@@ -30,6 +30,8 @@ import com.sap.dirigible.runtime.memory.MemoryLogTask;
 import com.sap.dirigible.runtime.metrics.AccessLogCleanupTask;
 import com.sap.dirigible.runtime.metrics.AccessLogLocationsSynchronizer;
 import com.sap.dirigible.runtime.repository.RepositoryHistoryCleanupTask;
+import com.sap.dirigible.runtime.search.RebuildSearchIndexTask;
+import com.sap.dirigible.runtime.search.UpdateSearchIndexTask;
 import com.sap.dirigible.runtime.task.TaskManagerLong;
 import com.sap.dirigible.runtime.task.TaskManagerMedium;
 import com.sap.dirigible.runtime.task.TaskManagerShort;
@@ -81,6 +83,9 @@ public class ContextLoaderListener implements ServletContextListener {
 		MemoryLogTask memoryLogTask = new MemoryLogTask();
 		TaskManagerMedium.getInstance().registerRunnableTask(memoryLogTask);
 		
+		UpdateSearchIndexTask updateSearchIndexTask = new UpdateSearchIndexTask();
+		TaskManagerLong.getInstance().registerRunnableTask(updateSearchIndexTask);
+		
 		// long
 		AccessLogCleanupTask accessLogCleanupTask = new AccessLogCleanupTask();
 		TaskManagerLong.getInstance().registerRunnableTask(accessLogCleanupTask);
@@ -90,6 +95,9 @@ public class ContextLoaderListener implements ServletContextListener {
 		
 		MemoryLogCleanupTask memoryLogCleanupTask = new MemoryLogCleanupTask();
 		TaskManagerLong.getInstance().registerRunnableTask(memoryLogCleanupTask);
+		
+		RebuildSearchIndexTask rebuildSearchIndexTask = new RebuildSearchIndexTask();
+		TaskManagerLong.getInstance().registerRunnableTask(rebuildSearchIndexTask);
 		
 		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "registerRunnableTasks"); //$NON-NLS-1$
