@@ -67,8 +67,7 @@ defaultControllers.controller('DefaultListCtrl', ['$scope', '$sce', 'FilesSearch
       clearTimeout(timeOutDelay);
       timeOutDelay = setTimeout(function() {
         FilesSearch.query({
-          term: newVal,
-          caseSensitive: $scope.caseSensitive
+          q: newVal
         }, onArrayQuery, function(er) {
           $scope.searchError = er;
         });

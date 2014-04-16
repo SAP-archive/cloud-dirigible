@@ -43,8 +43,8 @@ import com.sap.dirigible.runtime.registry.Messages;
 public class SearchServlet extends AbstractRegistryServlet {
 
     private static final String REQUEST_PROCESSING_FAILED_S =
-        Messages.getString("SearchServlet.REQUEST_PROCESSING_FAILED_S"); //$NON-NLS-1$
-    private static final String SEARCH_TERM = "term"; //$NON-NLS-1$
+        ""; //$NON-NLS-1$
+    private static final String SEARCH_TERM = "q"; //$NON-NLS-1$
     private static final String REINDEX = "reindex"; //$NON-NLS-1$
 //    private static final String CASE_INSENSITIVE_TERM = "caseInsensitive"; //$NON-NLS-1$
 
@@ -58,13 +58,6 @@ public class SearchServlet extends AbstractRegistryServlet {
                          final HttpServletResponse response) throws ServletException, IOException {
 
         
-//        final String caseInsensitiveTerm = request
-//                .getParameter(CASE_INSENSITIVE_TERM);
-//        boolean caseInsensitive = false;
-//        if (caseInsensitiveTerm != null && !"".equals(caseInsensitiveTerm)) { //$NON-NLS-1$
-//            caseInsensitive = Boolean.parseBoolean(caseInsensitiveTerm);
-//        }
-    	
     	final String searchTerm = request.getParameter(SEARCH_TERM);
         try {
             final IRepository repository = getRepository(request);
@@ -77,8 +70,7 @@ public class SearchServlet extends AbstractRegistryServlet {
                 return;
             }
             
-            
-            response.setContentType("application/json");
+            response.setContentType("application/json"); //$NON-NLS-1$
             if (searchTerm == null || "".equals(searchTerm)) { //$NON-NLS-1$
                 response.getWriter().println("[]"); //$NON-NLS-1$
                 return;
@@ -109,31 +101,6 @@ public class SearchServlet extends AbstractRegistryServlet {
                     ex.getMessage());
         }
     }
-
-//    private void enumerateEntities(final HttpServletResponse response,
-//                                   final List<IEntity> entities) throws IOException {
-//        final PrintWriter writer = response.getWriter();
-//
-//        final String collectionPath = "/dirigible/registry"; //$NON-NLS-1$
-//
-//        final JsonArray rootArray = new JsonArray();
-//
-//        for (final IEntity entity : entities) {
-//            String entityName = entity.getPath();
-//            if (entityName.startsWith(AbstractRegistryServlet.REGISTRY_DEPLOY_PATH)) {
-//                entityName = entityName.substring(AbstractRegistryServlet.REGISTRY_DEPLOY_PATH.length());
-//                final String path = collectionPath + entityName;
-//                final JsonObject elementObject = new JsonObject();
-//                elementObject.addProperty("name", entityName); //$NON-NLS-1$
-//                elementObject.addProperty("path", path); //$NON-NLS-1$
-//                rootArray.add(elementObject);
-//            }
-//        }
-//
-//        writer.println(new Gson().toJsonTree(rootArray));
-//        writer.flush();
-//        writer.close();
-//    }
 
 	private void enumeratePaths(final HttpServletResponse response,
 			final List<String> paths) throws IOException {

@@ -1,6 +1,7 @@
 package com.sap.dirigible.repository.ext.lucene;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -32,9 +33,9 @@ import com.sap.dirigible.repository.api.IResource;
 
 public class MemoryIndexer {
 	
-	private static final String FIELD_PATH = "path";
-	private static final String FIELD_NAME = "name";
-	private static final String FIELD_CONTENT = "content";
+	private static final String FIELD_PATH = "path"; //$NON-NLS-1$
+	private static final String FIELD_NAME = "name"; //$NON-NLS-1$
+	private static final String FIELD_CONTENT = "content"; //$NON-NLS-1$
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemoryIndexer.class);
 	
@@ -52,7 +53,7 @@ public class MemoryIndexer {
 		try {
 			synchronized (directory) {
 				
-				logger.debug("entering: indexRepository(IRepository repository)");
+				logger.debug("entering: indexRepository(IRepository repository)"); //$NON-NLS-1$
 				
 				Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_35);
 				IndexWriterConfig config = null;
@@ -72,7 +73,7 @@ public class MemoryIndexer {
 					}
 //					directory.close();
 				}
-				logger.debug("exiting: indexRepository(IRepository repository)");
+				logger.debug("exiting: indexRepository(IRepository repository)"); //$NON-NLS-1$
 			}
 		} catch (Exception e) {
 			throw new IOException(e);
@@ -85,7 +86,7 @@ public class MemoryIndexer {
 		try {
 			synchronized (directory) {
 				
-				logger.debug("entering: clearIndex()");
+				logger.debug("entering: clearIndex()"); //$NON-NLS-1$
 				
 				Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_35);
 				IndexWriterConfig config = null;
@@ -100,7 +101,7 @@ public class MemoryIndexer {
 					}
 //					directory.close();
 				}
-				logger.debug("exiting: clearIndex()");
+				logger.debug("exiting: clearIndex()"); //$NON-NLS-1$
 			}
 		} catch (Exception e) {
 			throw new IOException(e);
@@ -113,7 +114,7 @@ public class MemoryIndexer {
 		try {
 			synchronized (directory) {
 				
-				logger.debug("entering: search(String term)");
+				logger.debug("entering: search(String term)"); //$NON-NLS-1$
 				
 				Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_35);
 				// Now search the index:
@@ -142,7 +143,7 @@ public class MemoryIndexer {
 //					directory.close();
 				}
 				
-				logger.debug("exiting: search(String term)");
+				logger.debug("exiting: search(String term)"); //$NON-NLS-1$
 				return docs;
 			}
 		} catch (ParseException e) {
@@ -152,7 +153,7 @@ public class MemoryIndexer {
 
 	private static void indexCollection(IndexWriter iwriter, ICollection collection) throws IOException {
 		
-		logger.debug("entering: indexCollection(IndexWriter iwriter, ICollection collection)");
+		logger.debug("entering: indexCollection(IndexWriter iwriter, ICollection collection)"); //$NON-NLS-1$
 		
 		List<IResource> resources = collection.getResources();
 		for (Iterator<IResource> iterator = resources.iterator(); iterator.hasNext();) {
@@ -164,47 +165,49 @@ public class MemoryIndexer {
 			ICollection child = iterator.next();
 			indexCollection(iwriter, child);
 		}
-		logger.debug("exiting: indexCollection(IndexWriter iwriter, ICollection collection)");
+		logger.debug("exiting: indexCollection(IndexWriter iwriter, ICollection collection)"); //$NON-NLS-1$
 	}
 
 	private static void indexResource(IndexWriter iwriter, IResource resource)
 			throws CorruptIndexException, IOException {
 		
-		logger.debug("entering: indexResource(IndexWriter iwriter, IResource resource)");
+		logger.debug("entering: indexResource(IndexWriter iwriter, IResource resource)"); //$NON-NLS-1$
 		
 		if (!resource.isBinary()) {
 			if (!indexedResources.contains(resource.getPath())) {
-				logger.debug("Indexing resource: " + resource.getPath());
-				Document doc = new Document();
-				String text = new String(resource.getContent(), "UTF-8");
-				doc.add(new Field(FIELD_CONTENT, text, Field.Store.YES, Field.Index.ANALYZED));
-				doc.add(new Field(FIELD_NAME, resource.getName(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-				doc.add(new Field(FIELD_PATH, resource.getPath(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+				logger.debug("Indexing resource: " + resource.getPath()); //$NON-NLS-1$
+				Document doc = createDocument(resource);
 				iwriter.addDocument(doc);
 				iwriter.commit();
-				logger.debug("Resource: " + resource.getPath() + " indexed successfully");
+				logger.debug("Resource: " + resource.getPath() + " indexed successfully"); //$NON-NLS-1$ //$NON-NLS-2$
 				indexedResources.add(resource.getPath());
 			} else {
 				if (lastIndexed.before(resource.getInformation().getModifiedAt())) {
-					logger.debug("Updating index for resource: " + resource.getPath());
-					Document doc = new Document();
-					String text = new String(resource.getContent(), "UTF-8");
-					doc.add(new Field(FIELD_CONTENT, text, Field.Store.YES, Field.Index.ANALYZED));
-					doc.add(new Field(FIELD_NAME, resource.getName(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-					doc.add(new Field(FIELD_PATH, resource.getPath(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+					logger.debug("Updating index for resource: " + resource.getPath()); //$NON-NLS-1$
+					Document doc = createDocument(resource);
 					Term term = new Term(FIELD_PATH, resource.getPath());
 					iwriter.updateDocument(term, doc);
 					iwriter.commit();
-					logger.debug("For resource: " + resource.getPath() + " index updated successfully");
+					logger.debug("For resource: " + resource.getPath() + " index updated successfully"); //$NON-NLS-1$ //$NON-NLS-2$
 				} else {
-					logger.debug("Skip indexing for unmodified resource: " + resource.getPath());
+					logger.debug("Skip indexing for unmodified resource: " + resource.getPath()); //$NON-NLS-1$
 				}
 			}
 		} else {
-			logger.debug("Skip indexing for binary resource: " + resource.getPath());
+			logger.debug("Skip indexing for binary resource: " + resource.getPath()); //$NON-NLS-1$
 		}
 		
-		logger.debug("exiting: indexResource(IndexWriter iwriter, IResource resource)");
+		logger.debug("exiting: indexResource(IndexWriter iwriter, IResource resource)"); //$NON-NLS-1$
+	}
+
+	private static Document createDocument(IResource resource)
+			throws UnsupportedEncodingException, IOException {
+		Document doc = new Document();
+		String text = new String(resource.getContent(), "UTF-8"); //$NON-NLS-1$
+		doc.add(new Field(FIELD_CONTENT, text, Field.Store.YES, Field.Index.ANALYZED));
+		doc.add(new Field(FIELD_NAME, resource.getName(), Field.Store.YES, Field.Index.ANALYZED));
+		doc.add(new Field(FIELD_PATH, resource.getPath(), Field.Store.YES, Field.Index.ANALYZED));
+		return doc;
 	}
 	
 }
