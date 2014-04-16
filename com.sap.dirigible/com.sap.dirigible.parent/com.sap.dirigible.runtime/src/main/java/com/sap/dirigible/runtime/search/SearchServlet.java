@@ -63,7 +63,7 @@ public class SearchServlet extends AbstractRegistryServlet {
             final IRepository repository = getRepository(request);
             
             final String reindex = request.getParameter(REINDEX);
-            if (reindex != null & !"".equals(reindex)) { //$NON-NLS-1$
+            if (reindex != null) { //$NON-NLS-1$
             	MemoryIndexer.clearIndex();
             	MemoryIndexer.indexRepository(repository);
                 response.getWriter().println("0"); //$NON-NLS-1$
