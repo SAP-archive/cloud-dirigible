@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.repository.ext.lucene.MemoryIndexer;
+import com.sap.dirigible.repository.ext.lucene.RepositoryMemoryIndexer;
 
 public class SearchIndexerTest {
 
@@ -51,21 +51,21 @@ public class SearchIndexerTest {
 		try {
 			
 			
-			MemoryIndexer.indexRepository(repository);
+			RepositoryMemoryIndexer.indexRepository(repository);
 			
-			List<String> matches = MemoryIndexer.search("Lucene");
+			List<String> matches = RepositoryMemoryIndexer.search("Lucene");
 			assertNotNull(matches);
 			assertEquals(1, matches.size());
 			
-			matches = MemoryIndexer.search("Apache");
+			matches = RepositoryMemoryIndexer.search("Apache");
 			assertNotNull(matches);
 			assertEquals(2, matches.size());
 			
-			matches = MemoryIndexer.search("apache");
+			matches = RepositoryMemoryIndexer.search("apache");
 			assertNotNull(matches);
 			assertEquals(2, matches.size());
 			
-			matches = MemoryIndexer.search("Eclipse");
+			matches = RepositoryMemoryIndexer.search("Eclipse");
 			assertNotNull(matches);
 			assertEquals(0, matches.size());
 

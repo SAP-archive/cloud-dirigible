@@ -33,7 +33,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.ext.lucene.MemoryIndexer;
+import com.sap.dirigible.repository.ext.lucene.RepositoryMemoryIndexer;
 import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
 import com.sap.dirigible.runtime.registry.Messages;
 
@@ -64,8 +64,8 @@ public class SearchServlet extends AbstractRegistryServlet {
             
             final String reindex = request.getParameter(REINDEX);
             if (reindex != null) { //$NON-NLS-1$
-            	MemoryIndexer.clearIndex();
-            	MemoryIndexer.indexRepository(repository);
+            	RepositoryMemoryIndexer.clearIndex();
+            	RepositoryMemoryIndexer.indexRepository(repository);
                 response.getWriter().println("0"); //$NON-NLS-1$
                 return;
             }
@@ -82,11 +82,11 @@ public class SearchServlet extends AbstractRegistryServlet {
             
         	List<String> paths = null;
         	try {
-        		paths = MemoryIndexer.search(searchTerm);
+        		paths = RepositoryMemoryIndexer.search(searchTerm);
         	} catch (IndexNotFoundException e) {
-        		MemoryIndexer.indexRepository(repository);
+        		RepositoryMemoryIndexer.indexRepository(repository);
         	}
-        	paths = MemoryIndexer.search(searchTerm);
+        	paths = RepositoryMemoryIndexer.search(searchTerm);
             
             enumeratePaths(response, paths);
         } catch (final IllegalArgumentException ex) {

@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sap.dirigible.repository.ext.lucene.MemoryIndexer;
+import com.sap.dirigible.repository.ext.lucene.RepositoryMemoryIndexer;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 
@@ -38,8 +38,8 @@ public class RebuildSearchIndexTask implements IRunnableTask {
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "start()"); //$NON-NLS-1$
 		try {
-			MemoryIndexer.clearIndex();
-			MemoryIndexer.indexRepository(RepositoryFacade.getInstance().getRepository(null));
+			RepositoryMemoryIndexer.clearIndex();
+			RepositoryMemoryIndexer.indexRepository(RepositoryFacade.getInstance().getRepository(null));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

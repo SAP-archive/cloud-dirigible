@@ -31,19 +31,19 @@ import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 
-public class MemoryIndexer {
+public class RepositoryMemoryIndexer {
 	
 	private static final String FIELD_PATH = "path"; //$NON-NLS-1$
 	private static final String FIELD_NAME = "name"; //$NON-NLS-1$
 	private static final String FIELD_CONTENT = "content"; //$NON-NLS-1$
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemoryIndexer.class);
+	private static final Logger logger = LoggerFactory.getLogger(RepositoryMemoryIndexer.class);
 	
 	private static Directory directory = new RAMDirectory();
 	private static List<String> indexedResources = new ArrayList<String>();
 	private static Date lastIndexed = new Date();
 
-	private MemoryIndexer() {
+	private RepositoryMemoryIndexer() {
 		// no external instances
 	}
 	
@@ -71,7 +71,6 @@ public class MemoryIndexer {
 					if (iwriter != null) {
 						iwriter.close();
 					}
-//					directory.close();
 				}
 				logger.debug("exiting: indexRepository(IRepository repository)"); //$NON-NLS-1$
 			}
@@ -99,7 +98,6 @@ public class MemoryIndexer {
 					if (iwriter != null) {
 						iwriter.close();
 					}
-//					directory.close();
 				}
 				logger.debug("exiting: clearIndex()"); //$NON-NLS-1$
 			}
@@ -111,6 +109,8 @@ public class MemoryIndexer {
 	public static List<String> search(String term) 
 			throws IOException {
 		
+		List<String> docs = new ArrayList<String>();
+		
 		try {
 			synchronized (directory) {
 				
@@ -120,7 +120,7 @@ public class MemoryIndexer {
 				// Now search the index:
 				IndexSearcher isearcher = null;
 				IndexReader ireader = null;
-				List<String> docs = new ArrayList<String>(); 
+				 
 				try {
 					ireader = IndexReader.open(directory);
 					isearcher = new IndexSearcher(ireader);
@@ -140,15 +140,15 @@ public class MemoryIndexer {
 					if (ireader != null) {
 						ireader.close();
 					}
-//					directory.close();
 				}
 				
 				logger.debug("exiting: search(String term)"); //$NON-NLS-1$
-				return docs;
+				
 			}
 		} catch (ParseException e) {
-			throw new IOException(e);
+			logger.debug(e.getMessage());
 		}
+		return docs;
 	}
 
 	private static void indexCollection(IndexWriter iwriter, ICollection collection) throws IOException {

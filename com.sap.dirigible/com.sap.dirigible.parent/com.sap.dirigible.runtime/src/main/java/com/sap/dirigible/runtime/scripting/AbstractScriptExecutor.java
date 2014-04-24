@@ -103,8 +103,7 @@ public abstract class AbstractScriptExecutor {
 		URLUtils urlUtils = new URLUtils();
 		registerDefaultVariable(scope, "url", urlUtils); //$NON-NLS-1$
 		// user name
-		registerDefaultVariable(scope, "user", RepositoryFacade.getInstance() //$NON-NLS-1$
-				.getUser(request));
+		registerDefaultVariable(scope, "user", RepositoryFacade.getUser(request)); //$NON-NLS-1$
 		// file upload
 		ServletFileUpload fileUpload = new ServletFileUpload();
 		registerDefaultVariable(scope, "upload", fileUpload); //$NON-NLS-1$
@@ -122,6 +121,9 @@ public abstract class AbstractScriptExecutor {
 		// Extension Manager
 		ExtensionManager extensionManager = new ExtensionManager(repository, dataSource);
 		registerDefaultVariable(scope, "extensionManager", extensionManager); //$NON-NLS-1$
+		// Apache Lucene Indexer
+		IndexerUtils indexerUtils = new IndexerUtils();
+		registerDefaultVariable(scope, "indexer", indexerUtils); //$NON-NLS-1$
 	}
 
 	public byte[] readResourceData(IRepository repository, String repositoryPath) throws IOException {
