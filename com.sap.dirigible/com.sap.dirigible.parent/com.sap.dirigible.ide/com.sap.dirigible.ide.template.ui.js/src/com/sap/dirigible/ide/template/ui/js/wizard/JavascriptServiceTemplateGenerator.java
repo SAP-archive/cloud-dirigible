@@ -45,6 +45,7 @@ public class JavascriptServiceTemplateGenerator extends TemplateGenerator {
 		parameters.put("tableColumnsWithoutKeys", //$NON-NLS-1$
 				getTableColumnsWithoutKeys(model.getTableColumns()));
 		parameters.put("fileName", model.getFileName()); //$NON-NLS-1$
+		parameters.put("fileNameNoExtension", model.getFileNameNoExtension()); //$NON-NLS-1$
 
 		parameters.put("INTEGER", java.sql.Types.INTEGER); //$NON-NLS-1$
 		parameters.put("BIGINT", java.sql.Types.BIGINT); //$NON-NLS-1$
@@ -124,6 +125,10 @@ public class JavascriptServiceTemplateGenerator extends TemplateGenerator {
 					"/com/sap/dirigible/ide/template/ui/js/templates/database-crud.entity", //$NON-NLS-1$
 					model.getTargetLocation(), model.getFileNameNoExtension()
 							+ ".entity"); //$NON-NLS-1$
+			generateFile(
+					"/com/sap/dirigible/ide/template/ui/js/templates/database-crud.jslib", //$NON-NLS-1$
+					model.getTargetLocation(), model.getFileNameNoExtension()
+							+ ".jslib"); //$NON-NLS-1$
 
 		}
 

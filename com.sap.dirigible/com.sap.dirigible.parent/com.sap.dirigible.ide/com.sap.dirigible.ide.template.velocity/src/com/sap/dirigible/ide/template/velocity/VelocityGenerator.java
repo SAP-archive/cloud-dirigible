@@ -29,7 +29,11 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 
+import com.sap.dirigible.ide.logging.Logger;
+
 public class VelocityGenerator {
+	
+	private static final Logger logger = Logger.getLogger(VelocityGenerator.class);
 
 	private static final String COULD_NOT_EVALUATE_TEMPLATE = Messages.getString("VelocityGenerator.COULD_NOT_EVALUATE_TEMPLATE"); //$NON-NLS-1$
 	private VelocityEngine engine;
@@ -38,8 +42,7 @@ public class VelocityGenerator {
 		try {
 			Velocity.init();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		engine = new VelocityEngine();
 	}
@@ -53,8 +56,7 @@ public class VelocityGenerator {
 			out.flush();
 			out.close();
 		} catch (Exception ex) {
-			throw new VelocityGeneratorException(COULD_NOT_EVALUATE_TEMPLATE,
-					ex);
+			throw new VelocityGeneratorException(COULD_NOT_EVALUATE_TEMPLATE, ex);
 		} finally {
 			try {
 				in.close();

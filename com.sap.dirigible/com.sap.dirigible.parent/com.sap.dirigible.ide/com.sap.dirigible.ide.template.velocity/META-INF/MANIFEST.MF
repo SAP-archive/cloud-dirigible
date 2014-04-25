@@ -9,3 +9,4 @@ Import-Package: org.apache.velocity,
  org.apache.velocity.app,
  org.apache.velocity.context
 Export-Package: com.sap.dirigible.ide.template.velocity
+Require-Bundle: com.sap.dirigible.ide.logging;bundle-version="1.0.0"
