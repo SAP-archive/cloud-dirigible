@@ -20,6 +20,7 @@ import java.io.IOException;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.db.DsvUpdater;
 import com.sap.dirigible.repository.ext.db.DatabaseUpdater;
+import com.sap.dirigible.repository.ext.extensions.ExtensionUpdater;
 import com.sap.dirigible.repository.ext.security.SecurityUpdater;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
@@ -53,6 +54,13 @@ public class ContentPostImportUpdater {
 				RepositoryFacade.getInstance().getDataSource(),
 				DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
 		dsvUpdater.applyUpdates();
+		
+		// 4. Extensions
+		ExtensionUpdater extensionUpdater = new ExtensionUpdater(getRepository(),
+				RepositoryFacade.getInstance().getDataSource(),
+				ExtensionUpdater.REGISTRY_EXTENSION_DEFINITIONS_DEFAULT);
+		extensionUpdater.applyUpdates();
+		
 	}
 
 }
