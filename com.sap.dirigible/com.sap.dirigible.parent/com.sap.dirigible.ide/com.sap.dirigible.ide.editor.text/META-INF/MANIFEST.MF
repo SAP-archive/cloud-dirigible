@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Text Editor
 Bundle-SymbolicName: com.sap.dirigible.ide.editor.text;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Require-Bundle: org.eclipse.core.resources;bundle-version="3.6.0",
- com.sap.org.eclipse.ui.ide;bundle-version="1.4.0",
+ com.sap.org.eclipse.ui.ide,
  org.eclipse.rap.ui;bundle-version="1.4.2",
- com.sap.dirigible.ide.logging;bundle-version="1.0.0"
+ com.sap.dirigible.ide.logging
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.editor.text.command,
  com.sap.dirigible.ide.editor.text.editor,

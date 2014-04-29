@@ -21,7 +21,7 @@ public enum EditorMode {
 
 	JS("javascript", "js", "jslib", "xsjs", "xsjslib"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	SQL("sql", "sql"), //$NON-NLS-1$ //$NON-NLS-2$
-	JSON("json", "json", "odata", "ws", "table", "view", "entity", "menu", "access"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+	JSON("json", "json", "odata", "ws", "table", "view", "entity", "menu", "access", "extensionpoint", "extension"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 	XML("xml", "xml", "xsd", "wsdl", "xsl", "xslt", "routes"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 	HTML("html", "html", "css"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	TXT("text", "txt"), //$NON-NLS-1$ //$NON-NLS-2$

@@ -2,15 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible Repository API
 Bundle-SymbolicName: com.sap.dirigible.ide.repository;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: com.sap.dirigible.ide.repository
-Require-Bundle: com.sap.dirigible.ide.datasource;bundle-version="1.0.0",
- org.eclipse.rap.rwt;bundle-version="1.5.1",
- com.sap.dirigible.repository.api;bundle-version="1.0.0",
- com.sap.dirigible.repository.db;bundle-version="1.0.0",
+Require-Bundle: com.sap.dirigible.ide.datasource,
+ org.eclipse.rap.rwt,
+ com.sap.dirigible.repository.api,
+ com.sap.dirigible.repository.db,
  javax.servlet
 Import-Package: javax.servlet.http,
  org.slf4j

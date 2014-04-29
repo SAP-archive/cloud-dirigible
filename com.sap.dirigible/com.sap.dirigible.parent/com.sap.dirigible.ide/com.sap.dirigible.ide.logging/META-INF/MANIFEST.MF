@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible IDE - Logging
 Bundle-SymbolicName: com.sap.dirigible.ide.logging;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.logging

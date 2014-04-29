@@ -10,7 +10,7 @@ Bundle-Name: Dirigible Repository Extensions
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: SAP
 Build-Jdk: 1.6.0_33
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.repository.ext;singleton:=true
 Require-Bundle: com.sap.dirigible.repository.api,

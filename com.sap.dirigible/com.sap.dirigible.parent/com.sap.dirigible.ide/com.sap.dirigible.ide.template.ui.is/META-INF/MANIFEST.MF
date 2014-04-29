@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible Templates Integration Services
 Bundle-SymbolicName: com.sap.dirigible.ide.template.ui.is;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.rap.ui;bundle-version="1.4.2",
- com.sap.org.eclipse.ui.ide;bundle-version="1.4.0",
- com.sap.dirigible.ide.template.ui.common;bundle-version="1.0.0",
+ com.sap.org.eclipse.ui.ide,
+ com.sap.dirigible.ide.template.ui.common,
  com.sap.dirigible.ide.common
 Import-Package: com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.logging,

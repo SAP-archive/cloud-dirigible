@@ -2,18 +2,18 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JavaScript Editor Widget
 Bundle-SymbolicName: com.sap.dirigible.ide.editor.js;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Require-Bundle: 
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.equinox.http.registry,
- com.sap.rap.ui.shared;bundle-version="1.0.0",
- com.sap.dirigible.ide.logging;bundle-version="1.0.0",
- com.sap.org.eclipse.ui.ide;bundle-version="1.4.0",
+ com.sap.rap.ui.shared,
+ com.sap.dirigible.ide.logging,
+ com.sap.org.eclipse.ui.ide,
  org.eclipse.rap.ui;bundle-version="1.4.2",
- com.sap.dirigible.ide.editor.text;bundle-version="1.0.0",
- com.sap.dirigible.ide.debug.model;bundle-version="1.0.0"
+ com.sap.dirigible.ide.editor.text,
+ com.sap.dirigible.ide.debug.model
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: com.sap.dirigible.ide.editor.js

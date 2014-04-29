@@ -4,13 +4,13 @@ Bundle-Name: Dirigible IDE Tepmplate- Test
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: SAP
 Build-Jdk: 1.6.0_33
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.ide.template.ui.common.test
 Fragment-Host: com.sap.dirigible.ide.template.ui.common
 Require-Bundle: org.mockito,
- com.sap.dirigible.ide.ui.common;bundle-version="1.0.0",
- com.sap.dirigible.ide.workspace;bundle-version="1.0.0"
+ com.sap.dirigible.ide.ui.common,
+ com.sap.dirigible.ide.workspace
 Import-Package: javax.servlet.http;version="2.6.0",
  org.apache.derby.jdbc,
  org.eclipse.core.commands,

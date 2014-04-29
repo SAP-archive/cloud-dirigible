@@ -2,18 +2,18 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible - IDE - Repository UI
 Bundle-SymbolicName: com.sap.dirigible.ide.repository.ui;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
-Require-Bundle: org.eclipse.rap.ui;bundle-version="[2.1.0,3.0.0)",
- org.eclipse.rap.ui.views;bundle-version="[2.1.0,3.0.0)",
- com.sap.dirigible.ide.repository;bundle-version="1.0.0",
- com.sap.dirigible.ide.logging;bundle-version="1.0.0",
- com.sap.rap.ui.shared;bundle-version="1.0.0",
- com.sap.dirigible.ide.editor.text;bundle-version="1.0.0",
+Require-Bundle: org.eclipse.rap.ui,
+ org.eclipse.rap.ui.views,
+ com.sap.dirigible.ide.repository,
+ com.sap.dirigible.ide.logging,
+ com.sap.rap.ui.shared,
+ com.sap.dirigible.ide.editor.text,
  org.eclipse.core.runtime,
  org.eclipse.core.expressions,
- com.sap.dirigible.ide.workspace;bundle-version="1.0.0",
- com.sap.dirigible.ide.common;bundle-version="1.0.0"
+ com.sap.dirigible.ide.workspace,
+ com.sap.dirigible.ide.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.repository.ui.adapters,
  com.sap.dirigible.ide.repository.ui.command,

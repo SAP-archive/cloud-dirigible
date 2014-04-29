@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Template Wizard for Database Management
 Bundle-SymbolicName: com.sap.dirigible.ide.template.ui.db;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.rap.ui;bundle-version="1.5.1",
- com.sap.org.eclipse.ui.ide;bundle-version="1.4.0",
- com.sap.dirigible.ide.template.ui.common;bundle-version="1.0.0",
+Require-Bundle: org.eclipse.rap.ui,
+ com.sap.org.eclipse.ui.ide,
+ com.sap.dirigible.ide.template.ui.common,
  com.sap.dirigible.ide.common,
  com.sap.dirigible.repository.db
 Import-Package: com.sap.dirigible.ide.common.io,

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible - IDE - Publish
 Bundle-SymbolicName: com.sap.dirigible.ide.publish;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.sap.dirigible.ide.common,
@@ -17,5 +17,5 @@ Import-Package: com.sap.dirigible.ide.common,
  org.eclipse.jface.dialogs,
  org.eclipse.rap.rwt
 Export-Package: com.sap.dirigible.ide.publish;version="1.0.0";uses:="org.eclipse.core.resources"
-Require-Bundle: com.sap.dirigible.ide.logging;bundle-version="1.0.0"
+Require-Bundle: com.sap.dirigible.ide.logging
 Bundle-ActivationPolicy: lazy

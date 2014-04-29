@@ -2,15 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible IDE - Common
 Bundle-SymbolicName: com.sap.dirigible.ide.common
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Export-Package: com.sap.dirigible.ide.common,
  com.sap.dirigible.ide.common.image,
  com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.common.status
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.rap.rwt;bundle-version="1.5.1",
- org.eclipse.rap.ui;bundle-version="2.1.0"
+Require-Bundle: org.eclipse.rap.rwt,
+ org.eclipse.rap.ui
 Import-Package: javax.servlet;version="2.6.0",
  javax.servlet.http,
  org.eclipse.core.runtime;version="3.4.0",

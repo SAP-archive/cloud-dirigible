@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible Cheatsheets
 Bundle-SymbolicName: com.sap.dirigible.ide.cheatsheets;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.rap.ui.cheatsheets;bundle-version="1.5.1"
+Require-Bundle: org.eclipse.rap.ui.cheatsheets
