@@ -123,19 +123,19 @@
 		<dependency>
 			<groupId>com.sap.dirigible.ide</groupId>
 			<artifactId>com.sap.dirigible.repository.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.1.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.sap.dirigible.ide</groupId>
 			<artifactId>com.sap.dirigible.repository.db</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.1.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.sap.dirigible.ide</groupId>
 			<artifactId>com.sap.dirigible.repository.ext</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.1.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

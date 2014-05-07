@@ -18,12 +18,14 @@ package com.sap.dirigible.runtime.scripting;
 import java.io.IOException;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
+import com.sap.dirigible.repository.ext.utils.ProxyUtils;
 
 /*
 
@@ -106,8 +108,12 @@ public class HttpUtils {
 		return new HttpDelete(strURL);
 	}
 
-	public DefaultHttpClient createHttpClient() {
-		return new DefaultHttpClient();
+	public HttpClient createHttpClient() {
+		return createHttpClient(false);
+	}
+
+	public HttpClient createHttpClient(boolean trustAll) {
+		return ProxyUtils.getHttpClient(trustAll);
 	}
 
 	public void consume(HttpEntity entity) throws IOException {

@@ -17,16 +17,6 @@ package com.sap.dirigible.ide.jgit.connector;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CheckoutCommand;
@@ -65,130 +55,29 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
-import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.ext.utils.ProxyUtils;
 
 public class JGitConnector {
+	
+	public static final String TEMP_DIRECTORY_PREFIX = "com.sap.dirigible.jgit."; //$NON-NLS-1$
+
 	private static final String REFS_HEADS_MASTER = "refs/heads/master"; //$NON-NLS-1$
 	private static final String MERGE = "merge"; //$NON-NLS-1$
 	private static final String MASTER = "master"; //$NON-NLS-1$
 	private static final String BRANCH = "branch"; //$NON-NLS-1$
-	private static final String PROXY_PROPERTIES_FILE_LOCATION = "proxy.properties"; //$NON-NLS-1$
-	private static final String DEFAULT_PROXY_VALUE = "false"; //$NON-NLS-1$
-	private static final String PROXY = "proxy"; //$NON-NLS-1$
-	public static final String HTTP_PROXY_HOST = "http.proxyHost"; //$NON-NLS-1$
-	public static final String HTTP_PROXY_PORT = "http.proxyPort"; //$NON-NLS-1$
-	public static final String HTTPS_PROXY_HOST = "https.proxyHost"; //$NON-NLS-1$
-	public static final String HTTPS_PROXY_PORT = "https.proxyPort"; //$NON-NLS-1$
-	public static final String HTTP_NON_PROXY_HOSTS = "http.nonProxyHosts"; //$NON-NLS-1$
-	public static final String TEMP_DIRECTORY_PREFIX = "com.sap.dirigible.jgit."; //$NON-NLS-1$
 	private static final String ADD_ALL_NEW_FILES = "."; //$NON-NLS-1$
 
 	private static final Logger logger = Logger.getLogger(JGitConnector.class);
 
 	static {
 		try {
-			loadProxy();
+			ProxyUtils.setProxySettings();
 			deleteTempDirectories();
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
-	}
-
-	private static void loadProxy() throws IOException {
-		// if (System.getProperty(HTTP_PROXY_HOST) == null) {
-		// InputStream in = JGitConnector.class
-		// .getResourceAsStream(PROXY_PROPERTIES_FILE_LOCATION);
-		// Properties properties = new Properties();
-		// properties.load(in);
-		//
-		// String proxy = properties.getProperty(PROXY, DEFAULT_PROXY_VALUE);
-		// boolean needsProxy = Boolean.parseBoolean(proxy);
-		//
-		// if (needsProxy) {
-		// final String httpProxyHost = properties.getProperty(HTTP_PROXY_HOST);
-		// final String httpProxyPort = properties.getProperty(HTTP_PROXY_PORT);
-		// final String httpsProxyHost =
-		// properties.getProperty(HTTPS_PROXY_HOST);
-		// final String httpsProxyPort =
-		// properties.getProperty(HTTPS_PROXY_PORT);
-		//
-		// System.setProperty(HTTP_PROXY_HOST, httpProxyHost);
-		// System.setProperty(HTTP_PROXY_PORT, httpProxyPort);
-		// System.setProperty(HTTPS_PROXY_HOST, httpsProxyHost);
-		// System.setProperty(HTTPS_PROXY_PORT, httpsProxyPort);
-		// }
-
-		String parameterHTTP_PROXY_HOST = CommonParameters.get(HTTP_PROXY_HOST);
-		if (parameterHTTP_PROXY_HOST != null) {
-			System.setProperty(HTTP_PROXY_HOST, parameterHTTP_PROXY_HOST);
-			logger.debug("HTTP_PROXY_HOST:" + parameterHTTP_PROXY_HOST);
-		} else {
-			logger.debug("HTTP_PROXY_HOST not set");
-		}
-		String parameterHTTP_PROXY_PORT = CommonParameters.get(HTTP_PROXY_PORT);
-		if (parameterHTTP_PROXY_PORT != null) {
-			System.setProperty(HTTP_PROXY_PORT, parameterHTTP_PROXY_PORT);
-			logger.debug("HTTP_PROXY_PORT:" + parameterHTTP_PROXY_PORT);
-		} else {
-			logger.debug("HTTP_PROXY_PORT not set");
-		}
-		String parameterHTTPS_PROXY_HOST = CommonParameters.get(HTTPS_PROXY_HOST);
-		if (parameterHTTPS_PROXY_HOST != null) {
-			System.setProperty(HTTPS_PROXY_HOST, parameterHTTPS_PROXY_HOST);
-			logger.debug("HTTPS_PROXY_HOST:" + parameterHTTPS_PROXY_HOST);
-		} else {
-			logger.debug("HTTPS_PROXY_HOST not set");
-		}
-		String parameterHTTPS_PROXY_PORT = CommonParameters.get(HTTPS_PROXY_PORT);
-		if (parameterHTTPS_PROXY_PORT != null) {
-			System.setProperty(HTTPS_PROXY_PORT, parameterHTTPS_PROXY_PORT);
-			logger.debug("HTTPS_PROXY_PORT:" + parameterHTTPS_PROXY_PORT);
-		} else {
-			logger.debug("HTTPS_PROXY_PORT not set");
-		}
-		String parameterHTTP_NON_PROXY_HOSTS = CommonParameters.get(HTTP_NON_PROXY_HOSTS);
-		if (parameterHTTP_NON_PROXY_HOSTS != null) {
-			System.setProperty(HTTP_NON_PROXY_HOSTS, parameterHTTP_NON_PROXY_HOSTS);
-			logger.debug("HTTP_NON_PROXY_HOSTS:" + parameterHTTP_NON_PROXY_HOSTS);
-		} else {
-			logger.debug("HTTP_NON_PROXY_HOSTS not set");
-		}
-
-		try {
-			// Create a trust manager that does not validate certificate chains
-			TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-				public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-					return null;
-				}
-
-				public void checkClientTrusted(X509Certificate[] certs, String authType) {
-				}
-
-				public void checkServerTrusted(X509Certificate[] certs, String authType) {
-				}
-			} };
-			// Install the all-trusting trust manager
-			final SSLContext sc = SSLContext.getInstance("SSL");
-			sc.init(null, trustAllCerts, new java.security.SecureRandom());
-			HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-			// Create all-trusting host name verifier
-			HostnameVerifier allHostsValid = new HostnameVerifier() {
-				public boolean verify(String hostname, SSLSession session) {
-					return true;
-				}
-			};
-
-			// Install the all-trusting host verifier
-			HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-		} catch (KeyManagementException e) {
-			throw new IOException(e);
-		} catch (NoSuchAlgorithmException e) {
-			throw new IOException(e);
-		}
-
-		// }
 	}
 
 	private static void deleteTempDirectories() throws IOException {
