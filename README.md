@@ -1,4 +1,4 @@
-dirigible
+dirigible [![Build Status](https://travis-ci.org/SAP/cloud-dirigible.svg)](https://travis-ci.org/SAP/cloud-dirigible)
 =========
 
 Introduction
@@ -31,7 +31,7 @@ Get Started
 ##### Build #####
 
 1. Get the [Maven](http://maven.apache.org/) build tool version 3.0.x
-2. Clone the repository <https://github.com/SAP/cloud-dirigible.git> or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip). 
+2. Clone the repository <https://github.com/SAP/cloud-dirigible.git> or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip).
 3. Go to the folder *com.sap.dirigible.parent*
 4. Build the project executing:
 
@@ -42,7 +42,7 @@ Get Started
 
 
 ##### Download #####
-1. Alternatively you can download the WAR files produced by the latest release from: 
+1. Alternatively you can download the WAR files produced by the latest release from:
 https://github.com/SAP/dirigible/releases/
 
 ##### Deploy #####
@@ -58,7 +58,7 @@ https://github.com/SAP/dirigible/releases/
 6. Start with command:
 
         neo start --account <your_account> --application <application_name> --user <your_user> --host <target_landscape_host> --password <your_password> -y
-        
+
 
 ###### Tomcat ######
 
