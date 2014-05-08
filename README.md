@@ -63,11 +63,22 @@ https://github.com/SAP/dirigible/releases/
 ###### Tomcat ######
 
 1. The same WAR files can be deployed on [Tomcat](http://tomcat.apache.org/) Web Container. In this case the built-in Derby database will be used.
-3. For simplicity rename the WAR respectively *dirigible-ide.war* for IDE and *dirigible.war* for Runtime
-2. Open a Web Browser and go to location
+2. For simplicity rename the WAR respectively *dirigible-ide.war* for IDE and *dirigible.war* for Runtime
+3. Configure Users store:
+
+        <tomcat-users>
+                <role rolename="Developer"/>
+                <role rolename="Operator"/>
+                <role rolename="Everyone"/>
+                <user username="tomcat" password="tomcat" roles="Developer,Operator,Everyone"/>
+        </tomcat-users>
+
+4. Open a Web Browser and go to location:
 
         http://localhost:8080/dirigible-ide (IDE)
         http://localhost:8080/dirigible     (Runtime)
+
+        and login with tomcat/tomcat
 
 ###### Eclipse ######
 
