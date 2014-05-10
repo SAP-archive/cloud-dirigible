@@ -121,19 +121,19 @@ menuControllers.controller('HomeCtrl', ['$scope',
       description: "Monitor Basic Metrics"
     }, {
       image: 'images/samples.png',
-      path: '///samples.dirigible.io',
+      path: 'http://samples.dirigible.io',
       title: 'Samples',
       description: "Browse Samples Space",
       newTab: true
     }, {
       image: 'images/help.png',
-      path: '///help.dirigible.io',
+      path: 'http://help.dirigible.io',
       title: 'Help',
       description: "Browse Help Portal",
       newTab: true
     }, {
       image: 'images/about.png',
-      path: '///www.dirigible.io',
+      path: 'http://www.dirigible.io',
       title: 'About',
       description: "Project Home Page",
       newTab: true
