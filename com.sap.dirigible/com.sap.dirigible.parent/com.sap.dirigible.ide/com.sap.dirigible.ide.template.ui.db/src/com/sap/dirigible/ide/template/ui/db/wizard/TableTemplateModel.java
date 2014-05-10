@@ -15,18 +15,33 @@
 
 package com.sap.dirigible.ide.template.ui.db.wizard;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import javax.sql.DataSource;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.ICommonConstants;
+import com.sap.dirigible.ide.datasource.DataSourceFacade;
+import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 import com.sap.dirigible.ide.ui.common.validation.ValidationStatus;
 
 public class TableTemplateModel extends GenerationModel {
+	
+	private static final String TABLE_OR_VIEW_WITH_THE_SAME_NAME_ALREADY_EXISTS = Messages.TableTemplateModel_TABLE_OR_VIEW_WITH_THE_SAME_NAME_ALREADY_EXISTS;
+
+	private static final Logger logger = Logger.getLogger(TableTemplateModel.class);
 
 	private static final String TARGET_LOCATION_IS_NOT_ALLOWED = Messages.TableTemplateModel_TARGET_LOCATION_IS_NOT_ALLOWED;
 	private static final String NO_PRIMARY_KEY_FOUND = Messages.TableTemplateModel_NO_PRIMARY_KEY_FOUND;
@@ -76,6 +91,14 @@ public class TableTemplateModel extends GenerationModel {
 				return ValidationStatus
 						.createError(TARGET_LOCATION_IS_NOT_ALLOWED);
 			}
+			
+			// check the file name against the existing table names
+			if (isTableExists(getFileNameNoExtension().toLowerCase())
+					|| isTableExists(getFileNameNoExtension().toUpperCase())) {
+				return ValidationStatus
+						.createError(TABLE_OR_VIEW_WITH_THE_SAME_NAME_ALREADY_EXISTS);
+			}
+			
 		} catch (Exception e) {
 			// temp workaround due to another bug - context menu is not context
 			// aware => target location and name are null (in the first page of
@@ -83,6 +106,35 @@ public class TableTemplateModel extends GenerationModel {
 			return ValidationStatus.createError(""); //$NON-NLS-1$
 		}
 		return status;
+	}
+
+	private boolean isTableExists(String tableName) {
+		try {
+			DataSource dataSource = DataSourceFacade.getInstance().getDataSource();
+			Connection connection = dataSource.getConnection();
+
+			try {
+				// get the database metadata
+				DatabaseMetaData dmd = connection.getMetaData();
+		
+				ResultSet rs = dmd.getTables(null, null, tableName, CommonParameters.TABLE_TYPES);
+	
+				try {
+					if (rs.next()) {
+						return true;
+					}
+				} finally {
+					rs.close();
+				}
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		} catch (SQLException e) {
+			logger.error(e.getMessage(),e);
+		}
+		return false;
 	}
 
 	public IValidationStatus validateColumnDefinitions() {

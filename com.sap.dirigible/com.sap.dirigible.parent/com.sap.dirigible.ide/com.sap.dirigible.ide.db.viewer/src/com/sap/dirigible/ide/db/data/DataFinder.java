@@ -132,12 +132,11 @@ public class DataFinder {
 			}
 			resultSet.close();
 			statement.close();
-			connection.close();
 
 		} catch (SQLException se) {
-			se.printStackTrace();
+			logger.error(se.getMessage(), se);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (connection != null) {
 				try {

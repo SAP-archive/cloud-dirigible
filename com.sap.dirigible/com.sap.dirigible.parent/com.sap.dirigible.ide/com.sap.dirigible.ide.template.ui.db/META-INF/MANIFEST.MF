@@ -9,7 +9,8 @@ Require-Bundle: org.eclipse.rap.ui,
  com.sap.org.eclipse.ui.ide,
  com.sap.dirigible.ide.template.ui.common,
  com.sap.dirigible.ide.common,
- com.sap.dirigible.repository.db
+ com.sap.dirigible.repository.db,
+ com.sap.dirigible.ide.datasource;bundle-version="1.1.1"
 Import-Package: com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.db.data,
  com.sap.dirigible.ide.logging,

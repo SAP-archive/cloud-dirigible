@@ -42,20 +42,6 @@ public class DatabaseViewContentProvider implements IStructuredContentProvider,
 
 	private static final String PRCNT = "%"; //$NON-NLS-1$
 
-	private static final String SYSTEM_TABLE = "SYSTEM TABLE"; //$NON-NLS-1$
-
-	private static final String LOCAL_TEMPORARY = "LOCAL TEMPORARY"; //$NON-NLS-1$
-
-	private static final String GLOBAL_TEMPORARY = "GLOBAL TEMPORARY"; //$NON-NLS-1$
-
-	private static final String SYNONYM = "SYNONYM"; //$NON-NLS-1$
-
-	private static final String ALIAS = "ALIAS"; //$NON-NLS-1$
-
-	private static final String VIEW = "VIEW"; //$NON-NLS-1$
-
-	private static final String TABLE = "TABLE"; //$NON-NLS-1$
-
 	private static final String EMPTY = ""; //$NON-NLS-1$
 
 	private static final String CBC = "] "; //$NON-NLS-1$
@@ -230,9 +216,7 @@ public class DatabaseViewContentProvider implements IStructuredContentProvider,
 
 		List<String> listOfTables = new ArrayList<String>();
 
-		String[] tableTypes = { TABLE, VIEW, ALIAS, SYNONYM, GLOBAL_TEMPORARY, LOCAL_TEMPORARY,
-				SYSTEM_TABLE };
-		ResultSet rs = dmd.getTables(catalogName, schemeName, PRCNT, tableTypes);
+		ResultSet rs = dmd.getTables(catalogName, schemeName, PRCNT, CommonParameters.TABLE_TYPES);
 
 		while (rs.next()) {
 			String tableName = rs.getString(3);

@@ -57,6 +57,7 @@ public class Messages extends NLS {
 	public static String TableTemplateModel_DUPLICATE_COLUMN_NAMES_FOUND;
 	public static String TableTemplateModel_NO_COLUMNS_DEFINED;
 	public static String TableTemplateModel_NO_PRIMARY_KEY_FOUND;
+	public static String TableTemplateModel_TABLE_OR_VIEW_WITH_THE_SAME_NAME_ALREADY_EXISTS;
 	public static String TableTemplateModel_TARGET_LOCATION_IS_NOT_ALLOWED;
 	static {
 		// initialize resource bundle
