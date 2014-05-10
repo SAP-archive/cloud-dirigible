@@ -192,6 +192,18 @@
 		<servlet-name>ContentInitializerServlet</servlet-name>
 		<url-pattern>/content-init/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<description>Content Exporter Servlet</description>
+		<display-name>Content Exporter Servlet</display-name>
+		<servlet-name>ContentExporterServlet</servlet-name>
+		<servlet-class>com.sap.dirigible.runtime.content.ContentExporterServlet</servlet-class>
+		<load-on-startup>12</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ContentExporterServlet</servlet-name>
+		<url-pattern>/export/*</url-pattern>
+	</servlet-mapping>
 
 	<!-- Operational Servlet -->
 	<servlet>
@@ -508,6 +520,7 @@
 			<url-pattern>/acclog/*</url-pattern>
 			<url-pattern>/memory</url-pattern>
 			<url-pattern>/js-debug/*</url-pattern>
+			<url-pattern>/export/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Everyone</role-name>
