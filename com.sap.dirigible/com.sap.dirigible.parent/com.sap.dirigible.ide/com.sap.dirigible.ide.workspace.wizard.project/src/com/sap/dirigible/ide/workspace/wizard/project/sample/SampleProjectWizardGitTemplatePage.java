@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.jgit.api.errors.CanceledException;
 import org.eclipse.jgit.api.errors.DetachedHeadException;
@@ -126,7 +127,7 @@ public class SampleProjectWizardGitTemplatePage extends WizardPage {
 
 		typeViewer.setContentProvider(new SamplesContentProvider());
 		typeViewer.setLabelProvider(new SamplesLabelProvider());
-
+		typeViewer.setSorter(new ViewerSorter());
 		typeViewer.setInput(createGitTemplateTypes());
 
 		typeViewer.addSelectionChangedListener(new ISelectionChangedListener() {

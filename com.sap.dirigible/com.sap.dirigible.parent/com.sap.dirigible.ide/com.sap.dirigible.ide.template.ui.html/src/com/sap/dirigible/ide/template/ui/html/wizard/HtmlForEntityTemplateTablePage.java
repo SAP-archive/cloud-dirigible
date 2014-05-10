@@ -29,6 +29,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -148,8 +149,8 @@ public class HtmlForEntityTemplateTablePage extends WizardPage {
 		typeViewer.getControl().setLayoutData(
 				new GridData(SWT.FILL, SWT.FILL, true, true));
 		typeViewer.setContentProvider(new ArrayContentProvider());
-		typeViewer
-				.setLabelProvider(new HtmlForEntityTemplateTablePageLabelProvider());
+		typeViewer.setLabelProvider(new HtmlForEntityTemplateTablePageLabelProvider());
+		typeViewer.setSorter(new ViewerSorter());
 		createTableColumns();
 		typeViewer.setInput(model.getOriginalTableColumns());
 		typeViewer.addSelectionChangedListener(new ISelectionChangedListener() {

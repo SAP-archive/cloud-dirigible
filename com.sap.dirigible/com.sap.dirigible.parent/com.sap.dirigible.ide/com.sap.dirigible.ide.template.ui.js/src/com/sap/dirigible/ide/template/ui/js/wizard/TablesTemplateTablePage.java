@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -86,6 +87,7 @@ public class TablesTemplateTablePage extends WizardPage {
 				new GridData(SWT.FILL, SWT.FILL, true, true));
 		typeViewer.setContentProvider(new ArrayContentProvider());
 		typeViewer.setLabelProvider(new TablesTemplateTablePageLabelProvider());
+		typeViewer.setSorter(new ViewerSorter());
 		tableNames = createTableNames();
 		typeViewer.setInput(tableNames);
 		typeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
