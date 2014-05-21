@@ -46,7 +46,7 @@ public class DesignerView extends ViewPart {
 
 	private static final String REFRESH = Messages.DesignerView_REFRESH;
 
-	private static final String APPDESIGNER_URL = "/appdesigner/"; //$NON-NLS-1$
+	private static final String WYSIWYG_URL = "/wysiwyg/wysiwyg.html"; //$NON-NLS-1$
 
 	private static final URL DIRIGIBLE_REFRESH_ICON_URL = DesignerView.class
 			.getResource("/resources/refresh.png"); //$NON-NLS-1$
@@ -97,7 +97,7 @@ public class DesignerView extends ViewPart {
 		browser.getControl().setLayoutData(
 				new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		browser.setUrl(APPDESIGNER_URL);
+		browser.setUrl(WYSIWYG_URL);
 	}
 
 	@Override

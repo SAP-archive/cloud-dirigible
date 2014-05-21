@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-<!--
+
    <extension
          point="org.eclipse.ui.views">
       <view
@@ -12,9 +12,6 @@
             restorable="true">
       </view>
    </extension>
--->
-
-
 
    <extension
          point="org.eclipse.ui.editors">
@@ -57,8 +54,8 @@
    <extension
          point="org.eclipse.equinox.http.registry.resources">
       <resource
-            alias="/glide"
-            base-name="resources/glide">
+            alias="/wysiwyg"
+            base-name="resources/wysiwyg">
       </resource>
    </extension>
    
