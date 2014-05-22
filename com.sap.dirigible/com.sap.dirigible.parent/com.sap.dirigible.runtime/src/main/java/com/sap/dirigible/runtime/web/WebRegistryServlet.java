@@ -37,9 +37,11 @@ public class WebRegistryServlet extends RegistryServlet {
 	private static final String PARAMETER_LIST = "list"; //$NON-NLS-1$
 
 	private static final long serialVersionUID = -1484072696377972535L;
-	
+
+	protected static final String HEADER_REF = "header.ref"; //$NON-NLS-1$
 	protected static final String HEADER_HTML = "header.html"; //$NON-NLS-1$
 	protected static final String FOOTER_HTML = "footer.html"; //$NON-NLS-1$
+	private static final String FOOTER_REF = "footer.ref"; //$NON-NLS-1$
 	protected static final String HTML_EXTENSION = ".html"; //$NON-NLS-1$
 	protected static final String INDEX_HTML = "index.html"; //$NON-NLS-1$
 
@@ -70,17 +72,36 @@ public class WebRegistryServlet extends RegistryServlet {
 				&& !INDEX_HTML.equals(entity.getName().toLowerCase())) {
 			// it is *.html and it is NOT index.html
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			
 			// lookup for header.html
 			IResource header = entity.getParent().getResource(HEADER_HTML);
-			if (!nohf && header.exists()) {
+			IResource headerRef = entity.getParent().getResource(HEADER_REF);
+			if (!nohf && headerRef.exists()) {
+				String headerPath = new String(headerRef.getContent()).trim();
+				IResource headerContent = entity.getRepository().getResource(REGISTRY_DEPLOY_PATH + WEB_CONTENT + headerPath);
+				// start with header
+				if(headerContent.exists()){
+					outputStream.write(headerContent.getContent());
+				}
+			} else if (!nohf && header.exists()) {
 				// start with header
 				outputStream.write(header.getContent());
 			}
+
 			// put the content
 			outputStream.write(preprocessContent(rawContent, entity));
+			
 			// lookup for footer.html
 			IResource footer = entity.getParent().getResource(FOOTER_HTML);
-			if (!nohf && footer.exists()) {
+			IResource footerRef = entity.getParent().getResource(FOOTER_REF);
+			if(!nohf && footerRef.exists()) {
+				String footerPath = new String(footerRef.getContent()).trim();
+				IResource footerContent = entity.getRepository().getResource(REGISTRY_DEPLOY_PATH + WEB_CONTENT + footerPath);
+				// end with footer
+				if(footerContent.exists()){
+					outputStream.write(footerContent.getContent());
+				}
+			} else if (!nohf && footer.exists()) {
 				// end with footer
 				outputStream.write(footer.getContent());
 			}
