@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>com.sap.dirigible.runtime</name>
+	<name>com.sap.dirigible.runtime.parent</name>
 	<comment></comment>
 	<projects>
 	</projects>
