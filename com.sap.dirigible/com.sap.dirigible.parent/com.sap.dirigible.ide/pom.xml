@@ -22,7 +22,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<war.project.directory>../com.sap.dirigible.ide.war.build</war.project.directory>
+		<war.project.directory>../com.sap.dirigible.ide.war</war.project.directory>
 	</properties>
 
 	<build>
@@ -129,7 +129,7 @@
 		<module>com.sap.dirigible.ide.jgit.connector</module>
 
 		<!-- this module must be the last one -->
-		<module>com.sap.dirigible.ide.war.build</module>
+		<module>com.sap.dirigible.ide.war</module>
 	</modules>
 <!-- 
 	<dependencies>

@@ -33,6 +33,7 @@
 	<modules>
 		<module>com.sap.dirigible.ide</module>
 		<module>com.sap.dirigible.runtime</module>
+		<module>com.sap.dirigible.dist</module>
 	</modules>
 
 	<url>http://www.dirigible.io</url>
@@ -60,6 +61,7 @@
 				<artifactId>tycho-versions-plugin</artifactId>
 			</plugin>
 		</plugins>
+		
 		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
