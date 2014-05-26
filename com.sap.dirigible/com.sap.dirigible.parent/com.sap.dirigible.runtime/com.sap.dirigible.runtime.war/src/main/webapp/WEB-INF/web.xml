@@ -29,7 +29,7 @@
 		<url-pattern>/js-sandbox/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- Ruby Execution Servlet -->
+	<!-- Ruby Execution Servlet 
 	<servlet>
 		<description>Ruby Servlet</description>
 		<display-name>Ruby Servlet</display-name>
@@ -42,8 +42,9 @@
 		<url-pattern>/rb-secured/*</url-pattern>
 		<url-pattern>/rb-sandbox/*</url-pattern>
 	</servlet-mapping>
+	-->
 
-	<!-- Groovy Execution Servlet -->
+	<!-- Groovy Execution Servlet 
 	<servlet>
 		<description>Groovy Servlet</description>
 		<display-name>Groovy Servlet</display-name>
@@ -56,6 +57,7 @@
 		<url-pattern>/groovy-secured/*</url-pattern>
 		<url-pattern>/groovy-sandbox/*</url-pattern>
 	</servlet-mapping>
+	-->
 
 	<!-- Test Cases in JavaScript Execution Servlet -->
 	<servlet>
@@ -125,7 +127,7 @@
 		<url-pattern>/registry-js/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- Registry for Ruby Endpoints Servlet -->
+	<!-- Registry for Ruby Endpoints Servlet 
 	<servlet>
 		<description>Ruby Registry Servlet</description>
 		<display-name>Ruby Registry Servlet</display-name>
@@ -137,8 +139,9 @@
 		<url-pattern>/scripting/ruby/*</url-pattern>
 		<url-pattern>/registry-rb/*</url-pattern>
 	</servlet-mapping>
+	-->
 
-	<!-- Registry for Groovy Endpoints Servlet -->
+	<!-- Registry for Groovy Endpoints Servlet 
 	<servlet>
 		<description>Groovy Registry Servlet</description>
 		<display-name>Groovy Registry Servlet</display-name>
@@ -150,6 +153,7 @@
 		<url-pattern>/scripting/groovy/*</url-pattern>
 		<url-pattern>/registry-groovy/*</url-pattern>
 	</servlet-mapping>
+	-->
 
 	<!-- Registry for Test Cases in JavaScript Endpoints Servlet -->
 	<servlet>
@@ -342,6 +346,7 @@
 		<url-pattern>/js/*</url-pattern>
 	</filter-mapping>
 
+	<!-- Ruby Secure Filter
 	<filter>
 		<filter-name>RubyRegistrySecureFilter</filter-name>
 		<filter-class>com.sap.dirigible.runtime.filter.RubyRegistrySecureFilter</filter-class>
@@ -350,7 +355,9 @@
 		<filter-name>RubyRegistrySecureFilter</filter-name>
 		<url-pattern>/rb/*</url-pattern>
 	</filter-mapping>
+	-->
 
+	<!-- Groovy Secure Filter
 	<filter>
 		<filter-name>GroovyRegistrySecureFilter</filter-name>
 		<filter-class>com.sap.dirigible.runtime.filter.GroovyRegistrySecureFilter</filter-class>
@@ -359,6 +366,7 @@
 		<filter-name>GroovyRegistrySecureFilter</filter-name>
 		<url-pattern>/groovy/*</url-pattern>
 	</filter-mapping>
+	-->
 
 	<filter>
 		<filter-name>WikiRegistrySecureFilter</filter-name>
@@ -507,14 +515,18 @@
 			<url-pattern>/web-secured/*</url-pattern>
 			<url-pattern>/web/content-secured/*</url-pattern>
 			<url-pattern>/js-secured/*</url-pattern>
+			<!--
 			<url-pattern>/rb-secured/*</url-pattern>
 			<url-pattern>/groovy-secured/*</url-pattern>
+			-->
 			<url-pattern>/wiki-secured/*</url-pattern>
 			<url-pattern>/web/wiki-secured/*</url-pattern>
 			<url-pattern>/index.html</url-pattern>
 			<url-pattern>/js-sandbox/*</url-pattern>
+			<!--
 			<url-pattern>/rb-sandbox/*</url-pattern>
 			<url-pattern>/groovy-sandbox/*</url-pattern>
+			-->
 			<url-pattern>/web-sandbox/*</url-pattern>
 			<url-pattern>/wiki-sandbox/*</url-pattern>
 			<url-pattern>/acclog/*</url-pattern>

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.commonjs.module.provider.ModuleSource;
@@ -43,21 +44,14 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 	private static final String JSLIB_EXTENSION = ".jslib"; //$NON-NLS-1$
 	
 	private IRepository repository;
-	private String rootPath;
-	private String secondaryRootPath;
+	private String[] rootPaths;
 	
 	private static final Logger logger = LoggerFactory.getLogger(RepositoryModuleSourceProvider.class);
 
-	private RepositoryModuleSourceProvider(IRepository repository, String rootPath) {
+	public RepositoryModuleSourceProvider(IRepository repository, String ... rootPaths) {
 		super();
 		this.repository = repository;
-		this.rootPath = rootPath;
-	}
-
-	public RepositoryModuleSourceProvider(IRepository repository, String rootPath,
-			String secondaryRootPath) {
-		this(repository, rootPath);
-		this.secondaryRootPath = secondaryRootPath;
+		this.rootPaths = rootPaths;
 	}
 	
 	@Override
@@ -85,25 +79,22 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 	
 	private byte[] retrieveModule(String module, String extension)
 			throws IOException {
-		String resourcePath = createResourcePath(rootPath, module, extension);
-		byte[] result;
-		final IResource resource = repository.getResource(resourcePath);
-		if (resource.exists()) {
-			result = readResourceData(resourcePath);
-		} else {
-			if (secondaryRootPath != null) {
-				resourcePath = createResourcePath(secondaryRootPath, module,
-						extension);
+		
+		for (String rootPath : rootPaths) {
+			String resourcePath = createResourcePath(rootPath, module, extension);
+			byte[] result;
+			final IResource resource = repository.getResource(resourcePath);
+			if (resource.exists()) {
 				result = readResourceData(resourcePath);
-			} else {
-				logger.error(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
-						+ resourcePath);
-				throw new FileNotFoundException(
-						THERE_IS_NO_SERVICE_OR_LIBRARY_MODULE_AT_THE_SPECIFIED_LOCATION
-								+ module + extension);
+				return result;
 			}
 		}
-		return result;
+		
+		logger.error(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
+				+ Arrays.toString(rootPaths));
+			throw new FileNotFoundException(
+				THERE_IS_NO_SERVICE_OR_LIBRARY_MODULE_AT_THE_SPECIFIED_LOCATION
+					+ module + extension);
 	}
 
 	private String createResourcePath(String root, String module,

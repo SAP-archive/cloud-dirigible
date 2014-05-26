@@ -18,6 +18,8 @@
 		<module>com.sap.dirigible.runtime.ruby</module>
 		<module>com.sap.dirigible.runtime.groovy</module>
 		<module>com.sap.dirigible.runtime.war</module>
+		<module>com.sap.dirigible.runtime.ruby.war</module>
+		<module>com.sap.dirigible.runtime.groovy.war</module>
 	</modules>
 	
 </project>

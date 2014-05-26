@@ -26,7 +26,7 @@ public class TestCasesRegistryServlet extends AbstractRegistryServiceServlet {
 
     @Override
     protected String getServletMapping() {
-        return "/tests/";
+        return "/test/";
     }
 
     @Override

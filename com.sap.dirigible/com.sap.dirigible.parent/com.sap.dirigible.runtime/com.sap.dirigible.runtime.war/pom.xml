@@ -179,7 +179,7 @@
 		
 		
 		
-		<!-- Ruby -->
+		<!-- Ruby 
 		<dependency>
 			<groupId>com.sap.dirigible.runtime</groupId>
 			<artifactId>com.sap.dirigible.runtime.ruby</artifactId>
@@ -192,10 +192,10 @@
 			<artifactId>jruby-complete</artifactId>
 			<version>1.7.3</version>
 		</dependency>
+		-->
 		
 		
-		
-		<!-- Groovy -->
+		<!-- Groovy 
 		<dependency>
 			<groupId>com.sap.dirigible.runtime</groupId>
 			<artifactId>com.sap.dirigible.runtime.groovy</artifactId>
@@ -208,7 +208,7 @@
 			<artifactId>groovy</artifactId>
 			<version>1.5.6</version>
 		</dependency>
-		
+		-->
 		
 
 

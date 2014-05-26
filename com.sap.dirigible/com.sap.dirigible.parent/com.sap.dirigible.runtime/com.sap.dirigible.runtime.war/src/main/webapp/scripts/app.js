@@ -100,16 +100,6 @@ menuControllers.controller('HomeCtrl', ['$scope',
       title: "JavaScript",
       description: "JavaScript Services Endpoints"
     }, {
-      image: "images/java-ruby.png",
-      path: "#/scripting/ruby",
-      title: "Ruby",
-      description: "Ruby Services Endpoints"
-    }, {
-      image: "images/java-groovy.png",
-      path: "#/scripting/groovy",
-      title: "Groovy",
-      description: "Groovy Services Endpoints"
-    }, {
         image: "images/test.png",
         path: "#/scripting/tests",
         title: "Tests",

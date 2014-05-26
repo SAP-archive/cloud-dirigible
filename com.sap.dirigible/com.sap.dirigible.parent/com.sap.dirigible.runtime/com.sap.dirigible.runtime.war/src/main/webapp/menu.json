@@ -7,11 +7,11 @@
     "name": "Web",
     "subMenu": [
     {
-        "name": "Content",
+        "name": "Sites",
         "link": "#/web/content"
     },
     {
-        "name": "Wiki",
+        "name": "Wikis",
         "link": "#/web/wiki"
     }]
   }, 
@@ -19,24 +19,16 @@
     "name": "Scripting",
     "subMenu": [
     {
-        "name": "JavaScript",
+        "name": "JavaScript Services",
         "link": "#/scripting/javascript"
     }, 
     {
-        "name": "Ruby",
-        "link": "#/scripting/ruby"
-    }, 
-    {
-        "name": "Groovy",
-        "link": "#/scripting/groovy"
-    }, 
-    {
-        "name": "Tests",
+        "name": "Test Services",
         "link": "#/scripting/tests"
     }]
   }, 
   {
-    "name": "Routes",
+    "name": "Integration",
     "link": "#/routes/"
   },
   {

@@ -42,15 +42,16 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 			.getString("JavaScriptExecutor.JAVA_SCRIPT_MODULE_NAME_CANNOT_BE_NULL"); //$NON-NLS-1$
 
 	private IRepository repository;
-	private String rootPath;
-	private String secondaryRootPath;
+	private String[] rootPaths;
 
-	public JavaScriptExecutor(IRepository repository, String rootPath,
-			String secondaryRootPath) {
+	public JavaScriptExecutor(IRepository repository, String ... rootPaths) {
 		super();
 		this.repository = repository;
-		this.rootPath = rootPath;
-		this.secondaryRootPath = secondaryRootPath;
+		this.rootPaths = rootPaths;
+		if (this.rootPaths == null
+				|| this.rootPaths.length == 0) {
+			this.rootPaths = new String[]{null, null};
+		}
 	}
 
 	@Override
@@ -108,7 +109,7 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 	private RepositoryModuleSourceProvider createRepositoryModuleSourceProvider() {
 		RepositoryModuleSourceProvider repositoryModuleSourceProvider = null;
 		repositoryModuleSourceProvider = new RepositoryModuleSourceProvider(
-					repository, rootPath, secondaryRootPath);
+					repository, rootPaths[0], rootPaths[1]);
 		return repositoryModuleSourceProvider;
 	}
 

@@ -23,11 +23,13 @@
 	<!-- Declaration of the Camel to Javascript processing bean -->
 	<bean id="js" class="com.sap.dirigible.runtime.camel.JavascriptBeanProcessor" />
 	
-	<!-- Declaration of the Camel to Ruby processing bean -->
+	<!-- Declaration of the Camel to Ruby processing bean 
 	<bean id="ruby" class="com.sap.dirigible.runtime.camel.RubyBeanProcessor" />
+	-->
 	
-	<!-- Declaration of the Camel to Groovy processing bean -->
+	<!-- Declaration of the Camel to Groovy processing bean 
 	<bean id="groovy" class="com.sap.dirigible.runtime.camel.GroovyBeanProcessor" />
+	-->
 	
 	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
 	

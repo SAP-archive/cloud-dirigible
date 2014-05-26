@@ -10,9 +10,31 @@
 	<artifactId>com.sap.dirigible.runtime.core</artifactId>
 	<packaging>jar</packaging>
 	
-	<!-- Core -->
+
 
 	<dependencies>
+	
+		<!-- Dirigible Repository -->
+		<dependency>
+			<groupId>com.sap.dirigible.ide</groupId>
+			<artifactId>com.sap.dirigible.repository.api</artifactId>
+			<version>1.1.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.dirigible.ide</groupId>
+			<artifactId>com.sap.dirigible.repository.db</artifactId>
+			<version>1.1.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.dirigible.ide</groupId>
+			<artifactId>com.sap.dirigible.repository.ext</artifactId>
+			<version>1.1.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Core -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -37,16 +59,6 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jruby</groupId>
-			<artifactId>jruby-complete</artifactId>
-			<version>1.7.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy</artifactId>
-			<version>1.5.6</version>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.1</version>
@@ -57,27 +69,7 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3</version>
 			<scope>compile</scope>
-		</dependency>
-		
-		<!-- Dirigible Repository -->
-		<dependency>
-			<groupId>com.sap.dirigible.ide</groupId>
-			<artifactId>com.sap.dirigible.repository.api</artifactId>
-			<version>1.1.1</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.sap.dirigible.ide</groupId>
-			<artifactId>com.sap.dirigible.repository.db</artifactId>
-			<version>1.1.1</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.sap.dirigible.ide</groupId>
-			<artifactId>com.sap.dirigible.repository.ext</artifactId>
-			<version>1.1.1</version>
-			<scope>compile</scope>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>org.apache.directory.studio</groupId>
 			<artifactId>org.apache.commons.lang</artifactId>
@@ -92,7 +84,6 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -100,7 +91,6 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mailapi</artifactId>
@@ -121,7 +111,6 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -129,103 +118,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
-
-
-		<!-- ESB -->
-
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>	
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-sql</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jdbc</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-context</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cxf</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cxf-transport</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>geronimo-javamail_1.4_spec</artifactId>
-					<groupId>org.apache.geronimo.specs</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-quartz</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-servlet</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-http</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-ftp</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-soap</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-spring</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-script</artifactId>
-			<version>2.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<!-- 
-		<dependency>
-  			<groupId>org.apache.camel</groupId>
-  			<artifactId>camel-xmljson</artifactId>
-  			<version>2.12.1</version>
-			<scope>compile</scope>
-		</dependency>
- 		-->
+		
 		<!-- JSoap -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -234,6 +127,21 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
+		<!-- JAX-RS -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<!-- Joda -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+
 		
 		<!-- Wiki -->
 		<dependency>

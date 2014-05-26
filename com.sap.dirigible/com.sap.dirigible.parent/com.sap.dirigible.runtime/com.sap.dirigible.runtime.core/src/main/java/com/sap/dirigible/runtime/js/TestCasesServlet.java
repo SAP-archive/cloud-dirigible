@@ -49,7 +49,7 @@ public class TestCasesServlet extends JavaScriptServlet {
 			throws IOException {
 		JavaScriptExecutor executor = new JavaScriptExecutor(
 				getRepository(request), getScriptingRegistryPath(request),
-				super.getScriptingRegistryPath(request));
+				super.getScriptingRegistryPath(request), REGISTRY_SCRIPTING_DEPLOY_PATH, REGISTRY_TESTS_DEPLOY_PATH);
 		return executor;
 	}
 
