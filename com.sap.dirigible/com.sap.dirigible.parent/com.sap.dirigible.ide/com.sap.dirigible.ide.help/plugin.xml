@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.sap.dirigible.ide.help.ui.HelpPerspective"
+            icon="resources/help.png"
+            id="help"
+            name="Help">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="com.sap.dirigible.ide.help.ui.category"
+            name="Help">
+      </category>
+      <view
+            class="com.sap.dirigible.ide.help.ui.HelpView"
+            category="com.sap.dirigible.ide.help.ui.category"
+            icon="resources/help.png"
+            id="com.sap.dirigible.ide.help.ui.HelpView"
+            name="Help"
+            restorable="true">
+      </view>
+      <view
+            class="com.sap.dirigible.ide.help.ui.SamplesView"
+            category="com.sap.dirigible.ide.help.ui.category"
+            icon="resources/samples.png"
+            id="com.sap.dirigible.ide.help.ui.SamplesView"
+            name="Samples"
+            restorable="true">
+      </view>
+      <view
+            class="com.sap.dirigible.ide.help.ui.ForumView"
+            category="com.sap.dirigible.ide.help.ui.category"
+            icon="resources/forum.png"
+            id="com.sap.dirigible.ide.help.ui.ForumView"
+            name="Forum"
+            restorable="true">
+      </view>
+   </extension>
+   
+   <!--
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="com.sap.dirigible.ide.help.ui.IssuesView"
+            icon="resources/issues.png"
+            id="com.sap.dirigible.ide.help.ui.IssuesView"
+            name="Issues"
+            restorable="true">
+      </view>
+   </extension>
+  -->
+  
+</plugin>
