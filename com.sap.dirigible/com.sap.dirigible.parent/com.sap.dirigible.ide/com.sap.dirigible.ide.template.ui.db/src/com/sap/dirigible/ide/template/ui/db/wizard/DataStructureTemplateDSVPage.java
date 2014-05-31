@@ -22,8 +22,10 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 
 import com.sap.dirigible.ide.db.data.DataExportDialog;
 import com.sap.dirigible.ide.db.data.DataFinder;
@@ -32,17 +34,22 @@ import com.sap.dirigible.ide.db.data.TableName;
 import com.sap.dirigible.repository.db.DBSupportedTypesMap;
 
 public class DataStructureTemplateDSVPage extends WizardPage {
+	
 	private static final long serialVersionUID = 7697608637259213988L;
+	
+	private static final String AVAILABLE_TABLES = Messages.DataStructureTemplateDSVPage_0;
 
-	private static final String DSV = "DSV";
+	private static final String DSV = Messages.DataStructureTemplateDSVPage_1;
 
 	private static final String PAGE_NAME = "com.sap.dirigible.ide.template.ui.db.wizard.DataStructureTemplateDSVPage"; //$NON-NLS-1$
 
-	private static final String NO_TABLE_IS_SELECTED_PLEASE_SELECT_ONE = "No table is selected! Please select one!";
+	private static final String NO_TABLE_IS_SELECTED_PLEASE_SELECT_ONE = Messages.DataStructureTemplateDSVPage_2;
 
-	private static final String GENERATE_DSV_SAMPLE_BASED_ON_TABLE = "Generate DSV sample based on table";
+	private static final String GENERATE_DSV_SAMPLE_BASED_ON_TABLE = Messages.DataStructureTemplateDSVPage_3;
 
 	private DataStructureTemplateModel model;
+	
+	private Label labelSelected;
 
 	protected DataStructureTemplateDSVPage(DataStructureTemplateModel model) {
 		super(PAGE_NAME);
@@ -62,30 +69,60 @@ public class DataStructureTemplateDSVPage extends WizardPage {
 	}
 
 	private void createTablesList(Composite parent) {
+		final Label label = new Label(parent, SWT.NONE);
+		label.setText(AVAILABLE_TABLES);
+		label.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, false));
+		
 		final TableViewer typeViewer = DataExportDialog.createTableList(parent);
 		typeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				int selectionIndex = typeViewer.getTable().getSelectionIndex();
-				TableName[] tables = (TableName[]) typeViewer.getInput();
-				if (selectionIndex >= 0) {
+//				int selectionIndex = typeViewer.getTable().getSelectionIndex();
+//				TableName[] tables = (TableName[]) typeViewer.getInput();
+//				if (selectionIndex >= 0) {
+//
+//					final String selectedTable = tables[selectionIndex].getName();
+//					model.setTableName(selectedTable);
+//
+//					DataFinder dataFinder = new DataFinder();
+//					dataFinder.setTableName(selectedTable);
+//					dataFinder.getTableData();
+//
+//					model.setDsvSampleRows(generateDsvSamplesRows(dataFinder.getTableColumns()));
+//				}
+//				
+				
+				
+				if (typeViewer.getTable().getSelection() != null
+						&& typeViewer.getTable().getSelection().length > 0) {
+					TableName selectedTableName = (TableName) typeViewer.getTable().getSelection()[0].getData();
+					if (selectedTableName != null) {
+						model.setTableName(selectedTableName.getName());
+						
+						DataFinder dataFinder = new DataFinder();
+						dataFinder.setTableName(selectedTableName.getName());
+						dataFinder.getTableData();
 
-					final String selectedTable = tables[selectionIndex].getName();
-					model.setTableName(selectedTable);
-
-					DataFinder dataFinder = new DataFinder();
-					dataFinder.setTableName(selectedTable);
-					dataFinder.getTableData();
-
-					model.setDsvSampleRows(generateDsvSamplesRows(dataFinder.getTableColumns()));
+						model.setDsvSampleRows(generateDsvSamplesRows(dataFinder.getTableColumns()));
+						
+						labelSelected.setText(selectedTableName.getName());
+						labelSelected.pack();
+					} else {
+						model.setTableName(null);
+						labelSelected.setText("");
+						labelSelected.pack();
+					}
+				} else {
+					model.setTableName(null);
 				}
+				
 				checkPageStatus();
 			}
 
 			private String[] generateDsvSamplesRows(TableColumn[] tableColumns) {
-				final String rowDelimiter = ";";
-				final String dsvDelimiter = "|";
+				final String rowDelimiter = ";"; //$NON-NLS-1$
+				final String dsvDelimiter = "|"; //$NON-NLS-1$
 				StringBuilder dsvSample = new StringBuilder();
 				int columnsCount = tableColumns.length;
 				for (int i = 0; i < 3; i++) {
@@ -137,15 +174,15 @@ public class DataStructureTemplateDSVPage extends WizardPage {
 				} else if (booleanType) {
 					// TODO default value for Boolean
 				} else if (time) {
-					// TODO default value for Time
+					value = "10:30:45"; //$NON-NLS-1$
 				} else if (timeStamp) {
-					// TODO default value for TimeStamp
+					value = "2014-02-19 10:30:45"; //$NON-NLS-1$
 				} else if (textChar) {
-					value = "J";
+					value = "J"; //$NON-NLS-1$
 				} else if (textVarchar) {
-					value = "TesT" + rand.nextInt(100);
+					value = "Test" + rand.nextInt(100); //$NON-NLS-1$
 				} else if (date) {
-					value = "2014-02-19";
+					value = "2014-02-19"; //$NON-NLS-1$
 				} else if (floatingPoint) {
 					value = Float.toString(rand.nextFloat());
 				} else {
@@ -155,6 +192,9 @@ public class DataStructureTemplateDSVPage extends WizardPage {
 				return value;
 			}
 		});
+		labelSelected = new Label(parent, SWT.NONE);
+		labelSelected.setText("");
+		labelSelected.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, false));
 	}
 
 	private void checkPageStatus() {

@@ -31,6 +31,10 @@ public class Messages extends NLS {
 	public static String AddColumnDialog_NOT_NULL;
 	public static String AddColumnDialog_PRIMARY_KEY;
 	public static String AddColumnDialog_TYPE;
+	public static String DataStructureTemplateDSVPage_0;
+	public static String DataStructureTemplateDSVPage_1;
+	public static String DataStructureTemplateDSVPage_2;
+	public static String DataStructureTemplateDSVPage_3;
 	public static String DataStructureTemplateQueryPage_INPUT_THE_SQL_QUERY_FOR_THE_VIEW;
 	public static String DataStructureTemplateQueryPage_QUERY;
 	public static String DataStructureTemplateQueryPage_SET_THE_QUERY_FOR_THE_VIEW_WHICH_WILL_BE_USED_DURING_THE_GENERATION;

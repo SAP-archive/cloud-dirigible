@@ -56,8 +56,8 @@ public class TablesTemplateTablePage extends WizardPage {
 	private JavascriptServiceTemplateModel model;
 
 	private TableViewer typeViewer;
-
-	private TableName[] tableNames;
+	
+	private Label labelSelected;
 
 	protected TablesTemplateTablePage(JavascriptServiceTemplateModel model) {
 		super(PAGE_NAME);
@@ -88,7 +88,7 @@ public class TablesTemplateTablePage extends WizardPage {
 		typeViewer.setContentProvider(new ArrayContentProvider());
 		typeViewer.setLabelProvider(new TablesTemplateTablePageLabelProvider());
 		typeViewer.setSorter(new ViewerSorter());
-		tableNames = createTableNames();
+		TableName[] tableNames = createTableNames();
 		typeViewer.setInput(tableNames);
 		typeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
@@ -99,20 +99,31 @@ public class TablesTemplateTablePage extends WizardPage {
 			}
 		});
 		updateTableNames();
+		labelSelected = new Label(parent, SWT.NONE);
+		labelSelected.setText("");
+		labelSelected.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, false));
 
 	}
 
 	private void updateTableNames() {
-		TableName[] tableNames = (TableName[]) typeViewer.getInput();
-		int selectionIndex = typeViewer.getTable().getSelectionIndex();
-		if (selectionIndex >= 0 && selectionIndex < tableNames.length) {
-			model.setTableName(tableNames[selectionIndex].getName());
-			model.setTableType(tableNames[selectionIndex].getType());
+		if (typeViewer.getTable().getSelection() != null
+				&& typeViewer.getTable().getSelection().length > 0) {
+			TableName selectedTableName = (TableName) typeViewer.getTable().getSelection()[0].getData();
+			if (selectedTableName != null) {
+				model.setTableName(selectedTableName.getName());
+				model.setTableType(selectedTableName.getType());
+				labelSelected.setText(selectedTableName.getName());
+				labelSelected.pack();
+			} else {
+				model.setTableName(null);
+				model.setTableType(null);
+				labelSelected.setText("");
+				labelSelected.pack();
+			}
 		} else {
 			model.setTableName(null);
 			model.setTableType(null);
 		}
-
 	}
 
 	private TableName[] createTableNames() {

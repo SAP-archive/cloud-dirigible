@@ -50,7 +50,7 @@
             category="DataStructures"
             image="/icons/dsv.png"
             location="/com/sap/dirigible/ide/template/ui/db/templates/dsv.dsv"
-            text="DSV Sample">
+            text="Delimiter Separated Values (DSV) Sample Data">
       </template>
    </extension>
 
