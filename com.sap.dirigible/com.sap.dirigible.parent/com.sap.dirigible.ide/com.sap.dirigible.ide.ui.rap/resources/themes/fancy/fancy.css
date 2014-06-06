@@ -286,7 +286,7 @@ Button-FocusIndicator.perspective {
 
 Button.perspectiveActive {
   color: #373839;
-  background-color: #ffa605;
+  background-color: #0858e3;
   background-image: none;
   border: none;
   font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
@@ -344,7 +344,7 @@ Button-FocusIndicator.tabOverflowInactive {
 Shell-Titlebar {
   color: white;
   background-image: gradient( linear, left top, left bottom,
-                              from( #eeae12 ), to( #cd960f ) );
+                              from( #a7cfff ), to( #5b9de3 ) );
   padding: 2px 5px 2px;
   margin: 0px;
   height: 22px;
@@ -356,7 +356,7 @@ Shell-Titlebar {
 Shell-Titlebar:inactive {
   color: #aaaaaa;
   background-image: gradient( linear, left top, left bottom,
-                              from( #eeae12 ), to( #cd960f ) );
+                              from( #a7cfff ), to( #5b9de3 ) );
 }
 
 Shell {
@@ -366,7 +366,7 @@ Shell {
 
 Shell[BORDER], Shell[TITLE] {
   background-color: white;
-  border: 2px solid #cd960f;
+  border: 2px solid #5b9de3;
   border-radius: 6px;
   padding: 5px;
 }
@@ -434,12 +434,12 @@ TreeItem {
 
 TreeItem:selected {
   background-color: #777879;
-  color: #eeae12;
+  color: #0858e3;
 }
 
 TreeItem:selected:unfocused {
   background-color: #959595;
-  color: #dba010;
+  color: #5b9de3;
 }
 
 TreeColumn {

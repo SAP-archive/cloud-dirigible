@@ -227,7 +227,7 @@ public class FancyWindowComposer implements IWindowComposer {
 		FormData fdPerspBar = new FormData();
 		perspBar.setLayoutData(fdPerspBar);
 		// XXX set to 70 instead to 0
-		fdPerspBar.left = new FormAttachment(0, 650);
+		fdPerspBar.left = new FormAttachment(0, 350);
 		// fdPerspBar.right = new FormAttachment( 100, 50 );
 		fdPerspBar.top = new FormAttachment(0, 0);
 		fdPerspBar.width = 1000;

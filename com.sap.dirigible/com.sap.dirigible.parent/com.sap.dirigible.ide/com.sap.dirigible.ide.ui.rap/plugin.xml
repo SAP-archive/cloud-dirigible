@@ -41,6 +41,7 @@
                id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.configdialog"
                name="Config Dialog">
          </layoutSet>
+         <!--
          <layoutSet
                class="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.CoolbarInitializer"
                id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.coolbar"
@@ -51,6 +52,7 @@
                id="com.sap.dirigible.ide.ui.rap.layoutsets.fancy.coolbaroverflow"
                name="Coolbar Overflow">
          </layoutSet>
+         -->
       </layout>
    </extension>
    <extension
