@@ -20,20 +20,12 @@
 
 Button {
   color: #4a4a4a;
-  background-color: white;
 }
 
 Button[PUSH], Button[TOGGLE], Button[BORDER] {
   border: 1px solid #A4A4A4;
   border-radius: 3px;
   padding: 2px 5px;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 48%, #f0f0f0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #ffffff )
-  );
 }
 
 Button[PUSH], Button[TOGGLE] {
@@ -45,44 +37,20 @@ Button[PUSH]:disabled, Button[TOGGLE]:disabled {
 }
 
 Button[TOGGLE]:selected {
-  /* background-color: #d3d3d3; */
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 30%, #f0f0f0 ),
-    color-stop( 70%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+
 }
 
 Button[TOGGLE]:selected:hover {
-  /* background-color: #d3d3d3; */
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+  background-color: #e0e0e0;
 }
 
 Button[PUSH]:hover, Button[TOGGLE]:hover {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 48%, #f0f0f0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #cccccc )
-  );
+  background-color: #e0e0e0;
 }
 
 Button[PUSH]:pressed, Button[TOGGLE]:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
   padding: 4px 5px 2px 7px;
+  background-color: #d0d0d0;
 }
 
 Button[CHECK][BORDER] {
@@ -141,17 +109,17 @@ Button-FocusIndicator.configMenuButton {
 
 Button.viewClose {
   background-color: transparent;
-  background-image: url( resources/themes/fancy/images/stack_tab_active_close_active.png );
+  background-image: url( resources/themes/default/images/stack_tab_active_close_active.png );
   border: none;
   padding: 2px;
 }
 
 Button.viewClose:pressed {
-  background-image: url( resources/themes/fancy/images/stack_tab_active_close_active.png );
+  background-image: url( resources/themes/default/images/stack_tab_active_close_active.png );
 }
 
 Button.viewClose:hover {
-  background-image: url( resources/themes/fancy/images/stack_tab_active_close_active_hover.png );
+  background-image: url( resources/themes/default/images/stack_tab_active_close_active_hover.png );
 }
 
 Button-FocusIndicator.viewClose {
@@ -160,16 +128,16 @@ Button-FocusIndicator.viewClose {
 
 Button.viewCloseInactive {
   background-color: transparent;
-  background-image: url( resources/themes/fancy/images/stack_tab_inactive_close_active.png );
+  background-image: url( resources/themes/default/images/stack_tab_inactive_close_active.png );
   border: none;
 }
 
 Button.viewCloseInactive:pressed {
-  background-image: url( resources/themes/fancy/images/stack_tab_inactive_close_active.png );
+  background-image: url( resources/themes/default/images/stack_tab_inactive_close_active.png );
 }
 
 Button.viewCloseInactive:hover {
-  background-image: url( resources/themes/fancy/images/stack_tab_inactive_close_active_hover.png );
+  background-image: url( resources/themes/default/images/stack_tab_inactive_close_active_hover.png );
 }
 
 Button-FocusIndicator.viewCloseInactive {
@@ -178,17 +146,17 @@ Button-FocusIndicator.viewCloseInactive {
 
 Button.toolbarOverflowInactive {
   background-color: transparent;
-  background-image: url( resources/themes/fancy/images/toolbar_overflow.png );
+  background-image: url( resources/themes/default/images/toolbar_overflow.png );
   border: none;
   padding: 2px;
 }
 
 Button.toolbarOverflowInactive:pressed {
-  background-image: url( resources/themes/fancy/images/toolbar_overflow.png );
+  background-image: url( resources/themes/default/images/toolbar_overflow.png );
 }
 
 Button.toolbarOverflowInactive:hover {
-  background-image: url( resources/themes/fancy/images/toolbar_overflow_hover.png );
+  background-image: url( resources/themes/default/images/toolbar_overflow_hover.png );
 }
 
 Button-FocusIndicator.toolbarOverflowInactive {
@@ -197,17 +165,17 @@ Button-FocusIndicator.toolbarOverflowInactive {
 
 Button.toolbarOverflowActive {
   background-color: transparent;
-  background-image: url( resources/themes/fancy/images/toolbar_overflow_active.png );
+  background-image: url( resources/themes/default/images/toolbar_overflow_active.png );
   border: none;
   padding: 2px;
 }
 
 Button.toolbarOverflowActive:pressed {
-  background-image: url( resources/themes/fancy/images/toolbar_overflow_active.png );
+  background-image: url( resources/themes/default/images/toolbar_overflow_active.png );
 }
 
 Button.toolbarOverflowActive:hover {
-  background-image: url( resources/themes/fancy/images/toolbar_overflow_hover_active.png );
+  background-image: url( resources/themes/default/images/toolbar_overflow_hover_active.png );
 }
 
 Button-FocusIndicator.toolbarOverflowActive {
@@ -218,7 +186,7 @@ Button.partActive {
   background-color: transparent;
   background-image: none;
   border: none;
-  color: rgb( 62, 64, 66 );
+  color: #3e4042;
   font: 14px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 }
 
@@ -250,7 +218,7 @@ Button.partInactive {
   background-color: transparent;
   background-image: none;
   border: none;
-  color: rgb( 255, 255, 255 );
+  color: #ffffff;
   font: 14px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 }
 
@@ -266,17 +234,17 @@ Button.perspective {
   background-color: transparent;
   background-image: none;
   border: none;
-  color: #fefefe;
+  color: #4c4c4c;
   font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 }
 
 Button.perspective:hover {
-  color: #ffe1aa;
+  color: #1a1a1a;
   background-image: none;
 }
 
 Button.perspective:pressed {
-  color: #41392b;
+  color: #fefefe;
   background-image: none;
 }
 
@@ -285,10 +253,10 @@ Button-FocusIndicator.perspective {
 }
 
 Button.perspectiveActive {
-  color: #373839;
-  background-color: #0858e3;
-  background-image: none;
+  color: #ffffff;
+  background-color: #ffffff;
   border: none;
+  background-image: none;
   font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 }
 
@@ -297,7 +265,7 @@ Button.perspectiveActive:hover, Button.perspectiveActive:pressed, Button.perspec
 }
 
 Button-FocusIndicator.perspectiveActive {
-  color: #373839;
+  color: #ffffff;
   border: none;
 }
 
@@ -305,15 +273,15 @@ Button.tabOverflowActive {
   background-color: transparent;
   border: none;
   padding: 2px;
-  background-image: url( resources/themes/fancy/images/stack_tab_overflow_active.png );
+  background-image: url( resources/themes/default/images/stack_tab_overflow_active.png );
 }
 
 Button.tabOverflowActive:pressed {
-  background-image: url( resources/themes/fancy/images/stack_tab_overflow_active.png );
+  background-image: url( resources/themes/default/images/stack_tab_overflow_active.png );
 }
 
 Button.tabOverflowActive:hover {
-  background-image: url( resources/themes/fancy/images/stack_tab_overflow_active_hover.png );
+  background-image: url( resources/themes/default/images/stack_tab_overflow_active_hover.png );
 }
 
 Button-FocusIndicator.tabOverflowActive {
@@ -324,15 +292,15 @@ Button.tabOverflowInactive {
   background-color: transparent;
   border: none;
   padding: 2px;
-  background-image: url( resources/themes/fancy/images/stack_tab_overflow_inactive.png );
+  background-image: url( resources/themes/default/images/stack_tab_overflow_inactive.png );
 }
 
 Button.tabOverflowInactive:pressed {
-  background-image: url( resources/themes/fancy/images/stack_tab_overflow_inactive.png );
+  background-image: url( resources/themes/default/images/stack_tab_overflow_inactive.png );
 }
 
 Button.tabOverflowInactive:hover {
-  background-image: url( resources/themes/fancy/images/stack_tab_overflow_inactive_hover.png );
+  background-image: url( resources/themes/default/images/stack_tab_overflow_inactive_hover.png );
 }
 
 Button-FocusIndicator.tabOverflowInactive {
@@ -342,9 +310,8 @@ Button-FocusIndicator.tabOverflowInactive {
 /* Shell */
 
 Shell-Titlebar {
-  color: white;
-  background-image: gradient( linear, left top, left bottom,
-                              from( #a7cfff ), to( #5b9de3 ) );
+  color: #f0f0f0;
+  background-color: #4a4a4a;
   padding: 2px 5px 2px;
   margin: 0px;
   height: 22px;
@@ -355,80 +322,76 @@ Shell-Titlebar {
 
 Shell-Titlebar:inactive {
   color: #aaaaaa;
-  background-image: gradient( linear, left top, left bottom,
-                              from( #a7cfff ), to( #5b9de3 ) );
+  background-color: #4b81ba;
 }
 
 Shell {
-  background-color: white;
   color: #4a4a4a;
 }
 
 Shell[BORDER], Shell[TITLE] {
-  background-color: white;
-  border: 2px solid #5b9de3;
+  border: 2px solid #3a3a3a;
   border-radius: 6px;
   padding: 5px;
 }
 
 Shell[BORDER]:inactive, Shell[TITLE]:inactive {
-  background-color: white;
   border: 2px solid #4b4b4b;
 }
 
 Shell-CloseButton {
-  background-image: url( "resources/themes/fancy/images/shell-close.png" );
+  background-image: url( "resources/themes/default/images/shell-close.png" );
   margin: 0px 5px 0px 0px;
 }
 
 Shell-MaxButton {
-  background-image: url( "resources/themes/fancy/images/shell-max.png" );
+  background-image: url( "resources/themes/default/images/shell-max.png" );
   margin: 0px 6px 0px 0px;
 }
 
 Shell-MinButton {
-  background-image: url( "resources/themes/fancy/images/shell-min.png" );
+  background-image: url( "resources/themes/default/images/shell-min.png" );
   margin: 0px 6px 0px 0px;
 }
 
 Shell-CloseButton:hover {
-  background-image: url( "resources/themes/fancy/images/shell-close-hover.png" );
+  background-image: url( "resources/themes/default/images/shell-close-hover.png" );
 }
 
 Shell-MaxButton:hover {
-  background-image: url( "resources/themes/fancy/images/shell-max-hover.png" );
+  background-image: url( "resources/themes/default/images/shell-max-hover.png" );
 }
 
 Shell-MinButton:hover {
-  background-image: url( "resources/themes/fancy/images/shell-min-hover.png" );
+  background-image: url( "resources/themes/default/images/shell-min-hover.png" );
 }
 
 .shellGray {
-  background-color: rgb( 255, 255, 255 );
+  background-color: #ffffff;
 }
 
 Shell.toolbarLayer {
-  background-color: rgb( 255, 255, 255 );
+  background-color: #ffffff;
   border: none;
 }
 
 /* Tree */
 
 Tree {
-  background-color: rgb( 255, 255, 255 );
+  background-color: #ffffff;
   border: none;
   color: #4a4a4a;
 }
 
 Tree[BORDER] {
-  background-color: rgb( 255, 255, 255 );
+  background-color: #ffffff;
   border: 1px solid #A4A4A4;
   border-radius: 5px;
   color: #4a4a4a;
 }
 
 TreeItem {
-  background-color: rgb( 255, 255, 255 );
+  background-color: #ffffff;
   color: #4a4a4a;
 }
 
@@ -439,11 +402,11 @@ TreeItem:selected {
 
 TreeItem:selected:unfocused {
   background-color: #959595;
-  color: #5b9de3;
+  color: #aabbcc;
 }
 
 TreeColumn {
-  background-image: url( "resources/themes/fancy/images/table-column.png" );
+  background-image: url( "resources/themes/default/images/table-column.png" );
   border-bottom:none;
   padding: 1px 2px;
   color: #676869;
@@ -451,7 +414,7 @@ TreeColumn {
 }
 
 TreeColumn:hover {
-  background-image: url( "resources/themes/fancy/images/table-column-hover.png" );
+  background-image: url( "resources/themes/default/images/table-column-hover.png" );
   border-bottom:none;
   color: #878889;
   font: 14px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
@@ -462,28 +425,27 @@ TreeColumn-SortIndicator {
 }
 
 TreeColumn-SortIndicator:up {
-  background-image: url( resources/themes/fancy/images/sort-indicator-up.png );
+  background-image: url( resources/themes/default/images/sort-indicator-up.png );
 }
 
 TreeColumn-SortIndicator:down {
-  background-image: url( resources/themes/fancy/images/sort-indicator-down.png );
+  background-image: url( resources/themes/default/images/sort-indicator-down.png );
 }
 
 /* Table */
 
 Table {
   color: #4a4a4a;
-  background-color: white;
 }
 
 TableColumn {
-  background-image: url( "resources/themes/fancy/images/table-column.png" );
+  background-image: url( "resources/themes/default/images/table-column.png" );
   color: #D5D5D5;
   border-bottom:none;
 }
 
 TableColumn:hover {
-  background-image: url( "resources/themes/fancy/images/table-column-hover.png" );
+  background-image: url( "resources/themes/default/images/table-column-hover.png" );
   border-bottom:none;
 }
 
@@ -536,35 +498,35 @@ Table-GridLine {
 
 Table-Checkbox {
   width: 21px;
-  background-image: url( resources/themes/fancy/images/check-unselected.png );
+  background-image: url( resources/themes/default/images/check-unselected.png );
 }
 
 Table-Checkbox:hover {
-  background-image: url( resources/themes/fancy/images/check-unselected-hover.png );
+  background-image: url( resources/themes/default/images/check-unselected-hover.png );
 }
 
 Table-Checkbox:checked {
-  background-image: url( resources/themes/fancy/images/check-selected.png );
+  background-image: url( resources/themes/default/images/check-selected.png );
 }
 
 Table-Checkbox:checked:hover {
-  background-image: url( resources/themes/fancy/images/check-selected-hover.png );
+  background-image: url( resources/themes/default/images/check-selected-hover.png );
 }
 
 Table-Checkbox:checked:grayed {
-  background-image: url( resources/themes/fancy/images/check-grayed.png );
+  background-image: url( resources/themes/default/images/check-grayed.png );
 }
 
 Table-Checkbox:checked:grayed:hover {
-  background-image: url( resources/themes/fancy/images/check-grayed-hover.png );
+  background-image: url( resources/themes/default/images/check-grayed-hover.png );
 }
 
 TableColumn-SortIndicator:up {
-  background-image: url( resources/themes/fancy/images/sort-indicator-up.png );
+  background-image: url( resources/themes/default/images/sort-indicator-up.png );
 }
 
 TableColumn-SortIndicator:down {
-  background-image: url( resources/themes/fancy/images/sort-indicator-down.png );
+  background-image: url( resources/themes/default/images/sort-indicator-down.png );
 }
 
 /* List */
@@ -614,81 +576,80 @@ List-Item:even:selected:unfocused {
 /* Check Buttons */
 
 Button-CheckIcon {
-  background-image: url( resources/themes/fancy/images/check-unselected.png );
+  background-image: url( resources/themes/default/images/check-unselected.png );
 }
 
 Button-CheckIcon:selected {
-  background-image: url( resources/themes/fancy/images/check-selected.png );
+  background-image: url( resources/themes/default/images/check-selected.png );
 }
 
 Button-CheckIcon:hover {
-  background-image: url( resources/themes/fancy/images/check-unselected-hover.png );
+  background-image: url( resources/themes/default/images/check-unselected-hover.png );
 }
 
 Button-CheckIcon:selected:hover {
-  background-image: url( resources/themes/fancy/images/check-selected-hover.png );
+  background-image: url( resources/themes/default/images/check-selected-hover.png );
 }
 
 Button-CheckIcon:selected:grayed {
-  background-image: url( resources/themes/fancy/images/check-grayed.png );
+  background-image: url( resources/themes/default/images/check-grayed.png );
 }
 
 Button-CheckIcon:selected:grayed:hover {
-  background-image: url( resources/themes/fancy/images/check-grayed-hover.png );
+  background-image: url( resources/themes/default/images/check-grayed-hover.png );
 }
 
 /* Radio Buttons */
 
 Button-RadioIcon {
-  background-image: url( resources/themes/fancy/images/radio-unselected.png );
+  background-image: url( resources/themes/default/images/radio-unselected.png );
 }
 
 Button-RadioIcon:selected {
-  background-image: url( resources/themes/fancy/images/radio-selected.png );
+  background-image: url( resources/themes/default/images/radio-selected.png );
 }
 
 Button-RadioIcon:hover {
-  background-image: url( resources/themes/fancy/images/radio-unselected-hover.png );
+  background-image: url( resources/themes/default/images/radio-unselected-hover.png );
 }
 
 Button-RadioIcon:selected:hover {
-  background-image: url( resources/themes/fancy/images/radio-selected-hover.png );
+  background-image: url( resources/themes/default/images/radio-selected-hover.png );
 }
 
 /* Menu */
 Menu {
-  color: rgb( 55, 56, 57 );
-  background-color: white;
+  color: #373839;
   border: 1px #373839;
   border-radius: 2px;
 }
 
 MenuItem:hover {
   background-color: #676869;
-  color: #f7f8f9;
+  color: #ffffff;
 }
 
 /* Label */
 
 Label.menuBorder {
-  background-color: rgb( 221, 221, 221 );
+  background-color: #dddddd;
 }
 
 Label.stackBorder {
-  background-color: rgb( 235, 235, 235 );
+  background-color: #ebebeb;
 }
 
 Label.standaloneView {
   background-color: transparent;
   border: none;
-  color: rgb( 102, 102, 102 );
+  color: #666666;
   font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 }
 
 /* Custom Variants */
 
 Composite.compGray {
-  background-color: rgb( 255, 255, 255 );
+  background-color: #ffffff;
 }
 
 .compTrans {
@@ -696,21 +657,19 @@ Composite.compGray {
 }
 
 .partBorder {
-  border: rgb( 235, 0, 0 );
+  border: #eb0000;
 }
 
 /* Label */
 
 Label, CLabel {
   color: #4a4a4a;
-  background-color: white;
 }
 
 /* Expand Bar */
 
 ExpandBar {
   color: #4a4a4a;
-  background-color: white;
 }
 
 ExpandBar[BORDER] {
@@ -718,12 +677,7 @@ ExpandBar[BORDER] {
 }
 
 ExpandItem-Header {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 55%, #e0e0e0 ),
-    to( #f0f0f0 )
-  );
+
 }
 
 ExpandItem {
@@ -731,19 +685,19 @@ ExpandItem {
 }
 
 ExpandItem-Button {
-  background-image: url( resources/themes/fancy/images/expanditem-expand.png );
+  background-image: url( resources/themes/default/images/expanditem-expand.png );
 }
 
 ExpandItem-Button:hover {
-  background-image: url( resources/themes/fancy/images/expanditem-expand-hover.png );
+  background-image: url( resources/themes/default/images/expanditem-expand-hover.png );
 }
 
 ExpandItem-Button:expanded {
-  background-image: url( resources/themes/fancy/images/expanditem-collapse.png );
+  background-image: url( resources/themes/default/images/expanditem-collapse.png );
 }
 
 ExpandItem-Button:expanded:hover {
-  background-image: url( resources/themes/fancy/images/expanditem-collapse-hover.png );
+  background-image: url( resources/themes/default/images/expanditem-collapse-hover.png );
 }
 
 /* Combo */
@@ -752,7 +706,7 @@ ExpandItem-Button:expanded:hover {
 
 Combo, CCombo {
   font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
-  background-color: rgb( 252, 252, 252 );
+  background-color: #fcfcfc;
   color: #4a4a4a;
 }
 
@@ -762,34 +716,21 @@ Combo, CCombo[BORDER] {
 }
 
 Combo-Button-Icon, CCombo-Button-Icon {
-  background-image: url( resources/themes/fancy/images/down.png );
+  background-image: url( resources/themes/default/images/down.png );
 }
 
 Combo-Button-Icon:hover, CCombo-Button-Icon:hover {
-  background-image: url( resources/themes/fancy/images/down-hover.png );
+  background-image: url( resources/themes/default/images/down-hover.png );
 }
 
 Combo-Button, CCombo-Button {
   background-color: transparent;
   border: none;
   border-radius: 0px 2px 2px 0px;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 48%, #f0f0f0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #cccccc )
-  );
   width: 18px;
 }
 
 Combo-Button:pressed, CCombo-Button:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
 }
 
 Combo-List, CCombo-List {
@@ -804,65 +745,45 @@ Spinner {
   border-radius: 2px 2px 2px 2px;
   padding: 1px 2px;
   color: #464a4e;
-  background-color: rgb( 252, 252, 252 );
+  background-color: #fcfcfc;
 }
 
 Spinner-DownButton-Icon {
-  background-image: url( resources/themes/fancy/images/down.png );
+  background-image: url( resources/themes/default/images/down.png );
 }
 
 Spinner-DownButton-Icon:hover {
-  background-image: url( resources/themes/fancy/images/down-hover.png );
+  background-image: url( resources/themes/default/images/down-hover.png );
 }
 
 Spinner-DownButton {
   background-color: transparent;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    to( #ffffff )
-  );
   width: 18px;
   border: none;
   border-radius: 0px 0px 2px 0px;
 }
 
 Spinner-DownButton:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #b0b0b0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #ffffff )
-  );
+
 }
 
 Spinner-UpButton-Icon {
-  background-image: url( resources/themes/fancy/images/up.png );
+  background-image: url( resources/themes/default/images/up.png );
 }
 
 Spinner-UpButton-Icon:hover {
-  background-image: url( resources/themes/fancy/images/up-hover.png );
+  background-image: url( resources/themes/default/images/up-hover.png );
 }
 
 Spinner-UpButton {
   background-color: transparent;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    to( #e0e0e0 )
-  );
   width: 18px;
   border: none;
   border-radius: 0px 2px 0px 0px;
 }
 
 Spinner-UpButton:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+
 }
 
 /* DateTime */
@@ -873,7 +794,7 @@ DateTime {
   font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
   border-radius: 2px 2px 2px 2px;
   color: #4a4a4a;
-  background-color: rgb( 252, 252, 252 );
+  background-color: #fcfcfc;
 }
 
 DateTime-Calendar-Day:hover {
@@ -882,119 +803,92 @@ DateTime-Calendar-Day:hover {
 
 DateTime-Calendar-Navbar {
   background-color: #777879;
-  color: white;
+  color: #f0f0f0;
   font: bold 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 }
 
 DateTime-Calendar-PreviousMonthButton {
-  background-image: url( resources/themes/fancy/images/lastMonth.png );
+  background-image: url( resources/themes/default/images/lastMonth.png );
 }
 
 DateTime-Calendar-PreviousMonthButton:hover {
-  background-image: url( resources/themes/fancy/images/lastMonth-hover.png );
+  background-image: url( resources/themes/default/images/lastMonth-hover.png );
 }
 
 DateTime-Calendar-NextMonthButton {
-  background-image: url( resources/themes/fancy/images/nextMonth.png );
+  background-image: url( resources/themes/default/images/nextMonth.png );
 }
 
 DateTime-Calendar-NextMonthButton:hover {
-  background-image: url( resources/themes/fancy/images/nextMonth-hover.png );
+  background-image: url( resources/themes/default/images/nextMonth-hover.png );
 }
 
 DateTime-Calendar-PreviousYearButton {
-  background-image: url( resources/themes/fancy/images/lastYear.png );
+  background-image: url( resources/themes/default/images/lastYear.png );
 }
 
 DateTime-Calendar-PreviousYearButton:hover {
-  background-image: url( resources/themes/fancy/images/lastYear-hover.png );
+  background-image: url( resources/themes/default/images/lastYear-hover.png );
 }
 
 DateTime-Calendar-NextYearButton {
-  background-image: url( resources/themes/fancy/images/nextYear.png );
+  background-image: url( resources/themes/default/images/nextYear.png );
 }
 
 DateTime-Calendar-NextYearButton:hover {
-  background-image: url( resources/themes/fancy/images/nextYear-hover.png );
+  background-image: url( resources/themes/default/images/nextYear-hover.png );
 }
 
 DateTime-DownButton-Icon {
-  background-image: url( resources/themes/fancy/images/down.png );
+  background-image: url( resources/themes/default/images/down.png );
 }
 
 DateTime-DownButton-Icon:hover {
-  background-image: url( resources/themes/fancy/images/down-hover.png );
+  background-image: url( resources/themes/default/images/down-hover.png );
 }
 
 DateTime-DownButton {
   background-color: transparent;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    to( #ffffff )
-  );
   width: 18px;
   border: none;
   border-radius: 0px 0px 2px 0px;
 }
 
 DateTime-DownButton:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #b0b0b0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #ffffff )
-  );
+
 }
 
 DateTime-UpButton-Icon {
-  background-image: url( resources/themes/fancy/images/up.png );
+  background-image: url( resources/themes/default/images/up.png );
 }
 
 DateTime-UpButton-Icon:hover {
-  background-image: url( resources/themes/fancy/images/up-hover.png );
+  background-image: url( resources/themes/default/images/up-hover.png );
 }
 
 DateTime-UpButton {
   background-color: transparent;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    to( #e0e0e0 )
-  );
   width: 18px;
   border: none;
   border-radius: 0px 2px 0px 0px;
 }
 
 DateTime-UpButton:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+
 }
 
 DateTime-DropDownButton-Icon {
-  background-image: url( resources/themes/fancy/images/down.png );
+  background-image: url( resources/themes/default/images/down.png );
 }
 
 DateTime-DropDownButton-Icon:hover {
-  background-image: url( resources/themes/fancy/images/down-hover.png );
+  background-image: url( resources/themes/default/images/down-hover.png );
 }
 
 DateTime-DropDownButton {
   background-color: transparent;
   border: none;
   border-radius: 0px 2px 2px 0px;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 48%, #f0f0f0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #cccccc )
-  );
   width: 18px;
 }
 
@@ -1005,19 +899,19 @@ DateTime-Field:selected, DateTime-Calendar-Day:selected {
 
 DateTime-Calendar-Day:selected:hover {
   background-color: #777879;
-  color: white;
+  color: #f0f0f0;
 }
 
 DateTime-Calendar-Day:otherMonth {
   background-color: transparent;
-  color: rgb( 128, 128, 128 );
+  color: #808080;
 }
 
 /* Text */
 
 Text {
   color: #464a4e;
-  background-color: rgb( 252, 252, 252 );
+  background-color: #fcfcfc;
 }
 
 Text[BORDER] {
@@ -1029,7 +923,6 @@ Text[BORDER] {
 
 Group {
   color: #4a4a4a;
-  background-color: white;
 }
 
 Group-Frame {
@@ -1063,7 +956,7 @@ ProgressBar {
 
 ProgressBar-Indicator {
   background-color: #777879;
-  background-image: url( resources/themes/fancy/images/progress.png );
+  background-image: url( resources/themes/default/images/progress.png );
 }
 
 ProgressBar-Indicator:paused {
@@ -1071,7 +964,7 @@ ProgressBar-Indicator:paused {
 }
 
 ProgressBar-Indicator:error {
-  background-color: rgb( 203, 32, 32 );
+  background-color: #cb2020;
 }
 
 /* Composite */
@@ -1083,20 +976,19 @@ Composite {
 }
 
 Composite[BORDER] {
-  background-color: white;
   background-image: none;
 }
 
 Composite.tabActive {
   border: 1px solid #ffffff;
   border-radius: 1px 1px 0px 0px;
-  background-color: rgb( 255, 255, 255 );
+  background-color: #ffffff;
 }
 
 Composite.tabInactive {
   border: 1px solid #ffffff;
   border-radius: 1px 1px 0px 0px;
-  background-color: rgb( 255, 255, 255 );
+  background-color: #ffffff;
 }
 
 Composite.inactiveButton {
@@ -1124,171 +1016,111 @@ Slider-DownButton:horizontal {
   background-color: transparent;
   border: 1px solid #A4A4A4;
   border-radius: 2px 0px 0px 2px;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 48%, #f0f0f0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #cccccc )
-  );
 }
 
 Slider-DownButton:horizontal:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+
 }
 
 Slider-DownButton-Icon:horizontal {
-  background-image: url( resources/themes/fancy/images/left.png );
+  background-image: url( resources/themes/default/images/left.png );
 }
 
 Slider-DownButton-Icon:horizontal:hover {
-  background-image: url( resources/themes/fancy/images/left-hover.png );
+  background-image: url( resources/themes/default/images/left-hover.png );
 }
 
 Slider-UpButton:horizontal {
   background-color: transparent;
   border: 1px solid #A4A4A4;
   border-radius: 0px 2px 2px 0px;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 48%, #f0f0f0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #cccccc )
-  );
 }
 
 Slider-UpButton:horizontal:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+
 }
 
 Slider-UpButton-Icon:horizontal {
-  background-image: url( resources/themes/fancy/images/right.png );
+  background-image: url( resources/themes/default/images/right.png );
 }
 
 Slider-UpButton-Icon:horizontal:hover {
-  background-image: url( resources/themes/fancy/images/right-hover.png );
+  background-image: url( resources/themes/default/images/right-hover.png );
 }
 
 Slider-DownButton:vertical {
   background-color: transparent;
   border: 1px solid #A4A4A4;
   border-radius: 2px 2px 0px 0px;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 48%, #f0f0f0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #cccccc )
-  );
 }
 
 Slider-DownButton:vertical:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+
 }
 
 Slider-DownButton-Icon:vertical {
-  background-image: url( resources/themes/fancy/images/up.png );
+  background-image: url( resources/themes/default/images/up.png );
 }
 
 Slider-DownButton-Icon:vertical:hover {
-  background-image: url( resources/themes/fancy/images/up-hover.png );
+  background-image: url( resources/themes/default/images/up-hover.png );
 }
 
 Slider-UpButton:vertical {
   background-color: transparent;
   border: 1px solid #A4A4A4;
   border-radius: 0px 0px 2px 2px;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #cccccc ),
-    color-stop( 52%, #e0e0e0 ),
-    color-stop( 56%, #f0f0f0 ),    
-    to( #ffffff )
-  );
+
 }
 
 Slider-UpButton:vertical:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+
 }
 
 Slider-UpButton-Icon:vertical {
-  background-image: url( resources/themes/fancy/images/down.png );
+  background-image: url( resources/themes/default/images/down.png );
 }
 
 Slider-UpButton-Icon:vertical:hover {
-  background-image: url( resources/themes/fancy/images/down-hover.png );
+  background-image: url( resources/themes/default/images/down-hover.png );
 }
 
 Slider-Thumb {
   background-color: transparent;
   border: 1px solid #A4A4A4;
   border-radius: 2px 2px 2px 2px;
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #ffffff ),
-    color-stop( 48%, #f0f0f0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #cccccc )
-  );
+
 }
 
 Slider-Thumb:pressed {
-  background-image: gradient(
-    linear, left top, left bottom,
-    from( #e0e0e0 ),
-    color-stop( 52%, #e0e0e0 ),
-    to( #b0b0b0 )
-  );
+
 }
 
 /* Display */
 
 Display {
-  background-image: url( resources/themes/fancy/images/browser_bg.png );
-  rwt-infobackground-color: rgb( 255, 255, 255 );
+  background-image: url( resources/themes/default/images/browser_bg.png );
+  rwt-infobackground-color: #ffffff;
 }
 
 /* CTabFolder, TabFolder */
 
 TabItem {
-  background-color: white;
   border-top-color: #777879;
-  border-bottom-color: white;
+  border-bottom-color: #f0f0f0;
   background-image: none;
 }
 
 TabItem:selected {
-  background-color: white;
   border-top-color: #777879;
-  border-bottom-color: white;
+  border-bottom-color: #f0f0f0;
   background-image: none;
 }
 
 TabItem:hover {
   background-color: #e7e8e9;
   border-top-color: #777879;
-  border-bottom-color: white;
+  border-bottom-color: #f0f0f0;
   background-image: none;
 }
 
@@ -1300,14 +1132,13 @@ CTabFolder {
 CTabItem {
   font: bold 14px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
   color: #4a4a4a;
-  background-color: white;
   background-image: none;
   padding: 2px 4px;
   spacing: 4px;
 }
 
 CTabItem:selected {
-  color: white;
+  color: #f0f0f0;
   background-color: #979899;
 }
 
@@ -1316,23 +1147,23 @@ CTabItem:disabled {
 }
 
 CTabFolder-DropDownButton-Icon {
-  background-image: url( resources/themes/fancy/images/ctabfolder-dropdown.png );
+  background-image: url( resources/themes/default/images/ctabfolder-dropdown.png );
 }
 
 CTabFolder-DropDownButton-Icon:hover {
-  background-image: url( resources/themes/fancy/images/ctabfolder-dropdown-hover.png );
+  background-image: url( resources/themes/default/images/ctabfolder-dropdown-hover.png );
 }
 
 /* Header Toolbar */
 
 ToolBar.header-toolbar {
   padding: 0px 0px 0px 25px;
-  color: white;
+  color: #f0f0f0;
   spacing: 25px;
 }
 
 ToolItem.header-toolbar {
-  color: white;
+  color: #f0f0f0;
   border: none;
   padding: 5px 5px 5px 5px;
   spacing: 10px;
@@ -1340,25 +1171,25 @@ ToolItem.header-toolbar {
 
 ToolItem.header-toolbar:hover {
   background-color: transparent;
-  color: white;
+  color: #f0f0f0;
   border: 1px solid #3b8fdb;
   border-radius: 5px 5px 0px 0px;
   padding: 5px 5px 5px 5px;
 }
 
 ToolItem-DropDownIcon.header-toolbar {
-  background-image: url( resources/themes/fancy/images/toolbar_arrow.png );
+  background-image: url( resources/themes/default/images/toolbar_arrow.png );
   border: none;
 }
 
 ToolItem-DropDownIcon.header-toolbar:hover {
-  background-image: url( resources/themes/fancy/images/toolbar_arrow.png );
+  background-image: url( resources/themes/default/images/toolbar_arrow.png );
   border: 1px solid #3b8fdb;
 }
 
 Menu.header-toolbar {
   color: #373839;
-  background-color: #f7f8f9;
+  background-color: #ffffff;
   border: 1px solid #373839;
   border-radius: 0px 0px 5px 5px;
 }
@@ -1383,22 +1214,22 @@ ToolItem.header-overflow {
 
 ToolItem.header-overflow:hover {
   background-color: transparent;
-  color: #f7f8f9;
+  color: #ffffff;
   border: none;
 }
 
 ToolItem-DropDownIcon.header-overflow {
-  background-image: url( resources/themes/fancy/images/toolbar_overflow_arrow.png );
+  background-image: url( resources/themes/default/images/toolbar_overflow_arrow.png );
 }
 
 ToolItem-DropDownIcon.header-overflow:hover {
-  background-image: url( resources/themes/fancy/images/toolbar_overflow_arrow.png );
+  background-image: url( resources/themes/default/images/toolbar_overflow_arrow.png );
   border: none;
 }
 
 Menu.header-overflow {
   color: #373839;
-  background-color: #f7f8f9; 
+  background-color: #ffffff; 
   border: 1px #373839;
   border-radius: 5px;
 }
@@ -1418,7 +1249,7 @@ MenuItem.header-overflow:hover {
 ToolBar.menuBar {
   background-color: transparent;
   padding: 0px;
-  color: #676869; /*#f7f8f9;*/
+  color: #676869; /*#ffffff;*/
   spacing: 25px;
 }
 
@@ -1426,37 +1257,31 @@ ToolItem.menuBar {
   background-color: transparent;
   background-image: none;
   border: none;
-  color: #676869; /*#f7f8f9;*/
   padding: 0px 10px 0px 10px;
   spacing: 5px;
 }
 
 ToolItem.menuBar:hover {
-  background-color: transparent;
-    background-image: gradient(
-    linear, left top, left bottom,
-    from( #373839 ),
-    to( #676869 )
-  );
   border: 1px solid #373839;
   border-radius: 3px 3px 0px 0px;
-  color: #f7f8f9;
+  color: #ffffff;
+  background-color: #676869;
   padding: 0px 10px 0px 10px;
 }
 
 ToolItem-DropDownIcon.menuBar {
-  background-image: url( resources/themes/fancy/images/menu_arrow.png );
+  background-image: url( resources/themes/default/images/menu_arrow.png );
 }
 
 ToolItem-DropDownIcon.menuBar:hover {
-  background-image: url( resources/themes/fancy/images/menu_arrow_hover.png );
+  background-image: url( resources/themes/default/images/menu_arrow_hover.png );
   border: 1px solid #83a438;
 }
 
 Menu.menuBar {
   color: #373839;
-  background-color: #f7f8f9;
-  border: 1px solid #f7f8f9;
+  background-color: #ffffff;
+  border: 1px solid #000000;
   border-radius: 0px 0px 3px 3px;
 }
 
@@ -1488,7 +1313,7 @@ ToolItem:selected.viewToolbar {
 }
 
 ToolItem-DropDownIcon.viewToolbar {
-  background-image: url( resources/themes/fancy/images/viewMenu.png );
+  background-image: url( resources/themes/default/images/viewMenu.png );
   border: none;
 }
 

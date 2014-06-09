@@ -13,7 +13,7 @@ public interface LayoutSetConstants {
 	/*
 	 * Image paths
 	 */
-	public static final String IMAGE_PATH_FANCY = "resources/themes/fancy/images/"; //$NON-NLS-1$
+	public static final String IMAGE_PATH_FANCY = "resources/themes/default/images/"; //$NON-NLS-1$
 	public static final String IMAGE_PATH_BUSINESS = "resources/themes/business/images/"; //$NON-NLS-1$
 
 	/*

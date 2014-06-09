@@ -58,7 +58,7 @@
    <extension
          point="org.eclipse.rap.ui.branding">
       <branding
-            favicon="resources/themes/fancy/images/favicon.png"
+            favicon="resources/themes/default/images/favicon.png"
             id="com.sap.dirigible.ide.ui.rap.branding"
             themeId="com.sap.dirigible.ide.ui.rap.theme.fancy"
             title="Dirigible">
@@ -87,7 +87,7 @@
    <extension
          point="org.eclipse.rap.ui.themes">
       <theme
-            file="resources/themes/fancy/fancy.css"
+            file="resources/themes/default/default.css"
             id="com.sap.dirigible.ide.ui.rap.theme.fancy"
             name="Dirigible Fancy Theme">
       </theme>
