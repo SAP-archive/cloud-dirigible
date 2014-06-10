@@ -40,6 +40,7 @@ import com.sap.dirigible.repository.api.IRepository;
 
 public abstract class AbstractPublisher implements IPublisher {
 
+	private static final String PUBLISH_OVERRIDE = "PUBLISH_OVERRIDE";
 	private static final String PUBLISH_OF_FILE_S_BY_S_OVERRIDES_THE_PREVIOUS_MODIFICATIONS_MADE_BY_S = Messages
 			.getString("AbstractPublisher.PUBLISH_OF_FILE_S_BY_S_OVERRIDES_THE_PREVIOUS_MODIFICATIONS_MADE_BY_S"); //$NON-NLS-1$
 	private static final String PUBLISH_OF_FILE_S_SKIPPED = Messages
@@ -155,16 +156,22 @@ public abstract class AbstractPublisher implements IPublisher {
 				&& !"null".equalsIgnoreCase(targetFolder.getInformation().getModifiedBy()) //$NON-NLS-1$
 				&& !targetFolder.getInformation().getModifiedBy().equalsIgnoreCase(user)) {
 
-			boolean override = MessageDialog
-					.openConfirm(
-							null,
-							PUBLISH,
-							String.format(
-									FOLDER_WITH_THE_SAME_NAME_ALREADY_PUBLISHED_BY_ANOTHER_USER_S_DO_YOU_WANT_TO_OVERRIDE_IT_ANYWAY,
-									targetFolder.getInformation().getModifiedBy()));
-			if (!override) {
-				logger.debug(String.format(PUBLISH_OF_FOLDER_S_SKIPPED, folderName));
-				return false;
+			boolean publishOverride = Boolean.parseBoolean(CommonParameters.get(PUBLISH_OVERRIDE));
+			
+			if (!publishOverride) {
+				boolean override = MessageDialog
+						.openConfirm(
+								null,
+								PUBLISH,
+								String.format(
+										FOLDER_WITH_THE_SAME_NAME_ALREADY_PUBLISHED_BY_ANOTHER_USER_S_DO_YOU_WANT_TO_OVERRIDE_IT_ANYWAY,
+										targetFolder.getName(), targetFolder.getInformation().getModifiedBy()));
+				if (!override) {
+					logger.debug(String.format(PUBLISH_OF_FOLDER_S_SKIPPED, folderName));
+					return false;
+				} else {
+					CommonParameters.set(PUBLISH_OVERRIDE, "true");
+				}
 			}
 			logger.warn(String.format(
 					PUBLISH_OF_FOLDER_S_BY_S_OVERRIDES_THE_PREVIOUS_MODIFICATIONS_MADE_BY_S,

@@ -131,6 +131,10 @@ public class CommonParameters {
 
 		return parameter;
 	}
+	
+	public static void set(String name, String value) {
+		RWT.getRequest().getSession().setAttribute(name, value);
+	}
 
 	public static String getRuntimeUrl() {
 		String runtimeUrl = CommonParameters.get(CommonParameters.RUNTIME_URL);
