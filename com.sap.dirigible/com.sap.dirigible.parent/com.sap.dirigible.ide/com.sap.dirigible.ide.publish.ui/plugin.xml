@@ -119,17 +119,6 @@
          </menu>
          <action
                allowLabelUpdate="true"
-               class="com.sap.dirigible.ide.publish.ui.command.ActivateAction"
-               id="com.sap.dirigible.ide.publish.ui.command.ActivateAction"
-               label="Activate"
-               menubarPath="com.sap.dirigible.projectMenu/activationGroup"
-               state="false"
-               style="push"
-               toolbarPath="activationGroup"
-               tooltip="Activate">
-         </action>
-         <action
-               allowLabelUpdate="true"
                class="com.sap.dirigible.ide.publish.ui.command.PublishAction"
                id="com.sap.dirigible.ide.publish.ui.command.PublishAction"
                label="Publish"
@@ -138,6 +127,17 @@
                style="push"
                toolbarPath="activationGroup"
                tooltip="Publish">
+         </action>
+         <action
+               allowLabelUpdate="true"
+               class="com.sap.dirigible.ide.publish.ui.command.ActivateAction"
+               id="com.sap.dirigible.ide.publish.ui.command.ActivateAction"
+               label="Activate"
+               menubarPath="com.sap.dirigible.projectMenu/activationGroup"
+               state="false"
+               style="push"
+               toolbarPath="activationGroup"
+               tooltip="Activate">
          </action>
          
          <action

@@ -15,13 +15,16 @@
 
 package com.sap.dirigible.ide.publish.ui.command;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -30,9 +33,9 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.PublishManager;
-import com.sap.dirigible.ide.publish.IPublisher;
 
 /**
  * Handler for the Publish command.
@@ -73,8 +76,7 @@ public class PublishCommandHandler extends AbstractHandler {
 		for (IProject project : projects) {
 			try {
 				publishProject(project);
-				StatusLineManagerUtil.setInfoMessage(String.format(
-						getStatusMessage(),
+				StatusLineManagerUtil.setInfoMessage(String.format(getStatusMessage(),
 						project.getName()));
 			} catch (Exception ex) {
 				errorMessage = ex.getMessage();
@@ -85,8 +87,7 @@ public class PublishCommandHandler extends AbstractHandler {
 		if (!success) {
 			logger.error(errorMessage);
 			StatusLineManagerUtil.setErrorMessage(errorMessage);
-			MessageDialog.openError(null,
-					PublishCommandMessages.PUBLISH_FAIL_TITLE, errorMessage);
+			MessageDialog.openError(null, PublishCommandMessages.PUBLISH_FAIL_TITLE, errorMessage);
 		}
 		return null;
 	}
@@ -100,25 +101,38 @@ public class PublishCommandHandler extends AbstractHandler {
 			logger.error(UNKNOWN_SELECTION_TYPE);
 			return new IProject[0];
 		}
-		final List<IProject> result = new ArrayList<IProject>();
+		final Set<IProject> result = new HashSet<IProject>();
 		final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+
+		IProject project = null;
 		for (Object element : structuredSelection.toArray()) {
-			if (element instanceof IProject) {
-				result.add((IProject) element);
+			project = getProject(element);
+			if(project != null){
+				result.add(project);
 			}
 		}
 		return result.toArray(new IProject[0]);
 	}
 
+	private IProject getProject(Object element) {
+		IProject project = null;
+		if (element instanceof IProject) {
+			project = (IProject) element;
+		} else if (element instanceof IFile) {
+			project = ((IFile) element).getProject();
+		} else if (element instanceof IFolder) {
+			project = ((IFolder) element).getProject();
+		}
+		return project;
+	}
+
 	protected void publishProject(IProject project) throws PublishException {
 		final List<IPublisher> publishers = PublishManager.getPublishers();
 
-		for (Iterator<IPublisher> iterator = publishers.iterator(); iterator
-				.hasNext();) {
+		for (Iterator<IPublisher> iterator = publishers.iterator(); iterator.hasNext();) {
 			IPublisher publisher = (IPublisher) iterator.next();
 			publisher.publish(project);
 		}
 	}
-	
 
 }
