@@ -20,6 +20,7 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "com.sap.dirigible.ide.publish.ui.view.messages"; //$NON-NLS-1$
 	public static String RuntimeViewerView_REFRESH;
+	public static String WebViewerView_SANDBOX;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

@@ -37,7 +37,7 @@ Button[PUSH]:disabled, Button[TOGGLE]:disabled {
 }
 
 Button[TOGGLE]:selected {
-
+  background-color: #e8e8e8;
 }
 
 Button[TOGGLE]:selected:hover {
