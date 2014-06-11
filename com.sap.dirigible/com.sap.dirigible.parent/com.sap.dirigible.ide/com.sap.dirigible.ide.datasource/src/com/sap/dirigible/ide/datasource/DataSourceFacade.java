@@ -15,18 +15,25 @@
 
 package com.sap.dirigible.ide.datasource;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.eclipse.rap.rwt.RWT;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.ext.db.WrappedDataSource;
 
 /**
- * 
+ * DataSource Facade utility class for IDE
  */
 public class DataSourceFacade {
+
+	private static final String EMPTY = "";
 
 	private static final String EMBEDDED_DATA_SOURCE_IS_USED = Messages.DataSourceFacade_EMBEDDED_DATA_SOURCE_IS_USED;
 
@@ -34,9 +41,8 @@ public class DataSourceFacade {
 	private static final String LOCAL_DB_NAME = "derby"; //$NON-NLS-1$
 
 	private static final String DATASOURCE_DEFAULT = "DEFAULT_DATASOURCE"; //$NON-NLS-1$
-
-	public static final Logger logger = Logger.getLogger(DataSourceFacade.class
-			.getCanonicalName());
+	
+	public static final Logger logger = Logger.getLogger(DataSourceFacade.class.getCanonicalName());
 
 	private static DataSource localDataSource;
 
@@ -57,6 +63,7 @@ public class DataSourceFacade {
 			if (dataSource == null) {
 				dataSource = createLocal();
 			}
+			populateMetaData(dataSource);
 		}
 		return dataSource;
 	}
@@ -83,6 +90,30 @@ public class DataSourceFacade {
 		logger.warn(EMBEDDED_DATA_SOURCE_IS_USED);
 		WrappedDataSource wrappedDataSource = new WrappedDataSource(localDataSource); 
 		return wrappedDataSource;
+	}
+	
+	private void populateMetaData(DataSource dataSource) {
+		Connection connection = null;
+		try {
+			try {
+				connection = dataSource.getConnection();
+				DatabaseMetaData metaData = connection.getMetaData();
+				CommonParameters.set(CommonParameters.DATABASE_PRODUCT_NAME, metaData.getDatabaseProductName());
+				CommonParameters.set(CommonParameters.DATABASE_PRODUCT_VERSION, metaData.getDatabaseProductVersion());
+				CommonParameters.set(CommonParameters.DATABASE_MINOR_VERSION, metaData.getDatabaseMinorVersion() + EMPTY);
+				CommonParameters.set(CommonParameters.DATABASE_MAJOR_VERSION, metaData.getDatabaseMajorVersion() + EMPTY);
+				CommonParameters.set(CommonParameters.DATABASE_DRIVER_NAME, metaData.getDriverName());
+				CommonParameters.set(CommonParameters.DATABASE_DRIVER_MINOR_VERSION, metaData.getDriverMinorVersion() + EMPTY);
+				CommonParameters.set(CommonParameters.DATABASE_DRIVER_MAJOR_VERSION, metaData.getDriverMajorVersion() + EMPTY);
+				CommonParameters.set(CommonParameters.DATABASE_CONNECTION_CLASS_NAME, connection.getClass().getCanonicalName());
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 
 }

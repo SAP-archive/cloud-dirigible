@@ -32,5 +32,9 @@ public interface IDialectSpecifier {
 	boolean isSchemaFilterSupported();
 	
 	String getSchemaFilterScript();
+	
+	String getAlterAddOpen();
+	
+	String getAlterAddClose();
 
 }

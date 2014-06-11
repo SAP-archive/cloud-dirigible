@@ -77,10 +77,10 @@ public class WsEndpointProviderImplementor implements Provider<SOAPMessage> {
 					new ByteArrayInputStream(responseXML.getBytes()));
 
 		} catch (IOException e) {
-			logger.trace(INVOKE, e);
+			logger.error(INVOKE, e);
 			e.printStackTrace();
 		} catch (SOAPException e) {
-			logger.trace(INVOKE, e);
+			logger.error(INVOKE, e);
 			e.printStackTrace();
 		}
 

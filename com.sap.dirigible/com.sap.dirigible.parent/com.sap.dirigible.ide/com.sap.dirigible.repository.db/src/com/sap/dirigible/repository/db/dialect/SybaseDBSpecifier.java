@@ -69,4 +69,16 @@ public class SybaseDBSpecifier implements IDialectSpecifier {
 		return null;
 	}
 
+	@Override
+	public String getAlterAddOpen() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	@Override
+	public String getAlterAddClose() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
 }

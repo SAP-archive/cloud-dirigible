@@ -54,7 +54,7 @@ public class WorkspaceContentProvider implements ITreeContentProvider {
 				return container.members();
 			} catch (CoreException ex) {
 				logger.error(COULD_NOT_GET_THE_CONTAINER_S_CHILDREN);
-				logger.trace(WorkspaceContentProvider.class.getCanonicalName(),
+				logger.error(WorkspaceContentProvider.class.getCanonicalName(),
 						ex);
 				return new Object[0];
 			}
@@ -77,7 +77,7 @@ public class WorkspaceContentProvider implements ITreeContentProvider {
 				return (container.members().length > 0);
 			} catch (CoreException ex) {
 				logger.error(COULD_NOT_DETERMINE_IF_CONTAINER_HAS_CHILDREN);
-				logger.trace(WorkspaceContentProvider.class.getCanonicalName(),
+				logger.error(WorkspaceContentProvider.class.getCanonicalName(),
 						ex);
 				return false;
 			}

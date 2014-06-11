@@ -61,9 +61,9 @@ public class DirigibleBridge extends BridgeServlet {
 				Injector injector = (Injector) injectorClass.newInstance();
 				injector.inject(servletConfig, req, resp);
 			} catch (InstantiationException e) {
-				logger.trace(e.getMessage(), e);
+				logger.error(e.getMessage(), e);
 			} catch (IllegalAccessException e) {
-				logger.trace(e.getMessage(), e);
+				logger.error(e.getMessage(), e);
 			}
 		}
 

@@ -43,11 +43,8 @@ import com.sap.dirigible.repository.db.dialect.SybaseDBSpecifier;
 public class DBUtils {
 
 	private static final String PRODUCT_DERBY = "Apache Derby"; //$NON-NLS-1$
-
 	private static final String PRODUCT_SYBASE = "Adaptive Server Enterprise"; //$NON-NLS-1$
-
 	private static final String PRODUCT_SAP_DB = "SAP DB"; //$NON-NLS-1$
-
 	private static final String PRODUCT_HDB = "HDB"; //$NON-NLS-1$
 
 	private static Logger logger = LoggerFactory.getLogger(DBUtils.class

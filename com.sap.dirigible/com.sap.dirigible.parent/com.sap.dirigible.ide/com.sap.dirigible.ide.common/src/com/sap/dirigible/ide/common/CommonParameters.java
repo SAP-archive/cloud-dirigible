@@ -124,12 +124,51 @@ public class CommonParameters {
 	public static final String PARAMETER_PERSPECTIVE = "perspective"; //$NON-NLS-1$
 	public static final String PARAMETER_PROJECT = "project"; //$NON-NLS-1$
 	public static final String PARAMETER_PACKAGE = "package"; //$NON-NLS-1$
+	
+	
+	public static final String DATABASE_PRODUCT_NAME = "DATABASE_PRODUCT_NAME"; //$NON-NLS-1$
+	public static final String DATABASE_PRODUCT_VERSION = "DATABASE_PRODUCT_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_MINOR_VERSION = "DATABASE_MINOR_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_MAJOR_VERSION = "DATABASE_MAJOR_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_DRIVER_NAME = "DATABASE_DRIVER_NAME"; //$NON-NLS-1$
+	public static final String DATABASE_DRIVER_MINOR_VERSION = "DATABASE_DRIVER_MINOR_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_DRIVER_MAJOR_VERSION = "DATABASE_DRIVER_MAJOR_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_CONNECTION_CLASS_NAME = "DATABASE_CONNECTION_CLASS_NAME"; //$NON-NLS-1$
+	
+	
+	
+	public static final String ROLE_OPERATOR = "Operator"; //$NON-NLS-1$
+	public static final String ROLE_DEVELOPER = "Developer"; //$NON-NLS-1$
+	
+	public static final String DIRIGIBLE_DEBUGGER_BRIDGE = "dirigible.debugger.bridge"; //$NON-NLS-1$
+	public static final String DIRIGIBLE_RUNTIME_BRIDGE = "dirigible.runtime.bridge"; //$NON-NLS-1$
+
+	
+	public static final String SYSTEM_TABLE = "SYSTEM TABLE"; //$NON-NLS-1$
+	public static final String LOCAL_TEMPORARY = "LOCAL TEMPORARY"; //$NON-NLS-1$
+	public static final String GLOBAL_TEMPORARY = "GLOBAL TEMPORARY"; //$NON-NLS-1$
+	public static final String SYNONYM = "SYNONYM"; //$NON-NLS-1$
+	public static final String ALIAS = "ALIAS"; //$NON-NLS-1$
+	public static final String VIEW = "VIEW"; //$NON-NLS-1$
+	public static final String TABLE = "TABLE"; //$NON-NLS-1$
+	
+	public static final String[] TABLE_TYPES = { TABLE, VIEW, ALIAS, SYNONYM, GLOBAL_TEMPORARY, LOCAL_TEMPORARY,
+			SYSTEM_TABLE };
+
+	
+//=====================================================================================================================================	
+	
+	
+	
+	
 
 	public static String get(String name) {
-		String parameter = (String) RWT.getRequest().getSession()
-				.getAttribute(name);
-
+		String parameter = (String) RWT.getRequest().getSession().getAttribute(name);
 		return parameter;
+	}
+	
+	public static void set(String name, String value) {
+		RWT.getRequest().getSession().setAttribute(name, value);
 	}
 
 	public static String getRuntimeUrl() {
@@ -168,32 +207,25 @@ public class CommonParameters {
 		return user;
 	}
 	
+	public static String getDatabaseProductName() {
+		return get(DATABASE_PRODUCT_NAME);
+	}
+	
+	public static String getDatabaseProductVersion() {
+		return get(DATABASE_PRODUCT_VERSION);
+	}
+		
+	public static String getDriverName() {
+		return get(DATABASE_DRIVER_NAME);
+	}
+
+	public static boolean isUserInRole(String role) {
+		return RWT.getRequest().isUserInRole(role);
+	}
+	
 	public static String getSessionId() {
 		String sessionId = RWT.getRequest().getSession(true).getId();
 		return sessionId;
 	}
-	
-	public static boolean isUserInRole(String role) {
-		return RWT.getRequest().isUserInRole(role);
+
 	}
-
-	public static final String ROLE_OPERATOR = "Operator";
-	
-	public static final String ROLE_DEVELOPER = "Developer";
-	
-	public static final String DIRIGIBLE_DEBUGGER_BRIDGE = "dirigible.debugger.bridge"; //$NON-NLS-1$
-	
-	public static final String DIRIGIBLE_RUNTIME_BRIDGE = "dirigible.runtime.bridge"; //$NON-NLS-1$
-
-	
-	public static final String SYSTEM_TABLE = "SYSTEM TABLE"; //$NON-NLS-1$
-	public static final String LOCAL_TEMPORARY = "LOCAL TEMPORARY"; //$NON-NLS-1$
-	public static final String GLOBAL_TEMPORARY = "GLOBAL TEMPORARY"; //$NON-NLS-1$
-	public static final String SYNONYM = "SYNONYM"; //$NON-NLS-1$
-	public static final String ALIAS = "ALIAS"; //$NON-NLS-1$
-	public static final String VIEW = "VIEW"; //$NON-NLS-1$
-	public static final String TABLE = "TABLE"; //$NON-NLS-1$
-	
-	public static final String[] TABLE_TYPES = { TABLE, VIEW, ALIAS, SYNONYM, GLOBAL_TEMPORARY, LOCAL_TEMPORARY,
-			SYSTEM_TABLE };
-}

@@ -56,4 +56,19 @@
             id="com.sap.dirigible.ide.db.data.DataExportServiceHandler">
       </serviceHandler>
    </extension>
+   
+   <extension
+      point = "org.eclipse.ui.preferencePages">
+       <page id="com.sap.dirigible.ide.db.preferences.DatabasePreferencePage"
+	    	class="com.sap.dirigible.ide.db.preferences.DatabasePreferencePage" name="Database">
+       </page>
+       <page id="com.sap.dirigible.ide.db.preferences.DatabaseAttributesPreferencePage"
+	    	class="com.sap.dirigible.ide.db.preferences.DatabaseAttributesPreferencePage" name="Attributes" 
+	    	category="com.sap.dirigible.ide.db.preferences.DatabasePreferencePage">
+       </page>
+       <page id="com.sap.dirigible.ide.db.preferences.DatabaseDriverPreferencePage"
+	    	class="com.sap.dirigible.ide.db.preferences.DatabaseDriverPreferencePage" name="Driver" 
+	    	category="com.sap.dirigible.ide.db.preferences.DatabasePreferencePage">
+       </page>
+   </extension>
 </plugin>

@@ -16,6 +16,9 @@
 package com.sap.dirigible.ide.bridge;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -30,8 +33,17 @@ import org.slf4j.LoggerFactory;
 
 public class DatabaseInjector implements Injector {
 	
+	private static final String ERROR_WHILE_GETTING_DATABASE_METADATA = Messages.getString("DatabaseInjector.ERROR_WHILE_GETTING_DATABASE_METADATA"); //$NON-NLS-1$
 	public static final String JAVA_COMP_ENV_JDBC_DEFAULT_DB = "java:comp/env/jdbc/DefaultDB"; //$NON-NLS-1$
 	public static final String DATASOURCE_DEFAULT = "DEFAULT_DATASOURCE"; //$NON-NLS-1$
+	public static final String DATABASE_PRODUCT_NAME = "DATABASE_PRODUCT_NAME"; //$NON-NLS-1$
+	public static final String DATABASE_PRODUCT_VERSION = "DATABASE_PRODUCT_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_MINOR_VERSION = "DATABASE_MINOR_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_MAJOR_VERSION = "DATABASE_MAJOR_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_DRIVER_NAME = "DATABASE_DRIVER_NAME"; //$NON-NLS-1$
+	public static final String DATABASE_DRIVER_MINOR_VERSION = "DATABASE_DRIVER_MINOR_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_DRIVER_MAJOR_VERSION = "DATABASE_DRIVER_MAJOR_VERSION"; //$NON-NLS-1$
+	public static final String DATABASE_CONNECTION_CLASS_NAME = "DATABASE_CONNECTION_CLASS_NAME"; //$NON-NLS-1$
 	
 	private static final Logger logger = LoggerFactory.getLogger(DatabaseInjector.class);
 	
@@ -45,6 +57,28 @@ public class DatabaseInjector implements Injector {
 			try {
 				dataSource  = lookupDataSource();
 				req.getSession().setAttribute(DATASOURCE_DEFAULT, dataSource);
+				Connection connection = null;
+				try {
+					try {
+						connection = dataSource.getConnection();
+						DatabaseMetaData metaData = connection.getMetaData();
+						req.getSession().setAttribute(DATABASE_PRODUCT_NAME, metaData.getDatabaseProductName());
+						req.getSession().setAttribute(DATABASE_PRODUCT_VERSION, metaData.getDatabaseProductVersion());
+						req.getSession().setAttribute(DATABASE_MINOR_VERSION, metaData.getDatabaseMinorVersion());
+						req.getSession().setAttribute(DATABASE_MAJOR_VERSION, metaData.getDatabaseMajorVersion());
+						req.getSession().setAttribute(DATABASE_DRIVER_NAME, metaData.getDriverName());
+						req.getSession().setAttribute(DATABASE_DRIVER_MINOR_VERSION, metaData.getDriverMinorVersion());
+						req.getSession().setAttribute(DATABASE_DRIVER_MAJOR_VERSION, metaData.getDriverMajorVersion());
+						req.getSession().setAttribute(DATABASE_CONNECTION_CLASS_NAME, connection.getClass().getCanonicalName());
+					} finally {
+						if (connection != null) {
+							connection.close();
+						}
+					}
+				} catch (SQLException e) {
+					logger.error(e.getMessage(), e);
+					throw new ServletException(ERROR_WHILE_GETTING_DATABASE_METADATA, e);
+				}
 			} catch (NamingException e) {
 				logger.error(e.getMessage(), e);
 			}
