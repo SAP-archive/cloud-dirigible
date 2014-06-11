@@ -7,7 +7,8 @@ Bundle-Vendor: SAP
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.rap.rwt;bundle-version="1.4.2",
  com.sap.dirigible.ide.logging,
- com.sap.dirigible.repository.ext
+ com.sap.dirigible.repository.ext,
+ com.sap.dirigible.ide.common;bundle-version="1.1.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: com.sap.dirigible.ide.datasource

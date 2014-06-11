@@ -107,8 +107,8 @@ public class DatabaseViewContentProvider implements IStructuredContentProvider,
 				TreeParent schemes = null;
 				// TreeParent tables = null;
 				List<TreeParent> schemesMid = new ArrayList<TreeParent>();
-				schemes = new TreeParent(dmd.getDatabaseProductName() + CBO
-						+ dmd.getDatabaseProductVersion() + CBC + dmd.getDriverName(),
+				schemes = new TreeParent(CommonParameters.getDatabaseProductName() + CBO
+						+ CommonParameters.getDatabaseProductVersion() + CBC + CommonParameters.getDriverName(),
 						this.databaseViewer);
 
 				// list catalogs
@@ -181,7 +181,7 @@ public class DatabaseViewContentProvider implements IStructuredContentProvider,
 		List<String> listOfSchemes = new ArrayList<String>();
 		ResultSet rs = null;
 
-		String productName = connection.getMetaData().getDatabaseProductName();
+		String productName = CommonParameters.getDatabaseProductName();
 		IDialectSpecifier dialectSpecifier = DBUtils.getDialectSpecifier(productName);
 
 		IFilter schemaFilter = databaseViewer.getSchemaFilter(connection);

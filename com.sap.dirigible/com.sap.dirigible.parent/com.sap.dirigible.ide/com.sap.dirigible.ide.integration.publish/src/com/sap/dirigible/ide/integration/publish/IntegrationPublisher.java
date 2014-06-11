@@ -78,7 +78,7 @@ public class IntegrationPublisher extends AbstractPublisher implements
 			 enumerateKnownFiles(targetContainer, knownFiles);
 			 notifyEsb(knownFiles);
 		} catch (Exception ex) {
-			logger.trace(ex.getMessage(), ex);
+			logger.error(ex.getMessage(), ex);
 			throw new PublishException(ex.getMessage(), ex);
 		}
 	}
@@ -138,7 +138,7 @@ public class IntegrationPublisher extends AbstractPublisher implements
 					try {
 						notifyESB(runtimeBridge, integrationDefinition, errors);
 					} catch (Exception e) {
-						logger.trace(e.getMessage(), e);
+						logger.error(e.getMessage(), e);
 						errors.add(integrationDefinition + ": " + e.getMessage()); //$NON-NLS-1$
 					}
 				}

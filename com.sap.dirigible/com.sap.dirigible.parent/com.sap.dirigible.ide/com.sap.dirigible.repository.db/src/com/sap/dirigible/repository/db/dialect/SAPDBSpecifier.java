@@ -53,14 +53,22 @@ public class SAPDBSpecifier implements IDialectSpecifier {
 
 	@Override
 	public boolean isSchemaFilterSupported() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String getSchemaFilterScript() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String getAlterAddOpen() {
+		return " ADD ";
+	}
+
+	@Override
+	public String getAlterAddClose() {
+		return "";
 	}
 
 }

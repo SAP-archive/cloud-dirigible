@@ -62,7 +62,7 @@ public class ExtensionsPublisher extends AbstractPublisher implements IPublisher
 			extensionUpdater.enumerateKnownFiles(targetContainer, knownFiles);
 			extensionUpdater.executeUpdate(knownFiles, RWT.getRequest());
 		} catch (Exception ex) {
-			logger.trace(ex.getMessage(), ex);
+			logger.error(ex.getMessage(), ex);
 			throw new PublishException(ex.getMessage(), ex);
 		}
 	}

@@ -62,7 +62,7 @@ public class SecurityPublisher extends AbstractPublisher implements IPublisher {
 			securityUpdater.enumerateKnownFiles(targetContainer, knownFiles);
 			securityUpdater.executeUpdate(knownFiles, RWT.getRequest());
 		} catch (Exception ex) {
-			logger.trace(ex.getMessage(), ex);
+			logger.error(ex.getMessage(), ex);
 			throw new PublishException(ex.getMessage(), ex);
 		}
 	}

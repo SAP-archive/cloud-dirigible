@@ -60,7 +60,7 @@ public class ArtifactTreeContentProvider implements ITreeContentProvider {
 			return children.toArray();
 		} catch (IOException ex) {
 			log.error(COULD_NOT_RESOLVE_COLLECTION_S_CHILDREN);
-			log.trace(ArtifactTreeContentProvider.class.getCanonicalName(), ex);
+			log.error(ArtifactTreeContentProvider.class.getCanonicalName(), ex);
 			return new Object[] { new RepositoryViewerResolveNode(collection,
 					ERROR_CLICK_TO_RETRY) }; // TODO:
 												// I18N
@@ -104,7 +104,7 @@ public class ArtifactTreeContentProvider implements ITreeContentProvider {
 			return !collection.isEmpty();
 		} catch (IOException ex) {
 			log.error(COULD_NOT_CHECK_IF_COLLECTION_HAS_CHILDREN);
-			log.trace(ArtifactTreeContentProvider.class.getCanonicalName(), ex);
+			log.error(ArtifactTreeContentProvider.class.getCanonicalName(), ex);
 			// We give the user a chance to try and expand the node.
 			// Any errors will be handled during expand.
 			return true;

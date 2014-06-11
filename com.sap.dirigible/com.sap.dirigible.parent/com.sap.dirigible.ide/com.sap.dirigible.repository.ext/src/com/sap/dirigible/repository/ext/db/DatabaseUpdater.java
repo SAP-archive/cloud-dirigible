@@ -41,9 +41,12 @@ import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.db.DBSupportedTypesMap;
 import com.sap.dirigible.repository.db.DBUtils;
+import com.sap.dirigible.repository.db.dialect.IDialectSpecifier;
 
 public class DatabaseUpdater extends AbstractDataUpdater {
 
+	private static final String DASH = " - "; //$NON-NLS-1$
+	private static final String AUTOMATIC_DROP_COLUMN_NOT_SUPPORTED = Messages.getString("DatabaseUpdater.AUTOMATIC_DROP_COLUMN_NOT_SUPPORTED"); //$NON-NLS-1$
 	private static final String AS = " AS "; //$NON-NLS-1$
 	private static final String CREATE_VIEW = "CREATE VIEW "; //$NON-NLS-1$
 	private static final String DROP_VIEW = "DROP VIEW "; //$NON-NLS-1$
@@ -72,8 +75,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 	private static final String PRIMARY_KEY = "PRIMARY KEY "; //$NON-NLS-1$
 	private static final String NOT_NULL = "NOT NULL "; //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(DatabaseUpdater.class);
+	private static final Logger logger = LoggerFactory.getLogger(DatabaseUpdater.class);
 
 	public static final String EXTENSION_TABLE = ".table"; //$NON-NLS-1$
 	public static final String EXTENSION_VIEW = ".view"; //$NON-NLS-1$
@@ -100,15 +102,18 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 
 		try {
 			Connection connection = dataSource.getConnection();
-
+			DatabaseMetaData databaseMetaData = getMetaData(connection);
+			String productName = connection.getMetaData().getDatabaseProductName();
+			IDialectSpecifier dialectSpecifier = DBUtils.getDialectSpecifier(productName);
+			
 			try {
 				for (Iterator<String> iterator = knownFiles.iterator(); iterator
 						.hasNext();) {
 					String dsDefinition = iterator.next();
 					if (dsDefinition.endsWith(EXTENSION_TABLE)) {
-						executeTableUpdate(connection, dsDefinition);
+						executeTableUpdate(connection, databaseMetaData, dialectSpecifier, dsDefinition);
 					} else if (dsDefinition.endsWith(EXTENSION_VIEW)) {
-						executeViewUpdate(connection, dsDefinition);
+						executeViewUpdate(connection, databaseMetaData, dialectSpecifier, dsDefinition);
 					}
 				}
 			} finally {
@@ -117,8 +122,10 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
 			throw new Exception(e);
 		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
 			throw new Exception(e);
 		}
 	}
@@ -128,26 +135,37 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 		executeUpdate(knownFiles);
 	}
 
-	private void executeTableUpdate(Connection connection, String dsDefinition)
+	private void executeTableUpdate(Connection connection, DatabaseMetaData databaseMetaData, IDialectSpecifier dialectSpecifier, String dsDefinition)
 			throws SQLException, IOException {
-		// get the database metadata
-		DatabaseMetaData databaseMetaData = connection.getMetaData();
-
 		JsonObject dsDefinitionObject = parseTable(dsDefinition);
 		String tableName = dsDefinitionObject.get(TABLE_NAME).getAsString();
 		tableName = tableName.toUpperCase();
-		ResultSet rs = databaseMetaData.getTables(null, null, tableName,
-				new String[] { TABLE, VIEW });
-		if (rs.next()) {
-			// String retrievedTableName = rs.getString(3);
-			executeTableUpdate(connection, dsDefinitionObject);
-		} else {
-			executeTableCreate(connection, dsDefinitionObject);
+		ResultSet rs = null;
+		try {
+			rs = databaseMetaData.getTables(null, null, tableName,
+					new String[] { TABLE, VIEW });
+			if (rs.next()) {
+				// String retrievedTableName = rs.getString(3);
+				executeTableUpdate(connection, dialectSpecifier, dsDefinitionObject);
+			} else {
+				executeTableCreate(connection, dialectSpecifier, dsDefinitionObject);
+			}
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
 		}
-		rs.close();
+		
 	}
 
-	private void executeViewUpdate(Connection connection, String dsDefinition)
+	private DatabaseMetaData getMetaData(Connection connection)
+			throws SQLException {
+		// get the database metadata
+		DatabaseMetaData databaseMetaData = connection.getMetaData();
+		return databaseMetaData;
+	}
+
+	private void executeViewUpdate(Connection connection, DatabaseMetaData databaseMetaData, IDialectSpecifier dialectSpecifier, String dsDefinition)
 			throws SQLException, IOException {
 		JsonObject dsDefinitionObject = parseView(dsDefinition);
 		String viewName = dsDefinitionObject.get(VIEW_NAME).getAsString();
@@ -155,7 +173,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 		executeViewCreateOrReplace(connection, dsDefinitionObject);
 	}
 
-	private void executeTableCreate(Connection connection,
+	private void executeTableCreate(Connection connection, IDialectSpecifier dialectSpecifier,
 			JsonObject dsDefinitionObject) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		String tableName = dsDefinitionObject.get(TABLE_NAME).getAsString();
@@ -208,7 +226,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 			executeUpdateSQL(connection, sqlExpression);
 		} catch (SQLException e) {
 			logger.error(sqlExpression);
-			throw e;
+			throw new SQLException(sqlExpression, e);
 		}
 	}
 
@@ -218,7 +236,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 		preparedStatement.executeUpdate();
 	}
 
-	private void executeTableUpdate(Connection connection,
+	private void executeTableUpdate(Connection connection, IDialectSpecifier dialectSpecifier,
 			JsonObject dsDefinitionObject) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		String tableName = dsDefinitionObject.get(TABLE_NAME).getAsString()
@@ -238,6 +256,9 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 
 		JsonArray columns = dsDefinitionObject.get(COLUMNS).getAsJsonArray();
 		int i = 0;
+		StringBuffer addSql = new StringBuffer();
+		addSql.append(dialectSpecifier.getAlterAddOpen());
+		
 		for (JsonElement jsonElement : columns) {
 
 			if (jsonElement instanceof JsonObject) {
@@ -256,14 +277,14 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 
 				if (!columnDefinitions.containsKey(name)) {
 					if (i > 0) {
-						sql.append(", "); //$NON-NLS-1$
+						addSql.append(", "); //$NON-NLS-1$
 					}
-					sql.append(ADD + name + " " + type); //$NON-NLS-1$
+					addSql.append(name + " " + type); //$NON-NLS-1$
 					if (DBSupportedTypesMap.VARCHAR.equals(type)
 							|| DBSupportedTypesMap.CHAR.equals(type)) {
-						sql.append("(" + length + ") "); //$NON-NLS-1$ //$NON-NLS-2$
+						addSql.append("(" + length + ") "); //$NON-NLS-1$ //$NON-NLS-2$
 					} else {
-						sql.append(" "); //$NON-NLS-1$
+						addSql.append(" "); //$NON-NLS-1$
 					}
 					if (notNull) {
 						// sql.append("NOT NULL ");
@@ -290,7 +311,20 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 			}
 
 		}
-
+		
+		// TODO Derby does not support multiple ADD in a single statement!
+		
+		
+		if (i > 0) {
+			addSql.append(dialectSpecifier.getAlterAddClose());
+			sql.append(addSql.toString());
+		}
+		
+		if (columnDefinitions.size() > columns.size()) {
+			throw new SQLException(INCOMPATIBLE_CHANGE_OF_TABLE
+					+ tableName + DASH + AUTOMATIC_DROP_COLUMN_NOT_SUPPORTED);
+		}
+		
 		if (i > 0) {
 			String sqlExpression = sql.toString();
 			try {
@@ -298,7 +332,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 				executeUpdateSQL(connection, sqlExpression);
 			} catch (SQLException e) {
 				logger.error(sqlExpression);
-				throw e;
+				throw new SQLException(sqlExpression, e);
 			}
 		}
 	}
@@ -367,7 +401,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 			executeUpdateSQL(connection, sqlExpression);
 		} catch (SQLException e) {
 			logger.error(sqlExpression);
-			throw e;
+			throw new SQLException(sqlExpression, e);
 		}
 	}
 

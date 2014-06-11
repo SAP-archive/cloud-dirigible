@@ -66,7 +66,7 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 			processTablesAndViews(targetContainer, repository, dataSource);
 			processDSV(targetContainer, repository, dataSource);
 		} catch (Exception ex) {
-			logger.trace(ex.getMessage(), ex);
+			logger.error(ex.getMessage(), ex);
 			throw new PublishException(ex.getMessage(), ex);
 		}
 	}
