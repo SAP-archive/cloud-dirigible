@@ -18,7 +18,9 @@ package com.sap.dirigible.ide.template.ui.db.wizard;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -39,6 +41,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
 
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 
@@ -72,8 +75,8 @@ public class DataStructureTemplateStructurePage extends WizardPage {
 
 	private static final String ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THE_SELECTED_COLUMN = Messages.DataStructureTemplateStructurePage_ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THE_SELECTED_COLUMN;
 
-//	private static final Logger logger = Logger
-//			.getLogger(DataStructureTemplateStructurePage.class);
+	// private static final Logger logger = Logger
+	// .getLogger(DataStructureTemplateStructurePage.class);
 
 	private static final String PAGE_NAME = "com.sap.dirigible.ide.template.ui.db.wizard.DataStructureTemplateStructurePage"; //$NON-NLS-1$
 
@@ -110,8 +113,7 @@ public class DataStructureTemplateStructurePage extends WizardPage {
 		hideErrorMessages();
 	}
 
-	class DataStructureTemplateStructurePageViewContentProvider implements
-			ITreeContentProvider {
+	class DataStructureTemplateStructurePageViewContentProvider implements ITreeContentProvider {
 		/**
 		 * 
 		 */
@@ -156,14 +158,11 @@ public class DataStructureTemplateStructurePage extends WizardPage {
 		label.setText(COLUMN_DEFINITIONS);
 		label.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, false));
 
-		typeViewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL
-				| SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
-		typeViewer.getControl().setLayoutData(
-				new GridData(SWT.FILL, SWT.FILL, true, true));
-		typeViewer
-				.setContentProvider(new DataStructureTemplateStructurePageViewContentProvider());
-		typeViewer
-				.setLabelProvider(new DataStructureTemplateStructurePageLabelProvider());
+		typeViewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI | SWT.BORDER
+				| SWT.FULL_SELECTION);
+		typeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		typeViewer.setContentProvider(new DataStructureTemplateStructurePageViewContentProvider());
+		typeViewer.setLabelProvider(new DataStructureTemplateStructurePageLabelProvider());
 		Tree tree = typeViewer.getTree();
 		tree.setHeaderVisible(true);
 		createTreeHeader(tree);
@@ -254,8 +253,7 @@ public class DataStructureTemplateStructurePage extends WizardPage {
 		int result = addColumnDialog.open();
 		if (result == Dialog.OK) {
 			columnDefinitions = (ColumnDefinition[]) typeViewer.getInput();
-			columnDefinitions = Arrays.copyOf(columnDefinitions,
-					columnDefinitions.length + 1);
+			columnDefinitions = Arrays.copyOf(columnDefinitions, columnDefinitions.length + 1);
 			columnDefinitions[columnDefinitions.length - 1] = columnDefinition;
 			typeViewer.setInput(columnDefinitions);
 			updateColumnDefinitions();
@@ -264,44 +262,41 @@ public class DataStructureTemplateStructurePage extends WizardPage {
 	}
 
 	protected void removeClicked() {
-		if (typeViewer.getTree().getSelection() != null
-				&& typeViewer.getTree().getSelection().length > 0) {
-			int selectionIndex = typeViewer.getTree().indexOf(
-					typeViewer.getTree().getSelection()[0]);
-			if (selectionIndex >= 0
-					&& selectionIndex < columnDefinitions.length) {
-				boolean result = MessageDialog.openQuestion(null,
-						REMOVE_COLUMN,
-						ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THE_SELECTED_COLUMN);
-				if (result) {
-					columnDefinitions = (ColumnDefinition[]) typeViewer
-							.getInput();
-					columnDefinitions = srinkArray(columnDefinitions,
-							selectionIndex);
-					typeViewer.setInput(columnDefinitions);
-					updateColumnDefinitions();
-					checkPageStatus();
-				}
+		TreeItem[] selection = typeViewer.getTree().getSelection();
+		List<Integer> removeIndexes = new ArrayList<Integer>();
+
+		if (selection != null
+				&& selection.length > 0
+				&& MessageDialog.openQuestion(null, REMOVE_COLUMN,
+						ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THE_SELECTED_COLUMN)) {
+
+			for (TreeItem nextSelection : selection) {
+				removeIndexes.add(typeViewer.getTree().indexOf(nextSelection));
 			}
+
+			columnDefinitions = (ColumnDefinition[]) typeViewer.getInput();
+			columnDefinitions = removeColumnsFromTable(columnDefinitions, removeIndexes);
+			typeViewer.setInput(columnDefinitions);
+			updateColumnDefinitions();
+			checkPageStatus();
 		}
 	}
 
-	private ColumnDefinition[] srinkArray(ColumnDefinition[] oldarray,
-			int selectionIndex) {
-		ColumnDefinition[] newarray = new ColumnDefinition[oldarray.length - 1];
-		int k = 0;
-		for (int x = 0; x < oldarray.length - 1; x++) {
-			if (x == selectionIndex) {
-				k += 1;
-			}
-			newarray[x] = oldarray[x + k];
+	private ColumnDefinition[] removeColumnsFromTable(ColumnDefinition[] columns,
+			List<Integer> removeIndexes) {
+		Map<Integer, ColumnDefinition> columnDefinitions = new HashMap<Integer, ColumnDefinition>();
+		for (int i = 0; i < columns.length; i++) {
+			columnDefinitions.put(i, columns[i]);
 		}
-		return newarray;
+		for (Integer removeIndex : removeIndexes) {
+			columnDefinitions.remove(removeIndex);
+		}
+		Collection<ColumnDefinition> values = columnDefinitions.values();
+		return values.toArray(new ColumnDefinition[values.size()]);
 	}
 
 	private void updateColumnDefinitions() {
-		ColumnDefinition[] columnDefinitions = (ColumnDefinition[]) typeViewer
-				.getInput();
+		ColumnDefinition[] columnDefinitions = (ColumnDefinition[]) typeViewer.getInput();
 		model.setColumnDefinitions(columnDefinitions);
 	}
 
