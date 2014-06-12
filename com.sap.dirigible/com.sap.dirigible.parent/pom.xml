@@ -14,11 +14,11 @@
 		<artifactId>oss-parent</artifactId>
 		<version>7</version>
 	</parent>
-	
+
 	<properties>
 		<tycho-version>0.20.0</tycho-version>
 	</properties>
-	
+
 
 	<inceptionYear>2010</inceptionYear>
 
@@ -60,8 +60,51 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-versions-plugin</artifactId>
 			</plugin>
+
+			<!--  attach sources 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+
+			<!--  attach javadoc 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>aggregate</id>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+						<phase>site</phase>
+						<configuration>
+						
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+			
 		</plugins>
-		
+
+
+
 		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
@@ -197,34 +240,13 @@
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-versions-plugin</artifactId>
 					<version>${tycho-version}</version>
-					<!-- 
-					<executions>
-						<execution>
-							<configuration>
-								<newVersion>1.1.0</newVersion>
-							</configuration>
-							<goals>
-								<goal>set-version</goal>
-							</goals>
-							<phase>validate</phase>
-						</execution>
-					 	-->	 
-						<!-- 
-						<execution>
-							<configuration>
-								<newVersion>1.0.0-SNAPSHOT</newVersion>
-							</configuration>
-							<inherited>false</inherited>
-							<goals>
-								<goal>set-version</goal>
-							</goals>
-							<id>restore-version-master</id>
-							<phase>validate</phase>
-						</execution>
-						 -->
-					<!--
-					</executions>
-					 -->
+					<!-- <executions> <execution> <configuration> <newVersion>1.1.0</newVersion> 
+						</configuration> <goals> <goal>set-version</goal> </goals> <phase>validate</phase> 
+						</execution> -->
+					<!-- <execution> <configuration> <newVersion>1.0.0-SNAPSHOT</newVersion> 
+						</configuration> <inherited>false</inherited> <goals> <goal>set-version</goal> 
+						</goals> <id>restore-version-master</id> <phase>validate</phase> </execution> -->
+					<!-- </executions> -->
 				</plugin>
 
 			</plugins>

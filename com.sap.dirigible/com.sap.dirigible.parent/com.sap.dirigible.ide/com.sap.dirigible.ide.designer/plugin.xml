@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
 
+<!--
    <extension
          point="org.eclipse.ui.views">
       <view
@@ -12,7 +13,7 @@
             restorable="true">
       </view>
    </extension>
-
+-->
    <extension
          point="org.eclipse.ui.editors">
       <editor

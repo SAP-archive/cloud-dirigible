@@ -16,8 +16,7 @@ public class DatabasePreferencePage extends FieldEditorPreferencePage implements
 	
 	@Override
 	protected void createFieldEditors() {
-		
-
+		//
 	}
 
 	@Override

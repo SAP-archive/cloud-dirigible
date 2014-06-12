@@ -44,7 +44,7 @@ public class DesignerEditor extends TextEditor {
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new GridLayout());
 
-		final DesignerEditor textEditor = this;
+		final DesignerEditor designerEditor = this;
 		IEditorInput input = getEditorInput();
 		text = new DesignerEditorWidget(parent);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -61,7 +61,7 @@ public class DesignerEditor extends TextEditor {
 
 			@Override
 			public void dirtyStateChanged(boolean dirty) {
-				textEditor.setDirty(dirty);
+				designerEditor.setDirty(dirty);
 			}
 
 			@Override

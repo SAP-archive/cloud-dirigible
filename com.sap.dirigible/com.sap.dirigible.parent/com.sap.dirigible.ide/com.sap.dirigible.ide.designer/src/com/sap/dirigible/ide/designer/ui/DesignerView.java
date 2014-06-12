@@ -23,6 +23,7 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -47,7 +48,7 @@ public class DesignerView extends ViewPart {
 	private static final String REFRESH = Messages.DesignerView_REFRESH;
 
 	private static final String WYSIWYG_URL = "/wysiwyg/wysiwyg.html"; //$NON-NLS-1$
-
+	
 	private static final URL DIRIGIBLE_REFRESH_ICON_URL = DesignerView.class
 			.getResource("/resources/refresh.png"); //$NON-NLS-1$
 
@@ -97,7 +98,7 @@ public class DesignerView extends ViewPart {
 		browser.getControl().setLayoutData(
 				new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		browser.setUrl(WYSIWYG_URL);
+		browser.setUrl(RWT.getRequest().getContextPath() + WYSIWYG_URL);
 	}
 
 	@Override

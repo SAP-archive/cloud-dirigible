@@ -35,7 +35,7 @@ public class DesignerEditorWidget extends Composite {
 	private static final Logger logger = Logger.getLogger(DesignerEditorWidget.class);
 	private static final String SCRIPT_EVALUATION_FAILED = Messages.DesignerEditorWidget_Script_evaluation_failed;
 	private static final int EVALUATE_ATTEMPTS = 5;
-	private static final String EDITOR_URL = "/glide/index.html"; //$NON-NLS-1$
+	private static final String EDITOR_URL = "/wysiwyg/wysiwyg.html"; //$NON-NLS-1$
 	private Browser browser;
 	private String text;
 	private IDesignerEditorWidgetListener listener;
@@ -99,7 +99,7 @@ public class DesignerEditorWidget extends Composite {
 	}
 
 	public String getText() {
-		return (String) browser.evaluate("return getText();"); //$NON-NLS-1$
+		return (String) browser.evaluate("return getEditorContent();"); //$NON-NLS-1$
 	}
 
 	public void setDirty(boolean dirty) {
@@ -107,12 +107,12 @@ public class DesignerEditorWidget extends Composite {
 	}
 
 	private void updateWidgetContents() {
-		evaluate("setText", text, mode); //$NON-NLS-1$
+		evaluate("window.setEditorContent", text); //$NON-NLS-1$
 	}
 
-	public void setMode(String mode) {
-		evaluate("setMode", mode); //$NON-NLS-1$
-	}
+//	public void setMode(String mode) {
+//		evaluate("setMode", mode); //$NON-NLS-1$
+//	}
 
 	private void execute(String function, Object... arguments) {
 		browser.execute(buildFunctionCall(function, arguments));
@@ -120,15 +120,15 @@ public class DesignerEditorWidget extends Composite {
 
 	private Object evaluate(String function, Object... arguments) {
 		String script = buildFunctionCall(function, arguments);
-		for (int i = 0; i < EVALUATE_ATTEMPTS; i++) {
-			try {
+//		for (int i = 0; i < EVALUATE_ATTEMPTS; i++) {
+//			try {
 				return browser.evaluate(script);
-			} catch (Exception ex) {
-				logger.debug(ex.getMessage(), ex);
-			}
-		}
+//			} catch (Exception ex) {
+//				logger.debug(ex.getMessage(), ex);
+//			}
+//		}
 
-		throw new IllegalStateException(SCRIPT_EVALUATION_FAILED + script);
+//		throw new IllegalStateException(SCRIPT_EVALUATION_FAILED + script);
 	}
 
 	private String buildFunctionCall(String function, Object... arguments) {

@@ -1,19 +1,23 @@
-require([ "Overlay", "Util", "Widget", "BoundedQueue", "./js/mousetrap.min.js" ], function(Overlay, Util, Widget,BoundedQueue) {
+require([ "Overlay", "Util", "Widget", "BoundedQueue", "Serializer", "./js/mousetrap.min.js" ], function(Overlay, Util, Widget,BoundedQueue, Serializer) {
 
 	var iframe = document.querySelector("iframe");
 	
 	
-	iframe.src = "empty.html"; //TODO obtain this from the wysiwyg URL
-	
-	iframe.addEventListener('load', function(){
-	
-		var style = iframe.contentDocument.createElement("style");
+	window.setEditorContent = function(content) {
+	  
+		iframe.src = "";
+	    iframe.contentDocument.write(content)
+	   
+	    var style = iframe.contentDocument.createElement("style");
 		style.id = "dirigible-wysiwyg-patches";
 		style.innerHTML = "div.controls { min-height: 30px;} body {min-height: 700px;}";
 		iframe.contentDocument.head.appendChild(style);
-		
-	}, false);
+	}
 	
+	window.getEditorContent = function() {
+	  
+	    return Serializer.save();
+	}
 	
 	
 	var mask = document.querySelector("#mask");
@@ -111,7 +115,9 @@ require([ "Overlay", "Util", "Widget", "BoundedQueue", "./js/mousetrap.min.js" ]
 		}
 		parentOverlay.stretchOver(parentOverlay.decoratedEl);
 		parentOverlay.setParent();
-		parentOverlay.show();	
+		parentOverlay.show();
+		
+		dirtyChanged(true);
 		
 	});
 	
@@ -125,6 +131,12 @@ require([ "Overlay", "Util", "Widget", "BoundedQueue", "./js/mousetrap.min.js" ]
 		selection.forEach(function(o){
 			o.remove();
 		});
+	})
+	
+	Mousetrap.bind("ctrl+s",function(e){
+	    e.preventDefault();
+	    e.stopPropagation();
+		saveCalled();
 	})
 	
 	
