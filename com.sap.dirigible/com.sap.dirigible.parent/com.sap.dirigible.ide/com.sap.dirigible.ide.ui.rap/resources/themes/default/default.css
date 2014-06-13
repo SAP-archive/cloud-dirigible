@@ -396,13 +396,13 @@ TreeItem {
 }
 
 TreeItem:selected {
-  background-color: #777879;
+  background-color: #d6d6d6;
   color: #0858e3;
 }
 
 TreeItem:selected:unfocused {
-  background-color: #959595;
-  color: #aabbcc;
+  background-color: #f1f1f1;
+  color: #8899aa;
 }
 
 TreeColumn {
