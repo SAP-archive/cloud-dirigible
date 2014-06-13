@@ -66,7 +66,7 @@ public class JavaScriptEditor extends TextEditor {
 		final String scriptingServices = SCRIPTING_SERVICES;
 		int indexOfScriptingService = sb.indexOf(scriptingServices);
 		sb.replace(indexOfScriptingService, indexOfScriptingService + scriptingServices.length(),
-				"");
+				EMPTY);
 		return sb.toString();
 	}
 

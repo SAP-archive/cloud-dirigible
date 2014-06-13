@@ -26,6 +26,7 @@ public class Messages extends NLS {
 	public static String ExtensionDefinitionTemplateTypePage_SELECT_THE_TYPE_OF_THE_TEMPLATE_WHICH_WILL_BE_USED_DURING_GENERATION;
 	public static String ExtensionDefinitionTemplateTypePage_SELECTION_OF_TEMPLATE_TYPE;
 	public static String ExtensionDefinitionTemplateWizard_CREATE_EXTENSION_FILE;
+	public static String ExtensionsView_EXTENSIONS_ERROR;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

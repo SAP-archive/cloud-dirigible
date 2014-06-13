@@ -37,4 +37,16 @@
             text="Extension">
       </template>
    </extension>
+   <extension 
+	       point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            category="com.sap.dirigible.ide.workspace.ui.category"
+            class="com.sap.dirigible.ide.template.ui.ed.view.ExtensionsView"
+            icon="icons/wizard_extension-definition.png"
+            id="com.sap.dirigible.ide.template.ui.ed.view.ExtensionsView"
+            name="Extensions Viewer"
+            restorable="true">
+      </view>
+</extension>
 </plugin>
