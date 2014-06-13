@@ -2,18 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-<!--
-   <extension
-         point="org.eclipse.ui.views">
-      <view
-            class="com.sap.dirigible.ide.designer.ui.DesignerView"
-            icon="resources/designer.png"
-            id="com.sap.dirigible.ide.designer.ui.DesignerView"
-            name="Designer"
-            restorable="true">
-      </view>
-   </extension>
--->
    <extension
          point="org.eclipse.ui.editors">
       <editor

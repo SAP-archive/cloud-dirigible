@@ -26,7 +26,7 @@
   	 <description>Select the target project with right-click and select Activate command</description>
   </item>
   <item title="Test the Result">
-  	 <description>Select the generated *.html file under WebContent folder and view the result at Web Viewer</description>
+  	 <description>Select the generated *.html file under WebContent folder and view the result at Preview</description>
   	 <command serialization="com.sap.dirigible.ide.publish.ui.command.ShowWebViewerHandler"/>
   </item>
 </cheatsheet>
