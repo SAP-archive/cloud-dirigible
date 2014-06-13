@@ -30,20 +30,24 @@ public class DebuggerActionCommander implements IDebugCommands {
 	private JavaScriptDebugger javaScriptDebugger;
 
 	private String executionId;
-	
+
 	private String userId;
-	
+
 	private DebuggerActionManager debuggerActionManager;
 
-	public DebuggerActionCommander(DebuggerActionManager debuggerActionManager, String executionId, String userId) {
+	public DebuggerActionCommander(DebuggerActionManager debuggerActionManager, String executionId,
+			String userId) {
 		this.debuggerActionManager = debuggerActionManager;
 		this.executionId = executionId;
 		this.userId = userId;
-		
 		this.debuggerActionManager.addCommander(this);
 		init();
 	}
 
+	/**
+	 * Resets debugger state machine
+	 * 
+	 */
 	public void init() {
 		currentCommand = null;
 		executing = false;
@@ -96,7 +100,8 @@ public class DebuggerActionCommander implements IDebugCommands {
 
 	@Override
 	public void clearAllBreakpoints(String path) {
-		Iterator<BreakpointMetadata> iterator = getDebuggerActionManager().getBreakpoints().iterator();
+		Iterator<BreakpointMetadata> iterator = getDebuggerActionManager().getBreakpoints()
+				.iterator();
 		while (iterator.hasNext()) {
 			BreakpointMetadata breakpoint = iterator.next();
 			if (breakpoint.getFullPath().equals(path)) {
@@ -123,40 +128,68 @@ public class DebuggerActionCommander implements IDebugCommands {
 	public DebuggerActionManager getDebuggerActionManager() {
 		return debuggerActionManager;
 	}
-	
+
+	/**
+	 * @return the debug frame
+	 */
 	public JavaScriptDebugFrame getJavaScriptDebugFrame() {
 		return javaScriptDebugFrame;
 	}
 
+	/**
+	 * Sets the debug frame
+	 * 
+	 * @param javaScriptDebugFrame
+	 */
 	public void setJavaScriptDebugFrame(JavaScriptDebugFrame javaScriptDebugFrame) {
 		this.javaScriptDebugFrame = javaScriptDebugFrame;
 	}
-	
+
+	/**
+	 * @return the debugger
+	 */
 	public JavaScriptDebugger getJavaScriptDebugger() {
 		return javaScriptDebugger;
 	}
 
+	/**
+	 * Sets the debugger
+	 * 
+	 * @param javaScriptDebugger
+	 */
 	public void setJavaScriptDebugger(JavaScriptDebugger javaScriptDebugger) {
 		this.javaScriptDebugger = javaScriptDebugger;
 	}
 
+	/**
+	 * Clean up the debugger environment
+	 * 
+	 */
 	public void clean() {
 		this.javaScriptDebugFrame = null;
 		this.javaScriptDebugger = null;
 		this.debuggerActionManager.removeCommander(this);
 	}
-	
+
+	/**
+	 * @return the session id of logged in user
+	 */
 	public String getSessionId() {
 		return getDebuggerActionManager().getSessionId();
 	}
-	
+
+	/**
+	 * @return the execution id for the debug session
+	 */
 	public String getExecutionId() {
 		return this.executionId;
 	}
-	
+
+	/**
+	 * @return the user id of logged in user
+	 */
 	public String getUserId() {
 		return userId;
 	}
 
-	
 }

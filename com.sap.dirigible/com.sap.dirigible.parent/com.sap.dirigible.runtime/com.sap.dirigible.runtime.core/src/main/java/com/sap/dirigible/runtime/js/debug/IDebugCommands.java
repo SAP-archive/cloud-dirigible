@@ -55,17 +55,51 @@ public interface IDebugCommands {
 	 */
 	public void stepInto();
 
+	/**
+	 * Add breakpoint
+	 * 
+	 * @param breakpoint
+	 */
 	public void addBreakpoint(BreakpointMetadata breakpoint);
 
+	/**
+	 * Remove breakpoint
+	 * 
+	 * @param breakpoint
+	 */
 	public void clearBreakpoint(BreakpointMetadata breakpoint);
 
+	/**
+	 * Clear all breakpoints
+	 * 
+	 */
 	public void clearAllBreakpoints();
-	
+
+	/**
+	 * Clear all breakpoints for specific file
+	 * 
+	 * @param path
+	 *            to the file
+	 */
 	public void clearAllBreakpoints(String path);
-	
+
+	/**
+	 * Get all {@link BreakpointMetadata breakpoints meta data}
+	 * 
+	 * @return {@link java.util.Set Set} of breakpoints meta data
+	 */
 	public Set<BreakpointMetadata> getBreakpoints();
 
+	/**
+	 * Skips all breakpoints
+	 * 
+	 */
 	public void skipAllBreakpoints();
 
+	/**
+	 * Gets next {@link DebugCommand} that will be executed
+	 * 
+	 * @return
+	 */
 	public DebugCommand getCommand();
 }

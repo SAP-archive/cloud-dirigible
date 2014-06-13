@@ -68,18 +68,20 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 	private PropertyChangeSupport debuggerBridge;
 	private VariableValuesMetadata variableValuesMetadata;
 
-	public JavaScriptDebugFrame(PropertyChangeSupport debuggerBridge, HttpServletRequest request, JavaScriptDebugger javaScriptDebugger) {
+	public JavaScriptDebugFrame(PropertyChangeSupport debuggerBridge, HttpServletRequest request,
+			JavaScriptDebugger javaScriptDebugger) {
 		// get the instance of debugger action manager from the session
-		
+
 		logger.debug("entering JavaScriptDebugFrame.constructor");
-		
+
 		this.debuggerActionManager = DebuggerActionManager.getInstance(request.getSession(true));
-		
+
 		// create a new instance of commander per frame
 		String executionId = UUID.randomUUID().toString();
 		String userId = request.getRemoteUser();
-		this.debuggerActionCommander = new DebuggerActionCommander(this.debuggerActionManager, executionId, userId);
-		
+		this.debuggerActionCommander = new DebuggerActionCommander(this.debuggerActionManager,
+				executionId, userId);
+
 		this.debuggerActionCommander.init();
 		this.debuggerActionCommander.setJavaScriptDebugFrame(this);
 		this.debuggerActionCommander.setJavaScriptDebugger(javaScriptDebugger);
@@ -89,24 +91,19 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 
 		this.scriptStack = new Stack<DebuggableScript>();
 		this.activationStack = new Stack<Scriptable>();
-		
+
 		registerDebugFrame();
-		
+
 		logger.debug("exiting JavaScriptDebugFrame.constructor");
 	}
 
-	public void registerDebugFrame() {
+	private void registerDebugFrame() {
 		logger.debug("entering JavaScriptDebugFrame.registerDebugFrame");
 		String commandBody = new Gson().toJson(new DebugSessionMetadata(
-				getDebuggerActionCommander().getSessionId(), 
-				getDebuggerActionCommander().getExecutionId(), 
-				getDebuggerActionCommander().getUserId()));
+				getDebuggerActionCommander().getSessionId(), getDebuggerActionCommander()
+						.getExecutionId(), getDebuggerActionCommander().getUserId()));
 		send(DebugConstants.VIEW_REGISTER, commandBody);
 		logger.debug("exiting JavaScriptDebugFrame.registerDebugFrame");
-	}
-	
-	public DebuggerActionManager getDebuggerActionManager() {
-		return debuggerActionManager;
 	}
 
 	@Override
@@ -137,9 +134,9 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		if (scriptStack.isEmpty()) {
 			this.debuggerBridge.removePropertyChangeListener(this);
 			this.debuggerActionCommander.clean();
-			DebuggerActionCommander commander = getDebuggerActionCommander();		
-			DebugSessionMetadata metadata = new DebugSessionMetadata(
-					commander.getSessionId(), commander.getExecutionId(), commander.getUserId());
+			DebuggerActionCommander commander = getDebuggerActionCommander();
+			DebugSessionMetadata metadata = new DebugSessionMetadata(commander.getSessionId(),
+					commander.getExecutionId(), commander.getUserId());
 			String json = new Gson().toJson(metadata);
 			send(DebugConstants.VIEW_FINISH, json);
 		}
@@ -214,7 +211,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 			try {
 				Thread.sleep(SLEEP_TIME);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				// Ignore
 			}
 		}
 		logger.debug("exiting JavaScriptDebugFrame.blockExecution()");
@@ -227,9 +224,8 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 	private boolean isBreakpoint(int row) {
 		String path = scriptStack.peek().getSourceName();
 		DebuggerActionCommander commander = getDebuggerActionCommander();
-		BreakpointMetadata breakpoint = new BreakpointMetadata(
-				commander.getSessionId(), commander.getExecutionId(), commander.getUserId(),
-				path, row);
+		BreakpointMetadata breakpoint = new BreakpointMetadata(commander.getSessionId(),
+				commander.getExecutionId(), commander.getUserId(), path, row);
 		Set<BreakpointMetadata> breakpoints = debuggerActionCommander.getBreakpoints();
 		return breakpoints.contains(breakpoint);
 	}
@@ -249,9 +245,8 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 			}
 		}
 		if (variableValuesMetadata == null) {
-			variableValuesMetadata = new VariableValuesMetadata(
-					commander.getSessionId(), commander.getExecutionId(), commander.getUserId(),
-					variableValuesList);
+			variableValuesMetadata = new VariableValuesMetadata(commander.getSessionId(),
+					commander.getExecutionId(), commander.getUserId(), variableValuesList);
 		}
 		variableValuesMetadata.setVariableValueList(variableValuesList);
 		sendVariableValuesMetadata();
@@ -289,14 +284,14 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		String commandId = event.getPropertyName();
 		String clientId = (String) event.getOldValue();
 		String commandBody = (String) event.getNewValue();
-		logger.debug("JavaScriptDebugFrame propertyChange() command: " + commandId + ", clientId: " + clientId + ", body: " + commandBody);
-		
-		if (clientId == null
-				|| !clientId.equals(getDebuggerActionCommander().getExecutionId())) {
+		logger.debug("JavaScriptDebugFrame propertyChange() command: " + commandId + ", clientId: "
+				+ clientId + ", body: " + commandBody);
+
+		if (clientId == null || !clientId.equals(getDebuggerActionCommander().getExecutionId())) {
 			// skip as the command is not for the current frame
 			return;
 		}
-		
+
 		Gson gson = new Gson();
 		if (commandId.startsWith(DebugConstants.DEBUG)) {
 			if (commandId.equals(DebugConstants.DEBUG_REFRESH)) {
@@ -315,11 +310,13 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 				debuggerActionCommander.skipAllBreakpoints();
 				debuggerActionCommander.resumeExecution();
 			} else if (commandId.equals(DebugConstants.DEBUG_SET_BREAKPOINT)) {
-				BreakpointMetadata breakpoint = gson.fromJson(commandBody, BreakpointMetadata.class);
+				BreakpointMetadata breakpoint = gson
+						.fromJson(commandBody, BreakpointMetadata.class);
 				debuggerActionCommander.addBreakpoint(breakpoint);
 				sendBreakpointsMetadata();
 			} else if (commandId.equals(DebugConstants.DEBUG_CLEAR_BREAKPOINT)) {
-				BreakpointMetadata breakpoint = gson.fromJson(commandBody, BreakpointMetadata.class);
+				BreakpointMetadata breakpoint = gson
+						.fromJson(commandBody, BreakpointMetadata.class);
 				debuggerActionCommander.clearBreakpoint(breakpoint);
 				sendBreakpointsMetadata();
 			} else if (commandId.equals(DebugConstants.DEBUG_CLEAR_ALL_BREAKPOINTS)) {
@@ -343,9 +340,8 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 
 	private void sendOnBreakLineChange(String path, Integer row) {
 		DebuggerActionCommander commander = getDebuggerActionCommander();
-		BreakpointMetadata breakLine = new BreakpointMetadata(
-				commander.getSessionId(), commander.getExecutionId(), commander.getUserId(),
-				path, row);
+		BreakpointMetadata breakLine = new BreakpointMetadata(commander.getSessionId(),
+				commander.getExecutionId(), commander.getUserId(), path, row);
 		Gson gson = new Gson();
 		String variableValuesJson = gson.toJson(breakLine);
 		send(DebugConstants.VIEW_ON_LINE_CHANGE, variableValuesJson);
@@ -353,19 +349,19 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 
 	private void sendBreakpointsMetadata() {
 		Set<BreakpointMetadata> breakpoints = debuggerActionCommander.getBreakpoints();
-		DebuggerActionCommander commander = getDebuggerActionCommander();		
-		BreakpointsMetadata metadata = new BreakpointsMetadata(
-				commander.getSessionId(), commander.getExecutionId(), commander.getUserId(),
-				breakpoints);
+		DebuggerActionCommander commander = getDebuggerActionCommander();
+		BreakpointsMetadata metadata = new BreakpointsMetadata(commander.getSessionId(),
+				commander.getExecutionId(), commander.getUserId(), breakpoints);
 		String json = new Gson().toJson(metadata);
 		send(DebugConstants.VIEW_BREAKPOINT_METADATA, json);
 	}
 
 	public void send(String commandId, String commandBody) {
 		logger.debug("JavaScriptDebugFrame send() command: " + commandId + ", body: " + commandBody);
-		DebugBridgeUtils.send(this.debuggerBridge, commandId, getDebuggerActionCommander().getExecutionId(), commandBody);
+		DebugBridgeUtils.send(this.debuggerBridge, commandId, getDebuggerActionCommander()
+				.getExecutionId(), commandBody);
 	}
-	
+
 	public DebuggerActionCommander getDebuggerActionCommander() {
 		return debuggerActionCommander;
 	}
