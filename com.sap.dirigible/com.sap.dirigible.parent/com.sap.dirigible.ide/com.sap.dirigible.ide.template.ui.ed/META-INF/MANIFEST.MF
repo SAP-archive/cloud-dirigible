@@ -12,7 +12,10 @@ Require-Bundle: org.eclipse.rap.ui,
  com.sap.dirigible.ide.common,
  com.sap.dirigible.ide.repository,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.ext
+ com.sap.dirigible.repository.ext,
+ com.sap.dirigible.ide.repository.ui,
+ com.sap.dirigible.ide.workspace.ui,
+ com.sap.dirigible.ide.workspace
 Import-Package: com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.ide.ui.common.validation,

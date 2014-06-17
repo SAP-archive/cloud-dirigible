@@ -21,6 +21,7 @@ import org.eclipse.rap.rwt.RWT;
 
 public class CommonParameters {
 
+	public static final String EMPTY_STRING = "";  //$NON-NLS-1$
 	public static final String DIRIGIBLE_PRODUCT_NAME = "Dirigible"; //$NON-NLS-1$
 	public static final String DIRIGIBLE_PRODUCT_VERSION = "1.1.1-beta"; //$NON-NLS-1$
 
@@ -87,6 +88,14 @@ public class CommonParameters {
 		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + TESTS_CONTENT_FOLDER;
 	}
 	
+	public static final String EXTENSION_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS;
+	public static final String EXTENSION_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
+			+ EXTENSION_CONTENT_FOLDER;
+	
+	public static String getExtensionContentSandbox() {
+		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + EXTENSION_CONTENT_FOLDER;
+	}
+	
 	
 	
 	//github url
@@ -106,9 +115,11 @@ public class CommonParameters {
 	public static final String TEST_CASES_SANDBOX_MAPPING = "/test-sandbox"; //$NON-NLS-1$
 	public static final String WIKI_CONTENT_SANDBOX_MAPPING = "/wiki-sandbox"; //$NON-NLS-1$
 
-	public static final String JAVASCRIPT_SERVICE_EXTENSION = ".js"; //$NON-NLS-1$
-	public static final String RUBY_SERVICE_EXTENSION = ".rb"; //$NON-NLS-1$
-	public static final String GROOVY_SERVICE_EXTENSION = ".groovy"; //$NON-NLS-1$
+	public static final String JAVASCRIPT_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.JAVASCRIPT; //$NON-NLS-1$
+	public static final String RUBY_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.RUBY; //$NON-NLS-1$
+	public static final String GROOVY_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.GROOVY; //$NON-NLS-1$
+	public static final String EXTENSION_POINT_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.EXTENSION_POINT; //$NON-NLS-1$
+	public static final String EXTENSION_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.EXTENSION; //$NON-NLS-1$
 	public static final String GUEST_USER = "guest"; //$NON-NLS-1$
 
 	public static final String CONTENT_EXPORT = "/content-export/"; //$NON-NLS-1$
@@ -228,4 +239,24 @@ public class CommonParameters {
 		return sessionId;
 	}
 
+	public static String formatToIDEPath(String folder, String runtimePath) {
+		StringBuilder path = new StringBuilder(runtimePath);
+		int lastIndex = runtimePath.lastIndexOf(SEPARATOR);
+		if (lastIndex != -1) {
+			path.insert(lastIndex, "/" + folder);
+		}
+		return path.toString();
+	}
+
+	public static String formatToRuntimePath(String folder, String idePath) {
+		StringBuilder path = new StringBuilder(idePath);
+		int indexOfWorkspace = path.indexOf(WORKSPACE_FOLDER_NAME);
+		int indexOfSlash = path.indexOf(SEPARATOR, indexOfWorkspace);
+		path.replace(0, indexOfSlash, EMPTY_STRING);
+		int indexOfFolder = path.indexOf(folder);
+		path.replace(indexOfFolder, indexOfFolder + folder.length() + 1,
+				EMPTY_STRING);
+		return path.toString();
+	}
+	
 	}

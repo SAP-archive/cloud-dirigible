@@ -25,6 +25,7 @@ import org.eclipse.swt.browser.ProgressListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.logging.Logger;
@@ -74,8 +75,8 @@ public class EditorWidget extends Composite {
 
 					if (debugModel != null) {
 						String filePath = debugModel.getCurrentLineBreak().getFullPath();
-						String path = JavaScriptEditor
-								.formatToRuntimeScriptingServicePath(filePath);
+						String path = CommonParameters.formatToRuntimePath(
+								CommonParameters.SCRIPTING_CONTENT_FOLDER, filePath);
 						int[] breakpoints = debugModel.getBreakpointsMetadata()
 								.getBreakpoints(path);
 

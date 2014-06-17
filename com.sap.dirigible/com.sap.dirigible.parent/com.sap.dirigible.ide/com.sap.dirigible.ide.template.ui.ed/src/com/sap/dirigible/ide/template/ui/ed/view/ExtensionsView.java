@@ -3,7 +3,15 @@ package com.sap.dirigible.ide.template.ui.ed.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
@@ -11,10 +19,14 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.template.ui.ed.wizard.Messages;
+import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.ui.commands.OpenHandler;
+import com.sap.dirigible.repository.ext.extensions.ExtensionDefinition;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
 import com.sap.dirigible.repository.ext.extensions.ExtensionPointDefinition;
 
@@ -38,6 +50,40 @@ public class ExtensionsView extends ViewPart {
 		viewer.setLabelProvider(new ExtensionsLabelProvider());
 		viewer.setSorter(new ViewerSorter());
 		viewer.setInput(getExtensionPoints());
+
+		viewer.addDoubleClickListener(new IDoubleClickListener() {
+
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				Object firstElement = selection.getFirstElement();
+
+				if (firstElement != null) {
+					if (firstElement instanceof ExtensionPointDefinition) {
+						ExtensionPointDefinition extensionPoint = (ExtensionPointDefinition) firstElement;
+						openEditor(CommonParameters.formatToIDEPath(
+								CommonParameters.EXTENSION_CONTENT_FOLDER,
+								extensionPoint.getLocation())
+								+ CommonParameters.EXTENSION_POINT_EXTENSION);
+					} else if (firstElement instanceof ExtensionDefinition) {
+						ExtensionDefinition extension = (ExtensionDefinition) firstElement;
+						openEditor(CommonParameters.formatToIDEPath(
+								CommonParameters.EXTENSION_CONTENT_FOLDER, extension.getLocation())
+								+ CommonParameters.EXTENSION_EXTENSION);
+					}
+				}
+			}
+		});
+	}
+
+	private void openEditor(String path) {
+		IPath location = new Path(path);
+		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
+		IFile file = root.getFile(location);
+		if (file.exists()) {
+			OpenHandler.open(file, 0);
+		}
 	}
 
 	private List<ExtensionPointDefinition> getExtensionPoints() {

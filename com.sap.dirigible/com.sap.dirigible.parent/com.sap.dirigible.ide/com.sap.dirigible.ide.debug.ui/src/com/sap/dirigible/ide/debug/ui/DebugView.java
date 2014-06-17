@@ -321,8 +321,9 @@ public class DebugView extends ViewPart implements IDebugController {
 							.getSelection();
 					BreakpointMetadata breakpointMetadata = (BreakpointMetadata) structuredSelection
 							.getFirstElement();
-					String path = JavaScriptEditor.formatToIDEScriptingServicePath(breakpointMetadata.getFullPath());
-					openEditor(path, breakpointMetadata.getRow());
+					openEditor(CommonParameters.formatToIDEPath(
+							CommonParameters.SCRIPTING_CONTENT_FOLDER,
+							breakpointMetadata.getFullPath()), breakpointMetadata.getRow());
 				}
 			}
 		});

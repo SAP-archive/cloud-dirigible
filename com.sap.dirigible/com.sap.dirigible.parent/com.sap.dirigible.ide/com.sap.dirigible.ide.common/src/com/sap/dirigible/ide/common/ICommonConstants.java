@@ -17,6 +17,14 @@ package com.sap.dirigible.ide.common;
 
 public interface ICommonConstants {
 
+	public interface ARTIFACT_EXTENSION {
+		public static final String JAVASCRIPT= ".js"; //$NON-NLS-1$
+		public static final String RUBY = ".rb"; //$NON-NLS-1$
+		public static final String GROOVY = ".groovy"; //$NON-NLS-1$
+		public static final String EXTENSION_POINT = ".extensionpoint"; //$NON-NLS-1$
+		public static final String EXTENSION = ".extension"; //$NON-NLS-1$
+	}
+	
 	public interface ARTIFACT_TYPE {
 		public final static String DATA_STRUCTURES = "DataStructures"; //$NON-NLS-1$
 		public final static String INTEGRATION_SERVICES = "IntegrationServices"; //$NON-NLS-1$

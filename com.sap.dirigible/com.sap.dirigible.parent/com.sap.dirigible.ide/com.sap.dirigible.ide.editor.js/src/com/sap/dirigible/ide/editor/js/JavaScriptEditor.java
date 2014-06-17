@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.editor.text.editor.ContentProviderException;
@@ -33,14 +34,6 @@ import com.sap.rap.ui.shared.editor.SourceFileEditorInput;
 
 public class JavaScriptEditor extends TextEditor {
 
-	private static final String SLASH = "/";
-
-	private static final String EMPTY = "";
-
-	private static final String SCRIPTING_SERVICES = "/ScriptingServices";
-
-	private static final String WORKSPACE = "workspace";
-
 	private static final String ERROR = Messages.JavaScriptEditor_ERROR;
 
 	private static final String CANNOT_LOAD_DOCUMENT = Messages.JavaScriptEditor_CANNOT_LOAD_DOCUMENT;
@@ -48,27 +41,6 @@ public class JavaScriptEditor extends TextEditor {
 	private static final Logger logger = Logger.getLogger(JavaScriptEditor.class);
 
 	private EditorWidget text = null;
-
-	public static String formatToIDEScriptingServicePath(String path) {
-		StringBuilder fullPath = new StringBuilder(path);
-		int lastIndex = path.lastIndexOf(SLASH);
-		if (lastIndex != -1) {
-			fullPath.insert(lastIndex, SCRIPTING_SERVICES);
-		}
-		return fullPath.toString();
-	}
-
-	public static String formatToRuntimeScriptingServicePath(String path) {
-		StringBuilder sb = new StringBuilder(path);
-		int indexOfWorkspace = sb.indexOf(WORKSPACE);
-		int indexOfSlash = sb.indexOf(SLASH, indexOfWorkspace);
-		sb.replace(0, indexOfSlash, EMPTY);
-		final String scriptingServices = SCRIPTING_SERVICES;
-		int indexOfScriptingService = sb.indexOf(scriptingServices);
-		sb.replace(indexOfScriptingService, indexOfScriptingService + scriptingServices.length(),
-				EMPTY);
-		return sb.toString();
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -131,11 +103,11 @@ public class JavaScriptEditor extends TextEditor {
 			public void setBreakpoint(final int row) {
 				IEditorInput editorInput = getEditorInput();
 				if (editorInput instanceof FileEditorInput) {
-					String path = ((FileEditorInput) editorInput).getPath().toString();
-					String formatedPath = formatToRuntimeScriptingServicePath(path);
 					DebugModel debugModel = DebugModelFacade.getActiveDebugModel();
 					if (debugModel != null) {
-						debugModel.setBreakpoint(formatedPath, row);
+						debugModel.setBreakpoint(CommonParameters.formatToRuntimePath(
+								CommonParameters.SCRIPTING_CONTENT_FOLDER,
+								((FileEditorInput) editorInput).getPath().toString()), row);
 					}
 				}
 			}
@@ -144,11 +116,12 @@ public class JavaScriptEditor extends TextEditor {
 			public void clearBreakpoint(final int row) {
 				IEditorInput editorInput = getEditorInput();
 				if (editorInput instanceof FileEditorInput) {
-					String path = ((FileEditorInput) editorInput).getPath().toString();
-					String formatedPath = formatToRuntimeScriptingServicePath(path);
 					DebugModel debugModel = DebugModelFacade.getActiveDebugModel();
 					if (debugModel != null) {
-						debugModel.clearBreakpoint(formatedPath, row);
+						String formatToRuntimePath = CommonParameters.formatToRuntimePath(
+								CommonParameters.SCRIPTING_CONTENT_FOLDER,
+								((FileEditorInput) editorInput).getPath().toString());
+						debugModel.clearBreakpoint(formatToRuntimePath, row);
 					}
 				}
 			}
