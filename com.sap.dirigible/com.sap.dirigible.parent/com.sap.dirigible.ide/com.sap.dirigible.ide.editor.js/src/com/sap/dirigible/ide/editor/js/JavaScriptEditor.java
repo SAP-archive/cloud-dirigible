@@ -25,6 +25,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.editor.text.editor.ContentProviderException;
@@ -105,7 +106,7 @@ public class JavaScriptEditor extends TextEditor {
 				if (editorInput instanceof FileEditorInput) {
 					DebugModel debugModel = DebugModelFacade.getActiveDebugModel();
 					if (debugModel != null) {
-						debugModel.setBreakpoint(CommonParameters.formatToRuntimePath(
+						debugModel.setBreakpoint(CommonUtils.formatToRuntimePath(
 								CommonParameters.SCRIPTING_CONTENT_FOLDER,
 								((FileEditorInput) editorInput).getPath().toString()), row);
 					}
@@ -118,7 +119,7 @@ public class JavaScriptEditor extends TextEditor {
 				if (editorInput instanceof FileEditorInput) {
 					DebugModel debugModel = DebugModelFacade.getActiveDebugModel();
 					if (debugModel != null) {
-						String formatToRuntimePath = CommonParameters.formatToRuntimePath(
+						String formatToRuntimePath = CommonUtils.formatToRuntimePath(
 								CommonParameters.SCRIPTING_CONTENT_FOLDER,
 								((FileEditorInput) editorInput).getPath().toString());
 						debugModel.clearBreakpoint(formatToRuntimePath, row);

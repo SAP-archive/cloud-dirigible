@@ -112,9 +112,9 @@ public class WebViewerView extends ViewPart {
 		holder.setLayout(new GridLayout(4, false));
 
 		createSandboxToggleButton(holder);
+		createOpenInNewTabButton(holder);
 		createRefreshButton(holder);
 		createUrlAddressField(holder);
-		createOpenInNewTabButton(holder);
 
 		browser = new ExtendedBrowser(parent, SWT.NONE);
 		browser.getControl().setLayoutData(

@@ -53,6 +53,7 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.google.gson.Gson;
 import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.debug.model.IDebugController;
@@ -321,7 +322,7 @@ public class DebugView extends ViewPart implements IDebugController {
 							.getSelection();
 					BreakpointMetadata breakpointMetadata = (BreakpointMetadata) structuredSelection
 							.getFirstElement();
-					openEditor(CommonParameters.formatToIDEPath(
+					openEditor(CommonUtils.formatToIDEPath(
 							CommonParameters.SCRIPTING_CONTENT_FOLDER,
 							breakpointMetadata.getFullPath()), breakpointMetadata.getRow());
 				}

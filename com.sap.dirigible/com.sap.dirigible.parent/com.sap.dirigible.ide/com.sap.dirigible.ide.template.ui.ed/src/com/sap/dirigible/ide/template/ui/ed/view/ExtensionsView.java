@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
 import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
@@ -61,13 +62,13 @@ public class ExtensionsView extends ViewPart {
 				if (firstElement != null) {
 					if (firstElement instanceof ExtensionPointDefinition) {
 						ExtensionPointDefinition extensionPoint = (ExtensionPointDefinition) firstElement;
-						openEditor(CommonParameters.formatToIDEPath(
+						openEditor(CommonUtils.formatToIDEPath(
 								CommonParameters.EXTENSION_CONTENT_FOLDER,
 								extensionPoint.getLocation())
 								+ CommonParameters.EXTENSION_POINT_EXTENSION);
 					} else if (firstElement instanceof ExtensionDefinition) {
 						ExtensionDefinition extension = (ExtensionDefinition) firstElement;
-						openEditor(CommonParameters.formatToIDEPath(
+						openEditor(CommonUtils.formatToIDEPath(
 								CommonParameters.EXTENSION_CONTENT_FOLDER, extension.getLocation())
 								+ CommonParameters.EXTENSION_EXTENSION);
 					}

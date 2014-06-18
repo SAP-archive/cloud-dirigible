@@ -238,25 +238,5 @@ public class CommonParameters {
 		String sessionId = RWT.getRequest().getSession(true).getId();
 		return sessionId;
 	}
-
-	public static String formatToIDEPath(String folder, String runtimePath) {
-		StringBuilder path = new StringBuilder(runtimePath);
-		int lastIndex = runtimePath.lastIndexOf(SEPARATOR);
-		if (lastIndex != -1) {
-			path.insert(lastIndex, "/" + folder);
-		}
-		return path.toString();
-	}
-
-	public static String formatToRuntimePath(String folder, String idePath) {
-		StringBuilder path = new StringBuilder(idePath);
-		int indexOfWorkspace = path.indexOf(WORKSPACE_FOLDER_NAME);
-		int indexOfSlash = path.indexOf(SEPARATOR, indexOfWorkspace);
-		path.replace(0, indexOfSlash, EMPTY_STRING);
-		int indexOfFolder = path.indexOf(folder);
-		path.replace(indexOfFolder, indexOfFolder + folder.length() + 1,
-				EMPTY_STRING);
-		return path.toString();
-	}
 	
 	}

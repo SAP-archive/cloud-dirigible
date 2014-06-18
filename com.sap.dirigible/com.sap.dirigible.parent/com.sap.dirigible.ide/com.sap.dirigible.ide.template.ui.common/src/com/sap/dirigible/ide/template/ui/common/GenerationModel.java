@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
@@ -125,7 +126,9 @@ public abstract class GenerationModel {
 				IWorkspaceRoot root = workspace.getRoot();
 				if (isResourceExist(root)) {
 					IResource res = extractResource(root);
-					return ValidationStatus.createError(String.format(RESOURCE_ALREADY_EXISTS_IN_THE_WORKSPACE, res.getFullPath().toString()));
+					return ValidationStatus
+							.createError(String.format(RESOURCE_ALREADY_EXISTS_IN_THE_WORKSPACE,
+									res.getFullPath().toString()));
 				}
 				return ValidationStatus.createOk();
 			} else {
@@ -177,12 +180,20 @@ public abstract class GenerationModel {
 	}
 
 	public String getProjectName() {
-		String result = null;
-		IPath location = new Path(getTargetLocation()).append(getFileName());
-		if (location.segmentCount() > 0) {
-			result = location.segment(0);
+		StringBuilder result = new StringBuilder();
+		IPath location = new Path(getTargetLocation());
+		if (location.segmentCount() > 2) {
+			for (int i = 0; i < location.segmentCount(); i++) {
+				if (i == 1) {
+					continue;
+				}
+				result.append(location.segment(i) + CommonParameters.SEPARATOR);
+			}
+			result.delete(result.length() - CommonParameters.SEPARATOR.length(), result.length());
+		} else {
+			result.append(location.segment(0));
 		}
-		return result;
+		return result.toString();
 	}
 
 	public Class<?> getTemplateClassLoader() {
