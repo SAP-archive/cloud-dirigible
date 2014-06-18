@@ -25,39 +25,37 @@ import java.util.Map;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 import com.sap.dirigible.repository.ext.debug.DebugConstants;
 import com.sap.dirigible.repository.ext.debug.DebugSessionMetadata;
 import com.sap.dirigible.repository.ext.debug.DebugSessionsMetadata;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 import com.sap.dirigible.runtime.task.TaskManagerShort;
 
 public class DebugGlobalManager implements HttpSessionListener, PropertyChangeListener {
-	
-	private static final Logger logger = LoggerFactory
-			.getLogger(DebugGlobalManager.class.getCanonicalName());
-	
-	private static Map<String, DebuggerActionManager> debuggerActionManagers = Collections.synchronizedMap(new HashMap<String, DebuggerActionManager>());
-	
+
+	private static final Logger logger = Logger.getLogger(DebugGlobalManager.class);
+
+	private static Map<String, DebuggerActionManager> debuggerActionManagers = Collections
+			.synchronizedMap(new HashMap<String, DebuggerActionManager>());
+
 	private PropertyChangeSupport debuggerBridge;
-	
+
 	public DebugGlobalManager() {
 		logger.debug("entering DebugHttpSessionListener.constructor");
-		
+
 		TaskManagerShort.getInstance().registerRunnableTask(new DebugBridgeRegister(this));
-		
+
 		logger.debug("assign the DebugHttpSessionListener as listener to the DebugBridge");
-		
+
 		logger.debug("exiting DebugHttpSessionListener.constructor");
 	}
-	
+
 	class DebugBridgeRegister implements IRunnableTask {
-		
+
 		DebugGlobalManager debugGlobalManager;
-		
+
 		DebugBridgeRegister(DebugGlobalManager debugGlobalManager) {
 			this.debugGlobalManager = debugGlobalManager;
 		}
@@ -78,20 +76,23 @@ public class DebugGlobalManager implements HttpSessionListener, PropertyChangeLi
 				}
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		logger.debug("entering DebugHttpSessionListener.sessionCreated() with sessionId: " + se.getSession().getId());
-		DebuggerActionManager debuggerActionManager = DebuggerActionManager.getInstance(se.getSession());
+		logger.debug("entering DebugHttpSessionListener.sessionCreated() with sessionId: "
+				+ se.getSession().getId());
+		DebuggerActionManager debuggerActionManager = DebuggerActionManager.getInstance(se
+				.getSession());
 		debuggerActionManagers.put(se.getSession().getId(), debuggerActionManager);
 		logger.debug("exiting DebugHttpSessionListener.sessionCreated()");
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
-		logger.debug("entering DebugHttpSessionListener.sessionDestroyed() with sessionId: " + se.getSession().getId());
+		logger.debug("entering DebugHttpSessionListener.sessionDestroyed() with sessionId: "
+				+ se.getSession().getId());
 		debuggerActionManagers.remove(se.getSession().getId());
 		logger.debug("exiting DebugHttpSessionListener.sessionDestroyed()");
 	}
@@ -101,32 +102,36 @@ public class DebugGlobalManager implements HttpSessionListener, PropertyChangeLi
 		String commandId = event.getPropertyName();
 		String clientId = (String) event.getOldValue();
 		String commandBody = (String) event.getNewValue();
-		logger.debug("DebugHttpSessionListener propertyChange() command: " + commandId + ", clientId: " + clientId + ", body: " + commandBody);
-		
+		logger.debug("DebugHttpSessionListener propertyChange() command: " + commandId
+				+ ", clientId: " + clientId + ", body: " + commandBody);
+
 		if (!"debug.global.manager".equals(clientId)) {
 			return;
 		}
-		
+
 		if (commandId.equals(DebugConstants.DEBUG_REFRESH)) {
 			sendSessionsMetadata();
 		}
 	}
-	
+
 	private void sendSessionsMetadata() {
 		DebugSessionsMetadata debugSessionsMetadata = new DebugSessionsMetadata();
 		for (DebuggerActionManager debuggerActionManager : debuggerActionManagers.values()) {
-			for (DebuggerActionCommander debuggerActionCommander : debuggerActionManager.getCommanders().values()) {
+			for (DebuggerActionCommander debuggerActionCommander : debuggerActionManager
+					.getCommanders().values()) {
 				DebugSessionMetadata debugSessionMetadata = new DebugSessionMetadata(
-						debuggerActionCommander.getSessionId(), debuggerActionCommander.getExecutionId(), debuggerActionCommander.getUserId());
+						debuggerActionCommander.getSessionId(),
+						debuggerActionCommander.getExecutionId(),
+						debuggerActionCommander.getUserId());
 				debugSessionsMetadata.getDebugSessionsMetadata().add(debugSessionMetadata);
 			}
 		}
 		Gson gson = new Gson();
 		String sessionsJson = gson.toJson(debugSessionsMetadata);
 		send(DebugConstants.VIEW_SESSIONS, sessionsJson);
-		
+
 	}
-	
+
 	public void send(String commandId, String commandBody) {
 		logger.debug("JavaScriptDebugFrame send() command: " + commandId + ", body: " + commandBody);
 		DebugBridgeUtils.send(debuggerBridge, commandId, "debug.global.manager", commandBody);

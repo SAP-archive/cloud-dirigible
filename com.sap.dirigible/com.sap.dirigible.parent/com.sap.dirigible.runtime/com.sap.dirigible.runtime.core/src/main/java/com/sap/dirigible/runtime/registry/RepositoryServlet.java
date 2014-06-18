@@ -24,28 +24,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.ContentTypeHelper;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.runtime.js.LoaderUtils;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class RepositoryServlet extends RegistryServlet {
 
-	private static final String REQUEST_PROCESSING_FAILED_S = Messages.getString("RepositoryServlet.REQUEST_PROCESSING_FAILED_S"); //$NON-NLS-1$
+	private static final String REQUEST_PROCESSING_FAILED_S = Messages
+			.getString("RepositoryServlet.REQUEST_PROCESSING_FAILED_S"); //$NON-NLS-1$
 
-	private static final String THERE_IS_AN_EXISTING_COLLECTION_AT_THE_SAME_LOCATION = Messages.getString("RepositoryServlet.THERE_IS_AN_EXISTING_COLLECTION_AT_THE_SAME_LOCATION"); //$NON-NLS-1$
+	private static final String THERE_IS_AN_EXISTING_COLLECTION_AT_THE_SAME_LOCATION = Messages
+			.getString("RepositoryServlet.THERE_IS_AN_EXISTING_COLLECTION_AT_THE_SAME_LOCATION"); //$NON-NLS-1$
 
-	private static final String THERE_IS_AN_EXISTING_RESOURCE_AT_THE_SAME_LOCATION_USE_PUT_METHOD_FOR_UPDATE = Messages.getString("RepositoryServlet.THERE_IS_AN_EXISTING_RESOURCE_AT_THE_SAME_LOCATION_USE_PUT_METHOD_FOR_UPDATE"); //$NON-NLS-1$
+	private static final String THERE_IS_AN_EXISTING_RESOURCE_AT_THE_SAME_LOCATION_USE_PUT_METHOD_FOR_UPDATE = Messages
+			.getString("RepositoryServlet.THERE_IS_AN_EXISTING_RESOURCE_AT_THE_SAME_LOCATION_USE_PUT_METHOD_FOR_UPDATE"); //$NON-NLS-1$
 
 	private static final long serialVersionUID = 726309327921007381L;
 
-	private static final Logger log = LoggerFactory
-			.getLogger(RepositoryServlet.class.getCanonicalName());
-	
+	private static final Logger logger = Logger.getLogger(RepositoryServlet.class);
+
 	protected String extractRepositoryPath(HttpServletRequest request)
 			throws IllegalArgumentException {
 		String requestPath = PathUtils.extractPath(request);
@@ -53,14 +53,14 @@ public class RepositoryServlet extends RegistryServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		super.doGet(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String repositoryPath = null;
 		final OutputStream out = response.getOutputStream();
@@ -77,8 +77,7 @@ public class RepositoryServlet extends RegistryServlet {
 					contentType = "text/plain"; //$NON-NLS-1$
 				}
 				boolean isBinary = ContentTypeHelper.isBinary(contentType);
-				getRepository(request).createResource(repositoryPath, data,
-						isBinary, contentType);
+				getRepository(request).createResource(repositoryPath, data, isBinary, contentType);
 			} else {
 				if (entity instanceof IResource) {
 					response.sendError(HttpServletResponse.SC_BAD_REQUEST,
@@ -89,17 +88,11 @@ public class RepositoryServlet extends RegistryServlet {
 				}
 			}
 		} catch (IllegalArgumentException ex) {
-			log.error(String
-					.format(REQUEST_PROCESSING_FAILED_S, repositoryPath)
-					+ ex.getMessage());
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-					ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		} catch (MissingResourceException ex) {
-			log.error(String
-					.format(REQUEST_PROCESSING_FAILED_S, repositoryPath)
-					+ ex.getMessage());
-			response.sendError(HttpServletResponse.SC_NO_CONTENT,
-					ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
 		} finally {
 			out.flush();
 			out.close();
@@ -108,8 +101,8 @@ public class RepositoryServlet extends RegistryServlet {
 	}
 
 	@Override
-	protected void doPut(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String repositoryPath = null;
 		final OutputStream out = response.getOutputStream();
@@ -131,17 +124,11 @@ public class RepositoryServlet extends RegistryServlet {
 				}
 			}
 		} catch (IllegalArgumentException ex) {
-			log.error(String
-					.format(REQUEST_PROCESSING_FAILED_S, repositoryPath)
-					+ ex.getMessage());
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-					ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		} catch (MissingResourceException ex) {
-			log.error(String
-					.format(REQUEST_PROCESSING_FAILED_S, repositoryPath)
-					+ ex.getMessage());
-			response.sendError(HttpServletResponse.SC_NO_CONTENT,
-					ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
 		} finally {
 			out.flush();
 			out.close();
@@ -149,8 +136,8 @@ public class RepositoryServlet extends RegistryServlet {
 	}
 
 	@Override
-	protected void doDelete(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String repositoryPath = null;
 		final OutputStream out = response.getOutputStream();
 		try {
@@ -160,17 +147,11 @@ public class RepositoryServlet extends RegistryServlet {
 				getRepository(request).removeResource(repositoryPath);
 			}
 		} catch (IllegalArgumentException ex) {
-			log.error(String
-					.format(REQUEST_PROCESSING_FAILED_S, repositoryPath)
-					+ ex.getMessage());
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-					ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		} catch (MissingResourceException ex) {
-			log.error(String
-					.format(REQUEST_PROCESSING_FAILED_S, repositoryPath)
-					+ ex.getMessage());
-			response.sendError(HttpServletResponse.SC_NO_CONTENT,
-					ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
 		} finally {
 			out.flush();
 			out.close();

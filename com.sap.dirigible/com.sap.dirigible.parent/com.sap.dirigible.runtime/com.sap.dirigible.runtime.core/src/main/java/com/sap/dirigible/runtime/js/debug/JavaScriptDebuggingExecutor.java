@@ -22,16 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ErrorReporter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class JavaScriptDebuggingExecutor extends JavaScriptExecutor {
-	
-	private static final Logger logger = LoggerFactory
-			.getLogger(JavaScriptDebuggingExecutor.class.getCanonicalName());
+
+	private static final Logger logger = Logger.getLogger(JavaScriptDebuggingExecutor.class);
 
 	private static final String JAVA_SCRIPT_DEBUGGER = "JavaScript Debugger";
 
@@ -48,8 +46,8 @@ public class JavaScriptDebuggingExecutor extends JavaScriptExecutor {
 		this.debuggerBridge = debuggerBridge;
 	}
 
-	protected void beforeExecution(HttpServletRequest request,
-			HttpServletResponse response, String module, Context context) {
+	protected void beforeExecution(HttpServletRequest request, HttpServletResponse response,
+			String module, Context context) {
 		logger.debug("entering JavaScriptDebuggingExecutor.beforeExecution()");
 		ErrorReporter reporter = new InvocationErrorReporter();
 		context.setErrorReporter(reporter);

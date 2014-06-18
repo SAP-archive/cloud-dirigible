@@ -31,21 +31,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.eclipse.mylyn.wikitext.confluence.core.ConfluenceLanguage;
 import org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
 import org.eclipse.mylyn.wikitext.core.parser.builder.HtmlDocumentBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.filter.SandboxFilter;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.PathUtils;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 import com.sap.dirigible.runtime.web.WebRegistryServlet;
 
 public class WikiRegistryServlet extends WebRegistryServlet {
 	
-	private static final Logger logger = LoggerFactory.getLogger(WikiRegistryServlet.class);
+	private static final Logger logger = Logger.getLogger(WikiRegistryServlet.class);
 
 	private static final String ERROR_READING_BATCH_WITH_WIKI_PAGES = Messages.getString("WikiRegistryServlet.ERROR_READING_BATCH_WITH_WIKI_PAGES"); //$NON-NLS-1$
 

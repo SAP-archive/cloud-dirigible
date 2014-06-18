@@ -17,15 +17,13 @@ package com.sap.dirigible.runtime.metrics;
 
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 
 public class AccessLogCleanupTask implements IRunnableTask {
-	
-	private static final Logger logger = LoggerFactory.getLogger(AccessLogCleanupTask.class);
-	
+
+	private static final Logger logger = Logger.getLogger(AccessLogCleanupTask.class);
+
 	@Override
 	public String getName() {
 		return "Access Log Cleanup Task";

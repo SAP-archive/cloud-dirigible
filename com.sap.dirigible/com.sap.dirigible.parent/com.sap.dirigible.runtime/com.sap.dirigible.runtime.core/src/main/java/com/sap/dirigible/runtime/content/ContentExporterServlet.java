@@ -2,23 +2,13 @@ package com.sap.dirigible.runtime.content;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
@@ -27,31 +17,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class ContentExporterServlet extends HttpServlet {
 
-	
 	private static final String COM_SAP_DIRIGIBLE_RUNTIME = "com.sap.dirigible.runtime"; //$NON-NLS-1$
-	
-	private static final String COULD_NOT_INITIALIZE_REPOSITORY = Messages.getString("ContentInitializerServlet.COULD_NOT_INITIALIZE_REPOSITORY"); //$NON-NLS-1$
+
+	private static final String COULD_NOT_INITIALIZE_REPOSITORY = Messages
+			.getString("ContentInitializerServlet.COULD_NOT_INITIALIZE_REPOSITORY"); //$NON-NLS-1$
 	private static final long serialVersionUID = 6468050094756163896L;
 	private static final String REPOSITORY_ATTRIBUTE = "com.sap.dirigible.services.content.repository"; //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ContentExporterServlet.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(ContentExporterServlet.class);
 
 	private static final String SYSTEM_USER = "SYSTEM"; //$NON-NLS-1$
 	private static final String DEFAULT_PATH_FOR_EXPORT = AbstractRegistryServlet.REGISTRY_DEPLOY_PATH;
 	private static final String DEFAULT_PATH_FOR_IMPORT = "/db/dirigible/registry"; //$NON-NLS-1$
-	
-	// Folder in the generated zip-file (com.sap.dirigible.runtime*.zip) for exported content
+
+	// Folder in the generated zip-file (com.sap.dirigible.runtime*.zip) for
+	// exported content
 	private static final String EXPORTED_PATH = "exported/"; //$NON-NLS-1$
 	private static final String EXPORTED_CONTENT = "content"; //$NON-NLS-1$
 	private static final String ZIP = ".zip"; //$NON-NLS-1$
@@ -86,8 +74,7 @@ public class ContentExporterServlet extends HttpServlet {
 	 */
 	private void initRepository() throws ServletException {
 		try {
-			final IRepository repository = RepositoryFacade.getInstance()
-					.getRepository(null);
+			final IRepository repository = RepositoryFacade.getInstance().getRepository(null);
 			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
 		} catch (Exception ex) {
 			logit("Exception in initRepository(): " + ex.getMessage()); //$NON-NLS-1$
@@ -102,8 +89,8 @@ public class ContentExporterServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	private IRepository getRepository() throws IOException {
-		final IRepository repository = (IRepository) getServletContext()
-				.getAttribute(REPOSITORY_ATTRIBUTE);
+		final IRepository repository = (IRepository) getServletContext().getAttribute(
+				REPOSITORY_ATTRIBUTE);
 		if (repository == null) {
 			try {
 				initRepository();
@@ -117,7 +104,8 @@ public class ContentExporterServlet extends HttpServlet {
 
 	/**
 	 * Check if there is any content, and deploy it into Dirigible registry.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	private void checkAndImportContent(String user) throws IOException {
 		logit("checkAndImporContent: Entering"); //$NON-NLS-1$
@@ -133,15 +121,13 @@ public class ContentExporterServlet extends HttpServlet {
 			Set<String> paths = getServletContext().getResourcePaths(
 					IRepository.SEPARATOR + EXPORTED_PATH); //$NON-NLS-1$
 			logit("resource paths:" + paths); //$NON-NLS-1$
-			for (Iterator<String> iterator = paths.iterator(); iterator
-					.hasNext();) {
+			for (Iterator<String> iterator = paths.iterator(); iterator.hasNext();) {
 				String pathToContent = (String) iterator.next();
 				logit("Path to content: " + pathToContent); //$NON-NLS-1$
 				if (!pathToContent.endsWith(ZIP)) {
 					continue;
 				}
-				InputStream content = getServletContext()
-						.getResourceAsStream(pathToContent);
+				InputStream content = getServletContext().getResourceAsStream(pathToContent);
 				importZipAndUpdate(content);
 				logit(" Successfully imported " + pathToContent); //$NON-NLS-1$
 			}
@@ -161,8 +147,7 @@ public class ContentExporterServlet extends HttpServlet {
 	private void importZipAndUpdate(InputStream content) {
 		try {
 			// 1. Import content.zip into repository
-			getRepository().importZip(new ZipInputStream(content),
-					DEFAULT_PATH_FOR_IMPORT);
+			getRepository().importZip(new ZipInputStream(content), DEFAULT_PATH_FOR_IMPORT);
 
 			// 2. Post import actions
 			ContentPostImportUpdater contentPostImportUpdater = new ContentPostImportUpdater(
@@ -192,8 +177,8 @@ public class ContentExporterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
@@ -201,12 +186,12 @@ public class ContentExporterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		// put guid in the session
 		request.getSession().setAttribute(GUID, createGUID()); //$NON-NLS-1$
-		
+
 		byte[] zippedContent = getContentFromRepository();
 
 		sendZip(request, response, zippedContent);
@@ -219,18 +204,16 @@ public class ContentExporterServlet extends HttpServlet {
 	 * @param tmpFile
 	 * @param request
 	 */
-	private void sendZip(HttpServletRequest request,
-			HttpServletResponse response, byte[] content) {
+	private void sendZip(HttpServletRequest request, HttpServletResponse response, byte[] content) {
 		String fileName = null;
-		
+
 		fileName = defaultFileName(request) + ".zip";
-		
+
 		response.setContentType("application/zip"); //$NON-NLS-1$
 		response.setHeader("Content-Disposition", "attachment;filename=\"" //$NON-NLS-1$ //$NON-NLS-2$
 				+ fileName + "\""); //$NON-NLS-1$
 		try {
-			BufferedOutputStream bos = new BufferedOutputStream(
-					response.getOutputStream());
+			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
 			ByteArrayInputStream fis = new ByteArrayInputStream(content);
 			int len;
 			byte[] buf = new byte[1024];
@@ -251,7 +234,6 @@ public class ContentExporterServlet extends HttpServlet {
 		fileName = COM_SAP_DIRIGIBLE_RUNTIME + guid;
 		return fileName;
 	}
-
 
 	/**
 	 * Extract the Dirigible project as a zip from the repository.

@@ -17,14 +17,12 @@ package com.sap.dirigible.runtime.repository;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 
 public class RepositoryHistoryCleanupTask implements IRunnableTask {
-	
-	private static final Logger logger = LoggerFactory.getLogger(RepositoryHistoryCleanupTask.class);
+
+	private static final Logger logger = Logger.getLogger(RepositoryHistoryCleanupTask.class);
 
 	@Override
 	public String getName() {

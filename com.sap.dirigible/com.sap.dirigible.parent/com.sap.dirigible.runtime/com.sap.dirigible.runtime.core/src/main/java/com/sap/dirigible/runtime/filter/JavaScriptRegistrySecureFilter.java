@@ -15,9 +15,7 @@
 
 package com.sap.dirigible.runtime.filter;
 
-
-public class JavaScriptRegistrySecureFilter extends
-		AbstractRegistrySecureFilter {
+public class JavaScriptRegistrySecureFilter extends AbstractRegistrySecureFilter {
 
 	private static final String WEB_SECURED_MAPPING = "/js-secured"; //$NON-NLS-1$
 

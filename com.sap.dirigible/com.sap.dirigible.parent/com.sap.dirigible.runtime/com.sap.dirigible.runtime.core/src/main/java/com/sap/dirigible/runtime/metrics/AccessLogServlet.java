@@ -24,27 +24,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.PathUtils;
 
 public class AccessLogServlet extends HttpServlet {
-	
+
 	private static final String LOCATIONS = "/locations";
 
-	private static final Logger logger = LoggerFactory.getLogger(AccessLogServlet.class);
+	private static final Logger logger = Logger.getLogger(AccessLogServlet.class);
 
 	private static final String ALL = "/all";
 	private static final long serialVersionUID = 5004610851206076344L;
-	
+
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+			IOException {
 		logger.debug("entering AccessLogServlet doGet...");
-		
+
 		String paramHitsPerPattern = req.getParameter("hitsPerPattern");
 		String paramHitsPerProject = req.getParameter("hitsPerProject");
 		String paramHitsPerURI = req.getParameter("hitsPerURI");
@@ -52,7 +50,7 @@ public class AccessLogServlet extends HttpServlet {
 		String paramRTimePerProject = req.getParameter("rtimePerProject");
 		String paramRTimePerURI = req.getParameter("rtimePerURI");
 		String paramHitsByURI = req.getParameter("hitsByURI");
-		
+
 		Gson gson = new Gson();
 		String path = PathUtils.extractPath(req);
 		logger.debug("path=" + path);
@@ -80,8 +78,7 @@ public class AccessLogServlet extends HttpServlet {
 		logger.debug("existing AccessLogServlet doGet");
 	}
 
-	private void listHitsPerPattern(HttpServletResponse resp)
-			throws IOException {
+	private void listHitsPerPattern(HttpServletResponse resp) throws IOException {
 		try {
 			AccessLogRecordDAO accessLogRecordDAO = new AccessLogRecordDAO();
 			String[][] result = accessLogRecordDAO.getLastRecordsByPattern();
@@ -92,9 +89,8 @@ public class AccessLogServlet extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	private void listHitsPerProject(HttpServletResponse resp)
-			throws IOException {
+
+	private void listHitsPerProject(HttpServletResponse resp) throws IOException {
 		try {
 			AccessLogRecordDAO accessLogRecordDAO = new AccessLogRecordDAO();
 			String[][] result = accessLogRecordDAO.getLastRecordsByProject();
@@ -105,9 +101,8 @@ public class AccessLogServlet extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	private void listHitsPerURI(HttpServletResponse resp)
-			throws IOException {
+
+	private void listHitsPerURI(HttpServletResponse resp) throws IOException {
 		try {
 			AccessLogRecordDAO accessLogRecordDAO = new AccessLogRecordDAO();
 			String[][] result = accessLogRecordDAO.getLastRecordsByURI();
@@ -118,9 +113,8 @@ public class AccessLogServlet extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	private void listRTimePerPattern(HttpServletResponse resp)
-			throws IOException {
+
+	private void listRTimePerPattern(HttpServletResponse resp) throws IOException {
 		try {
 			AccessLogRecordDAO accessLogRecordDAO = new AccessLogRecordDAO();
 			String[][] result = accessLogRecordDAO.getRTRecordsByPattern();
@@ -131,9 +125,8 @@ public class AccessLogServlet extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	private void listRTimePerProject(HttpServletResponse resp)
-			throws IOException {
+
+	private void listRTimePerProject(HttpServletResponse resp) throws IOException {
 		try {
 			AccessLogRecordDAO accessLogRecordDAO = new AccessLogRecordDAO();
 			String[][] result = accessLogRecordDAO.getRTRecordsByProject();
@@ -144,9 +137,8 @@ public class AccessLogServlet extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	private void listRTimePerURI(HttpServletResponse resp)
-			throws IOException {
+
+	private void listRTimePerURI(HttpServletResponse resp) throws IOException {
 		try {
 			AccessLogRecordDAO accessLogRecordDAO = new AccessLogRecordDAO();
 			String[][] result = accessLogRecordDAO.getRTRecordsByURI();
@@ -157,9 +149,8 @@ public class AccessLogServlet extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	private void listHitsByURI(HttpServletResponse resp)
-			throws IOException {
+
+	private void listHitsByURI(HttpServletResponse resp) throws IOException {
 		try {
 			AccessLogRecordDAO accessLogRecordDAO = new AccessLogRecordDAO();
 			String[][] result = accessLogRecordDAO.getHitsByURI();
@@ -171,15 +162,14 @@ public class AccessLogServlet extends HttpServlet {
 		}
 	}
 
-	private void printChartData(HttpServletResponse resp, String[][] result)
-			throws IOException {
+	private void printChartData(HttpServletResponse resp, String[][] result) throws IOException {
 		PrintWriter writer = resp.getWriter();
 		if (result == null) {
 			writer.write("");
 			return;
 		}
 		resp.setContentType("text/tab-separated-values");
-		
+
 		for (int i = 0; i < result.length; i++) {
 			String[] row = result[i];
 			for (int j = 0; j < row.length; j++) {
@@ -189,8 +179,7 @@ public class AccessLogServlet extends HttpServlet {
 		}
 	}
 
-	private void listLog(HttpServletResponse resp, Gson gson)
-			throws IOException {
+	private void listLog(HttpServletResponse resp, Gson gson) throws IOException {
 		logger.debug("printing the access log");
 		try {
 			String content = gson.toJson(AccessLogRecordDAO.getAccessLogRecords());
@@ -202,29 +191,28 @@ public class AccessLogServlet extends HttpServlet {
 		}
 	}
 
-	private void listLocations(HttpServletResponse resp, Gson gson)
-			throws IOException {
+	private void listLocations(HttpServletResponse resp, Gson gson) throws IOException {
 		logger.debug("listing registered access locations");
 		try {
 			AccessLogLocationsDAO.refreshLocations();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
-		String content = gson.toJson(AccessLogLocationsSynchronizer.getAccessLogLocations().toArray(new String[]{}));
+		String content = gson.toJson(AccessLogLocationsSynchronizer.getAccessLogLocations()
+				.toArray(new String[] {}));
 		printJson(resp, content);
 	}
 
-	private void printJson(HttpServletResponse resp, String content)
-			throws IOException {
+	private void printJson(HttpServletResponse resp, String content) throws IOException {
 		resp.setContentType(ContentTypeHelper.getContentType("json"));
 		resp.getWriter().print(content);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		logger.debug("entering AccessLogServlet doPost...");
-		
+
 		String path = PathUtils.extractPath(req);
 		logger.debug("path=" + path);
 		if (path != null) {
@@ -239,15 +227,15 @@ public class AccessLogServlet extends HttpServlet {
 				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 		}
-		
+
 		logger.debug("existing AccessLogServlet doPost");
 	}
-	
+
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		logger.debug("entering AccessLogServlet doDelete...");
-		
+
 		String path = PathUtils.extractPath(req);
 		logger.debug("path=" + path);
 		if (path != null) {

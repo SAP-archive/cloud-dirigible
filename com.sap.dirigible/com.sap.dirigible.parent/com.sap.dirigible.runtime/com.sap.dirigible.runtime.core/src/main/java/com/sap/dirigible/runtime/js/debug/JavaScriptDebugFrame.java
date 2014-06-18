@@ -34,8 +34,6 @@ import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.Undefined;
 import org.mozilla.javascript.debug.DebugFrame;
 import org.mozilla.javascript.debug.DebuggableScript;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.sap.dirigible.repository.ext.debug.BreakpointMetadata;
@@ -45,6 +43,7 @@ import com.sap.dirigible.repository.ext.debug.DebugSessionMetadata;
 import com.sap.dirigible.repository.ext.debug.VariableValue;
 import com.sap.dirigible.repository.ext.debug.VariableValuesMetadata;
 import com.sap.dirigible.runtime.js.debug.IDebugCommands.DebugCommand;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener {
 	private static final String NULL = "null";
@@ -55,7 +54,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 
 	private static final String UNDEFINED = "undefined";
 
-	private static final Logger logger = LoggerFactory.getLogger(JavaScriptDebugFrame.class);
+	private static final Logger logger = Logger.getLogger(JavaScriptDebugFrame.class);
 
 	private static final int SLEEP_TIME = 50;
 	private DebuggerActionManager debuggerActionManager;

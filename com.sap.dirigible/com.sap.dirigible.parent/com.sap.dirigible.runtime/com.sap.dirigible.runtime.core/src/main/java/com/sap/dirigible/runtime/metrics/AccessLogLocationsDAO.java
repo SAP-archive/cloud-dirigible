@@ -24,46 +24,45 @@ import java.sql.Statement;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class AccessLogLocationsDAO {
-	
+
 	private static final String DELETE_FROM_DGB_ACCESS_LOG_LOCATIONS_WHERE_ACCLOGLOCATION = "DELETE FROM DGB_ACCESS_LOG_LOCATIONS WHERE ACCLOGLOC_LOCATION = ?";
 	private static final String DELETE_FROM_DGB_ACCESS_LOG_LOCATIONS_ALL = "DELETE FROM DGB_ACCESS_LOG_LOCATIONS";
-	
+
 	private static final String SELECT_ALL_DGB_ACCESS_LOG_LOCATIONS = "SELECT * FROM DGB_ACCESS_LOG_LOCATIONS";
-	
+
 	private static final String INSERT_INTO_DGB_ACCESS_LOG_LOCATIONS = "INSERT INTO DGB_ACCESS_LOG_LOCATIONS ("
-			+ "ACCLOGLOC_LOCATION) "
-			+ "VALUES (?)";
+			+ "ACCLOGLOC_LOCATION) " + "VALUES (?)";
+
 	private static final String CREATE_TABLE_DGB_ACCESS_LOG_LOCATIONS = "CREATE TABLE DGB_ACCESS_LOG_LOCATIONS ("
 			+ " ACCLOGLOC_LOCATION VARCHAR(256))";
+
 	private static final String SELECT_COUNT_FROM_DGB_ACCESS_LOG_LOCATIONS = "SELECT COUNT(*) FROM DGB_ACCESS_LOG_LOCATIONS";
-	private static final Logger logger = LoggerFactory.getLogger(AccessLogLocationsDAO.class);
+
+	private static final Logger logger = Logger.getLogger(AccessLogLocationsDAO.class);
 
 	public static void refreshLocations() throws SQLException {
 		try {
 			checkDB();
-			
-			DataSource dataSource = RepositoryFacade.getInstance()
-					.getDataSource();
+
+			DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(
-						SELECT_ALL_DGB_ACCESS_LOG_LOCATIONS);
-				
+				PreparedStatement pstmt = connection
+						.prepareStatement(SELECT_ALL_DGB_ACCESS_LOG_LOCATIONS);
+
 				ResultSet rs = pstmt.executeQuery();
-				
+
 				AccessLogLocationsSynchronizer.getAccessLogLocations().clear();
 				while (rs.next()) {
 					String location = rs.getString(1);
 					AccessLogLocationsSynchronizer.getAccessLogLocations().add(location);
 				}
-				
+
 			} finally {
 				if (connection != null) {
 					connection.close();
@@ -73,25 +72,24 @@ public class AccessLogLocationsDAO {
 			throw new SQLException(e);
 		}
 	}
-	
+
 	public static void insertLocation(String location) throws SQLException {
 		try {
 			checkDB();
-			
-			DataSource dataSource = RepositoryFacade.getInstance()
-					.getDataSource();
+
+			DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(
-						INSERT_INTO_DGB_ACCESS_LOG_LOCATIONS);
-				
+				PreparedStatement pstmt = connection
+						.prepareStatement(INSERT_INTO_DGB_ACCESS_LOG_LOCATIONS);
+
 				pstmt.setString(1, location);
-				
+
 				pstmt.executeUpdate();
-				
+
 				AccessLogLocationsSynchronizer.getAccessLogLocations().add(location);
-				
+
 			} finally {
 				if (connection != null) {
 					connection.close();
@@ -101,25 +99,24 @@ public class AccessLogLocationsDAO {
 			throw new SQLException(e);
 		}
 	}
-	
+
 	public static void deleteLocation(String location) throws SQLException {
 		try {
 			checkDB();
-			
-			DataSource dataSource = RepositoryFacade.getInstance()
-					.getDataSource();
+
+			DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(
-						DELETE_FROM_DGB_ACCESS_LOG_LOCATIONS_WHERE_ACCLOGLOCATION);
-				
+				PreparedStatement pstmt = connection
+						.prepareStatement(DELETE_FROM_DGB_ACCESS_LOG_LOCATIONS_WHERE_ACCLOGLOCATION);
+
 				pstmt.setString(1, location);
-				
+
 				pstmt.executeUpdate();
-				
+
 				AccessLogLocationsSynchronizer.getAccessLogLocations().remove(location);
-				
+
 			} finally {
 				if (connection != null) {
 					connection.close();
@@ -129,23 +126,22 @@ public class AccessLogLocationsDAO {
 			throw new SQLException(e);
 		}
 	}
-	
+
 	public static void deleteAllLocations() throws SQLException {
 		try {
 			checkDB();
-			
-			DataSource dataSource = RepositoryFacade.getInstance()
-					.getDataSource();
+
+			DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 			Connection connection = null;
 			try {
 				connection = dataSource.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(
-						DELETE_FROM_DGB_ACCESS_LOG_LOCATIONS_ALL);
-				
+				PreparedStatement pstmt = connection
+						.prepareStatement(DELETE_FROM_DGB_ACCESS_LOG_LOCATIONS_ALL);
+
 				pstmt.executeUpdate();
-				
+
 				AccessLogLocationsSynchronizer.getAccessLogLocations().clear();
-				
+
 			} finally {
 				if (connection != null) {
 					connection.close();
@@ -155,15 +151,14 @@ public class AccessLogLocationsDAO {
 			throw new SQLException(e);
 		}
 	}
-	
-	private static  void checkDB() throws NamingException, SQLException {
-		DataSource dataSource = RepositoryFacade.getInstance()
-				.getDataSource();
+
+	private static void checkDB() throws NamingException, SQLException {
+		DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
 			Statement stmt = connection.createStatement();
-			
+
 			try {
 				stmt.executeQuery(SELECT_COUNT_FROM_DGB_ACCESS_LOG_LOCATIONS);
 			} catch (Exception e) {
@@ -177,7 +172,5 @@ public class AccessLogLocationsDAO {
 			}
 		}
 	}
-	
-	
 
 }

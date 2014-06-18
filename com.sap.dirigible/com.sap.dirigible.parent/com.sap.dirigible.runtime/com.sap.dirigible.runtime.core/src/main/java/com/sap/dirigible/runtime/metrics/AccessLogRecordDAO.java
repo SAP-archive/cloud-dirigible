@@ -34,14 +34,12 @@ import java.util.TreeMap;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class AccessLogRecordDAO {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AccessLogRecordDAO.class);
+	private static final Logger logger = Logger.getLogger(AccessLogRecordDAO.class);
 	
 	private static final String DELETE_FROM_DGB_ACCESS_LOG_WHERE_ACCLOG_TIMESTAMP = "DELETE FROM DGB_ACCESS_LOG WHERE ACCLOG_TIMESTAMP < ?";
 	private static final String INSERT_INTO_DGB_ACCESS_LOG = "INSERT INTO DGB_ACCESS_LOG ("

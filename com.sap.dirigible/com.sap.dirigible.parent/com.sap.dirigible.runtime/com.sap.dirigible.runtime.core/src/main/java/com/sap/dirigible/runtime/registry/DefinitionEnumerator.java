@@ -25,36 +25,35 @@ import com.sap.dirigible.repository.api.IResource;
 
 public class DefinitionEnumerator {
 
-    private final List<String> list = new ArrayList<String>();
+	private final List<String> list = new ArrayList<String>();
 
-    public DefinitionEnumerator(final String repositoryPath,
-                                final ICollection collection, final String fileExtension) throws IOException {
-        enumerateJsDefinitions(repositoryPath, collection, fileExtension);
-    }
+	public DefinitionEnumerator(final String repositoryPath, final ICollection collection,
+			final String fileExtension) throws IOException {
+		enumerateJsDefinitions(repositoryPath, collection, fileExtension);
+	}
 
-    public List<String> toArrayList() {
-        return list;
-    }
+	public List<String> toArrayList() {
+		return list;
+	}
 
-    private void enumerateJsDefinitions(final String repositoryPath, final ICollection collection,
-                                        final String fileExtension)
-            throws IOException {
-        if (collection.exists()) {
-            for (final IResource resource : collection.getResources()) {
-                if (resource != null && resource.getName() != null) {
-                    if (resource.getName().endsWith(fileExtension)) {
-                        final String fullPath =
-                            collection.getPath().substring(repositoryPath.length()) + IRepository.SEPARATOR + resource.getName();
-                        this.list.add(fullPath);
-                    }
-                }
-            }
-            for (final ICollection subCollection : collection.getCollections()) {
-                enumerateJsDefinitions(repositoryPath, subCollection,
-                        fileExtension);
-            }
-        }
+	private void enumerateJsDefinitions(final String repositoryPath, final ICollection collection,
+			final String fileExtension) throws IOException {
+		if (collection.exists()) {
+			for (final IResource resource : collection.getResources()) {
+				if (resource != null && resource.getName() != null) {
+					if (resource.getName().endsWith(fileExtension)) {
+						final String fullPath = collection.getPath().substring(
+								repositoryPath.length())
+								+ IRepository.SEPARATOR + resource.getName();
+						this.list.add(fullPath);
+					}
+				}
+			}
+			for (final ICollection subCollection : collection.getCollections()) {
+				enumerateJsDefinitions(repositoryPath, subCollection, fileExtension);
+			}
+		}
 
-    }
+	}
 
 }

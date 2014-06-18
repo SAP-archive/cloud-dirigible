@@ -17,20 +17,20 @@ package com.sap.dirigible.runtime.registry;
 
 public class JavaScriptRegistryServlet extends AbstractRegistryServiceServlet {
 
-    private static final long serialVersionUID = 1663850590192705089L;
+	private static final long serialVersionUID = 1663850590192705089L;
 
-    @Override
-    protected String getServletMapping() {
-        return "/js/";
-    }
+	@Override
+	protected String getServletMapping() {
+		return "/js/";
+	}
 
-    @Override
-    protected String getFileExtension() {
-        return ".js";
-    }
+	@Override
+	protected String getFileExtension() {
+		return ".js";
+	}
 
-    @Override
-    protected String getRequestProcessingFailedMessage() {
-        return Messages.getString("JavascriptRegistryServlet.REQUEST_PROCESSING_FAILED_S");
-    }
+	@Override
+	protected String getRequestProcessingFailedMessage() {
+		return Messages.getString("JavascriptRegistryServlet.REQUEST_PROCESSING_FAILED_S");
+	}
 }

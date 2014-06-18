@@ -17,15 +17,13 @@ package com.sap.dirigible.runtime.memory;
 
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 
 public class MemoryLogTask implements IRunnableTask {
-	
-	private static final Logger logger = LoggerFactory.getLogger(MemoryLogTask.class);
-	
+
+	private static final Logger logger = Logger.getLogger(MemoryLogTask.class);
+
 	@Override
 	public String getName() {
 		return "Memory Log Task";

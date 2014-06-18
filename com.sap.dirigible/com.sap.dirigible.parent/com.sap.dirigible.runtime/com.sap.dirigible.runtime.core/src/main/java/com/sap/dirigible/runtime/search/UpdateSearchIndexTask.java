@@ -15,17 +15,15 @@
 
 package com.sap.dirigible.runtime.search;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.ext.lucene.RepositoryMemoryIndexer;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 
 public class UpdateSearchIndexTask implements IRunnableTask {
-	
-	private static final Logger logger = LoggerFactory.getLogger(UpdateSearchIndexTask.class);
-	
+
+	private static final Logger logger = Logger.getLogger(UpdateSearchIndexTask.class);
+
 	@Override
 	public String getName() {
 		return "Access Log Cleanup Task";
@@ -36,7 +34,8 @@ public class UpdateSearchIndexTask implements IRunnableTask {
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "start()"); //$NON-NLS-1$
 		try {
-			RepositoryMemoryIndexer.indexRepository(RepositoryFacade.getInstance().getRepository(null));
+			RepositoryMemoryIndexer.indexRepository(RepositoryFacade.getInstance().getRepository(
+					null));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

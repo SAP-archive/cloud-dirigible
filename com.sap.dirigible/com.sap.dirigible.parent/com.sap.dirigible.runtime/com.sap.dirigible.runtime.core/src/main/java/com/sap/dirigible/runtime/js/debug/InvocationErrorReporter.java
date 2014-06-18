@@ -17,14 +17,14 @@ package com.sap.dirigible.runtime.js.debug;
 
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class InvocationErrorReporter implements ErrorReporter {
 
 	private static final String MESSAGE_SOURCE_AT_LINE_LINESOURCE_LINEOFFSET = "%s, source: %s, at line: %s, line source: %s, lineOffset: %s";
 
-	private static final Logger logger = LoggerFactory.getLogger(InvocationErrorReporter.class);
+	private static final Logger logger = Logger.getLogger(InvocationErrorReporter.class);
 
 	@Override
 	public void error(String message, String sourceName, int line, String lineSource, int lineOffset) {

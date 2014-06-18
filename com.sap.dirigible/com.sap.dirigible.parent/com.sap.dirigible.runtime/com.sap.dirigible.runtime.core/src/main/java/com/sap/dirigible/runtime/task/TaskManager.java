@@ -22,13 +22,11 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public abstract class TaskManager implements Runnable {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(TaskManager.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(TaskManager.class);
 
 	private List<IRunnableTask> runnableTasks = Collections
 			.synchronizedList(new ArrayList<IRunnableTask>());
@@ -51,36 +49,36 @@ public abstract class TaskManager implements Runnable {
 				+ "run"); //$NON-NLS-1$
 	}
 
-//	public List<IRunnableTask> getRunnableTasks() {
-//		return runnableTasks;
-//	}
+	// public List<IRunnableTask> getRunnableTasks() {
+	// return runnableTasks;
+	// }
 
 	public void registerRunnableTask(IRunnableTask runnableTask) {
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "registerRunnableTask"); //$NON-NLS-1$
-		
+
 		runnableTasks.add(runnableTask);
 		logger.debug("registered runnable task: " + runnableTask.getName()); //$NON-NLS-1$
-		
+
 		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "registerRunnableTask"); //$NON-NLS-1$
 	}
-	
+
 	public void unregisterRunnableTask(IRunnableTask runnableTask) {
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "unregisterRunnableTask"); //$NON-NLS-1$
-		
+
 		runnableTasks.remove(runnableTask);
 		logger.debug("unregistered runnable task: " + runnableTask.getName()); //$NON-NLS-1$
-		
+
 		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "unregisterRunnableTask"); //$NON-NLS-1$
 	}
-	
+
 	private void startRunnableTasks() throws ServletException {
-		
+
 		for (Iterator<IRunnableTask> iterator = runnableTasks.iterator(); iterator.hasNext();) {
-			IRunnableTask task =  iterator.next();
+			IRunnableTask task = iterator.next();
 			try {
 				logger.debug("Staring Task: " + task.getName() + "..."); //$NON-NLS-1$ //$NON-NLS-2$
 				task.start();

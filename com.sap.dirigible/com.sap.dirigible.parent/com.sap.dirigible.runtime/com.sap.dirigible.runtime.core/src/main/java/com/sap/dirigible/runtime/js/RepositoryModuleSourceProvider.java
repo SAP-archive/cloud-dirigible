@@ -26,11 +26,10 @@ import java.util.Arrays;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.commonjs.module.provider.ModuleSource;
 import org.mozilla.javascript.commonjs.module.provider.ModuleSourceProviderBase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.Messages;
 
 public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
@@ -46,7 +45,7 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 	private IRepository repository;
 	private String[] rootPaths;
 	
-	private static final Logger logger = LoggerFactory.getLogger(RepositoryModuleSourceProvider.class);
+	private static final Logger logger = Logger.getLogger(RepositoryModuleSourceProvider.class);
 
 	public RepositoryModuleSourceProvider(IRepository repository, String ... rootPaths) {
 		super();

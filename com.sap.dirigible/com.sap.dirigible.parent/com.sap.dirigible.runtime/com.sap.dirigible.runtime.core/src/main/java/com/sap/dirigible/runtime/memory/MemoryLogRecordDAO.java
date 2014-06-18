@@ -32,15 +32,13 @@ import java.util.Map;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class MemoryLogRecordDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(MemoryLogRecordDAO.class);
+	private static final Logger logger = Logger.getLogger(MemoryLogRecordDAO.class);
 
 	private static final String DELETE_FROM_DGB_MEMORY_LOG_WHERE_ACCLOG_TIMESTAMP = "DELETE FROM DGB_MEMORY_LOG WHERE MEMLOG_TIMESTAMP < ?";
 	private static final String INSERT_INTO_DGB_MEMORY_LOG = "INSERT INTO DGB_MEMORY_LOG ("

@@ -20,15 +20,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 
 public class AccessLogLocationsSynchronizer implements IRunnableTask {
-	
-	private static final Logger logger = LoggerFactory.getLogger(AccessLogCleanupTask.class);
-	
+
+	private static final Logger logger = Logger.getLogger(AccessLogCleanupTask.class);
+
 	private static List<String> accessLogLocations = Collections
 			.synchronizedList(new ArrayList<String>());
 
@@ -49,10 +47,9 @@ public class AccessLogLocationsSynchronizer implements IRunnableTask {
 		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "start()"); //$NON-NLS-1$
 	}
-	
+
 	public static List<String> getAccessLogLocations() {
 		return accessLogLocations;
 	}
 
 }
-

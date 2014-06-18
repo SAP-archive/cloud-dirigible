@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.runtime.filter;
 
-
 public class WikiRegistrySecureFilter extends AbstractRegistrySecureFilter {
 
 	private static final String WEB_SECURED_MAPPING = "/wiki-secured"; //$NON-NLS-1$

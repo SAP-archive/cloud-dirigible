@@ -56,17 +56,15 @@ public abstract class AbstractRegistryServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void service(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		super.service(request, response);
 		initRepository(request);
 	}
 
-	private void initRepository(HttpServletRequest request)
-			throws ServletException {
+	private void initRepository(HttpServletRequest request) throws ServletException {
 		try {
-			final IRepository repository = RepositoryFacade.getInstance()
-					.getRepository(request);
+			final IRepository repository = RepositoryFacade.getInstance().getRepository(request);
 			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
 			if (!repository.hasCollection(REGISTRY_DEPLOY_PATH)) {
 				repository.createCollection(REGISTRY_DEPLOY_PATH);
@@ -76,15 +74,13 @@ public abstract class AbstractRegistryServlet extends HttpServlet {
 		}
 	}
 
-	protected IRepository getRepository(HttpServletRequest request)
-			throws IOException {
-		IRepository repository = (IRepository) getServletContext()
-				.getAttribute(REPOSITORY_ATTRIBUTE);
+	protected IRepository getRepository(HttpServletRequest request) throws IOException {
+		IRepository repository = (IRepository) getServletContext().getAttribute(
+				REPOSITORY_ATTRIBUTE);
 		if (repository == null) {
 			try {
 				initRepository(request);
-				repository = (IRepository) getServletContext().getAttribute(
-						REPOSITORY_ATTRIBUTE);
+				repository = (IRepository) getServletContext().getAttribute(REPOSITORY_ATTRIBUTE);
 			} catch (ServletException e) {
 				throw new IOException(e);
 			}
@@ -98,15 +94,13 @@ public abstract class AbstractRegistryServlet extends HttpServlet {
 		return REGISTRY_DEPLOY_PATH + requestPath;
 	}
 
-	protected IEntity getEntity(String repositoryPath,
-			HttpServletRequest request) throws FileNotFoundException,
-			IOException {
+	protected IEntity getEntity(String repositoryPath, HttpServletRequest request)
+			throws FileNotFoundException, IOException {
 		IEntity result = null;
 		final IRepository repository = getRepository(request);
 		final IResource resource = repository.getResource(repositoryPath);
 		if (!resource.exists()) {
-			final ICollection collection = repository
-					.getCollection(repositoryPath);
+			final ICollection collection = repository.getCollection(repositoryPath);
 			if (collection.exists()) {
 				result = collection;
 			}

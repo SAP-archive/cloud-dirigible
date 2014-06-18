@@ -25,16 +25,13 @@ import javax.mail.internet.MimeMessage.RecipientType;
 import javax.mail.internet.MimeMultipart;
 import javax.naming.InitialContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class MailSender {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(MailSender.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(MailSender.class.getCanonicalName());
 
-	public String sendMail(String from, String to, String subject,
-			String content) {
+	public String sendMail(String from, String to, String subject, String content) {
 		try {
 			InitialContext ctx = new InitialContext();
 			Session smtpSession = (Session) ctx
@@ -42,22 +39,20 @@ public class MailSender {
 			Transport transport = smtpSession.getTransport();
 			transport.connect();
 
-			MimeMessage mimeMessage = createMimeMessage(smtpSession, from, to,
-					subject, content);
+			MimeMessage mimeMessage = createMimeMessage(smtpSession, from, to, subject, content);
 			transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
 			transport.close();
 		} catch (Exception e) {
-			logger.error(this.getClass().getCanonicalName(), "sendMail", e); //$NON-NLS-1$
-			//e.printStackTrace();
+			logger.error(this.getClass().getCanonicalName() + "#sendMail()", e); //$NON-NLS-1$
+			// e.printStackTrace();
 			return e.getMessage();
 			// throw new Exception(e);
 		}
 		return ""; //$NON-NLS-1$
 	}
 
-	private static MimeMessage createMimeMessage(Session smtpSession,
-			String from, String to, String subjectText, String mailText)
-			throws MessagingException {
+	private static MimeMessage createMimeMessage(Session smtpSession, String from, String to,
+			String subjectText, String mailText) throws MessagingException {
 
 		MimeMessage mimeMessage = new MimeMessage(smtpSession);
 		InternetAddress[] fromAddress = InternetAddress.parse(from);

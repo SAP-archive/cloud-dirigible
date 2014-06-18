@@ -44,28 +44,25 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 	private IRepository repository;
 	private String[] rootPaths;
 
-	public JavaScriptExecutor(IRepository repository, String ... rootPaths) {
+	public JavaScriptExecutor(IRepository repository, String... rootPaths) {
 		super();
 		this.repository = repository;
 		this.rootPaths = rootPaths;
-		if (this.rootPaths == null
-				|| this.rootPaths.length == 0) {
-			this.rootPaths = new String[]{null, null};
+		if (this.rootPaths == null || this.rootPaths.length == 0) {
+			this.rootPaths = new String[] { null, null };
 		}
 	}
 
 	@Override
-	public Object executeServiceModule(HttpServletRequest request,
-			HttpServletResponse response, Object input, String module)
-			throws IOException {
+	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
+			Object input, String module) throws IOException {
 
 		if (module == null) {
 			throw new IOException(JAVA_SCRIPT_MODULE_NAME_CANNOT_BE_NULL);
 		}
 
 		ModuleSourceProvider sourceProvider = createRepositoryModuleSourceProvider();
-		ModuleScriptProvider scriptProvider = new SoftCachingModuleScriptProvider(
-				sourceProvider);
+		ModuleScriptProvider scriptProvider = new SoftCachingModuleScriptProvider(sourceProvider);
 		RequireBuilder builder = new RequireBuilder();
 		builder.setModuleScriptProvider(scriptProvider);
 		builder.setSandboxed(false);
@@ -80,18 +77,17 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 			Require require = builder.createRequire(context, topLevelScope);
 
 			require.install(topLevelScope);
-			
+
 			Map<Object, Object> executionContext = new HashMap<Object, Object>();
-			registerDefaultVariables(request, response, input, 
-					executionContext, repository, topLevelScope);
+			registerDefaultVariables(request, response, input, executionContext, repository,
+					topLevelScope);
 
 			beforeExecution(request, response, module, context);
-			
+
 			try {
-				ModuleSource moduleSource = sourceProvider.loadSource(module,
-						null, null);
-				result = context.evaluateReader(topLevelScope,
-						moduleSource.getReader(), module, 0, null);
+				ModuleSource moduleSource = sourceProvider.loadSource(module, null, null);
+				result = context.evaluateReader(topLevelScope, moduleSource.getReader(), module, 0,
+						null);
 			} catch (URISyntaxException e) {
 				throw new IOException(e.getMessage(), e);
 			}
@@ -102,20 +98,19 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 		return result;
 	}
 
-	protected void beforeExecution(HttpServletRequest request,
-			HttpServletResponse response, String module, Context context) {
+	protected void beforeExecution(HttpServletRequest request, HttpServletResponse response,
+			String module, Context context) {
 	}
 
 	private RepositoryModuleSourceProvider createRepositoryModuleSourceProvider() {
 		RepositoryModuleSourceProvider repositoryModuleSourceProvider = null;
-		repositoryModuleSourceProvider = new RepositoryModuleSourceProvider(
-					repository, rootPaths[0], rootPaths[1]);
+		repositoryModuleSourceProvider = new RepositoryModuleSourceProvider(repository,
+				rootPaths[0], rootPaths[1]);
 		return repositoryModuleSourceProvider;
 	}
 
 	@Override
-	protected void registerDefaultVariable(Object scope, String name,
-			Object value) {
+	protected void registerDefaultVariable(Object scope, String name, Object value) {
 		if (scope instanceof ScriptableObject) {
 			ScriptableObject local = (ScriptableObject) scope;
 			local.put(name, local, value);

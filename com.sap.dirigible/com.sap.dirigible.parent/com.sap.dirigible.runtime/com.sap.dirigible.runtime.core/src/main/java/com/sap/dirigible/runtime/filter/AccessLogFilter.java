@@ -27,17 +27,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.metrics.AccessLogLocationsSynchronizer;
 import com.sap.dirigible.runtime.metrics.AccessLogRecord;
 import com.sap.dirigible.runtime.metrics.AccessLogRecordDAO;
 import com.sap.dirigible.runtime.registry.PathUtils;
 
 public class AccessLogFilter implements Filter {
-	
-	private static final Logger logger = LoggerFactory.getLogger(AccessLogFilter.class);
+
+	private static final Logger logger = Logger.getLogger(AccessLogFilter.class);
 
 	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
@@ -49,38 +47,38 @@ public class AccessLogFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		HttpServletRequest req = (HttpServletRequest) request;
-		
+
 		String location = PathUtils.extractPath(req);
 		AccessLogRecord accessLogRecord = null;
 		boolean logLocation = isAccessLogEnabled(location);
 		if (logLocation) {
 			String pattern = getAccessLogPattern(location);
 			accessLogRecord = new AccessLogRecord(req, pattern);
-		}	
+		}
 		try {
 			chain.doFilter(request, response);
 		} finally {
 			if (logLocation) {
 				try {
-					accessLogRecord.setResponseStatus(((HttpServletResponse)response).getStatus());
-					accessLogRecord.setResponseTime((int)(System.currentTimeMillis() - accessLogRecord.getTimestamp().getTime()));
-					
+					accessLogRecord.setResponseStatus(((HttpServletResponse) response).getStatus());
+					accessLogRecord
+							.setResponseTime((int) (System.currentTimeMillis() - accessLogRecord
+									.getTimestamp().getTime()));
+
 					AccessLogRecordDAO.insert(accessLogRecord);
 				} catch (SQLException e) {
 					logger.error(e.getMessage(), e);
 				}
 			}
 		}
-		
+
 	}
 
-	private boolean isAccessLogEnabled(String location)
-				throws ServletException {
+	private boolean isAccessLogEnabled(String location) throws ServletException {
 		logger.trace("isAccessLogEnabled: " + location);
-		for (String accessLogLocation : AccessLogLocationsSynchronizer
-				.getAccessLogLocations()) {
+		for (String accessLogLocation : AccessLogLocationsSynchronizer.getAccessLogLocations()) {
 			if (location.startsWith(accessLogLocation)) {
 				logger.debug("Access Log Enabled: " + location);
 				return true;
@@ -89,20 +87,18 @@ public class AccessLogFilter implements Filter {
 		logger.trace("Access Log Not Enabled: " + location);
 		return false;
 	}
-	
-	private String getAccessLogPattern(String location)
-			throws ServletException {
+
+	private String getAccessLogPattern(String location) throws ServletException {
 		logger.trace("entering getAccessLogPattern: " + location);
-		for (String accessLogLocation : AccessLogLocationsSynchronizer
-				.getAccessLogLocations()) {
+		for (String accessLogLocation : AccessLogLocationsSynchronizer.getAccessLogLocations()) {
 			if (location.startsWith(accessLogLocation)) {
-				logger.debug("Access Log for Location: " + location + " by pattern: " + accessLogLocation);
+				logger.debug("Access Log for Location: " + location + " by pattern: "
+						+ accessLogLocation);
 				return accessLogLocation;
 			}
 		}
 		logger.trace("exiting getAccessLogPattern: " + location);
 		return null;
 	}
-	
 
 }

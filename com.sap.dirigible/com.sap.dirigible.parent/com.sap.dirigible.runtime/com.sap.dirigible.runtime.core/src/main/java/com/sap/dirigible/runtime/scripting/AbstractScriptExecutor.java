@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -30,39 +29,36 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.mail.MailSender;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public abstract class AbstractScriptExecutor {
 
-	private static final String CANNOT_LOOKUP_DEFAULT_DATA_SOURCE = Messages.getString("AbstractScriptExecutor.CANNOT_LOOKUP_DEFAULT_DATA_SOURCE"); //$NON-NLS-1$
-	private static final String THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH = Messages.getString("ScriptLoader.THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH"); //$NON-NLS-1$
+	private static final String CANNOT_LOOKUP_DEFAULT_DATA_SOURCE = Messages
+			.getString("AbstractScriptExecutor.CANNOT_LOOKUP_DEFAULT_DATA_SOURCE"); //$NON-NLS-1$
+	private static final String THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH = Messages
+			.getString("ScriptLoader.THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH"); //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(AbstractScriptExecutor.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(AbstractScriptExecutor.class);
 
-	public Object executeServiceModule(HttpServletRequest request,
-			HttpServletResponse response, String module) throws IOException {
+	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
+			String module) throws IOException {
 		return executeServiceModule(request, response, null, module);
 	}
 
 	protected abstract Object executeServiceModule(HttpServletRequest request,
-			HttpServletResponse response, Object input, String module)
-			throws IOException;
+			HttpServletResponse response, Object input, String module) throws IOException;
 
-	protected abstract void registerDefaultVariable(Object scope, String name,
-			Object value);
+	protected abstract void registerDefaultVariable(Object scope, String name, Object value);
 
 	protected void registerDefaultVariables(HttpServletRequest request,
-			HttpServletResponse response, Object input,
-			Map<Object, Object> executionContext,
+			HttpServletResponse response, Object input, Map<Object, Object> executionContext,
 			IRepository repository, Object scope) {
 		// put the execution context
 		registerDefaultVariable(scope, "context", executionContext); //$NON-NLS-1$
@@ -126,12 +122,12 @@ public abstract class AbstractScriptExecutor {
 		registerDefaultVariable(scope, "indexer", indexerUtils); //$NON-NLS-1$
 	}
 
-	public byte[] readResourceData(IRepository repository, String repositoryPath) throws IOException {
+	public byte[] readResourceData(IRepository repository, String repositoryPath)
+			throws IOException {
 		final IResource resource = repository.getResource(repositoryPath);
 		if (!resource.exists()) {
-			throw new IOException(
-					THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
-							+ repositoryPath);
+			throw new IOException(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
+					+ repositoryPath);
 		}
 		return resource.getContent();
 	}

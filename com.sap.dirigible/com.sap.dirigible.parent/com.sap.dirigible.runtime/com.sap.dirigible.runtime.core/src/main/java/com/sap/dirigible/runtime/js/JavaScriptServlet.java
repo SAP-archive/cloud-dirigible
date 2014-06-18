@@ -22,9 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptingServlet;
 
 /**
@@ -34,11 +32,11 @@ public class JavaScriptServlet extends AbstractScriptingServlet {
 
 	private static final long serialVersionUID = -9115022531455267478L;
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(JavaScriptServlet.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(JavaScriptServlet.class
+			.getCanonicalName());
 
-	protected void doExecution(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doExecution(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String module = request.getPathInfo();
 
@@ -52,10 +50,9 @@ public class JavaScriptServlet extends AbstractScriptingServlet {
 
 	}
 
-	protected JavaScriptExecutor createExecutor(HttpServletRequest request)
-			throws IOException {
-		JavaScriptExecutor executor = new JavaScriptExecutor(
-				getRepository(request), getScriptingRegistryPath(request), REGISTRY_SCRIPTING_DEPLOY_PATH);
+	protected JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
+		JavaScriptExecutor executor = new JavaScriptExecutor(getRepository(request),
+				getScriptingRegistryPath(request), REGISTRY_SCRIPTING_DEPLOY_PATH);
 		return executor;
 	}
 

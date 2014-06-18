@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.runtime.filter;
 
-
 public class WebRegistrySecureFilter extends AbstractRegistrySecureFilter {
 
 	private static final String WEB_SECURED_MAPPING = "/web-secured"; //$NON-NLS-1$

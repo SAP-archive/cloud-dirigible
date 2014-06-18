@@ -29,10 +29,9 @@ public class TestCasesServlet extends JavaScriptServlet {
 	private static final long serialVersionUID = 1274655492926255449L;
 
 	public static final String TEST_CASES = "/TestCases"; //$NON-NLS-1$  
-	
+
 	public static final String REGISTRY_TESTS_DEPLOY_PATH = AbstractRegistryServlet.REGISTRY_DEPLOY_PATH
 			+ TEST_CASES; //$NON-NLS-1$
-	
 
 	@Override
 	protected String getScriptingRegistryPath(HttpServletRequest request) {
@@ -45,11 +44,10 @@ public class TestCasesServlet extends JavaScriptServlet {
 	}
 
 	@Override
-	protected JavaScriptExecutor createExecutor(HttpServletRequest request)
-			throws IOException {
-		JavaScriptExecutor executor = new JavaScriptExecutor(
-				getRepository(request), getScriptingRegistryPath(request),
-				super.getScriptingRegistryPath(request), REGISTRY_SCRIPTING_DEPLOY_PATH, REGISTRY_TESTS_DEPLOY_PATH);
+	protected JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
+		JavaScriptExecutor executor = new JavaScriptExecutor(getRepository(request),
+				getScriptingRegistryPath(request), super.getScriptingRegistryPath(request),
+				REGISTRY_SCRIPTING_DEPLOY_PATH, REGISTRY_TESTS_DEPLOY_PATH);
 		return executor;
 	}
 

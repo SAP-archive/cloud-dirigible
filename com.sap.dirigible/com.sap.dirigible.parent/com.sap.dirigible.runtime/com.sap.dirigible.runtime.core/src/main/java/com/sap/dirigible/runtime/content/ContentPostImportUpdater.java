@@ -38,29 +38,27 @@ public class ContentPostImportUpdater {
 
 	public void update() throws IOException, Exception {
 		// 1. Execute the real database "create or update"
-		DatabaseUpdater databaseUpdater = new DatabaseUpdater(getRepository(),
-				RepositoryFacade.getInstance().getDataSource(),
-				DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
+		DatabaseUpdater databaseUpdater = new DatabaseUpdater(getRepository(), RepositoryFacade
+				.getInstance().getDataSource(), DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
 		databaseUpdater.applyUpdates();
 
 		// 2. Execute the real security "create or update"
-		SecurityUpdater securityUpdater = new SecurityUpdater(getRepository(),
-				RepositoryFacade.getInstance().getDataSource(),
+		SecurityUpdater securityUpdater = new SecurityUpdater(getRepository(), RepositoryFacade
+				.getInstance().getDataSource(),
 				SecurityUpdater.REGISTRY_SECURITY_CONSTRAINTS_DEFAULT);
 		securityUpdater.applyUpdates();
-		
+
 		// 3. Execute the real import from DSV files
-		DsvUpdater dsvUpdater = new DsvUpdater(getRepository(),
-				RepositoryFacade.getInstance().getDataSource(),
-				DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
+		DsvUpdater dsvUpdater = new DsvUpdater(getRepository(), RepositoryFacade.getInstance()
+				.getDataSource(), DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
 		dsvUpdater.applyUpdates();
-		
+
 		// 4. Extensions
-		ExtensionUpdater extensionUpdater = new ExtensionUpdater(getRepository(),
-				RepositoryFacade.getInstance().getDataSource(),
+		ExtensionUpdater extensionUpdater = new ExtensionUpdater(getRepository(), RepositoryFacade
+				.getInstance().getDataSource(),
 				ExtensionUpdater.REGISTRY_EXTENSION_DEFINITIONS_DEFAULT);
 		extensionUpdater.applyUpdates();
-		
+
 	}
 
 }

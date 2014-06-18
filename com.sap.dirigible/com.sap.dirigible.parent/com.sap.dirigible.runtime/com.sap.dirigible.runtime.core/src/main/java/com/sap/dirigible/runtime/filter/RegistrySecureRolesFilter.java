@@ -28,33 +28,30 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.RepositoryException;
 import com.sap.dirigible.repository.ext.security.SecurityManager;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.Messages;
 import com.sap.dirigible.runtime.registry.PathUtils;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class RegistrySecureRolesFilter extends AbstractRegistrySecureFilter {
 
-	private static final String YOU_DO_NOT_HAVE_REQUIRED_ROLE_S_TO_ACCESS_THIS_LOCATION = Messages.getString("RegistrySecureRolesFilter.YOU_DO_NOT_HAVE_REQUIRED_ROLE_S_TO_ACCESS_THIS_LOCATION"); //$NON-NLS-1$
-	private static final Logger logger = LoggerFactory
-			.getLogger(RegistrySecureRolesFilter.class);
+	private static final String YOU_DO_NOT_HAVE_REQUIRED_ROLE_S_TO_ACCESS_THIS_LOCATION = Messages
+			.getString("RegistrySecureRolesFilter.YOU_DO_NOT_HAVE_REQUIRED_ROLE_S_TO_ACCESS_THIS_LOCATION"); //$NON-NLS-1$
+	private static final Logger logger = Logger.getLogger(RegistrySecureRolesFilter.class);
 
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse res,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
 
 		HttpServletRequest request = (HttpServletRequest) req;
 
 		String location = PathUtils.extractPath(request);
 		if (isLocationSecured(location)) {
 			if (!isUserInRole(req, location)) {
-				((HttpServletResponse) res)
-						.sendError(HttpServletResponse.SC_FORBIDDEN,
-								YOU_DO_NOT_HAVE_REQUIRED_ROLE_S_TO_ACCESS_THIS_LOCATION);
+				((HttpServletResponse) res).sendError(HttpServletResponse.SC_FORBIDDEN,
+						YOU_DO_NOT_HAVE_REQUIRED_ROLE_S_TO_ACCESS_THIS_LOCATION);
 			}
 		}
 		chain.doFilter(req, res);
@@ -67,14 +64,11 @@ public class RegistrySecureRolesFilter extends AbstractRegistrySecureFilter {
 				HttpServletRequest request = (HttpServletRequest) req;
 				Principal principal = request.getUserPrincipal();
 				if (principal != null) {
-					SecurityManager securityManager = SecurityManager
-							.getInstance(RepositoryFacade.getInstance()
-									.getRepository(request), RepositoryFacade
-									.getInstance().getDataSource());
-					List<String> roles = securityManager
-							.getRolesForLocation(location);
-					for (Iterator<String> iterator = roles.iterator(); iterator
-							.hasNext();) {
+					SecurityManager securityManager = SecurityManager.getInstance(RepositoryFacade
+							.getInstance().getRepository(request), RepositoryFacade.getInstance()
+							.getDataSource());
+					List<String> roles = securityManager.getRolesForLocation(location);
+					for (Iterator<String> iterator = roles.iterator(); iterator.hasNext();) {
 						String role = iterator.next();
 						if (request.isUserInRole(role)) {
 							return true;

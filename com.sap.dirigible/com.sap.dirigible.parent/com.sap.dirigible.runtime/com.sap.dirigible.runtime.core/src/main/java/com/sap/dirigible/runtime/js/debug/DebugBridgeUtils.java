@@ -19,34 +19,36 @@ import java.beans.PropertyChangeSupport;
 
 import javax.naming.NamingException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class DebugBridgeUtils {
-	
+
 	public static final String DIRIGIBLE_DEBUGGER_BRIDGE = "dirigible.debugger.bridge"; //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(DebugBridgeUtils.class.getCanonicalName());
-	
+	private static final Logger logger = Logger.getLogger(DebugBridgeUtils.class);
+
 	/**
-	 * Retrieve the DebuggerBridge(PropertyChangeSupport) from the target server environment
+	 * Retrieve the DebuggerBridge(PropertyChangeSupport) from the target server
+	 * environment
 	 * 
 	 * @return
 	 * @throws NamingException
 	 */
 	public static PropertyChangeSupport lookupDebuggerBridge() {
 		logger.debug("entering JavaScriptDebugServlet.lookupDebuggerBridge()");
-		PropertyChangeSupport debuggerBridge = (PropertyChangeSupport) System.getProperties().get(DIRIGIBLE_DEBUGGER_BRIDGE);
+		PropertyChangeSupport debuggerBridge = (PropertyChangeSupport) System.getProperties().get(
+				DIRIGIBLE_DEBUGGER_BRIDGE);
 		if (debuggerBridge == null) {
 			logger.error("DebuggerBridge not present");
 		}
 		logger.debug("exiting JavaScriptDebugServlet.lookupDebuggerBridge()");
 		return debuggerBridge;
 	}
-	
-	public static void send(PropertyChangeSupport debuggerBridge, String commandId, String clientId, String commandBody) {
-		logger.debug("DebugBridgUtils send() commandId: " + commandId + ", clientId: " + clientId + ", body: " + commandBody);
+
+	public static void send(PropertyChangeSupport debuggerBridge, String commandId,
+			String clientId, String commandBody) {
+		logger.debug("DebugBridgUtils send() commandId: " + commandId + ", clientId: " + clientId
+				+ ", body: " + commandBody);
 		debuggerBridge.firePropertyChange(commandId, clientId, commandBody);
 	}
 

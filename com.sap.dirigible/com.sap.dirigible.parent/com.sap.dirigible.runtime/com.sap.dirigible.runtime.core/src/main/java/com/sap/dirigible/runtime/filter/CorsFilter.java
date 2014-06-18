@@ -40,7 +40,7 @@ public class CorsFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		((HttpServletResponse)response).setHeader(ACCESS_CONTROL_ALLOW_ORIGIN, CORS_ALL);
+		((HttpServletResponse) response).setHeader(ACCESS_CONTROL_ALLOW_ORIGIN, CORS_ALL);
 		chain.doFilter(request, response);
 	}
 

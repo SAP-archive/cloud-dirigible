@@ -22,19 +22,17 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.security.SecurityManager;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class SecuritySynchronizer implements Runnable {
 
-	private static final String REFRESHING_OF_SECURED_LOCATIONS_FAILED = Messages.getString("SecuritySynchronizer.REFRESHING_OF_SECURED_LOCATIONS_FAILED"); //$NON-NLS-1$
+	private static final String REFRESHING_OF_SECURED_LOCATIONS_FAILED = Messages
+			.getString("SecuritySynchronizer.REFRESHING_OF_SECURED_LOCATIONS_FAILED"); //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(SecuritySynchronizer.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(SecuritySynchronizer.class);
 
 	private static List<String> securedLocations = Collections
 			.synchronizedList(new ArrayList<String>());
@@ -65,13 +63,10 @@ public class SecuritySynchronizer implements Runnable {
 
 		SecurityManager securityManager = null;
 		try {
-			DataSource dataSource = RepositoryFacade.getInstance()
-					.getDataSource();
-			IRepository repository = RepositoryFacade.getInstance()
-					.getRepository(null);
+			DataSource dataSource = RepositoryFacade.getInstance().getDataSource();
+			IRepository repository = RepositoryFacade.getInstance().getRepository(null);
 			// TODO
-			securityManager = SecurityManager.getInstance(repository,
-					dataSource);
+			securityManager = SecurityManager.getInstance(repository, dataSource);
 			securedLocations = securityManager.getSecuredLocations();
 		} catch (Exception e) {
 			throw new ServletException(e);

@@ -58,7 +58,6 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 		return XSSUtils.stripXSS(header);
 	}
 
-	
 	private String[] stripXSS(String[] values) {
 		String encodedValues[] = new String[values.length];
 		for (int i = 0; i < values.length; i++) {

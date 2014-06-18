@@ -25,12 +25,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class SandboxFilter implements Filter {
-	
-	private static final Logger logger = LoggerFactory.getLogger(SandboxFilter.class);
+
+	private static final Logger logger = Logger.getLogger(SandboxFilter.class);
 
 	public static final String SANDBOX_CONTEXT = "sandbox"; //$NON-NLS-1$
 	public static final String DEBUG_CONTEXT = "debug"; //$NON-NLS-1$
@@ -45,18 +44,16 @@ public class SandboxFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
-		HttpServletRequest req = (HttpServletRequest)request;
-		
+
+		HttpServletRequest req = (HttpServletRequest) request;
+
 		logger.trace("SandboxFilter doFilter req.getServletPath(): " + req.getServletPath());
-		
-		if (req.getServletPath() != null 
-				&& (req.getServletPath().contains(SANDBOX_CONTEXT))) {
+
+		if (req.getServletPath() != null && (req.getServletPath().contains(SANDBOX_CONTEXT))) {
 			req.setAttribute(SANDBOX_CONTEXT, true);
 			logger.trace("setAttribute(SANDBOX_CONTEXT, true)");
 		}
-		if (req.getServletPath() != null 
-				&& req.getServletPath().contains(DEBUG_CONTEXT)) {
+		if (req.getServletPath() != null && req.getServletPath().contains(DEBUG_CONTEXT)) {
 			req.setAttribute(DEBUG_CONTEXT, true);
 			logger.trace("setAttribute(DEBUG_CONTEXT, true)");
 		}

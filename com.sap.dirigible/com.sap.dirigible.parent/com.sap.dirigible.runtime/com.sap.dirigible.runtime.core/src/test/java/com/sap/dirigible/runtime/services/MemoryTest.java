@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.sap.dirigible.runtime.memory.MemoryLogRecordDAO;
-import com.sap.dirigible.runtime.memory.MemoryServlet;
 
 public class MemoryTest {
 	

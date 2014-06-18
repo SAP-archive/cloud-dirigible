@@ -36,8 +36,7 @@ public class LoaderUtils {
 		return result;
 	}
 
-	public static void transferData(InputStream in, OutputStream out)
-			throws IOException {
+	public static void transferData(InputStream in, OutputStream out) throws IOException {
 		final byte[] buffer = new byte[1024];
 		int count = 0;
 		while ((count = in.read(buffer)) > 0) {

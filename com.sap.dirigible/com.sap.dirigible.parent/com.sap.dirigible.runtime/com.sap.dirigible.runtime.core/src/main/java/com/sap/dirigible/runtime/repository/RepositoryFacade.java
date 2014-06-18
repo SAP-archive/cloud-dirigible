@@ -21,32 +21,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.apache.derby.jdbc.EmbeddedDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.RepositoryException;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.db.WrappedDataSource;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class RepositoryFacade {
-	
-	private static final Logger logger = LoggerFactory.getLogger(RepositoryFacade.class);
+
+	private static final Logger logger = Logger.getLogger(RepositoryFacade.class);
 
 	private static final String JAVA_COMP_ENV_JDBC_DEFAULT_DB = "java:comp/env/jdbc/DefaultDB"; //$NON-NLS-1$
-	
+
 	private static final String LOCAL_DB_ACTION = "create"; //$NON-NLS-1$
-	
+
 	private static final String LOCAL_DB_NAME = "derby"; //$NON-NLS-1$
 
 	private static final String REPOSITORY = "repository-instance"; //$NON-NLS-1$
 
 	private static RepositoryFacade instance;
-	
+
 	private static DataSource localDataSource;
 
 	private WrappedDataSource dataSource;
-
 
 	private RepositoryFacade() {
 
@@ -59,8 +57,7 @@ public class RepositoryFacade {
 		return instance;
 	}
 
-	public IRepository getRepository(HttpServletRequest request)
-			throws RepositoryException {
+	public IRepository getRepository(HttpServletRequest request) throws RepositoryException {
 
 		IRepository repository = getRepositoryInstance(request);
 
@@ -90,7 +87,7 @@ public class RepositoryFacade {
 		}
 		return dataSource;
 	}
-	
+
 	private DataSource lookupDataSource() {
 		InitialContext ctx;
 		try {
@@ -103,16 +100,16 @@ public class RepositoryFacade {
 	}
 
 	private WrappedDataSource createLocal() {
-		localDataSource = (DataSource) System.getProperties().get(LOCAL_DB_NAME); 
+		localDataSource = (DataSource) System.getProperties().get(LOCAL_DB_NAME);
 		if (localDataSource == null) {
 			localDataSource = new EmbeddedDataSource();
-			((EmbeddedDataSource)localDataSource).setDatabaseName(LOCAL_DB_NAME);
-			((EmbeddedDataSource)localDataSource).setCreateDatabase(LOCAL_DB_ACTION);
+			((EmbeddedDataSource) localDataSource).setDatabaseName(LOCAL_DB_NAME);
+			((EmbeddedDataSource) localDataSource).setCreateDatabase(LOCAL_DB_ACTION);
 			System.getProperties().put(LOCAL_DB_NAME, localDataSource);
 		}
 		logger.error("Embedded DataSource is used!");
-		
-		WrappedDataSource wrappedDataSource = new WrappedDataSource(localDataSource); 
+
+		WrappedDataSource wrappedDataSource = new WrappedDataSource(localDataSource);
 		return wrappedDataSource;
 	}
 
@@ -140,8 +137,7 @@ public class RepositoryFacade {
 		return null;
 	}
 
-	public void saveRepositoryInstance(HttpServletRequest request,
-			IRepository repository) {
+	public void saveRepositoryInstance(HttpServletRequest request, IRepository repository) {
 		if (request == null) {
 			return;
 		}

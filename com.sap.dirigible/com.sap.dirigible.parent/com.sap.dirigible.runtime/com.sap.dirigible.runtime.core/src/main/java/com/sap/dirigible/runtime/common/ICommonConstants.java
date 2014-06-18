@@ -18,7 +18,7 @@ package com.sap.dirigible.runtime.common;
 import com.sap.dirigible.repository.api.IRepository;
 
 public interface ICommonConstants {
-	
+
 	public static final String SEPARATOR = IRepository.SEPARATOR; //$NON-NLS-1$
 
 	public interface ARTIFACT_TYPE {

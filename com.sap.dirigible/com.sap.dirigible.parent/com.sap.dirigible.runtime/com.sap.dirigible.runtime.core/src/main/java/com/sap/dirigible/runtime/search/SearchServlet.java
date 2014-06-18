@@ -25,85 +25,75 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.lucene.index.IndexNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.lucene.RepositoryMemoryIndexer;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
-import com.sap.dirigible.runtime.registry.Messages;
 
 /**
  * Servlet implementation class RegistryServlet
  */
 public class SearchServlet extends AbstractRegistryServlet {
 
-    private static final String REQUEST_PROCESSING_FAILED_S =
-        ""; //$NON-NLS-1$
-    private static final String SEARCH_TERM = "q"; //$NON-NLS-1$
-    private static final String REINDEX = "reindex"; //$NON-NLS-1$
-//    private static final String CASE_INSENSITIVE_TERM = "caseInsensitive"; //$NON-NLS-1$
+	private static final String REQUEST_PROCESSING_FAILED_S = ""; //$NON-NLS-1$
+	private static final String SEARCH_TERM = "q"; //$NON-NLS-1$
+	private static final String REINDEX = "reindex"; //$NON-NLS-1$
+	//    private static final String CASE_INSENSITIVE_TERM = "caseInsensitive"; //$NON-NLS-1$
 
-    private static final long serialVersionUID = 7435479651482177443L;
+	private static final long serialVersionUID = 7435479651482177443L;
 
-    private static final Logger log = LoggerFactory
-            .getLogger(SearchServlet.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(SearchServlet.class);
 
-    @Override
-    protected void doGet(final HttpServletRequest request,
-                         final HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
-        
-    	final String searchTerm = request.getParameter(SEARCH_TERM);
-        try {
-            final IRepository repository = getRepository(request);
-            
-            final String reindex = request.getParameter(REINDEX);
-            if (reindex != null) { //$NON-NLS-1$
-            	RepositoryMemoryIndexer.clearIndex();
-            	RepositoryMemoryIndexer.indexRepository(repository);
-                response.getWriter().println("0"); //$NON-NLS-1$
-                return;
-            }
-            
-            response.setContentType("application/json"); //$NON-NLS-1$
-            if (searchTerm == null || "".equals(searchTerm)) { //$NON-NLS-1$
-                response.getWriter().println("[]"); //$NON-NLS-1$
-                return;
-            }
+		final String searchTerm = request.getParameter(SEARCH_TERM);
+		try {
+			final IRepository repository = getRepository(request);
 
-//            final List<IEntity> entities = repository.searchText(searchTerm,
-//                    caseInsensitive);
-//            enumerateEntities(response, entities);
-            
-        	List<String> paths = null;
-        	try {
-        		paths = RepositoryMemoryIndexer.search(searchTerm);
-        	} catch (IndexNotFoundException e) {
-        		RepositoryMemoryIndexer.indexRepository(repository);
-        	}
-        	paths = RepositoryMemoryIndexer.search(searchTerm);
-            
-            enumeratePaths(response, paths);
-        } catch (final IllegalArgumentException ex) {
-            log.error(String.format(REQUEST_PROCESSING_FAILED_S, searchTerm)
-                    + ex.getMessage());
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                    ex.getMessage());
-        } catch (final MissingResourceException ex) {
-            log.error(String.format(REQUEST_PROCESSING_FAILED_S, searchTerm)
-                    + ex.getMessage());
-            response.sendError(HttpServletResponse.SC_NO_CONTENT,
-                    ex.getMessage());
-        }
-    }
+			final String reindex = request.getParameter(REINDEX);
+			if (reindex != null) { //$NON-NLS-1$
+				RepositoryMemoryIndexer.clearIndex();
+				RepositoryMemoryIndexer.indexRepository(repository);
+				response.getWriter().println("0"); //$NON-NLS-1$
+				return;
+			}
 
-	private void enumeratePaths(final HttpServletResponse response,
-			final List<String> paths) throws IOException {
+			response.setContentType("application/json"); //$NON-NLS-1$
+			if (searchTerm == null || "".equals(searchTerm)) { //$NON-NLS-1$
+				response.getWriter().println("[]"); //$NON-NLS-1$
+				return;
+			}
+
+			// final List<IEntity> entities = repository.searchText(searchTerm,
+			// caseInsensitive);
+			// enumerateEntities(response, entities);
+
+			List<String> paths = null;
+			try {
+				paths = RepositoryMemoryIndexer.search(searchTerm);
+			} catch (IndexNotFoundException e) {
+				RepositoryMemoryIndexer.indexRepository(repository);
+			}
+			paths = RepositoryMemoryIndexer.search(searchTerm);
+
+			enumeratePaths(response, paths);
+		} catch (final IllegalArgumentException ex) {
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, searchTerm) + ex.getMessage());
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
+		} catch (final MissingResourceException ex) {
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, searchTerm) + ex.getMessage());
+			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
+		}
+	}
+
+	private void enumeratePaths(final HttpServletResponse response, final List<String> paths)
+			throws IOException {
 		final PrintWriter writer = response.getWriter();
 
 		final String collectionPath = "/dirigible/registry"; //$NON-NLS-1$
@@ -113,9 +103,8 @@ public class SearchServlet extends AbstractRegistryServlet {
 		for (final String entity : paths) {
 			String entityName = entity;
 			if (entityName.startsWith(AbstractRegistryServlet.REGISTRY_DEPLOY_PATH)) {
-				entityName = entityName
-						.substring(AbstractRegistryServlet.REGISTRY_DEPLOY_PATH
-								.length());
+				entityName = entityName.substring(AbstractRegistryServlet.REGISTRY_DEPLOY_PATH
+						.length());
 				final String path = collectionPath + entityName;
 				final JsonObject elementObject = new JsonObject();
 				elementObject.addProperty("name", entityName); //$NON-NLS-1$

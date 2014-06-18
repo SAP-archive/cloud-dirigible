@@ -20,11 +20,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.js.JavaScriptServlet;
+import com.sap.dirigible.runtime.logger.Logger;
 
 /**
  * Servlet for JavaScript scripts execution
@@ -32,29 +30,24 @@ import com.sap.dirigible.runtime.js.JavaScriptServlet;
 public class JavaScriptDebugServlet extends JavaScriptServlet {
 
 	private static final long serialVersionUID = -9115022531455267478L;
-	
-	private static final Logger logger = LoggerFactory
-			.getLogger(JavaScriptDebugServlet.class.getCanonicalName());
 
-	
+	private static final Logger logger = Logger.getLogger(JavaScriptDebugServlet.class);
+
 	@Override
-	protected JavaScriptExecutor createExecutor(HttpServletRequest request)
-			throws IOException {
-		
+	protected JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
+
 		logger.debug("entering JavaScriptDebugServlet.createExecutor()");
-		
+
 		PropertyChangeSupport debuggerBridge = DebugBridgeUtils.lookupDebuggerBridge();
-		
+
 		String rootPath = getScriptingRegistryPath(request);
 		logger.debug("rootPath=" + rootPath);
 		JavaScriptDebuggingExecutor executor = new JavaScriptDebuggingExecutor(
 				getRepository(request), rootPath, REGISTRY_SCRIPTING_DEPLOY_PATH, debuggerBridge);
-		
+
 		logger.debug("exiting JavaScriptDebugServlet.createExecutor()");
-		
+
 		return executor;
 	}
-	
-	
 
 }

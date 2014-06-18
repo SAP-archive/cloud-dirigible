@@ -25,28 +25,29 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.ContentTypeHelper;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class ContentInitializerServlet extends HttpServlet {
 
-	private static final String INVALID_FILE_OR_FOLDER_LOCATION_DURING_CONTENT_INITIALIZATION = Messages.getString("ContentInitializerServlet.INVALID_FILE_OR_FOLDER_LOCATION_DURING_CONTENT_INITIALIZATION"); //$NON-NLS-1$
-	private static final String CONTENT_INITIALIZATION_FAILED = Messages.getString("ContentInitializerServlet.CONTENT_INITIALIZATION_FAILED"); //$NON-NLS-1$
-	private static final String COULD_NOT_INITIALIZE_REPOSITORY = Messages.getString("ContentInitializerServlet.COULD_NOT_INITIALIZE_REPOSITORY"); //$NON-NLS-1$
+	private static final String INVALID_FILE_OR_FOLDER_LOCATION_DURING_CONTENT_INITIALIZATION = Messages
+			.getString("ContentInitializerServlet.INVALID_FILE_OR_FOLDER_LOCATION_DURING_CONTENT_INITIALIZATION"); //$NON-NLS-1$
+	private static final String CONTENT_INITIALIZATION_FAILED = Messages
+			.getString("ContentInitializerServlet.CONTENT_INITIALIZATION_FAILED"); //$NON-NLS-1$
+	private static final String COULD_NOT_INITIALIZE_REPOSITORY = Messages
+			.getString("ContentInitializerServlet.COULD_NOT_INITIALIZE_REPOSITORY"); //$NON-NLS-1$
 	private static final long serialVersionUID = 6468050094756163896L;
 	private static final String REPOSITORY_ATTRIBUTE = "com.sap.dirigible.services.content.repository"; //$NON-NLS-1$
 	private static final String PATH_REGISTRY_ROOT_SOURCE = "/WEB-INF/content/db/"; //$NON-NLS-1$
 
 	private static final String PATH_REGISTY_ROOT_TARGET = "/db"; //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ContentInitializerServlet.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(ContentInitializerServlet.class);
 
 	private static final String SYSTEM_USER = "SYSTEM"; //$NON-NLS-1$
 
@@ -71,8 +72,7 @@ public class ContentInitializerServlet extends HttpServlet {
 
 	private void initRepository() throws ServletException {
 		try {
-			final IRepository repository = RepositoryFacade.getInstance()
-					.getRepository(null);
+			final IRepository repository = RepositoryFacade.getInstance().getRepository(null);
 			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
 		} catch (Exception ex) {
 			throw new ServletException(COULD_NOT_INITIALIZE_REPOSITORY, ex);
@@ -80,8 +80,8 @@ public class ContentInitializerServlet extends HttpServlet {
 	}
 
 	private IRepository getRepository(String user) throws IOException {
-		final IRepository repository = (IRepository) getServletContext()
-				.getAttribute(REPOSITORY_ATTRIBUTE);
+		final IRepository repository = (IRepository) getServletContext().getAttribute(
+				REPOSITORY_ATTRIBUTE);
 		if (repository == null) {
 			try {
 				initRepository();
@@ -92,10 +92,8 @@ public class ContentInitializerServlet extends HttpServlet {
 		return repository;
 	}
 
-	private void checkAndImportRegistry(ServletConfig config, String user)
-			throws IOException {
-		String path = config.getServletContext().getRealPath(
-				PATH_REGISTRY_ROOT_SOURCE);
+	private void checkAndImportRegistry(ServletConfig config, String user) throws IOException {
+		String path = config.getServletContext().getRealPath(PATH_REGISTRY_ROOT_SOURCE);
 		File root = new File(path);
 		logger.debug("root: " + root.getCanonicalPath().replace('\\', '/')); //$NON-NLS-1$
 		if (root.exists() && root.isDirectory()) {
@@ -103,8 +101,7 @@ public class ContentInitializerServlet extends HttpServlet {
 			if (files != null) {
 				for (int i = 0; i < files.length; i++) {
 					File folder = files[i];
-					checkAndImportFileOrFolder(
-							root.getCanonicalPath().length(), folder, user);
+					checkAndImportFileOrFolder(root.getCanonicalPath().length(), folder, user);
 				}
 			}
 		} else {
@@ -112,23 +109,21 @@ public class ContentInitializerServlet extends HttpServlet {
 		}
 	}
 
-	private void checkAndImportFileOrFolder(int rootLength, File fileOrFolder,
-			String user) throws IOException {
+	private void checkAndImportFileOrFolder(int rootLength, File fileOrFolder, String user)
+			throws IOException {
 		if (fileOrFolder.exists()) {
 			if (fileOrFolder.isDirectory()) {
-				String folderName = fileOrFolder.getCanonicalPath().substring(
-						rootLength);
+				String folderName = fileOrFolder.getCanonicalPath().substring(rootLength);
 				folderName = folderName.replace('\\', '/');
 				logger.debug(folderName + " source: " //$NON-NLS-1$
 						+ fileOrFolder.getCanonicalPath().replace('\\', '/'));
 				IRepository repository = getRepository(user);
-				ICollection collection = repository
-						.getCollection(PATH_REGISTY_ROOT_TARGET + folderName);
+				ICollection collection = repository.getCollection(PATH_REGISTY_ROOT_TARGET
+						+ folderName);
 				if (!collection.exists()) {
 					collection.create();
 					logger.info("Folder created from: " //$NON-NLS-1$
-							+ fileOrFolder.getCanonicalPath()
-									.replace('\\', '/') + " to: " //$NON-NLS-1$
+							+ fileOrFolder.getCanonicalPath().replace('\\', '/') + " to: " //$NON-NLS-1$
 							+ collection.getPath());
 				}
 				File[] files = fileOrFolder.listFiles();
@@ -139,14 +134,12 @@ public class ContentInitializerServlet extends HttpServlet {
 					}
 				}
 			} else {
-				String fileName = fileOrFolder.getCanonicalPath().substring(
-						rootLength);
+				String fileName = fileOrFolder.getCanonicalPath().substring(rootLength);
 				fileName = fileName.replace('\\', '/');
 				logger.debug(fileName + " source: " //$NON-NLS-1$
 						+ fileOrFolder.getCanonicalPath());
 				IRepository repository = getRepository(user);
-				IResource resource = repository
-						.getResource(PATH_REGISTY_ROOT_TARGET + fileName);
+				IResource resource = repository.getResource(PATH_REGISTY_ROOT_TARGET + fileName);
 				if (resource.exists()) {
 					resource.delete();
 				}
@@ -155,12 +148,11 @@ public class ContentInitializerServlet extends HttpServlet {
 				String mimeType = null;
 				String extension = ContentTypeHelper.getExtension(fileName);
 				if ((mimeType = ContentTypeHelper.getContentType(extension)) != null) {
-					repository.createResource(PATH_REGISTY_ROOT_TARGET
-							+ fileName, baos.toByteArray(),
-							ContentTypeHelper.isBinary(mimeType), mimeType);
+					repository.createResource(PATH_REGISTY_ROOT_TARGET + fileName,
+							baos.toByteArray(), ContentTypeHelper.isBinary(mimeType), mimeType);
 				} else {
-					repository.createResource(PATH_REGISTY_ROOT_TARGET
-							+ fileName, baos.toByteArray());
+					repository.createResource(PATH_REGISTY_ROOT_TARGET + fileName,
+							baos.toByteArray());
 				}
 				logger.info("Resource initialized from: " //$NON-NLS-1$
 						+ fileOrFolder.getCanonicalPath().replace('\\', '/')
@@ -168,10 +160,8 @@ public class ContentInitializerServlet extends HttpServlet {
 				// logger.info(new String(baos.toByteArray()));
 			}
 		} else {
-			throw new IOException(
-					INVALID_FILE_OR_FOLDER_LOCATION_DURING_CONTENT_INITIALIZATION
-							+ fileOrFolder.getCanonicalPath()
-									.replace('\\', '/'));
+			throw new IOException(INVALID_FILE_OR_FOLDER_LOCATION_DURING_CONTENT_INITIALIZATION
+					+ fileOrFolder.getCanonicalPath().replace('\\', '/'));
 		}
 
 	}
