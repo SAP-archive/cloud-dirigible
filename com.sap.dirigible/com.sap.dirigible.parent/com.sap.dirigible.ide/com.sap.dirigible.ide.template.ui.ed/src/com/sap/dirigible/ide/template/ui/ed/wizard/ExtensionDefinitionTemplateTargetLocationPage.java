@@ -15,13 +15,13 @@
 
 package com.sap.dirigible.ide.template.ui.ed.wizard;
 
+import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 
-public class ExtensionDefinitionTemplateTargetLocationPage extends
-		TemplateTargetLocationPage {
-	
+public class ExtensionDefinitionTemplateTargetLocationPage extends TemplateTargetLocationPage {
+
 	private static final long serialVersionUID = 5413819137031452222L;
 
 	private static final String EXTENSION_EXTENSION = "extension.extension";
@@ -36,8 +36,7 @@ public class ExtensionDefinitionTemplateTargetLocationPage extends
 
 	private ExtensionDefinitionTemplateModel model;
 
-	protected ExtensionDefinitionTemplateTargetLocationPage(
-			ExtensionDefinitionTemplateModel model) {
+	protected ExtensionDefinitionTemplateTargetLocationPage(ExtensionDefinitionTemplateModel model) {
 		super(PAGE_NAME);
 		this.model = model;
 		setTitle(TARGET_LOCATION);
@@ -46,13 +45,11 @@ public class ExtensionDefinitionTemplateTargetLocationPage extends
 
 	@Override
 	protected void checkPageStatus() {
-		if (getModel().getTargetLocation() == null
-				|| "".equals(getModel().getTargetLocation())) { //$NON-NLS-1$
+		if (getModel().getTargetLocation() == null || "".equals(getModel().getTargetLocation())) { //$NON-NLS-1$
 			setPageComplete(false);
 			return;
 		}
-		if (getModel().getFileName() == null
-				|| "".equals(getModel().getFileName())) { //$NON-NLS-1$
+		if (getModel().getFileName() == null || "".equals(getModel().getFileName())) { //$NON-NLS-1$
 			setPageComplete(false);
 			return;
 		}
@@ -89,6 +86,11 @@ public class ExtensionDefinitionTemplateTargetLocationPage extends
 	@Override
 	protected boolean isForcedFileName() {
 		return true;
+	}
+
+	@Override
+	protected String getArtifactContainerName() {
+		return ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS;
 	}
 
 }
