@@ -16,10 +16,7 @@ Bundle-SymbolicName: com.sap.dirigible.repository.ext;singleton:=true
 Require-Bundle: org.apache.lucene.analysis;bundle-version="3.5.0",
  org.apache.lucene.core;bundle-version="3.5.0",
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
- com.sap.dirigible.ide.common,
- org.apache.httpcomponents.httpclient;bundle-version="4.1.3",
- org.apache.httpcomponents.httpcore;bundle-version="4.1.4"
+ com.sap.dirigible.repository.db
 Import-Package: com.google.gson,
  javax.servlet,
  javax.servlet.http,

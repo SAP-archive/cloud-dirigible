@@ -15,6 +15,8 @@
 
 package com.sap.dirigible.ide.ui.rap.entry;
 
+import java.io.IOException;
+
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.client.service.ExitConfirmation;
@@ -22,10 +24,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
 import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.io.ProxyUtils;
+import com.sap.dirigible.ide.logging.Logger;
 
 public class DirigibleWorkbench implements EntryPoint {
 
 	private static final String ARE_YOU_SURE_YOU_WANT_TO_QUIT = Messages.DirigibleWorkbench_ARE_YOU_SURE_YOU_WANT_TO_QUIT;
+	
+	private static final Logger logger = Logger.getLogger(DirigibleWorkbench.class); 
 
 	public int createUI() {
 		final Display display = PlatformUI.createDisplay();
@@ -34,6 +40,13 @@ public class DirigibleWorkbench implements EntryPoint {
 				ExitConfirmation.class);
 		service.setMessage(ARE_YOU_SURE_YOU_WANT_TO_QUIT
 				+ CommonParameters.DIRIGIBLE_PRODUCT_NAME); // TODO: I18N
+		
+		try {
+			ProxyUtils.setProxySettings();
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+		
 		return PlatformUI.createAndRunWorkbench(display,
 				new DirigibleWorkbenchAdvisor());
 	}

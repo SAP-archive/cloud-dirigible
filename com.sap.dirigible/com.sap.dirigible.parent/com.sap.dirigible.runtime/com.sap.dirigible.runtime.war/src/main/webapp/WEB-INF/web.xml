@@ -482,20 +482,20 @@
 	</servlet-mapping>
 
 
-
+	<!-- SAP HCP Only -->
 	<resource-ref>
   		<res-ref-name>mail/SAPInternalNWCloudSession</res-ref-name>
   	    <res-type>javax.mail.Session</res-type>
   	</resource-ref>
   	
+  	<resource-ref>
+    	<res-ref-name>connectivityConfiguration</res-ref-name>
+    	<res-type>com.sap.core.connectivity.api.configuration.ConnectivityConfiguration</res-type>
+	</resource-ref>
+	<!-- // -->
+  	
   	
 	<!-- Security -->
-<!--
-	<resource-ref>
-		<res-ref-name>PasswordStorage</res-ref-name>
-		<res-type>com.sap.jpaas.service.securestore.password.PasswordStorage</res-type>
-	</resource-ref>
--->	
 	<login-config>
 		<auth-method>BASIC</auth-method>
 	</login-config>

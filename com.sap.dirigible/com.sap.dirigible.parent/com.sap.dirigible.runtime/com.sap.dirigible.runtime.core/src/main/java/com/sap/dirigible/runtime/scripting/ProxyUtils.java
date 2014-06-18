@@ -1,4 +1,4 @@
-package com.sap.dirigible.repository.ext.utils;
+package com.sap.dirigible.runtime.scripting;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,8 +29,6 @@ import org.apache.http.impl.conn.SingleClientConnManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sap.dirigible.ide.common.CommonParameters;
-
 public class ProxyUtils {
 
 	public static final String HTTP_PROXY_HOST = "http.proxyHost"; //$NON-NLS-1$
@@ -44,6 +42,14 @@ public class ProxyUtils {
 	private static final String PROXY_PROPERTIES_FILE_LOCATION = "proxy.properties"; //$NON-NLS-1$
 	private static final String DEFAULT_PROXY_VALUE = "false"; //$NON-NLS-1$
 	private static final String PROXY = "proxy"; //$NON-NLS-1$
+	
+	{
+		try {
+			setProxySettings();
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+		}		
+	}
 
 	public static void setProxySettings() throws IOException {
 
@@ -53,13 +59,13 @@ public class ProxyUtils {
 		// loadLocalBuildProxy();
 		// }
 
-		setSystemProxySettings();
+//		setSystemProxySettings();
 		setTrustAllSSL();
 	}
 
 	public static HttpClient getHttpClient(boolean trustAll) {
 		HttpClient httpClient = null;
-
+		
 		// Local case only
 		// try {
 		// loadLocalBuildProxy();
@@ -91,12 +97,12 @@ public class ProxyUtils {
 
 		String httpProxyHost = System.getProperty(HTTP_PROXY_HOST);
 		String httpProxyPort = System.getProperty(HTTP_PROXY_PORT);
-
+		
 		if (httpProxyHost != null && httpProxyPort != null) {
 			HttpHost httpProxy = new HttpHost(httpProxyHost, Integer.parseInt(httpProxyPort));
 			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, httpProxy);
 		}
-
+		
 		return httpClient;
 	}
 
@@ -122,43 +128,43 @@ public class ProxyUtils {
 		}
 	}
 
-	private static void setSystemProxySettings() {
-		String parameterHTTP_PROXY_HOST = CommonParameters.get(HTTP_PROXY_HOST);
-		if (parameterHTTP_PROXY_HOST != null) {
-			System.setProperty(HTTP_PROXY_HOST, parameterHTTP_PROXY_HOST);
-			logger.debug("HTTP_PROXY_HOST:" + parameterHTTP_PROXY_HOST);
-		} else {
-			logger.debug("HTTP_PROXY_HOST not set");
-		}
-		String parameterHTTP_PROXY_PORT = CommonParameters.get(HTTP_PROXY_PORT);
-		if (parameterHTTP_PROXY_PORT != null) {
-			System.setProperty(HTTP_PROXY_PORT, parameterHTTP_PROXY_PORT);
-			logger.debug("HTTP_PROXY_PORT:" + parameterHTTP_PROXY_PORT);
-		} else {
-			logger.debug("HTTP_PROXY_PORT not set");
-		}
-		String parameterHTTPS_PROXY_HOST = CommonParameters.get(HTTPS_PROXY_HOST);
-		if (parameterHTTPS_PROXY_HOST != null) {
-			System.setProperty(HTTPS_PROXY_HOST, parameterHTTPS_PROXY_HOST);
-			logger.debug("HTTPS_PROXY_HOST:" + parameterHTTPS_PROXY_HOST);
-		} else {
-			logger.debug("HTTPS_PROXY_HOST not set");
-		}
-		String parameterHTTPS_PROXY_PORT = CommonParameters.get(HTTPS_PROXY_PORT);
-		if (parameterHTTPS_PROXY_PORT != null) {
-			System.setProperty(HTTPS_PROXY_PORT, parameterHTTPS_PROXY_PORT);
-			logger.debug("HTTPS_PROXY_PORT:" + parameterHTTPS_PROXY_PORT);
-		} else {
-			logger.debug("HTTPS_PROXY_PORT not set");
-		}
-		String parameterHTTP_NON_PROXY_HOSTS = CommonParameters.get(HTTP_NON_PROXY_HOSTS);
-		if (parameterHTTP_NON_PROXY_HOSTS != null) {
-			System.setProperty(HTTP_NON_PROXY_HOSTS, parameterHTTP_NON_PROXY_HOSTS);
-			logger.debug("HTTP_NON_PROXY_HOSTS:" + parameterHTTP_NON_PROXY_HOSTS);
-		} else {
-			logger.debug("HTTP_NON_PROXY_HOSTS not set");
-		}
-	}
+//	private static void setSystemProxySettings() {
+//		String parameterHTTP_PROXY_HOST = CommonParameters.get(HTTP_PROXY_HOST);
+//		if (parameterHTTP_PROXY_HOST != null) {
+//			System.setProperty(HTTP_PROXY_HOST, parameterHTTP_PROXY_HOST);
+//			logger.debug("HTTP_PROXY_HOST:" + parameterHTTP_PROXY_HOST);
+//		} else {
+//			logger.debug("HTTP_PROXY_HOST not set");
+//		}
+//		String parameterHTTP_PROXY_PORT = CommonParameters.get(HTTP_PROXY_PORT);
+//		if (parameterHTTP_PROXY_PORT != null) {
+//			System.setProperty(HTTP_PROXY_PORT, parameterHTTP_PROXY_PORT);
+//			logger.debug("HTTP_PROXY_PORT:" + parameterHTTP_PROXY_PORT);
+//		} else {
+//			logger.debug("HTTP_PROXY_PORT not set");
+//		}
+//		String parameterHTTPS_PROXY_HOST = CommonParameters.get(HTTPS_PROXY_HOST);
+//		if (parameterHTTPS_PROXY_HOST != null) {
+//			System.setProperty(HTTPS_PROXY_HOST, parameterHTTPS_PROXY_HOST);
+//			logger.debug("HTTPS_PROXY_HOST:" + parameterHTTPS_PROXY_HOST);
+//		} else {
+//			logger.debug("HTTPS_PROXY_HOST not set");
+//		}
+//		String parameterHTTPS_PROXY_PORT = CommonParameters.get(HTTPS_PROXY_PORT);
+//		if (parameterHTTPS_PROXY_PORT != null) {
+//			System.setProperty(HTTPS_PROXY_PORT, parameterHTTPS_PROXY_PORT);
+//			logger.debug("HTTPS_PROXY_PORT:" + parameterHTTPS_PROXY_PORT);
+//		} else {
+//			logger.debug("HTTPS_PROXY_PORT not set");
+//		}
+//		String parameterHTTP_NON_PROXY_HOSTS = CommonParameters.get(HTTP_NON_PROXY_HOSTS);
+//		if (parameterHTTP_NON_PROXY_HOSTS != null) {
+//			System.setProperty(HTTP_NON_PROXY_HOSTS, parameterHTTP_NON_PROXY_HOSTS);
+//			logger.debug("HTTP_NON_PROXY_HOSTS:" + parameterHTTP_NON_PROXY_HOSTS);
+//		} else {
+//			logger.debug("HTTP_NON_PROXY_HOSTS not set");
+//		}
+//	}
 
 	private static void setTrustAllSSL() throws IOException {
 		try {

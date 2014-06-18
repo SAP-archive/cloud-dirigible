@@ -57,7 +57,7 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.repository.ext.utils.ProxyUtils;
+
 
 public class JGitConnector {
 	
@@ -73,7 +73,7 @@ public class JGitConnector {
 
 	static {
 		try {
-			ProxyUtils.setProxySettings();
+			//ProxyUtils.setProxySettings();
 			deleteTempDirectories();
 		} catch (IOException e) {
 			logger.error(e.getMessage());
