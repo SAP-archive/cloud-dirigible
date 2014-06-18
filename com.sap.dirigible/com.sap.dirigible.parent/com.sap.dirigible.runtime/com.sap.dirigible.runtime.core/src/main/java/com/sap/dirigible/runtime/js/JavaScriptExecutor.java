@@ -34,29 +34,37 @@ import org.mozilla.javascript.commonjs.module.provider.ModuleSourceProvider;
 import org.mozilla.javascript.commonjs.module.provider.SoftCachingModuleScriptProvider;
 
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class JavaScriptExecutor extends AbstractScriptExecutor {
 
 	private static final String JAVA_SCRIPT_MODULE_NAME_CANNOT_BE_NULL = Messages
 			.getString("JavaScriptExecutor.JAVA_SCRIPT_MODULE_NAME_CANNOT_BE_NULL"); //$NON-NLS-1$
+	
+	private static final Logger logger = Logger.getLogger(JavaScriptExecutor.class);
 
 	private IRepository repository;
 	private String[] rootPaths;
 
 	public JavaScriptExecutor(IRepository repository, String... rootPaths) {
 		super();
+		logger.debug("entering: constructor()");
 		this.repository = repository;
 		this.rootPaths = rootPaths;
 		if (this.rootPaths == null || this.rootPaths.length == 0) {
 			this.rootPaths = new String[] { null, null };
 		}
+		logger.debug("exiting: constructor()");
 	}
 
 	@Override
 	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
 			Object input, String module) throws IOException {
 
+		logger.debug("entering: executeServiceModule()"); //$NON-NLS-1$
+		logger.debug("module=" + module); //$NON-NLS-1$
+		
 		if (module == null) {
 			throw new IOException(JAVA_SCRIPT_MODULE_NAME_CANNOT_BE_NULL);
 		}
@@ -95,6 +103,8 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 		} finally {
 			Context.exit();
 		}
+		
+		logger.debug("exiting: executeServiceModule()");
 		return result;
 	}
 

@@ -22,19 +22,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptingServlet;
 
 public class JavascriptBeanProcessor extends AbstractBeanProcessor {
+	
+	private static final Logger logger = Logger.getLogger(JavascriptBeanProcessor.class.getCanonicalName());
 
 	public Object doExecution(HttpServletRequest request,
 			HttpServletResponse response, Object input, String module)
 			throws ServletException, IOException {
-
+		
+		logger.debug("entering: doExecution()");
+		
 		JavaScriptExecutor executor = new JavaScriptExecutor(
 				getRepository(request),
 				getScriptingRegistryPath(request), AbstractScriptingServlet.REGISTRY_SCRIPTING_DEPLOY_PATH);
-		return executor.executeServiceModule(request, response, input, module);
+		
+		logger.debug("executor created");
+		
+		Object result = executor.executeServiceModule(request, response, input, module);
+		
+		logger.debug("exiting: doExecution()");
 
+		return result;
 	}
 
 }
