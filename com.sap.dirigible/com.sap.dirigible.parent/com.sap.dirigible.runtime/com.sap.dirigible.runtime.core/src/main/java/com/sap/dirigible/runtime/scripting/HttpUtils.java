@@ -18,14 +18,16 @@ package com.sap.dirigible.runtime.scripting;
 import java.io.IOException;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.auth.DigestScheme;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
-
-import com.sap.dirigible.repository.ext.utils.ProxyUtils;
 
 /*
 
@@ -109,7 +111,7 @@ public class HttpUtils {
 	}
 
 	public HttpClient createHttpClient() {
-		return createHttpClient(false);
+		return createHttpClient(true);
 	}
 
 	public HttpClient createHttpClient(boolean trustAll) {
@@ -119,5 +121,25 @@ public class HttpUtils {
 	public void consume(HttpEntity entity) throws IOException {
 		EntityUtils.consume(entity);
 	}
+	
+	public BasicScheme createBasicScheme() {
+		return new org.apache.http.impl.auth.BasicScheme();
+	}
+	
+	public DigestScheme createDigestScheme() {
+		return new org.apache.http.impl.auth.DigestScheme();
+	}
+	
+	public UsernamePasswordCredentials createUsernamePasswordCredentials(String user, String password) {
+		return new UsernamePasswordCredentials(user, password);
+	}
+	
+	public BasicHeader createBasicHeader(String name, String value) {
+		return new BasicHeader(name, value);
+	}
+	
+	
+	
+	
 
 }
