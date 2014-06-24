@@ -40,6 +40,7 @@ import com.sap.dirigible.runtime.filter.SandboxFilter;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.PathUtils;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
+import com.sap.dirigible.runtime.scripting.WikiUtils;
 import com.sap.dirigible.runtime.web.WebRegistryServlet;
 
 public class WikiRegistryServlet extends WebRegistryServlet {
@@ -98,14 +99,16 @@ public class WikiRegistryServlet extends WebRegistryServlet {
 		if (lastModification == null
 				|| existingWiki == null
 				|| lastModification.before(entity.getInformation().getModifiedAt())) {
-			StringWriter writer = new StringWriter();
-			HtmlDocumentBuilder builder = new HtmlDocumentBuilder(writer);
-			builder.setEmitAsDocument(false);
-			MarkupParser markupParser = new MarkupParser();
-			markupParser.setBuilder(builder);		
-			markupParser.setMarkupLanguage(new ConfluenceLanguage());
-			markupParser.parse(new String(rawContent));
-			String htmlContent = writer.toString();
+//			StringWriter writer = new StringWriter();
+//			HtmlDocumentBuilder builder = new HtmlDocumentBuilder(writer);
+//			builder.setEmitAsDocument(false);
+//			MarkupParser markupParser = new MarkupParser();
+//			markupParser.setBuilder(builder);		
+//			markupParser.setMarkupLanguage(new ConfluenceLanguage());
+//			markupParser.parse(new String(rawContent));
+			
+			WikiUtils wikiUtils = new WikiUtils();
+			String htmlContent = wikiUtils.toHtml(new String(rawContent));
 			result = htmlContent.getBytes();
 			
 			resourceToModification.put(entity.getPath(), entity.getInformation().getModifiedAt());

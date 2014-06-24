@@ -40,8 +40,6 @@ import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public abstract class AbstractScriptExecutor {
 
-	private static final String CANNOT_LOOKUP_DEFAULT_DATA_SOURCE = Messages
-			.getString("AbstractScriptExecutor.CANNOT_LOOKUP_DEFAULT_DATA_SOURCE"); //$NON-NLS-1$
 	private static final String THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH = Messages
 			.getString("ScriptLoader.THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH"); //$NON-NLS-1$
 
@@ -120,14 +118,16 @@ public abstract class AbstractScriptExecutor {
 		// Apache Lucene Indexer
 		IndexerUtils indexerUtils = new IndexerUtils();
 		registerDefaultVariable(scope, "indexer", indexerUtils); //$NON-NLS-1$
+		// Mylyn Confluence Format
+		WikiUtils wikiUtils = new WikiUtils();
+		registerDefaultVariable(scope, "wiki", wikiUtils); //$NON-NLS-1$
 	}
 
 	public byte[] readResourceData(IRepository repository, String repositoryPath)
 			throws IOException {
 		final IResource resource = repository.getResource(repositoryPath);
 		if (!resource.exists()) {
-			throw new IOException(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
-					+ repositoryPath);
+			throw new IOException(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath));
 		}
 		return resource.getContent();
 	}
