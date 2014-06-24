@@ -39,14 +39,13 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.bus.CXFBusFactory;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.endpoint.ServerRegistry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 
@@ -63,8 +62,7 @@ public class ConfigurationAgent extends HttpServlet implements PropertyChangeLis
 	
 	private static final long serialVersionUID = -9044881423443856880L;
 	
-	private static final Logger logger = LoggerFactory
-			.getLogger(ConfigurationAgent.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(ConfigurationAgent.class.getCanonicalName());
 
 	public static final String SYSTEM_USER = "SYSTEM"; //$NON-NLS-1$
 

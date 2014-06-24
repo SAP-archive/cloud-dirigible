@@ -28,8 +28,8 @@ import javax.xml.ws.ServiceMode;
 import javax.xml.ws.WebServiceProvider;
 
 import org.apache.camel.ProducerTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.sap.dirigible.runtime.logger.Logger;
 
 @WebServiceProvider
 @ServiceMode(value = Service.Mode.MESSAGE)
@@ -37,8 +37,7 @@ public class WsEndpointProviderImplementor implements Provider<SOAPMessage> {
 
 	private static final String INVOKE = "invoke"; //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(WsEndpointProviderImplementor.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(WsEndpointProviderImplementor.class.getCanonicalName());
 
 	public static final String PROCESSOR_TYPE_CAMEL_PARAMETER = "CAMEL"; //$NON-NLS-1$
 	public static final int PROCESSOR_TYPE_CAMEL = 1;

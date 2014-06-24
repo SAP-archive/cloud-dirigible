@@ -61,12 +61,14 @@ exports.create${entityName} = function() {
 #end
         statement.executeUpdate();
         response.getWriter().println(id);
-    } catch(e){
+        return id;
+    } catch(e) {
         var errorCode = javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
         entityLib.printError(errorCode, errorCode, e.message);
     } finally {
         connection.close();
     }
+    return -1;
 };
 
 // read single entity by id and print as JSON object to response

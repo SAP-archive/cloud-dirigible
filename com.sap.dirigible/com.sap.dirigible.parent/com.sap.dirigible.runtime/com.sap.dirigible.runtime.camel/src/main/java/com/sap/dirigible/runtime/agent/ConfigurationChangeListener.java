@@ -19,13 +19,11 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class ConfigurationChangeListener {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ConfigurationChangeListener.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(ConfigurationChangeListener.class.getCanonicalName());
 
 	public void onMessage(String content, HttpServletRequest request)
 			throws IOException {

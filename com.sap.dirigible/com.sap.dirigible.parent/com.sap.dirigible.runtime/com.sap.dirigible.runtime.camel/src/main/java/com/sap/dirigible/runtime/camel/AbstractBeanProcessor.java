@@ -16,9 +16,6 @@
 package com.sap.dirigible.runtime.camel;
 
 import java.io.IOException;
-
-
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +32,7 @@ public abstract class AbstractBeanProcessor {
 
 	private static final String FAILED = Messages.getString("AbstractBeanProcessor.FAILED"); //$NON-NLS-1$
 	private static final String COULD_NOT_INITIALIZE_REPOSITORY = Messages.getString("AbstractBeanProcessor.COULD_NOT_INITIALIZE_REPOSITORY"); //$NON-NLS-1$
+
 	private static final Logger logger = Logger.getLogger(AbstractBeanProcessor.class.getCanonicalName());
 
 	public String process(Exchange exchange) {

@@ -27,17 +27,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.camel.Route;
 import org.apache.camel.model.RouteDefinition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-//import org.apache.log4j.Logger;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class RouteApplyHandler extends AbstractApplyHandler {
 
+	private static final String INVALID_FORMAT_OF_ROUTE_IN_S = Messages.getString("RouteApplyHandler.INVALID_FORMAT_OF_ROUTE_IN_S"); //$NON-NLS-1$
 	private static final String APPLY_CONFIGURATION_FOR_ROUTE = Messages.getString("RouteApplyHandler.APPLY_CONFIGURATION_FOR_ROUTE"); //$NON-NLS-1$
 	private static final String APPLY_CONFIGURATION = "applyConfiguration"; //$NON-NLS-1$
-	private static final Logger logger = LoggerFactory
-			.getLogger(RouteApplyHandler.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(RouteApplyHandler.class);
 
 	public RouteApplyHandler(ConfigurationAgent configurationAgent,
 			String remote) {
@@ -96,8 +94,13 @@ public class RouteApplyHandler extends AbstractApplyHandler {
 
 		InputStream routeIn = getRemoteFile(remoteFile, request);
 
-		List<RouteDefinition> routesDefinitions = getConfigurationAgent()
-				.getCamelContext().loadRoutesDefinition(routeIn).getRoutes();
+		List<RouteDefinition> routesDefinitions = null;
+		try {
+			routesDefinitions = getConfigurationAgent()
+					.getCamelContext().loadRoutesDefinition(routeIn).getRoutes();
+		} catch (Exception e) {
+			throw new Exception(String.format(INVALID_FORMAT_OF_ROUTE_IN_S, remoteFile), e);
+		}
 
 		getConfigurationAgent().getCamelContext().addRouteDefinitions(
 				routesDefinitions);

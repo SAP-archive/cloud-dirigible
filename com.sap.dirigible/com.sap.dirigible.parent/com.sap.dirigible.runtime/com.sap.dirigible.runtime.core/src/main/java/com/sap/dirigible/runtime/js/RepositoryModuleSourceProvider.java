@@ -89,8 +89,7 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 			}
 		}
 		
-		logger.error(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
-				+ Arrays.toString(rootPaths));
+		logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, (module + extension), Arrays.toString(rootPaths)));
 			throw new FileNotFoundException(
 				THERE_IS_NO_SERVICE_OR_LIBRARY_MODULE_AT_THE_SPECIFIED_LOCATION
 					+ module + extension);
@@ -106,11 +105,8 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 	public byte[] readResourceData(String repositoryPath) throws IOException {
 		final IResource resource = repository.getResource(repositoryPath);
 		if (!resource.exists()) {
-			logger.error(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
-					+ repositoryPath);
-			throw new IOException(
-					THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
-							+ repositoryPath);
+			logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath));
+			throw new IOException(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath));
 		}
 		return resource.getContent();
 	}

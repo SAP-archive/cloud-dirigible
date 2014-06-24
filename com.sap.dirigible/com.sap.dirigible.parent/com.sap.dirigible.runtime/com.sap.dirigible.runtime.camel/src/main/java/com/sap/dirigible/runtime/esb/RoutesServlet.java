@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.camel.Endpoint;
+import org.apache.camel.Route;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -37,6 +38,7 @@ public class RoutesServlet extends ControlServlet {
 	
     private static final String CAMEL_CONTEXT = "/camel/"; //$NON-NLS-1$
     private static final String SERVLET_PREFIX = "servlet:///";
+    private static final String TIMER_PREFIX = "timer://";
 
     /**
      * @see ControlServlet#ControlServlet()
@@ -60,22 +62,51 @@ public class RoutesServlet extends ControlServlet {
         final PrintWriter writer = response.getWriter();
         response.setContentType("application/json"); //$NON-NLS-1$
 
-        final Collection<Endpoint> endpoints = getConfigurationAgent().getCamelContext().getEndpoints();
+//        final Collection<Endpoint> endpoints = getConfigurationAgent().getCamelContext().getEndpoints();
+//        final JsonArray rootArray = new JsonArray();
+//        final String headingUrl = PathUtils.getHeadingUrl(request, getServletMapping());
+//        
+//        for (final Endpoint endpoint : endpoints) {
+//            if (endpoint.getEndpointUri() != null
+//            		&& endpoint.getEndpointUri().startsWith(SERVLET_PREFIX)) {
+//            	
+//            	final JsonObject elementObject = new JsonObject();
+//                elementObject.addProperty("name", endpoint.getEndpointKey()); //$NON-NLS-1$
+//                String path = headingUrl + endpoint.getEndpointUri().substring(SERVLET_PREFIX.length());
+//            	elementObject.addProperty("path", path); //$NON-NLS-1$
+//            	rootArray.add(elementObject); //$NON-NLS-1$
+//            	
+//            }
+//        }
+        
+        
+        final Collection<Route> routes = getConfigurationAgent().getCamelContext().getRoutes();
         final JsonArray rootArray = new JsonArray();
         final String headingUrl = PathUtils.getHeadingUrl(request, getServletMapping());
         
-        for (final Endpoint endpoint : endpoints) {
-            if (endpoint.getEndpointUri() != null
-            		&& endpoint.getEndpointUri().startsWith(SERVLET_PREFIX)) {
+        for (final Route route : routes) {
+            if (route.getId() != null) {
             	
             	final JsonObject elementObject = new JsonObject();
-                elementObject.addProperty("name", endpoint.getEndpointKey()); //$NON-NLS-1$
-                String path = headingUrl + endpoint.getEndpointUri().substring(SERVLET_PREFIX.length());
-            	elementObject.addProperty("path", path); //$NON-NLS-1$
+                elementObject.addProperty("name", route.getId()); //$NON-NLS-1$
+                String path = null;
+                if (route.getEndpoint() != null
+                		&& route.getEndpoint().getEndpointUri() != null) {
+                		if (route.getEndpoint().getEndpointUri().startsWith(SERVLET_PREFIX)) {
+                			path = headingUrl + route.getEndpoint().getEndpointUri().substring(SERVLET_PREFIX.length());
+                		} else if (route.getEndpoint().getEndpointUri().startsWith(TIMER_PREFIX)) {
+                			path = headingUrl + route.getEndpoint().getEndpointUri().substring(TIMER_PREFIX.length());	            	
+                		} else {
+                			elementObject.addProperty("path", ""); //$NON-NLS-1$
+                		}
+                	elementObject.addProperty("path", path); //$NON-NLS-1$
+                } else {
+                	elementObject.addProperty("path", ""); //$NON-NLS-1$
+                }
             	rootArray.add(elementObject); //$NON-NLS-1$
-            	
             }
         }
+        
         writer.println(new Gson().toJsonTree(rootArray));
         writer.flush();
         writer.close();

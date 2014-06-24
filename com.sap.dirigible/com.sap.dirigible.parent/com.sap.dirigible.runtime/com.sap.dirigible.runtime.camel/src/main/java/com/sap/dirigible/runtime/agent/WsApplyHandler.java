@@ -35,11 +35,10 @@ import org.apache.cxf.bus.CXFBusFactory;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.endpoint.ServerRegistry;
 import org.apache.cxf.jaxws.EndpointImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class WsApplyHandler extends AbstractApplyHandler {
 
@@ -49,8 +48,7 @@ public class WsApplyHandler extends AbstractApplyHandler {
 
 	private static final String APPLY_CONFIGURATION_FOR_WEB_SERVICE = Messages.getString("WsApplyHandler.APPLY_CONFIGURATION_FOR_WEB_SERVICE"); //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(WsApplyHandler.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(WsApplyHandler.class.getCanonicalName());
 
 	private static final String PARAMETER_PROCESSOR = "processor"; //$NON-NLS-1$
 	private static final String PARAMETER_PROCESSOR_TYPE = "processorType"; //$NON-NLS-1$

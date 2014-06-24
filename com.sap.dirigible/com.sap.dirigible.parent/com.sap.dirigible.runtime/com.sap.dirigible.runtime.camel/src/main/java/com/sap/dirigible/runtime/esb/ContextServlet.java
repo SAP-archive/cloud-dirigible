@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class ContextServlet
  */
 public class ContextServlet extends ControlServlet {
+	
 	private static final String BEAN_NAME = "Bean Name"; //$NON-NLS-1$
 	private static final long serialVersionUID = 1L;
 

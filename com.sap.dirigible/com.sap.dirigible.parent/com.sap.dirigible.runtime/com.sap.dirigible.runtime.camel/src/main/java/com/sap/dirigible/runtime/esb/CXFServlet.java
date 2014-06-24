@@ -37,12 +37,12 @@ import org.apache.cxf.transport.servlet.AbstractHTTPServlet;
 import org.apache.cxf.transport.servlet.ServletContextResourceResolver;
 import org.apache.cxf.transport.servlet.ServletController;
 import org.apache.cxf.transport.servlet.servicelist.ServiceListGeneratorServlet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
+
+import com.sap.dirigible.runtime.logger.Logger;
 
 /**
  * Joined CXFNonSpringServlet and CXFServlet with customizations on getting the
@@ -52,8 +52,7 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 public class CXFServlet extends AbstractHTTPServlet {
 
 	private static final long serialVersionUID = 2807601779782132367L;
-	private static final Logger logger = LoggerFactory
-			.getLogger(CXFServlet.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(CXFServlet.class.getCanonicalName());
 
 	private DestinationRegistry destinationRegistry;
 	private Bus bus;

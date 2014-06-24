@@ -17,15 +17,13 @@ package com.sap.dirigible.runtime.agent;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class RepositorySynchronizer implements Runnable {
 
 	private static final String INITIALIZATION_CONFIGURATION_AGENT_FAILED = Messages.getString("RepositorySynchronizer.INITIALIZATION_CONFIGURATION_AGENT_FAILED"); //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(RepositorySynchronizer.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(RepositorySynchronizer.class.getCanonicalName());
 
 	private ConfigurationAgent configurationAgent;
 

@@ -25,17 +25,14 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class AbstractApplyHandler {
 
 	private static final String CONFIGURATION_LOCATION_DOESN_T_EXIST = Messages.getString("AbstractApplyHandler.CONFIGURATION_LOCATION_DOESN_T_EXIST"); //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(AbstractApplyHandler.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(AbstractApplyHandler.class.getCanonicalName());
 
 	private ConfigurationAgent configurationAgent;
 	private String remote;

@@ -25,13 +25,12 @@ import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.runtime.logger.Logger;
+
 
 public class RuntimeBridgeUtils {
 	
-	private static final Logger logger = LoggerFactory
-			.getLogger(RuntimeBridgeUtils.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(RuntimeBridgeUtils.class.getCanonicalName());
 
 	public static final String DIRIGIBLE_RUNTIME_BRIDGE = "dirigible.runtime.bridge"; //$NON-NLS-1$
 	public static final String DIRIGIBLE_CONFIG_AGENT = "dirigible.config.agent"; //$NON-NLS-1$
