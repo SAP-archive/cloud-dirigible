@@ -150,7 +150,7 @@ public class HtmlForEntityTemplateTablePage extends WizardPage {
 				new GridData(SWT.FILL, SWT.FILL, true, true));
 		typeViewer.setContentProvider(new ArrayContentProvider());
 		typeViewer.setLabelProvider(new HtmlForEntityTemplateTablePageLabelProvider());
-		typeViewer.setSorter(new ViewerSorter());
+		//typeViewer.setSorter(new ViewerSorter());
 		createTableColumns();
 		typeViewer.setInput(model.getOriginalTableColumns());
 		typeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
