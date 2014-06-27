@@ -5,7 +5,7 @@ Bundle-Name: Dirigible Repository API
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: SAP
 Build-Jdk: 1.6.0_33
-Bundle-Version: 1.1.1
+Bundle-Version: 1.2.0
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.repository.api;singleton:=true
 

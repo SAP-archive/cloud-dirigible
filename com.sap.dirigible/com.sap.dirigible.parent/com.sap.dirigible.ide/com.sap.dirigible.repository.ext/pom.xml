@@ -5,7 +5,7 @@
   <parent>
 		<groupId>com.sap.dirigible.ide</groupId>
 		<artifactId>com.sap.dirigible.ide.parent</artifactId>
-		<version>1.1.1</version>
+		<version>1.2.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	

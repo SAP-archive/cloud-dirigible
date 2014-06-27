@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Shared
 Bundle-SymbolicName: com.sap.rap.ui.shared
-Bundle-Version: 1.1.1
+Bundle-Version: 1.2.0
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.rap.ui,
