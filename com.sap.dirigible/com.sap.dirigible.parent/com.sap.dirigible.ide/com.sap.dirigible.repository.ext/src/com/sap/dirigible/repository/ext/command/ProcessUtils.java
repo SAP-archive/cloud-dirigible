@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import org.apache.tools.ant.types.Commandline;
+
 public class ProcessUtils {
 	
 	public static ProcessBuilder createProcess(String[] args) throws IOException {
@@ -37,7 +39,7 @@ public class ProcessUtils {
 	}
 		
 	public static Process startProcess(String[] args,
-			ProcessBuilder processBuilder, OutputStream outputStream) throws IOException {
+			ProcessBuilder processBuilder) throws IOException {
 		
 		Process process = processBuilder.start();
 		return process;
@@ -49,29 +51,32 @@ public class ProcessUtils {
 //		String[] result = commandLine.split("\"[^\"]*\"|'[^']*'|[A-Za-z']");
 //		return result;
 		
-		List<String> result = new ArrayList<String>();
 		
-		Scanner sc = new Scanner(commandLine);
-	    Pattern pattern = Pattern.compile(
-	        "\"[^\"]*\"" +
-	        "|'[^']*'" +
-	        "|[A-Za-z']+"
-	    );
-	    String token;
-	    while ((token = sc.findInLine(pattern)) != null) {
-	    	if (token != null
-	    			&& token.length() > 2) {
-	    		if ((token.charAt(0) == '\"')
-	    				&& (token.charAt(token.length()-1) == '\"')) {
-	    			result.add(token.substring(1, token.length()-1));
-	    		} else {
-	    			result.add(token);
-	    		}
-	    	} else { 
-	    		result.add(token);
-	    	}
-	    }
-	    return result.toArray(new String[]{});
+		return Commandline.translateCommandline(commandLine);
+		
+//		List<String> result = new ArrayList<String>();
+//		
+//		Scanner sc = new Scanner(commandLine);
+//	    Pattern pattern = Pattern.compile(
+//	        "\"[^\"]*\"" +
+//	        "|'[^']*'" +
+//	        "|[A-Za-z']+"
+//	    );
+//	    String token;
+//	    while ((token = sc.findInLine(pattern)) != null) {
+//	    	if (token != null
+//	    			&& token.length() > 2) {
+//	    		if ((token.charAt(0) == '\"')
+//	    				&& (token.charAt(token.length()-1) == '\"')) {
+//	    			result.add(token.substring(1, token.length()-1));
+//	    		} else {
+//	    			result.add(token);
+//	    		}
+//	    	} else { 
+//	    		result.add(token);
+//	    	}
+//	    }
+//	    return result.toArray(new String[]{});
 	}
 
 }

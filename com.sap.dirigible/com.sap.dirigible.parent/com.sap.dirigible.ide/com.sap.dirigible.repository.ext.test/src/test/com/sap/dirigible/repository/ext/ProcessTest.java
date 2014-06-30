@@ -44,7 +44,7 @@ public class ProcessTest {
 		processBuilder.redirectErrorStream(true);
 		
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		Process process = ProcessUtils.startProcess(args, processBuilder, out);
+		Process process = ProcessUtils.startProcess(args, processBuilder);
 		Piper pipe = new Piper(process.getInputStream(), out);
         new Thread(pipe).start();
         // Wait for second process to finish
