@@ -128,6 +128,7 @@
 		<module>com.sap.dirigible.ide.security.publish</module>
 		<module>com.sap.dirigible.ide.jgit.connector</module>
 		<module>com.sap.dirigible.ide.help</module>
+		<module>com.sap.dirigible.ide.terminal</module>
 
 		<!-- this module must be the last one -->
 		<module>com.sap.dirigible.ide.war</module>

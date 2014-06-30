@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="com.sap.dirigible.ide.terminal.ui.TerminalView"
+            icon="resources/terminal.png"
+            id="com.sap.dirigible.ide.terminal.ui.TerminalView"
+            name="Terminal"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
