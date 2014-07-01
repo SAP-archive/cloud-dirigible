@@ -80,7 +80,7 @@ public class TerminalView extends ViewPart {
 					//MessageDialog.openInformation(null, "Info", commandLine.getText());
 					
 					try {
-						String result = executeCommand(ProcessUtils.splitCommand(commandLine.getText()));
+						String result = executeCommand(ProcessUtils.translateCommandline(commandLine.getText()));
 						commandHistory.setText(result);
 					} catch (IOException ex) {
 						commandHistory.setText(ex.getMessage());
@@ -113,8 +113,24 @@ public class TerminalView extends ViewPart {
 		Piper pipe = new Piper(process.getInputStream(), out);
         new Thread(pipe).start();
         try {
-			process.waitFor();
-		} catch (InterruptedException e) {
+			//process.waitFor();
+        	
+        	int i=0;
+            boolean deadYet = false;
+            do {
+                Thread.sleep(1000);
+                try {
+                    process.exitValue();
+                    deadYet = true;
+                } catch (IllegalThreadStateException e) {
+                    if (++i >= 5) {
+                    	process.destroy();
+                    	throw new RuntimeException("Exeeds timeout - 5s");
+                    }
+                }
+            } while (!deadYet);
+            
+		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return e.getMessage();
 		}

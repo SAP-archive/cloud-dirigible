@@ -8,8 +8,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.rap.ui,
  com.sap.dirigible.ide.ui.widget.extbrowser,
  com.sap.dirigible.ide.common,
- com.sap.dirigible.repository.ext;bundle-version="1.2.0",
- com.sap.dirigible.ide.logging;bundle-version="1.2.0"
+ com.sap.dirigible.repository.ext,
+ com.sap.dirigible.ide.logging
 Export-Package: com.sap.dirigible.ide.terminal.ui
 Import-Package: javax.servlet,
  javax.servlet.http

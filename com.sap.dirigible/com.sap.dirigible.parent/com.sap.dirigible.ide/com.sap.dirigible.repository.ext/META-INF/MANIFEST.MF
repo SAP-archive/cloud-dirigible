@@ -18,8 +18,7 @@ Require-Bundle: org.apache.lucene.analysis;bundle-version="3.5.0",
  org.apache.lucene.core;bundle-version="3.5.0",
  com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,
- org.apache.ant;bundle-version="1.8.4",
- org.apache.commons.io;bundle-version="2.0.1"
+ org.apache.commons.io
 Import-Package: com.google.gson,
  javax.servlet,
  javax.servlet.http,

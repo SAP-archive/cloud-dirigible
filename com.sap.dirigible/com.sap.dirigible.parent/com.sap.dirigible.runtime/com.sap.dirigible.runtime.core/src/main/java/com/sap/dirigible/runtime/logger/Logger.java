@@ -31,7 +31,7 @@ public class Logger {
 
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
-	private static boolean printInSystemOutput = true;
+	private static boolean printInSystemOutput = false;
 
 	/**
 	 * Returns a {@link Logger} instance that is bound to the specified name.

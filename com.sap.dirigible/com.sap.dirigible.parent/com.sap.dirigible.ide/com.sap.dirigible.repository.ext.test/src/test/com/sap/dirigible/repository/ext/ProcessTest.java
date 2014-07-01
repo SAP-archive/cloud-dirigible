@@ -60,7 +60,7 @@ public class ProcessTest {
 	@Test
 	public void testSplit()  {
 		String command  = "bash \"-c\" \"ps -ef\"";
-		String[] args = ProcessUtils.splitCommand(command);
+		String[] args = ProcessUtils.translateCommandline(command);
 		assertNotNull(args);
 		assertEquals("bash", args[0]);
 		assertEquals("-c", args[1]);
