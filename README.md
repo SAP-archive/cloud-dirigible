@@ -48,7 +48,7 @@ https://github.com/SAP/dirigible/releases/
 ##### Deploy #####
 ###### HANA Cloud Platform ######
 
-1.  Deploy on [HANA Cloud Platform](https://account.hana.ondemand.com/) with the [Cloud SDK](https://tools.hana.ondemand.com/#cloud).
+1. Deploy on [HANA Cloud Platform](https://account.hana.ondemand.com/) with the [Cloud SDK](https://tools.hana.ondemand.com/#cloud).
 2. Get the SDK from <https://tools.hana.ondemand.com/#cloud>
 3. Go to *neo-java-web-sdk-1.xxx/tools* folder
 4. Deploy with command:
@@ -59,6 +59,8 @@ https://github.com/SAP/dirigible/releases/
 
         neo start --account <your_account> --application <application_name> --user <your_user> --host <target_landscape_host> --password <your_password> -y
 
+
+7. Go to https://account.hanatrial.ondemand.com/cockpit at Authorizations section. Add both roles - Developer and Operator - to your user to have full access to all the features.
 
 ###### Tomcat ######
 
