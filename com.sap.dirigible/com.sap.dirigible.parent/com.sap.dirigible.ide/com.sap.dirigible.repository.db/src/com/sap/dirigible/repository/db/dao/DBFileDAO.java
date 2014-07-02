@@ -483,7 +483,7 @@ public class DBFileDAO extends DBObjectDAO {
 			byte[] bytes = null;
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			if (resultSet.next()) {
-				bytes = DBMapper.dbToDataBinary(getRepository(), resultSet,
+				bytes = DBMapper.dbToDataBinary(resultSet,
 						BIN_CONTENT);
 				baos.write(bytes);
 			}

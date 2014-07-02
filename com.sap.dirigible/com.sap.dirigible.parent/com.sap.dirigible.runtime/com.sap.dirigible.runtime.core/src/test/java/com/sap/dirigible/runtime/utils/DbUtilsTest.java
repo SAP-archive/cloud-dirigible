@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +19,7 @@ public class DbUtilsTest {
 
 	@Before
 	public void setUp() {
-		dataSource = createLocal();
+		dataSource = DataSourceUtils.createLocal();
 		dbUtils = new DbUtils(dataSource);
 	}
 
@@ -79,13 +78,6 @@ public class DbUtilsTest {
 			assertTrue(e.getMessage(), false);
 			e.printStackTrace();
 		}
-	}
-
-	public static DataSource createLocal() {
-		EmbeddedDataSource dataSource = new EmbeddedDataSource();
-		dataSource.setDatabaseName("derby"); //$NON-NLS-1$
-		dataSource.setCreateDatabase("create"); //$NON-NLS-1$
-		return dataSource;
 	}
 
 }

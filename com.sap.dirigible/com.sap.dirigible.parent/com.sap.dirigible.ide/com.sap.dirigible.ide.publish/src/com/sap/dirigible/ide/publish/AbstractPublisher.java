@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -31,7 +32,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rap.rwt.RWT;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.common.io.StreamUtil;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.ICollection;
@@ -241,7 +241,7 @@ public abstract class AbstractPublisher implements IPublisher {
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		final InputStream in = file.getContents();
 		try {
-			StreamUtil.transferData(in, out);
+			IOUtils.copy(in, out);
 		} finally {
 			in.close();
 		}

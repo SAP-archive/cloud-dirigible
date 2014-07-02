@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -33,7 +34,6 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.sap.dirigible.ide.common.io.StreamUtil;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.ext.db.DBTableDataInserter;
@@ -85,7 +85,7 @@ public class UploadDataHandler extends AbstractHandler {
 			InputStream in = null;
 			try {
 				in = new FileInputStream(fullFileName);
-				byte[] data = StreamUtil.readFully(in);
+				byte[] data = IOUtils.toByteArray(in);
 				DBTableDataInserter dataInserter = new DBTableDataInserter(DataSourceFacade.getInstance().getDataSource(),
 						data, fileName);
 				dataInserter.insert();

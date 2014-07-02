@@ -9,7 +9,8 @@ Build-Jdk: 1.6.0_33
 Bundle-Version: 1.2.0
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.repository.db;singleton:=true
-Require-Bundle: com.sap.dirigible.repository.api
+Require-Bundle: com.sap.dirigible.repository.api,
+ org.apache.commons.io
 Import-Package: org.slf4j
 
 

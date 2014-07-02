@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -30,7 +31,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 
-import com.sap.dirigible.ide.common.io.StreamUtil;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.ide.workspace.impl.Workspace;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
@@ -77,7 +77,7 @@ public class GitFileUtils {
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		final InputStream in = new FileInputStream(file);
 		try {
-			StreamUtil.transferData(in, out);
+			IOUtils.copy(in, out);
 		} finally {
 			in.close();
 		}
@@ -171,7 +171,7 @@ public class GitFileUtils {
 				File outputFile = new File(tempGitDirectory, resourcePath);
 
 				FileOutputStream out = new FileOutputStream(outputFile);
-				StreamUtil.transferData(in, out);
+				IOUtils.copy(in, out);
 
 				in.close();
 				out.flush();

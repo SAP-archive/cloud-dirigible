@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
@@ -30,7 +31,6 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
-import com.sap.dirigible.ide.common.io.StreamUtil;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.template.velocity.VelocityGenerator;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
@@ -99,7 +99,7 @@ public abstract class TemplateGenerator {
 				.append(targetFileName);
 		InputStream in = clazz.getResourceAsStream(templateLocation);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		StreamUtil.transferData(in, out);
+		IOUtils.copy(in, out);
 		createFile(location, out.toByteArray());
 	}
 

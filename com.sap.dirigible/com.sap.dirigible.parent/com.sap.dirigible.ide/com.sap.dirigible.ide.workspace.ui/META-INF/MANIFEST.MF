@@ -19,7 +19,8 @@ Require-Bundle: org.eclipse.core.resources,
  com.sap.dirigible.ide.ui.widget.extbrowser,
  org.eclipse.rap.ui.views,
  com.sap.dirigible.repository.ext,
- com.sap.dirigible.ide.datasource
+ com.sap.dirigible.ide.datasource,
+ org.apache.commons.io
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.workspace.ui.commands,
  com.sap.dirigible.ide.workspace.ui.perspective,

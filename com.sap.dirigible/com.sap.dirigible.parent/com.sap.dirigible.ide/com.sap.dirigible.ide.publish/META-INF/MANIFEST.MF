@@ -17,5 +17,6 @@ Import-Package: com.sap.dirigible.ide.common,
  org.eclipse.jface.dialogs,
  org.eclipse.rap.rwt
 Export-Package: com.sap.dirigible.ide.publish;version="1.0.0";uses:="org.eclipse.core.resources"
-Require-Bundle: com.sap.dirigible.ide.logging
+Require-Bundle: com.sap.dirigible.ide.logging,
+ org.apache.commons.io
 Bundle-ActivationPolicy: lazy

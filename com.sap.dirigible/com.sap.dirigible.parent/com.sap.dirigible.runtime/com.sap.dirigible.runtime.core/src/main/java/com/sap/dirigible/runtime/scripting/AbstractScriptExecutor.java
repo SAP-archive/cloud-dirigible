@@ -121,6 +121,9 @@ public abstract class AbstractScriptExecutor {
 		// Mylyn Confluence Format
 		WikiUtils wikiUtils = new WikiUtils();
 		registerDefaultVariable(scope, "wiki", wikiUtils); //$NON-NLS-1$
+		// Simple binary storage
+		StorageUtils storageUtils = new StorageUtils(dataSource);
+		registerDefaultVariable(scope, "storage", storageUtils); //$NON-NLS-1$
 	}
 
 	public byte[] readResourceData(IRepository repository, String repositoryPath)

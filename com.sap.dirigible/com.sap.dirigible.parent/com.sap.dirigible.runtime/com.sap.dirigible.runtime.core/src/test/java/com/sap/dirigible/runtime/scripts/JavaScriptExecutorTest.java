@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
-import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +14,7 @@ import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
+import com.sap.dirigible.runtime.utils.DataSourceUtils;
 
 public class JavaScriptExecutorTest {
 
@@ -28,7 +28,7 @@ public class JavaScriptExecutorTest {
 
 	@Before
 	public void setUp() {
-		DataSource dataSource = createLocal();
+		DataSource dataSource = DataSourceUtils.createLocal();
 		try {
 			repository = new DBRepository(dataSource, "guest", false); //$NON-NLS-1$
 //			repository.createResource(
@@ -146,13 +146,6 @@ public class JavaScriptExecutorTest {
 			assertTrue(e.getMessage(), false);
 			e.printStackTrace();
 		}
-	}
-
-	public static DataSource createLocal() {
-		EmbeddedDataSource dataSource = new EmbeddedDataSource();
-		dataSource.setDatabaseName("derby"); //$NON-NLS-1$
-		dataSource.setCreateDatabase("create"); //$NON-NLS-1$
-		return dataSource;
 	}
 
 }

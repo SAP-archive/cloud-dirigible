@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +16,7 @@ import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.registry.DefinitionEnumerator;
+import com.sap.dirigible.runtime.utils.DataSourceUtils;
 
 public class DefinitionEnumeratorTest {
 
@@ -33,7 +33,7 @@ public class DefinitionEnumeratorTest {
 
     @Before
     public void setUp() {
-        final DataSource dataSource = createLocal();
+        final DataSource dataSource = DataSourceUtils.createLocal();
         try {
 
             repository = new DBRepository(dataSource, "guest", false);
@@ -75,13 +75,6 @@ public class DefinitionEnumeratorTest {
             assertTrue(e.getMessage(), false);
             e.printStackTrace();
         }
-    }
-
-    public static DataSource createLocal() {
-        final EmbeddedDataSource dataSource = new EmbeddedDataSource();
-        dataSource.setDatabaseName("derby"); //$NON-NLS-1$
-        dataSource.setCreateDatabase("create"); //$NON-NLS-1$
-        return dataSource;
     }
 
 }

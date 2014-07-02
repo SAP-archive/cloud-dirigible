@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
@@ -29,7 +30,6 @@ import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 
-import com.sap.dirigible.ide.common.io.StreamUtil;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
@@ -182,7 +182,7 @@ public class ProjectTemplateType {
 		Image image;
 		String imgPath = project.getCanonicalPath() + SEPARATOR + imageName;
 		File imgFile = new File(imgPath);
-		byte[] imgContent = StreamUtil.readFully(new FileInputStream(imgFile));
+		byte[] imgContent = IOUtils.toByteArray(new FileInputStream(imgFile));
 		image = createImage(imgContent);
 		return image;
 	}

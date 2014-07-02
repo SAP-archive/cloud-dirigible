@@ -24,11 +24,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
+
 import com.sap.dirigible.repository.api.ContentTypeHelper;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.runtime.js.LoaderUtils;
 import com.sap.dirigible.runtime.logger.Logger;
 
 public class RepositoryServlet extends RegistryServlet {
@@ -70,7 +71,7 @@ public class RepositoryServlet extends RegistryServlet {
 			byte[] data;
 			if (entity == null) {
 				ByteArrayOutputStream buff = new ByteArrayOutputStream();
-				LoaderUtils.transferData(request.getInputStream(), buff);
+				IOUtils.copy(request.getInputStream(), buff);
 				data = buff.toByteArray();
 				String contentType = request.getContentType();
 				if (contentType == null) {
@@ -114,7 +115,7 @@ public class RepositoryServlet extends RegistryServlet {
 			} else {
 				if (entity instanceof IResource) {
 					ByteArrayOutputStream buff = new ByteArrayOutputStream();
-					LoaderUtils.transferData(request.getInputStream(), buff);
+					IOUtils.copy(request.getInputStream(), buff);
 					byte[] data = buff.toByteArray();
 					IResource resource = (IResource) entity;
 					resource.setContent(data);
