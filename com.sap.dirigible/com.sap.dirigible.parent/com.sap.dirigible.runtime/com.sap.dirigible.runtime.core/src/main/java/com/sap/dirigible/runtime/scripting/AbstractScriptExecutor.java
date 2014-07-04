@@ -124,6 +124,10 @@ public abstract class AbstractScriptExecutor {
 		// Simple binary storage
 		StorageUtils storageUtils = new StorageUtils(dataSource);
 		registerDefaultVariable(scope, "storage", storageUtils); //$NON-NLS-1$
+		// XML to JSON and vice-versa
+		XMLUtils xmlUtils = new XMLUtils();
+		registerDefaultVariable(scope, "xml", xmlUtils); //$NON-NLS-1$
+		
 	}
 
 	public byte[] readResourceData(IRepository repository, String repositoryPath)
