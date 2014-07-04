@@ -41,6 +41,8 @@ import com.sap.dirigible.runtime.logger.Logger;
  */
 public class RegistryServlet extends AbstractRegistryServlet {
 
+	private static final String ACCEPT_HEADER = "Accept"; //$NON-NLS-1$
+
 	private static final String INDEX_HTML = "index.html"; //$NON-NLS-1$
 
 	private static final String LISTING_OF_FOLDERS_IS_FORBIDDEN = Messages
@@ -84,7 +86,7 @@ public class RegistryServlet extends AbstractRegistryServlet {
 					data = buildResourceData(entity, request, response);
 				} else if (entity instanceof ICollection) {
 					String collectionPath = request.getRequestURI().toString();
-					String acceptHeader = request.getHeader("Accept"); //$NON-NLS-1$              	
+					String acceptHeader = request.getHeader(ACCEPT_HEADER);              	
 					if (acceptHeader != null && acceptHeader.contains(JSON)) {
 						if (!collectionPath.endsWith(IRepository.SEPARATOR)) {
 							collectionPath += IRepository.SEPARATOR;
@@ -109,7 +111,9 @@ public class RegistryServlet extends AbstractRegistryServlet {
 					return;
 				}
 			} else {
-				data = "".getBytes(); //$NON-NLS-1$
+				exceptionHandler(response, repositoryPath, HttpServletResponse.SC_NOT_FOUND,
+						String.format("Resource at [%s] does not exist",requestPath));
+				return;
 			}
 
 			if (entity instanceof IResource) {
