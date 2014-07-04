@@ -26,15 +26,19 @@ public class StorageUtils {
 	private static final String INSERT_INTO_DGB_STORAGE = "INSERT INTO DGB_STORAGE ("
 			+ "STORAGE_PATH, " + "STORAGE_DATA, "
 			+ "STORAGE_TIMESTAMP)" + "VALUES (?,?,?)";
+	private static final String UPDATE_DGB_STORAGE = "UPDATE DGB_STORAGE SET "
+			+ "STORAGE_PATH = ?, STORAGE_DATA = ?, STORAGE_TIMESTAMP = ?";
 
 	private static final String DELETE_DGB_STORAGE = "DELETE FROM DGB_STORAGE";
 	private static final String DELETE_DGB_STORAGE_PATH = "DELETE FROM DGB_STORAGE WHERE STORAGE_PATH=?";
 
 	private static final String CREATE_TABLE_DGB_STORAGE = "CREATE TABLE DGB_STORAGE ("
-			+ "STORAGE_PATH VARCHAR(2048), " + "STORAGE_DATA BLOB, "
+			+ "STORAGE_PATH VARCHAR(2048) PRIMARY KEY, " + "STORAGE_DATA BLOB, "
 			+ "STORAGE_TIMESTAMP TIMESTAMP" + " )";
 	private static final String SELECT_COUNT_FROM_DGB_STORAGE = "SELECT COUNT(*) FROM DGB_STORAGE";
 	private static final String SELECT_DGB_STORAGE = "SELECT * FROM DGB_STORAGE WHERE STORAGE_PATH=?";
+	
+	private static final String SELECT_DGB_STORAGE_EXISTS = "SELECT STORAGE_PATH FROM DGB_STORAGE WHERE STORAGE_PATH=?";
 	
 	private DataSource dataSource;
 	
@@ -65,27 +69,57 @@ public class StorageUtils {
 	public void put(String path, byte[] data) throws SQLException {
 		try {
 			checkDB();
-
-			DataSource dataSource = this.dataSource;
-			Connection connection = null;
-			try {
-				connection = dataSource.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(INSERT_INTO_DGB_STORAGE);
-
-				int i = 0;
-				pstmt.setString(++i, path);
-				pstmt.setBinaryStream(++i, new ByteArrayInputStream(data), data.length);
-				pstmt.setTimestamp(++i, new Timestamp(System.currentTimeMillis()));
-
-				pstmt.executeUpdate();
-
-			} finally {
-				if (connection != null) {
-					connection.close();
-				}
+			
+			if (exists(path)) {
+				update(path, data);
+			} else {
+				insert(path, data);
 			}
+			
 		} catch (NamingException e) {
 			throw new SQLException(e);
+		}
+	}
+
+	private void insert(String path, byte[] data) throws SQLException {
+		DataSource dataSource = this.dataSource;
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			PreparedStatement pstmt = connection.prepareStatement(INSERT_INTO_DGB_STORAGE);
+
+			int i = 0;
+			pstmt.setString(++i, path);
+			pstmt.setBinaryStream(++i, new ByteArrayInputStream(data), data.length);
+			pstmt.setTimestamp(++i, new Timestamp(System.currentTimeMillis()));
+
+			pstmt.executeUpdate();
+
+		} finally {
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+	
+	private void update(String path, byte[] data) throws SQLException {
+		DataSource dataSource = this.dataSource;
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			PreparedStatement pstmt = connection.prepareStatement(UPDATE_DGB_STORAGE);
+
+			int i = 0;
+			pstmt.setString(++i, path);
+			pstmt.setBinaryStream(++i, new ByteArrayInputStream(data), data.length);
+			pstmt.setTimestamp(++i, new Timestamp(System.currentTimeMillis()));
+
+			pstmt.executeUpdate();
+
+		} finally {
+			if (connection != null) {
+				connection.close();
+			}
 		}
 	}
 	
@@ -116,6 +150,33 @@ public class StorageUtils {
 			throw new SQLException(e);
 		}
 		return new byte[]{};
+	}
+	
+	public boolean exists(String path) throws SQLException {
+		try {
+			checkDB();
+			
+			DataSource dataSource = this.dataSource;
+			Connection connection = null;
+			try {
+				connection = dataSource.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_DGB_STORAGE_EXISTS);
+				pstmt.setString(1, path);
+				
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					return true;
+				}
+				
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		} catch (NamingException e) {
+			throw new SQLException(e);
+		}
+		return false;
 	}
 	
 	public void clear() throws SQLException {

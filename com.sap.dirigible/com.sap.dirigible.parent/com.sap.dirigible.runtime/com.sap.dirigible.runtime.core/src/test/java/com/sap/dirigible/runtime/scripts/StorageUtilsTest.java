@@ -64,4 +64,18 @@ public class StorageUtilsTest {
 		}
 	}
 	
+	@Test
+	public void testSet() {
+		StorageUtils storage = new StorageUtils(dataSource);
+		try {
+			storage.put("/a/b/c", "Some data".getBytes());
+			storage.put("/a/b/c", "Other data".getBytes());
+			byte[] retrieved = storage.get("/a/b/c");
+			assertArrayEquals("Other data".getBytes(), retrieved);
+		} catch (Exception e) {
+			assertTrue(e.getMessage(), false);
+			e.printStackTrace();
+		}
+	}
+	
 }
