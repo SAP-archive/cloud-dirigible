@@ -26,6 +26,7 @@ import javax.sql.DataSource;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -99,7 +100,7 @@ public abstract class AbstractScriptExecutor {
 		// user name
 		registerDefaultVariable(scope, "user", RepositoryFacade.getUser(request)); //$NON-NLS-1$
 		// file upload
-		ServletFileUpload fileUpload = new ServletFileUpload();
+		ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
 		registerDefaultVariable(scope, "upload", fileUpload); //$NON-NLS-1$
 		// UUID
 		UUID uuid = new UUID(0, 0);

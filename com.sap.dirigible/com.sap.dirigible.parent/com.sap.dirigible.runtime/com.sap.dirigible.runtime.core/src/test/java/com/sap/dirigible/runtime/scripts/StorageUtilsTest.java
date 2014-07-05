@@ -1,81 +1,110 @@
 package com.sap.dirigible.runtime.scripts;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import javax.sql.DataSource;
+import java.security.InvalidParameterException;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.sap.dirigible.runtime.scripting.StorageUtils;
+import com.sap.dirigible.runtime.scripting.StorageUtils.StorageFile;
 import com.sap.dirigible.runtime.utils.DataSourceUtils;
 
 public class StorageUtilsTest {
-	
-	DataSource dataSource = null; 
-	
+
+	private static final String PATH = "/a/b/c";
+	private static final byte[] DATA = "Some data".getBytes();
+	private static final String CONTENT_TYPE = "application/pdf";
+	private static final String EMPTY_CONTENT_TYPE = "";
+	private static final byte[] OTHER_DATA = "Other data".getBytes();
+	private static final byte[] TOO_BIG_DATA = new byte[StorageUtils.MAX_STORAGE_FILE_SIZE_IN_BYTES + 1];
+
+	private StorageUtils storage;
+
 	@Before
 	public void setUp() {
-		dataSource = DataSourceUtils.createLocal();
+		storage = new StorageUtils(DataSourceUtils.createLocal());
 	}
 
 	@Test
 	public void testPut() {
-		StorageUtils storage = new StorageUtils(dataSource);
 		try {
-			storage.put("/a/b/c", "Some data".getBytes());
-			byte[] retrieved = storage.get("/a/b/c");
-			assertArrayEquals("Some data".getBytes(), retrieved);
+			storage.put(PATH, DATA);
+			StorageFile retrieved = storage.get(PATH);
+			assertArrayEquals(DATA, retrieved.getData());
+			assertEquals(EMPTY_CONTENT_TYPE, retrieved.getContentType());
 		} catch (Exception e) {
-			assertTrue(e.getMessage(), false);
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testPutContentType() {
+		try {
+			storage.put(PATH, DATA, CONTENT_TYPE);
+			StorageFile retrieved = storage.get(PATH);
+			assertArrayEquals(DATA, retrieved.getData());
+			assertEquals(CONTENT_TYPE, retrieved.getContentType());
+		} catch (Exception e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testPutTooBigData() {
+		try {
+			storage.put(PATH, TOO_BIG_DATA);
+			fail("Test should fail, because " + StorageUtils.TOO_BIG_DATA_MESSAGE);
+		} catch (InvalidParameterException e) {
+			assertEquals(StorageUtils.TOO_BIG_DATA_MESSAGE, e.getMessage());
+		} catch (Exception e){
+			fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
 	@Test
 	public void testClear() {
-		StorageUtils storage = new StorageUtils(dataSource);
 		try {
-			storage.put("/a/b/c", "Some data".getBytes());
+			storage.put(PATH, DATA);
 			storage.clear();
-			byte[] retrieved = storage.get("/a/b/c");
-			assertArrayEquals(new byte[]{}, retrieved);
+			assertNull(storage.get(PATH));
 		} catch (Exception e) {
-			assertTrue(e.getMessage(), false);
+			fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
 	@Test
 	public void testDelete() {
-		StorageUtils storage = new StorageUtils(dataSource);
 		try {
-			storage.put("/a/b/c", "Some data".getBytes());
-			storage.delete("/a/b/c");
-			byte[] retrieved = storage.get("/a/b/c");
-			assertArrayEquals(new byte[]{}, retrieved);
+			storage.put(PATH, DATA);
+			storage.delete(PATH);
+			assertNull(storage.get(PATH));
 		} catch (Exception e) {
-			assertTrue(e.getMessage(), false);
+			fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testSet() {
-		StorageUtils storage = new StorageUtils(dataSource);
 		try {
-			storage.put("/a/b/c", "Some data".getBytes());
-			storage.put("/a/b/c", "Other data".getBytes());
-			byte[] retrieved = storage.get("/a/b/c");
-			assertArrayEquals("Other data".getBytes(), retrieved);
+			storage.put(PATH, DATA);
+			storage.put(PATH, OTHER_DATA, CONTENT_TYPE);
+			StorageFile retrieved = storage.get(PATH);
+			assertArrayEquals(OTHER_DATA, retrieved.getData());
+			assertEquals(CONTENT_TYPE, retrieved.getContentType());
 		} catch (Exception e) {
-			assertTrue(e.getMessage(), false);
+			fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 }
