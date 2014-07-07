@@ -125,17 +125,24 @@ public abstract class AbstractScriptExecutor {
 		// Simple binary storage
 		StorageUtils storageUtils = new StorageUtils(dataSource);
 		registerDefaultVariable(scope, "storage", storageUtils); //$NON-NLS-1$
+		// Simple file storage
+		FileStorageUtils fileStorageUtils = new FileStorageUtils(dataSource);
+		registerDefaultVariable(scope, "fileStorage", fileStorageUtils); //$NON-NLS-1$
+		// Simple binary storage
+		ConfigStorageUtils configStorageUtils = new ConfigStorageUtils(dataSource);
+		registerDefaultVariable(scope, "config", configStorageUtils); //$NON-NLS-1$
 		// XML to JSON and vice-versa
 		XMLUtils xmlUtils = new XMLUtils();
 		registerDefaultVariable(scope, "xml", xmlUtils); //$NON-NLS-1$
-		
+
 	}
 
 	public byte[] readResourceData(IRepository repository, String repositoryPath)
 			throws IOException {
 		final IResource resource = repository.getResource(repositoryPath);
 		if (!resource.exists()) {
-			throw new IOException(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath));
+			throw new IOException(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
+					resource.getName(), repositoryPath));
 		}
 		return resource.getContent();
 	}
