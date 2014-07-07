@@ -22,11 +22,18 @@ Dirigible project is deployed and tested against the [HANA Cloud Platform](https
 
 You can start by creating your own unlimited free trial account at [https://account.hanatrial.ondemand.com/](https://account.hanatrial.ondemand.com/) with HANA database underneath.
 
-Sandbox instance with restricted functionality is available at: [http://sandbox.dirigible.io](http://sandbox.dirigible.io).
+Sandbox instance with restricted functionality is available at: [http://trial.dirigible.io](http://trial.dirigible.io).
 
 
 Get Started
 -----
+
+##### Download #####
+The "fast-track" - you can download the WAR files produced by the latest release from:
+[https://github.com/SAP/dirigible/releases/](https://github.com/SAP/dirigible/releases/)
+and skip the build section.
+
+Nevertheless, we highly recommend to build the WAR files from the sources to be able to consume also the experimental features not available yet in the releases.
 
 ##### Build #####
 
@@ -40,10 +47,6 @@ Get Started
 5. The build should pass successfully
 6. The two produced WAR files dirigible-ide\*.war and dirigible-runtime\*.war are ready to be deployed
 
-
-##### Download #####
-1. Alternatively you can download the WAR files produced by the latest release from:
-https://github.com/SAP/dirigible/releases/
 
 ##### Deploy #####
 ###### HANA Cloud Platform ######
@@ -65,6 +68,9 @@ https://github.com/SAP/dirigible/releases/
 ###### Tomcat ######
 
 1. The same WAR files can be deployed on [Tomcat](http://tomcat.apache.org/) Web Container. In this case the built-in Derby database will be used.
+
+More information about how to deploy on Tomcat can be found [here](http://tomcat.apache.org/tomcat-7.0-doc/appdev/deployment.html)
+
 2. For simplicity rename the WAR respectively *dirigible-ide.war* for IDE and *dirigible.war* for Runtime
 3. Configure Users store:
 
