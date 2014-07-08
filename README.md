@@ -29,7 +29,7 @@ Get Started
 -----
 
 ##### Download #####
-The "fast-track" - you can download the WAR files produced by the latest release from:
+The "fast-track" - you can download the precompiled binaries produced from the released versions from:
 [https://github.com/SAP/dirigible/releases/](https://github.com/SAP/dirigible/releases/)
 and skip the build section.
 
@@ -120,13 +120,15 @@ File an [issue](https://github.com/SAP/dirigible/issues) or send us a [pull requ
 [http://www.dirigible.io](http://www.dirigible.io)
 
 - Help Portal
-[http://help.dirigible.io](http://help.dirigible.io) or PDF https://github.com/SAP/dirigible/raw/master/docs/dirigible_help.pdf
+[http://help.dirigible.io](http://help.dirigible.io) 
 
 - Simple Samples
 [http://samples.dirigible.io](http://samples.dirigible.io)
 
-- Sandbox Instance
-[http://sandbox.dirigible.io](http://sandbox.dirigible.io)
+- User's Guide as PDF [http://www.dirigible.io/dirigible-user-guide-v1.2.pdf](http://www.dirigible.io/dirigible-user-guide-v1.2.pdf)
+
+- Trial Instance
+[http://trial.dirigible.io](http://trial.dirigible.io)
 
 - Forum
 [http://forum.dirigible.io](http://forum.dirigible.io)
