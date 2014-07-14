@@ -21,33 +21,29 @@ import org.eclipse.rap.rwt.RWT;
 
 public class CommonParameters {
 
-	public static final String EMPTY_STRING = "";  //$NON-NLS-1$
+	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	public static final String DIRIGIBLE_PRODUCT_NAME = "Dirigible"; //$NON-NLS-1$
 	public static final String DIRIGIBLE_PRODUCT_VERSION = "1.2.0-beta"; //$NON-NLS-1$
 
 	public static final String SEPARATOR = "/"; //$NON-NLS-1$
 	public static final String DEBUG_SEPARATOR = ":"; //$NON-NLS-1$
-	
+
 	public static final String DB_DIRIGIBLE_ROOT = "/db/dirigible/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_REGISTRY = DB_DIRIGIBLE_ROOT
-			+ "registry/public/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_SANDBOX = DB_DIRIGIBLE_ROOT
-			+ "sandbox/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_USERS = DB_DIRIGIBLE_ROOT
-			+ "users/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_TEMPLATES = DB_DIRIGIBLE_ROOT
-			+ "templates/"; //$NON-NLS-1$
+	public static final String DB_DIRIGIBLE_REGISTRY = DB_DIRIGIBLE_ROOT + "registry/public/"; //$NON-NLS-1$
+	public static final String DB_DIRIGIBLE_SANDBOX = DB_DIRIGIBLE_ROOT + "sandbox/"; //$NON-NLS-1$
+	public static final String DB_DIRIGIBLE_USERS = DB_DIRIGIBLE_ROOT + "users/"; //$NON-NLS-1$
+	public static final String DB_DIRIGIBLE_TEMPLATES = DB_DIRIGIBLE_ROOT + "templates/"; //$NON-NLS-1$
 	public static final String DB_DIRIGIBLE_TEMPLATES_PROJECTS = DB_DIRIGIBLE_TEMPLATES
 			+ "projects/"; //$NON-NLS-1$
 
 	public static final String WORKSPACE_FOLDER_NAME = "workspace"; //$NON-NLS-1$
 
 	public static String getWorkspace() {
-		return DB_DIRIGIBLE_USERS+ getUserName() + SEPARATOR + WORKSPACE_FOLDER_NAME;
+		return DB_DIRIGIBLE_USERS + getUserName() + SEPARATOR + WORKSPACE_FOLDER_NAME;
 	}
-	
+
 	public static final String DB_DIRIGIBLE_CONFIGURATIONS = DB_DIRIGIBLE_REGISTRY
-			+ "ConfigurationSettings"; //$NON-NLS-1$
+			+ ICommonConstants.ARTIFACT_TYPE.CONFIGURATION_SETTINGS; //$NON-NLS-1$
 
 	public static final String REGISTRY = "/registry"; //$NON-NLS-1$
 	public static final String SANDBOX = "/sandbox"; //$NON-NLS-1$
@@ -55,50 +51,55 @@ public class CommonParameters {
 	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
 	public static final String RUNTIME_URL_DEFAULT = "/dirigible"; //$NON-NLS-1$
 
-	public static final String WEB_CONTENT_FOLDER = "WebContent"; //$NON-NLS-1$
 	public static final String WEB_CONTENT_REGISTRY_PUBLISH_LOCATION = DB_DIRIGIBLE_REGISTRY
-			+ WEB_CONTENT_FOLDER;
-		
+			+ ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
+
 	public static String getWebContentSandbox() {
-		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + WEB_CONTENT_FOLDER;
+		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
+				+ ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
 	}
-	
-	public static final String WIKI_CONTENT_FOLDER = "WikiContent"; //$NON-NLS-1$
+
 	public static final String WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION = DB_DIRIGIBLE_REGISTRY
-			+ WIKI_CONTENT_FOLDER;
+			+ ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
 
 	public static String getWikiContentSandbox() {
-		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + WIKI_CONTENT_FOLDER;
+		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
+				+ ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
 	}
-	
-	
+
 	public static final String SCRIPTING_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
 	public static final String SCRIPTING_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
 			+ SCRIPTING_CONTENT_FOLDER;
-	
+
 	public static String getScriptingContentSandbox() {
 		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SCRIPTING_CONTENT_FOLDER;
+	}
+
+	public static final String SECURITY_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS;
+	public static final String SECURITY_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
+			+ SECURITY_CONTENT_FOLDER;
+
+	public static String getSecuritContentSandbox() {
+		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SECURITY_CONTENT_FOLDER;
 	}
 
 	public static final String TESTS_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.TEST_CASES;
 	public static final String TESTS_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
 			+ TESTS_CONTENT_FOLDER;
-	
+
 	public static String getTestingContentSandbox() {
 		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + TESTS_CONTENT_FOLDER;
 	}
-	
+
 	public static final String EXTENSION_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS;
 	public static final String EXTENSION_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
 			+ EXTENSION_CONTENT_FOLDER;
-	
+
 	public static String getExtensionContentSandbox() {
 		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + EXTENSION_CONTENT_FOLDER;
 	}
-	
-	
-	
-	//github url
+
+	// github url
 	public static final String GIT_REPOSITORY_URL = "https://github.com/SAP/cloud-dirigible-samples.git";
 	public static final String WEB_CONTENT_CONTAINER_MAPPING = "/web"; //$NON-NLS-1$
 	public static final String JAVASCRIPT_CONTAINER_MAPPING = "/js"; //$NON-NLS-1$
@@ -107,7 +108,7 @@ public class CommonParameters {
 	public static final String GROOVY_CONTAINER_MAPPING = "/groovy"; //$NON-NLS-1$
 	public static final String TEST_CASES_CONTAINER_MAPPING = "/test"; //$NON-NLS-1$
 	public static final String WIKI_CONTENT_CONTAINER_MAPPING = "/wiki"; //$NON-NLS-1$
-	
+
 	public static final String WEB_CONTENT_SANDBOX_MAPPING = "/web-sandbox"; //$NON-NLS-1$
 	public static final String JAVASCRIPT_SANDBOX_MAPPING = "/js-sandbox"; //$NON-NLS-1$
 	public static final String RUBY_SANDBOX_MAPPING = "/rb-sandbox"; //$NON-NLS-1$
@@ -120,6 +121,7 @@ public class CommonParameters {
 	public static final String GROOVY_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.GROOVY; //$NON-NLS-1$
 	public static final String EXTENSION_POINT_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.EXTENSION_POINT; //$NON-NLS-1$
 	public static final String EXTENSION_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.EXTENSION; //$NON-NLS-1$
+	public static final String SECURITY_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.SECURITY; //$NON-NLS-1$
 	public static final String GUEST_USER = "guest"; //$NON-NLS-1$
 
 	public static final String CONTENT_EXPORT = "/content-export/"; //$NON-NLS-1$
@@ -135,8 +137,7 @@ public class CommonParameters {
 	public static final String PARAMETER_PERSPECTIVE = "perspective"; //$NON-NLS-1$
 	public static final String PARAMETER_PROJECT = "project"; //$NON-NLS-1$
 	public static final String PARAMETER_PACKAGE = "package"; //$NON-NLS-1$
-	
-	
+
 	public static final String DATABASE_PRODUCT_NAME = "DATABASE_PRODUCT_NAME"; //$NON-NLS-1$
 	public static final String DATABASE_PRODUCT_VERSION = "DATABASE_PRODUCT_VERSION"; //$NON-NLS-1$
 	public static final String DATABASE_MINOR_VERSION = "DATABASE_MINOR_VERSION"; //$NON-NLS-1$
@@ -145,16 +146,13 @@ public class CommonParameters {
 	public static final String DATABASE_DRIVER_MINOR_VERSION = "DATABASE_DRIVER_MINOR_VERSION"; //$NON-NLS-1$
 	public static final String DATABASE_DRIVER_MAJOR_VERSION = "DATABASE_DRIVER_MAJOR_VERSION"; //$NON-NLS-1$
 	public static final String DATABASE_CONNECTION_CLASS_NAME = "DATABASE_CONNECTION_CLASS_NAME"; //$NON-NLS-1$
-	
-	
-	
+
 	public static final String ROLE_OPERATOR = "Operator"; //$NON-NLS-1$
 	public static final String ROLE_DEVELOPER = "Developer"; //$NON-NLS-1$
-	
+
 	public static final String DIRIGIBLE_DEBUGGER_BRIDGE = "dirigible.debugger.bridge"; //$NON-NLS-1$
 	public static final String DIRIGIBLE_RUNTIME_BRIDGE = "dirigible.runtime.bridge"; //$NON-NLS-1$
 
-	
 	public static final String SYSTEM_TABLE = "SYSTEM TABLE"; //$NON-NLS-1$
 	public static final String LOCAL_TEMPORARY = "LOCAL TEMPORARY"; //$NON-NLS-1$
 	public static final String GLOBAL_TEMPORARY = "GLOBAL TEMPORARY"; //$NON-NLS-1$
@@ -162,22 +160,17 @@ public class CommonParameters {
 	public static final String ALIAS = "ALIAS"; //$NON-NLS-1$
 	public static final String VIEW = "VIEW"; //$NON-NLS-1$
 	public static final String TABLE = "TABLE"; //$NON-NLS-1$
-	
-	public static final String[] TABLE_TYPES = { TABLE, VIEW, ALIAS, SYNONYM, GLOBAL_TEMPORARY, LOCAL_TEMPORARY,
-			SYSTEM_TABLE };
 
-	
-//=====================================================================================================================================	
-	
-	
-	
-	
+	public static final String[] TABLE_TYPES = { TABLE, VIEW, ALIAS, SYNONYM, GLOBAL_TEMPORARY,
+			LOCAL_TEMPORARY, SYSTEM_TABLE };
+
+	// =====================================================================================================================================
 
 	public static String get(String name) {
 		String parameter = (String) RWT.getRequest().getSession().getAttribute(name);
 		return parameter;
 	}
-	
+
 	public static void set(String name, String value) {
 		RWT.getRequest().getSession().setAttribute(name, value);
 	}
@@ -200,16 +193,12 @@ public class CommonParameters {
 		req.getSession().setAttribute(HC_ACCOUNT, parameterHC_ACCOUNT);
 		String parameterHC_APPLICATION = System.getProperty(HC_APPLICATION);
 		req.getSession().setAttribute(HC_APPLICATION, parameterHC_APPLICATION);
-		String parameterHC_APPLICATION_URL = System
-				.getProperty(HC_APPLICATION_URL);
-		req.getSession().setAttribute(HC_APPLICATION_URL,
-				parameterHC_APPLICATION_URL);
-		String parameterHC_LOCAL_HTTP_PORT = System
-				.getProperty(HC_LOCAL_HTTP_PORT);
-		req.getSession().setAttribute(HC_LOCAL_HTTP_PORT,
-				parameterHC_LOCAL_HTTP_PORT);
+		String parameterHC_APPLICATION_URL = System.getProperty(HC_APPLICATION_URL);
+		req.getSession().setAttribute(HC_APPLICATION_URL, parameterHC_APPLICATION_URL);
+		String parameterHC_LOCAL_HTTP_PORT = System.getProperty(HC_LOCAL_HTTP_PORT);
+		req.getSession().setAttribute(HC_LOCAL_HTTP_PORT, parameterHC_LOCAL_HTTP_PORT);
 	}
-	
+
 	public static String getUserName() {
 		String user = RWT.getRequest().getRemoteUser();
 		if (user == null) {
@@ -217,15 +206,15 @@ public class CommonParameters {
 		}
 		return user;
 	}
-	
+
 	public static String getDatabaseProductName() {
 		return get(DATABASE_PRODUCT_NAME);
 	}
-	
+
 	public static String getDatabaseProductVersion() {
 		return get(DATABASE_PRODUCT_VERSION);
 	}
-		
+
 	public static String getDriverName() {
 		return get(DATABASE_DRIVER_NAME);
 	}
@@ -233,10 +222,10 @@ public class CommonParameters {
 	public static boolean isUserInRole(String role) {
 		return RWT.getRequest().isUserInRole(role);
 	}
-	
+
 	public static String getSessionId() {
 		String sessionId = RWT.getRequest().getSession(true).getId();
 		return sessionId;
 	}
-	
-	}
+
+}

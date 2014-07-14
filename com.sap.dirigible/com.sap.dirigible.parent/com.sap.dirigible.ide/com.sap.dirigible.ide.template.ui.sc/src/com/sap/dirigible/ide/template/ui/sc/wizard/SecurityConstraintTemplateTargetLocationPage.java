@@ -15,12 +15,12 @@
 
 package com.sap.dirigible.ide.template.ui.sc.wizard;
 
+import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 
-public class SecurityConstraintTemplateTargetLocationPage extends
-		TemplateTargetLocationPage {
+public class SecurityConstraintTemplateTargetLocationPage extends TemplateTargetLocationPage {
 
 	private static final String SELECT_THE_TARGET_LOCATION_AND_THE_TARGET_FILE_NAME = Messages.SecurityConstraintTemplateTargetLocationPage_SELECT_THE_TARGET_LOCATION_AND_THE_TARGET_FILE_NAME;
 
@@ -32,8 +32,7 @@ public class SecurityConstraintTemplateTargetLocationPage extends
 
 	private SecurityConstraintTemplateModel model;
 
-	protected SecurityConstraintTemplateTargetLocationPage(
-			SecurityConstraintTemplateModel model) {
+	protected SecurityConstraintTemplateTargetLocationPage(SecurityConstraintTemplateModel model) {
 		super(PAGE_NAME);
 		this.model = model;
 		setTitle(TARGET_LOCATION);
@@ -42,13 +41,11 @@ public class SecurityConstraintTemplateTargetLocationPage extends
 
 	@Override
 	protected void checkPageStatus() {
-		if (getModel().getTargetLocation() == null
-				|| "".equals(getModel().getTargetLocation())) { //$NON-NLS-1$
+		if (getModel().getTargetLocation() == null || "".equals(getModel().getTargetLocation())) { //$NON-NLS-1$
 			setPageComplete(false);
 			return;
 		}
-		if (getModel().getFileName() == null
-				|| "".equals(getModel().getFileName())) { //$NON-NLS-1$
+		if (getModel().getFileName() == null || "".equals(getModel().getFileName())) { //$NON-NLS-1$
 			setPageComplete(false);
 			return;
 		}
@@ -63,6 +60,11 @@ public class SecurityConstraintTemplateTargetLocationPage extends
 			setErrorMessage(null);
 			setPageComplete(true);
 		}
+	}
+
+	@Override
+	protected String getArtifactContainerName() {
+		return ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS;
 	}
 
 	@Override

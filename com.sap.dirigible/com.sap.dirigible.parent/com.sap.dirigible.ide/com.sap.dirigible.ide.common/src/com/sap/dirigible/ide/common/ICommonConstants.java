@@ -23,6 +23,7 @@ public interface ICommonConstants {
 		public static final String GROOVY = ".groovy"; //$NON-NLS-1$
 		public static final String EXTENSION_POINT = ".extensionpoint"; //$NON-NLS-1$
 		public static final String EXTENSION = ".extension"; //$NON-NLS-1$
+		public static final String SECURITY = ".access"; //$NON-NLS-1$
 	}
 	
 	public interface ARTIFACT_TYPE {
@@ -34,5 +35,7 @@ public interface ICommonConstants {
 		public final static String SECURITY_CONSTRAINTS = "SecurityConstraints"; //$NON-NLS-1$
 		public final static String WIKI_CONTENT = "WikiContent"; //$NON-NLS-1$
 		public final static String EXTENSION_DEFINITIONS = "ExtensionDefinitions"; //$NON-NLS-1$
+		public static final String CONFIGURATION_SETTINGS = "ConfigurationSettings";
 	}
+
 }

@@ -17,6 +17,7 @@ package com.sap.dirigible.ide.template.ui.sc.wizard;
 
 import org.eclipse.core.resources.IResource;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateGenerator;
@@ -35,8 +36,7 @@ public class SecurityConstraintTemplateWizard extends TemplateWizard {
 		model = new SecurityConstraintTemplateModel();
 		model.setSourceResource(resource);
 		typesPage = new SecurityConstraintTemplateTypePage(model);
-		targetLocationPage = new SecurityConstraintTemplateTargetLocationPage(
-				model);
+		targetLocationPage = new SecurityConstraintTemplateTargetLocationPage(model);
 	}
 
 	@Override
@@ -58,12 +58,16 @@ public class SecurityConstraintTemplateWizard extends TemplateWizard {
 	}
 
 	@Override
+	protected String openEditorForFileWithExtension() {
+		return CommonParameters.SECURITY_EXTENSION;
+	}
+
+	@Override
 	public boolean performFinish() {
 		boolean result = super.performFinish();
 		if (result) {
 			StatusLineManagerUtil.setInfoMessage(String.format(
-					StatusLineManagerUtil.ARTIFACT_HAS_BEEN_CREATED,
-					model.getFileName()));
+					StatusLineManagerUtil.ARTIFACT_HAS_BEEN_CREATED, model.getFileName()));
 		}
 		return result;
 	}
