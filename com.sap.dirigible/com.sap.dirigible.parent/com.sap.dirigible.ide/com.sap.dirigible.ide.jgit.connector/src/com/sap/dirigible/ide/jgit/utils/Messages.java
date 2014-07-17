@@ -22,6 +22,7 @@ public class Messages extends NLS {
 	public static String CommandHandlerUtils_UNKNOWN_SELECTION_TYPE;
 	public static String GitFileUtils_COULD_NOT_CREATE_TEMP_DIRECTORY;
 	public static String GitFileUtils_COULD_NOT_DELETE_TEMP_FILE;
+	public static String JGitConnector_INVALID_USERNAME_AND_PASSWORD;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

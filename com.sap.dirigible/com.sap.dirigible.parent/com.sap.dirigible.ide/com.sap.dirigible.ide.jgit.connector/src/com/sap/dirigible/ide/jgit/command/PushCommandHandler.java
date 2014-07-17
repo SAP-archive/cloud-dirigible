@@ -139,7 +139,7 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 					gitRepositoryURI.lastIndexOf(SLASH) + 1, gitRepositoryURI.lastIndexOf(DOT_GIT));
 			tempGitDirectory = GitFileUtils.createTempDirectory(JGitConnector.TEMP_DIRECTORY_PREFIX
 					+ repositoryName);
-			JGitConnector.cloneRepository(gitRepositoryURI, tempGitDirectory);
+			JGitConnector.cloneRepository(tempGitDirectory, gitRepositoryURI, username, password);
 
 			Repository repository = JGitConnector.getRepository(tempGitDirectory.toString());
 			JGitConnector jgit = new JGitConnector(repository);
@@ -154,7 +154,7 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 					selectedProject.getName());
 			GitFileUtils.copyProjectToDirectory(selectedProject, tempGitDirectory);
 
-			jgit.add(JGitConnector.ADD_ALL_FILE_PATTERN);
+			jgit.add(selectedProject.getName());
 			jgit.commit(commitMessage, username, email, true);
 			jgit.pull();
 			int numberOfConflictingFiles = jgit.status().getConflicting().size();

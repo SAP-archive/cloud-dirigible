@@ -20,8 +20,6 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "com.sap.dirigible.ide.jgit.command.messages"; //$NON-NLS-1$
 	public static String CloneCommandHandler_CLONING_GIT_REPOSITORY;
-	public static String CloneCommandHandler_ENTER_GIT_REPOSITORY_URL;
-	public static String CloneCommandHandler_INVALID_GIT_REPOSITORY_URL;
 	public static String CloneCommandHandler_MASTER;
 	public static String CloneCommandHandler_NO_REMOTE_REPOSITORY_FOR;
 	public static String CloneCommandHandler_PROJECT_WAS_CLONED;

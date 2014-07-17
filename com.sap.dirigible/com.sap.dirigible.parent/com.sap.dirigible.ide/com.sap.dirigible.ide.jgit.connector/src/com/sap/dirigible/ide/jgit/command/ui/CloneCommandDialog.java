@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.jgit.command.ui;
 
-import org.eclipse.jgit.util.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -23,25 +22,30 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class ShareCommandDialog extends PushCommandDialog {
+import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
+
+public class CloneCommandDialog extends BaseCommandDialog {
+
 	private static final long serialVersionUID = -5124345102495879231L;
 
-	private static final String SHARE_TO_REMOTE_GIT_REPOSITORY = Messages.ShareCommandDialog_SHARE_TO_REMOTE_GIT_REPOSITORY;
+	private static final String CLONING_GIT_REPOSITORY = Messages.CloneCommandDialog_CLONING_GIT_REPOSITORY;
+	private static final String ENTER_GIT_REPOSITORY_URL = Messages.CloneCommandDialog_ENTER_GIT_REPOSITORY_URL;
+	private static final String INVALID_GIT_REPOSITORY_URL = Messages.CloneCommandDialog_INVALID_GIT_REPOSITORY_URL;
 	private static final String REPOSITORY_URI = Messages.CommandDialog_REPOSITORY_URI;
-	private static final String REPOSITORY_URI_IS_EMPTY = Messages.ShareCommandDialog_REPOSITORY_URI_IS_EMPTY;
 
 	private Text textRepositoryURI;
 
 	private String repositoryURI;
 
-	public ShareCommandDialog(Shell parentShell) {
+	public CloneCommandDialog(Shell parentShell) {
 		super(parentShell);
 	}
 
 	@Override
 	public void create() {
 		super.create();
-		setTitle(SHARE_TO_REMOTE_GIT_REPOSITORY);
+		setTitle(CLONING_GIT_REPOSITORY);
+		setMessage(ENTER_GIT_REPOSITORY_URL);
 	}
 
 	@Override
@@ -54,23 +58,19 @@ public class ShareCommandDialog extends PushCommandDialog {
 		Label labelRepositoryURI = new Label(container, SWT.NONE);
 		labelRepositoryURI.setText(REPOSITORY_URI);
 
-		GridData dataGitRepositoryURI = new GridData();
-		dataGitRepositoryURI.grabExcessHorizontalSpace = true;
-		dataGitRepositoryURI.horizontalAlignment = GridData.FILL;
+		GridData dataRepositoryURI = new GridData();
+		dataRepositoryURI.grabExcessHorizontalSpace = true;
+		dataRepositoryURI.horizontalAlignment = GridData.FILL;
 
 		textRepositoryURI = new Text(container, SWT.BORDER);
-		textRepositoryURI.setLayoutData(dataGitRepositoryURI);
+		textRepositoryURI.setLayoutData(dataRepositoryURI);
 	}
 
 	@Override
 	protected boolean validateInput() {
-		boolean valid = false;
-		if (super.validateInput()) {
-			if (StringUtils.isEmptyOrNull(textRepositoryURI.getText())) {
-				errorMessage = REPOSITORY_URI_IS_EMPTY;
-			} else {
-				valid = true;
-			}
+		boolean valid = GitFileUtils.isValidRepositoryURI(textRepositoryURI.getText());
+		if (!valid) {
+			errorMessage = INVALID_GIT_REPOSITORY_URL;
 		}
 		return valid;
 	}

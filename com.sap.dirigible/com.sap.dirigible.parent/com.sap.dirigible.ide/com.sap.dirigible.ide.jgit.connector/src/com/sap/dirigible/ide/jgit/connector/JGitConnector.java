@@ -54,11 +54,15 @@ import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.util.StringUtils;
 
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
+import com.sap.dirigible.ide.jgit.utils.Messages;
 import com.sap.dirigible.ide.logging.Logger;
 
 public class JGitConnector {
+
+	private static final String INVALID_USERNAME_AND_PASSWORD = Messages.JGitConnector_INVALID_USERNAME_AND_PASSWORD;
 
 	public static final String TEMP_DIRECTORY_PREFIX = "com.sap.dirigible.jgit."; //$NON-NLS-1$
 
@@ -111,23 +115,54 @@ public class JGitConnector {
 
 	/**
 	 * 
-	 * Clones Git remote repository to the file system.
+	 * Clones git remote repository to the file system.
 	 * 
-	 * @param repositoryURI
-	 *            repository's URI example: https://qwerty.com/xyz/abc.git
 	 * @param gitDirectory
 	 *            where the remote repository will be cloned
+	 * @param repositoryURI
+	 *            repository's URI example: https://qwerty.com/xyz/abc.git
+	 * 
 	 * @throws InvalidRemoteException
 	 * @throws TransportException
 	 * @throws GitAPIException
 	 */
-	public static void cloneRepository(String repositoryURI, File gitDirectory)
+	public static void cloneRepository(File gitDirectory, String repositoryURI)
 			throws InvalidRemoteException, TransportException, GitAPIException {
-		CloneCommand cloneCommand = Git.cloneRepository();
-		cloneCommand.setURI(repositoryURI);
-		cloneCommand.setRemote(Constants.DEFAULT_REMOTE_NAME);
-		cloneCommand.setDirectory(gitDirectory);
-		cloneCommand.call();
+		cloneRepository(gitDirectory, repositoryURI, null, null);
+	}
+
+	/**
+	 * 
+	 * Clones secured git remote repository to the file system.
+	 * 
+	 * @param gitDirectory
+	 *            where the remote repository will be cloned
+	 * @param repositoryURI
+	 *            repository's URI example: https://qwerty.com/xyz/abc.git
+	 * @param username
+	 *            the username used for authentication
+	 * @param password
+	 *            the password used for authentication
+	 * 
+	 * @throws InvalidRemoteException
+	 * @throws TransportException
+	 * @throws GitAPIException
+	 */
+	public static void cloneRepository(File gitDirectory, String repositoryURI, String username,
+			String password) throws InvalidRemoteException, TransportException, GitAPIException {
+		try {
+			CloneCommand cloneCommand = Git.cloneRepository();
+			cloneCommand.setURI(repositoryURI);
+			if (!StringUtils.isEmptyOrNull(username) && !StringUtils.isEmptyOrNull(password)) {
+				cloneCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(
+						username, password));
+			}
+			cloneCommand.setRemote(Constants.DEFAULT_REMOTE_NAME);
+			cloneCommand.setDirectory(gitDirectory);
+			cloneCommand.call();
+		} catch (NullPointerException e) {
+			throw new TransportException(INVALID_USERNAME_AND_PASSWORD);
+		}
 	}
 
 	private final Git git;
@@ -187,6 +222,7 @@ public class JGitConnector {
 		CommitCommand commitCommand = git.commit();
 		commitCommand.setMessage(message);
 		commitCommand.setCommitter(name, email);
+		commitCommand.setAuthor(name, email);
 		commitCommand.setAll(all);
 		commitCommand.call();
 	}
@@ -287,9 +323,8 @@ public class JGitConnector {
 	public void push(String username, String password) throws InvalidRemoteException,
 			TransportException, GitAPIException {
 		PushCommand pushCommand = git.push();
-		UsernamePasswordCredentialsProvider credentials = new UsernamePasswordCredentialsProvider(
-				username, password);
-		pushCommand.setCredentialsProvider(credentials);
+		pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(username,
+				password));
 		pushCommand.call();
 	}
 

@@ -90,7 +90,7 @@ public class ShareCommandHandler extends AbstractWorkspaceHandler {
 		switch (shareCommandDialog.open()) {
 		case Window.OK:
 			String commitMessage = shareCommandDialog.getCommitMessage();
-			String repositoryURI = shareCommandDialog.getGitRepositoryURI();
+			String repositoryURI = shareCommandDialog.getRepositoryURI();
 			String username = shareCommandDialog.getUsername();
 			String email = shareCommandDialog.getEmail();
 			String password = shareCommandDialog.getPassword();
@@ -114,7 +114,7 @@ public class ShareCommandHandler extends AbstractWorkspaceHandler {
 					repositoryURI.lastIndexOf(SLASH) + 1, repositoryURI.lastIndexOf(DOT_GIT));
 			gitDirectory = GitFileUtils.createTempDirectory(JGitConnector.TEMP_DIRECTORY_PREFIX
 					+ repositoryName);
-			JGitConnector.cloneRepository(repositoryURI, gitDirectory);
+			JGitConnector.cloneRepository(gitDirectory, repositoryURI, username, password);
 
 			Repository repository = JGitConnector.getRepository(gitDirectory.getAbsolutePath());
 			JGitConnector jgit = new JGitConnector(repository);

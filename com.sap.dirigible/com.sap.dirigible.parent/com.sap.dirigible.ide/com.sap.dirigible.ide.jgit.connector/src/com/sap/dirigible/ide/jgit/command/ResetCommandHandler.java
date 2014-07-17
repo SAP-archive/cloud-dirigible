@@ -112,7 +112,9 @@ public class ResetCommandHandler extends AbstractWorkspaceHandler {
 			tempGitDirectory = GitFileUtils.createTempDirectory(JGitConnector.TEMP_DIRECTORY_PREFIX
 					+ repositoryName);
 
-			JGitConnector.cloneRepository(gitRepositoryURI, tempGitDirectory);
+			// FIXME: Won't work for secured git repositories. Maybe default
+			// should prompt for username and password?
+			JGitConnector.cloneRepository(tempGitDirectory, gitRepositoryURI);
 
 			GitFileUtils.deleteDGBRepositoryProject(project, dirigibleUser);
 

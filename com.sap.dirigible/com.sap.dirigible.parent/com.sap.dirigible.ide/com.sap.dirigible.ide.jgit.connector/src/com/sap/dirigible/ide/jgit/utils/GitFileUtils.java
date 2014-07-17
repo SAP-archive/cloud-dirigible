@@ -45,6 +45,11 @@ public class GitFileUtils {
 	private static final String COULD_NOT_DELETE_TEMP_FILE = Messages.GitFileUtils_COULD_NOT_DELETE_TEMP_FILE;
 	private static final String SLASH = "/"; //$NON-NLS-1$
 	private static final String DOT_GIT = ".git"; //$NON-NLS-1$
+	private static final int MINIMUM_URL_LENGTH = 25;
+
+	public static boolean isValidRepositoryURI(String repositoryURI) {
+		return (repositoryURI.endsWith(DOT_GIT)) && (repositoryURI.length() > MINIMUM_URL_LENGTH);
+	}
 
 	public static File createTempDirectory(String directory) throws IOException {
 		String suffix = Long.toString(System.nanoTime());
@@ -119,7 +124,8 @@ public class GitFileUtils {
 				GitProjectProperties.DB_DIRIGIBLE_USERS_S_GIT_S_REPOSITORY, user, project);
 		if (repository.hasCollection(dirigibleGitFolderPath)) {
 			ICollection propertiesFolder = repository.getCollection(dirigibleGitFolderPath);
-			if (repository.getResource(GitProjectProperties.PROJECT_GIT_PROPERTY).exists()) {
+			
+			if (propertiesFolder.getResource(GitProjectProperties.PROJECT_GIT_PROPERTY).exists()) {
 				IResource propertiesFile = propertiesFolder
 						.getResource(GitProjectProperties.PROJECT_GIT_PROPERTY);
 				propertiesFile.setContent(properties.getContent());
