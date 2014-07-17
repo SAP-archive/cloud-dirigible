@@ -23,11 +23,10 @@ public class Messages extends NLS {
 	public static String PushCommandDialog_PASSWORD;
 	public static String PushCommandDialog_PUSH_CHANGES_TO_REMOTE_GIT_REPOSITORY;
 	public static String PushCommandDialog_USERNAME;
-	public static String ShareCommandDialog_COMMIT_MESSAGE;
-	public static String ShareCommandDialog_GIT_REPOSITORY_URI;
-	public static String ShareCommandDialog_PASSWORD;
+	public static String ShareCommandDialog_REPOSITORY_URI;
 	public static String ShareCommandDialog_SHARE_TO_REMOTE_GIT_REPOSITORY;
-	public static String ShareCommandDialog_USERNAME;
+	public static String PushCommandDialog_EMAIL;
+	
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

@@ -18,6 +18,7 @@ package com.sap.dirigible.ide.jgit.command;
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -114,20 +115,11 @@ public class CloneCommandHandler extends AbstractWorkspaceHandler {
 			String workspacePath = String.format(
 					GitProjectProperties.DB_DIRIGIBLE_USERS_S_WORKSPACE, user);
 
-			for (File gitDirectoryContent : gitDirectory.listFiles()) {
-				String projectName = gitDirectoryContent.getName();
-				if (!projectName.equalsIgnoreCase(DOT_GIT)) {
-					GitFileUtils.importProjectFromGitRepositoryToDGBWorkspace(gitDirectoryContent,
-							repository, workspacePath + SLASH + projectName);
-
-					GitFileUtils
-							.saveGitPropertiesFile(repository, gitProperties, user, projectName);
-
-					StatusLineManagerUtil.setInfoMessage(String.format(PROJECT_WAS_CLONED,
-							projectName));
-					refreshWorkspace();
-				}
-			}
+			List<String> importedProjects = GitFileUtils.importProject(gitDirectory, repository,
+					workspacePath, user, gitProperties);
+			StatusLineManagerUtil.setInfoMessage(String
+					.format(PROJECT_WAS_CLONED, importedProjects));
+			refreshWorkspace();
 		} catch (InvalidRemoteException e) {
 			logger.error(WHILE_CLONING_REPOSITORY_ERROR_OCCURED + e.getMessage(), e);
 			String causedBy = NO_REMOTE_REPOSITORY_FOR + e.getCause().getMessage();

@@ -22,6 +22,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.core.resources.IContainer;
@@ -42,6 +44,7 @@ public class GitFileUtils {
 	private static final String COULD_NOT_CREATE_TEMP_DIRECTORY = Messages.GitFileUtils_COULD_NOT_CREATE_TEMP_DIRECTORY;
 	private static final String COULD_NOT_DELETE_TEMP_FILE = Messages.GitFileUtils_COULD_NOT_DELETE_TEMP_FILE;
 	private static final String SLASH = "/"; //$NON-NLS-1$
+	private static final String DOT_GIT = ".git"; //$NON-NLS-1$
 
 	public static File createTempDirectory(String directory) throws IOException {
 		String suffix = Long.toString(System.nanoTime());
@@ -60,12 +63,27 @@ public class GitFileUtils {
 		return temp;
 	}
 
-	public static void importProjectFromGitRepositoryToDGBWorkspace(File gitRepositoryFile,
+	public static List<String> importProject(File gitDirectory, IRepository repository,
+			String basePath, String dirigibleUser, GitProjectProperties properties)
+			throws IOException {
+		List<String> importedProjects = new ArrayList<String>(gitDirectory.listFiles().length);
+		for (File file : gitDirectory.listFiles()) {
+			String project = file.getName();
+			if (file.isDirectory() && !project.equalsIgnoreCase(DOT_GIT)) {
+				importProjectFromGitRepoToDGBWorkspace(file, repository, basePath + project);
+				saveGitPropertiesFile(repository, properties, dirigibleUser, project);
+				importedProjects.add(project);
+			}
+		}
+		return importedProjects;
+	}
+
+	private static void importProjectFromGitRepoToDGBWorkspace(File gitRepositoryFile,
 			IRepository dirigibleRepository, String path) throws IOException {
 		if (gitRepositoryFile.isDirectory()) {
 			for (File file : gitRepositoryFile.listFiles()) {
-				importProjectFromGitRepositoryToDGBWorkspace(file, dirigibleRepository, path
-						+ SLASH + file.getName());
+				importProjectFromGitRepoToDGBWorkspace(file, dirigibleRepository, path + SLASH
+						+ file.getName());
 			}
 		}
 		if (!gitRepositoryFile.isDirectory()) {
@@ -106,14 +124,15 @@ public class GitFileUtils {
 						.getResource(GitProjectProperties.PROJECT_GIT_PROPERTY);
 				propertiesFile.setContent(properties.getContent());
 			} else {
-//				IResource propertiesFile = 
-				propertiesFolder.createResource(
-						GitProjectProperties.PROJECT_GIT_PROPERTY, properties.getContent(), false, ContentTypeHelper.DEFAULT_CONTENT_TYPE);
-//				propertiesFile.setContent(properties.getContent());
+				// IResource propertiesFile =
+				propertiesFolder.createResource(GitProjectProperties.PROJECT_GIT_PROPERTY,
+						properties.getContent(), false, ContentTypeHelper.DEFAULT_CONTENT_TYPE);
+				// propertiesFile.setContent(properties.getContent());
 			}
 		} else {
-			repository.createCollection(dirigibleGitFolderPath)
-					.createResource(GitProjectProperties.PROJECT_GIT_PROPERTY,properties.getContent(), false, ContentTypeHelper.DEFAULT_CONTENT_TYPE);
+			repository.createCollection(dirigibleGitFolderPath).createResource(
+					GitProjectProperties.PROJECT_GIT_PROPERTY, properties.getContent(), false,
+					ContentTypeHelper.DEFAULT_CONTENT_TYPE);
 		}
 
 	}

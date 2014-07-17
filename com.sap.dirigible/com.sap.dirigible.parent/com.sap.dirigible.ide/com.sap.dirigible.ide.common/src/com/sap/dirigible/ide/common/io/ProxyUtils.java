@@ -47,10 +47,7 @@ public class ProxyUtils {
 	public static void setProxySettings() throws IOException {
 
 		// Local case only
-		
-		// if (System.getProperty(HTTP_PROXY_HOST) == null) {
 		// loadLocalBuildProxy();
-		// }
 
 		setSystemProxySettings();
 		setTrustAllSSL();

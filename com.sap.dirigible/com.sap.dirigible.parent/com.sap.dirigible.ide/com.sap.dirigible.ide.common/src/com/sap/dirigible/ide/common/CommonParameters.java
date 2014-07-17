@@ -51,16 +51,18 @@ public class CommonParameters {
 	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
 	public static final String RUNTIME_URL_DEFAULT = "/dirigible"; //$NON-NLS-1$
 
+	public static final String WEB_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
 	public static final String WEB_CONTENT_REGISTRY_PUBLISH_LOCATION = DB_DIRIGIBLE_REGISTRY
-			+ ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
+			+ WEB_CONTENT_FOLDER;
 
 	public static String getWebContentSandbox() {
 		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
 				+ ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
 	}
 
+	public static final String WIKI_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
 	public static final String WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION = DB_DIRIGIBLE_REGISTRY
-			+ ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
+			+ WIKI_CONTENT_FOLDER;
 
 	public static String getWikiContentSandbox() {
 		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR

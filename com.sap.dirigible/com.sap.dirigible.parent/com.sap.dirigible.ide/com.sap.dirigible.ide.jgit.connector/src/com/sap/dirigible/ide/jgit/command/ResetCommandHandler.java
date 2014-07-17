@@ -121,24 +121,14 @@ public class ResetCommandHandler extends AbstractWorkspaceHandler {
 
 			String workspacePath = String.format(
 					GitProjectProperties.DB_DIRIGIBLE_USERS_S_WORKSPACE, dirigibleUser);
-			String projectName = project.getName();
-			String path = workspacePath + SLASH + projectName;
 
 			Repository repository = JGitConnector.getRepository(tempGitDirectory.getAbsolutePath());
 			JGitConnector jgit = new JGitConnector(repository);
 			final String lastSHA = jgit.getLastSHAForBranch(MASTER);
 			gitProperties.setSHA(lastSHA);
 
-			for (File gitDirectoryContent : tempGitDirectory.listFiles()) {
-				String gitProjectName = gitDirectoryContent.getName();
-				if (!gitProjectName.equalsIgnoreCase(DOT_GIT)) {
-					GitFileUtils.importProjectFromGitRepositoryToDGBWorkspace(gitDirectoryContent,
-							dirigibleRepository, path);
-
-					GitFileUtils.saveGitPropertiesFile(dirigibleRepository, gitProperties,
-							dirigibleUser, gitProjectName);
-				}
-			}
+			GitFileUtils.importProject(tempGitDirectory, dirigibleRepository, workspacePath,
+					dirigibleUser, gitProperties);
 
 			String message = String.format(PROJECT_S_SUCCESSFULY_RESETED, project.getName());
 			StatusLineManagerUtil.setInfoMessage(message);

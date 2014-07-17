@@ -31,14 +31,17 @@ public class PushCommandDialog extends TitleAreaDialog {
 	private static final String PUSH_CHANGES_TO_REMOTE_GIT_REPOSITORY = Messages.PushCommandDialog_PUSH_CHANGES_TO_REMOTE_GIT_REPOSITORY;
 	private static final String COMMIT_MESSAGE = Messages.PushCommandDialog_COMMIT_MESSAGE;
 	private static final String USERNAME = Messages.PushCommandDialog_USERNAME;
+	private static final String EMAIL = Messages.PushCommandDialog_EMAIL;
 	private static final String PASSWORD = Messages.PushCommandDialog_PASSWORD;
 
 	private Text textCommitMessage;
 	private Text textUsername;
+	private Text textEmail;
 	private Text textPassword;
 
 	private String commitMessage;
 	private String username;
+	private String email;
 	private String password;
 
 	public PushCommandDialog(Shell parentShell) {
@@ -59,11 +62,15 @@ public class PushCommandDialog extends TitleAreaDialog {
 		GridLayout layout = new GridLayout(2, false);
 		container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		container.setLayout(layout);
+		addControls(container);
+		return area;
+	}
 
+	protected void addControls(Composite container) {
 		createCommitMessageField(container);
 		createUsernameField(container);
+		createEmailField(container);
 		createPasswordField(container);
-		return area;
 	}
 
 	private void createCommitMessageField(Composite container) {
@@ -90,6 +97,18 @@ public class PushCommandDialog extends TitleAreaDialog {
 		textUsername.setLayoutData(dataUsername);
 	}
 
+	private void createEmailField(Composite container) {
+		Label labelEmail = new Label(container, SWT.NONE);
+		labelEmail.setText(EMAIL);
+
+		GridData dataEmail = new GridData();
+		dataEmail.grabExcessHorizontalSpace = true;
+		dataEmail.horizontalAlignment = GridData.FILL;
+
+		textEmail = new Text(container, SWT.BORDER);
+		textEmail.setLayoutData(dataEmail);
+	}
+
 	private void createPasswordField(Composite container) {
 		Label labelPassword = new Label(container, SWT.NONE);
 		labelPassword.setText(PASSWORD);
@@ -107,9 +126,10 @@ public class PushCommandDialog extends TitleAreaDialog {
 		return true;
 	}
 
-	private void saveInput() {
+	protected void saveInput() {
 		commitMessage = textCommitMessage.getText();
 		username = textUsername.getText();
+		email = textEmail.getText();
 		password = textPassword.getText();
 	}
 
@@ -125,6 +145,10 @@ public class PushCommandDialog extends TitleAreaDialog {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 
 	public String getPassword() {

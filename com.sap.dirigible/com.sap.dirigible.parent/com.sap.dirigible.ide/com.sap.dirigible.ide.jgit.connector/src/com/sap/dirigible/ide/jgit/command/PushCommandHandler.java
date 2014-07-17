@@ -109,7 +109,8 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 			final String commitMessage = pushCommandDialog.getCommitMessage();
 			final String username = pushCommandDialog.getUsername();
 			final String password = pushCommandDialog.getPassword();
-			pushProjectToGitRepository(selectedProject, commitMessage, username, password);
+			final String email = pushCommandDialog.getEmail();
+			pushProjectToGitRepository(selectedProject, commitMessage, username, email, password);
 			break;
 		}
 
@@ -118,7 +119,8 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 	}
 
 	private void pushProjectToGitRepository(final IProject selectedProject,
-			final String commitMessage, final String username, final String password) {
+			final String commitMessage, final String username, final String email,
+			final String password) {
 
 		final String errorMessage = String.format(WHILE_PUSHING_PROJECT_ERROR_OCCURED,
 				selectedProject.getName());
@@ -152,7 +154,8 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 					selectedProject.getName());
 			GitFileUtils.copyProjectToDirectory(selectedProject, tempGitDirectory);
 
-			jgit.commit(commitMessage);
+			jgit.add(JGitConnector.ADD_ALL_FILE_PATTERN);
+			jgit.commit(commitMessage, username, email, true);
 			jgit.pull();
 			int numberOfConflictingFiles = jgit.status().getConflicting().size();
 			if (numberOfConflictingFiles == 0) {
@@ -170,22 +173,11 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 				String workspacePath = String.format(
 						GitProjectProperties.DB_DIRIGIBLE_USERS_S_WORKSPACE, dirigibleUser);
 
-				String projectName = selectedProject.getName();
-				String path = workspacePath + SLASH + projectName;
-
 				String newLastSHA = jgit.getLastSHAForBranch(MASTER);
 				gitProperties.setSHA(newLastSHA);
 
-				for (File gitDirectoryContent : tempGitDirectory.listFiles()) {
-					String gitProjectName = gitDirectoryContent.getName();
-					if (!gitProjectName.equalsIgnoreCase(DOT_GIT)) {
-						GitFileUtils.importProjectFromGitRepositoryToDGBWorkspace(
-								gitDirectoryContent, dirigibleRepository, path);
-
-						GitFileUtils.saveGitPropertiesFile(dirigibleRepository, gitProperties,
-								dirigibleUser, gitProjectName);
-					}
-				}
+				GitFileUtils.importProject(tempGitDirectory, dirigibleRepository, workspacePath,
+						dirigibleUser, gitProperties);
 
 				refreshWorkspace();
 				StatusLineManagerUtil.setInfoMessage(String.format(

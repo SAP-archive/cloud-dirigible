@@ -139,7 +139,8 @@ public class PullCommandHandler extends AbstractWorkspaceHandler {
 					selectedProject.getName());
 			GitFileUtils.copyProjectToDirectory(selectedProject, tempGitDirectory);
 
-			jgit.commit(""); //$NON-NLS-1$
+			jgit.add(JGitConnector.ADD_ALL_FILE_PATTERN);
+			jgit.commit("", "", "", true); //$NON-NLS-1$
 			jgit.pull();
 			int numberOfConflictingFiles = jgit.status().getConflicting().size();
 			if (numberOfConflictingFiles == 0) {
@@ -156,19 +157,8 @@ public class PullCommandHandler extends AbstractWorkspaceHandler {
 				String workspacePath = String.format(
 						GitProjectProperties.DB_DIRIGIBLE_USERS_S_WORKSPACE, dirigibleUser);
 
-				String projectName = selectedProject.getName();
-				String path = workspacePath + SLASH + projectName;
-
-				for (File gitDirectoryContent : tempGitDirectory.listFiles()) {
-					String gitProjectName = gitDirectoryContent.getName();
-					if (!gitProjectName.equalsIgnoreCase(DOT_GIT)) {
-						GitFileUtils.importProjectFromGitRepositoryToDGBWorkspace(
-								gitDirectoryContent, dirigibleRepository, path);
-
-						GitFileUtils.saveGitPropertiesFile(dirigibleRepository, gitProperties,
-								dirigibleUser, gitProjectName);
-					}
-				}
+				GitFileUtils.importProject(tempGitDirectory, dirigibleRepository, workspacePath,
+						dirigibleUser, gitProperties);
 
 				refreshWorkspace();
 				StatusLineManagerUtil.setInfoMessage(String.format(

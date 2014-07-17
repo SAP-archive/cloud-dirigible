@@ -58,22 +58,21 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.logging.Logger;
 
-
 public class JGitConnector {
-	
+
 	public static final String TEMP_DIRECTORY_PREFIX = "com.sap.dirigible.jgit."; //$NON-NLS-1$
 
 	private static final String REFS_HEADS_MASTER = "refs/heads/master"; //$NON-NLS-1$
 	private static final String MERGE = "merge"; //$NON-NLS-1$
 	private static final String MASTER = "master"; //$NON-NLS-1$
 	private static final String BRANCH = "branch"; //$NON-NLS-1$
-	private static final String ADD_ALL_NEW_FILES = "."; //$NON-NLS-1$
+	public static final String ADD_ALL_FILE_PATTERN = "."; //$NON-NLS-1$
 
 	private static final Logger logger = Logger.getLogger(JGitConnector.class);
 
 	static {
 		try {
-			//ProxyUtils.setProxySettings();
+			// ProxyUtils.setProxySettings();
 			deleteTempDirectories();
 		} catch (IOException e) {
 			logger.error(e.getMessage());
@@ -159,10 +158,20 @@ public class JGitConnector {
 
 	/**
 	 * 
-	 * Adds all changes to the staging index. Then makes commit.
+	 * Adds changes to the staging index. Then makes commit.
 	 * 
 	 * @param message
 	 *            the commit message
+	 * @param name
+	 *            the name of the committer used for the commit
+	 * @param email
+	 *            the email of the committer used for the commit
+	 * @param all
+	 *            if set to true, command will automatically stages files that
+	 *            have been modified and deleted, but new files not known by the
+	 *            repository are not affected. This corresponds to the parameter
+	 *            -a on the command line.
+	 * 
 	 * @throws NoHeadException
 	 * @throws NoMessageException
 	 * @throws UnmergedPathsException
@@ -171,13 +180,14 @@ public class JGitConnector {
 	 * @throws GitAPIException
 	 * @throws IOException
 	 */
-	public void commit(String message) throws NoHeadException, NoMessageException,
-			UnmergedPathsException, ConcurrentRefUpdateException, WrongRepositoryStateException,
-			GitAPIException, IOException {
-		add(ADD_ALL_NEW_FILES);
+	public void commit(String message, String name, String email, boolean all)
+			throws NoHeadException, NoMessageException, UnmergedPathsException,
+			ConcurrentRefUpdateException, WrongRepositoryStateException, GitAPIException,
+			IOException {
 		CommitCommand commitCommand = git.commit();
 		commitCommand.setMessage(message);
-		commitCommand.setAll(true);
+		commitCommand.setCommitter(name, email);
+		commitCommand.setAll(all);
 		commitCommand.call();
 	}
 

@@ -85,16 +85,18 @@ public class ShareCommandHandler extends AbstractWorkspaceHandler {
 
 		DefaultProgressMonitor monitor = new DefaultProgressMonitor();
 		monitor.beginTask(TASK_SHARING_PROJECT, IProgressMonitor.UNKNOWN);
-		
+
 		ShareCommandDialog shareCommandDialog = new ShareCommandDialog(parent);
 		switch (shareCommandDialog.open()) {
 		case Window.OK:
 			String commitMessage = shareCommandDialog.getCommitMessage();
 			String repositoryURI = shareCommandDialog.getGitRepositoryURI();
 			String username = shareCommandDialog.getUsername();
+			String email = shareCommandDialog.getEmail();
 			String password = shareCommandDialog.getPassword();
 
-			shareToGitRepository(projects[0], commitMessage, repositoryURI, username, password);
+			shareToGitRepository(projects[0], commitMessage, username, email, password,
+					repositoryURI);
 			break;
 		}
 		monitor.done();
@@ -102,8 +104,8 @@ public class ShareCommandHandler extends AbstractWorkspaceHandler {
 		return null;
 	}
 
-	private void shareToGitRepository(IProject project, String commitMessage, String repositoryURI,
-			String username, String password) {
+	private void shareToGitRepository(IProject project, String commitMessage, String username,
+			String email, String password, String repositoryURI) {
 		final String errorMessage = String.format(WHILE_SHARING_PROJECT_ERROR_OCCURED,
 				project.getName());
 		File gitDirectory = null;
@@ -118,7 +120,8 @@ public class ShareCommandHandler extends AbstractWorkspaceHandler {
 			JGitConnector jgit = new JGitConnector(repository);
 
 			GitFileUtils.copyProjectToDirectory(project, gitDirectory);
-			jgit.commit(commitMessage);
+			jgit.add(JGitConnector.ADD_ALL_FILE_PATTERN);
+			jgit.commit(commitMessage, username, email, true);
 			jgit.push(username, password);
 
 			Workspace workspace = (Workspace) RemoteResourcesPlugin.getWorkspace();
