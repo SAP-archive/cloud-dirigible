@@ -300,7 +300,7 @@ public class SampleProjectWizardGitTemplatePage extends WizardPage {
 
 	private static void doClone(File gitDirectory) {
 		try {
-			JGitConnector.cloneRepository(CommonParameters.GIT_REPOSITORY_URL, gitDirectory);
+			JGitConnector.cloneRepository(gitDirectory, CommonParameters.GIT_REPOSITORY_URL);
 		} catch (InvalidRemoteException e) {
 			e.printStackTrace();
 		} catch (TransportException e) {
