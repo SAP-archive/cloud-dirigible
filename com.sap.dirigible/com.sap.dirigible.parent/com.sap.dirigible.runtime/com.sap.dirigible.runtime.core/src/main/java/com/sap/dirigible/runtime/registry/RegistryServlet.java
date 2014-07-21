@@ -19,6 +19,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.MissingResourceException;
 
@@ -26,12 +28,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.utils.DateUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
+import com.sap.dirigible.repository.api.IEntityInformation;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.runtime.logger.Logger;
@@ -40,6 +46,14 @@ import com.sap.dirigible.runtime.logger.Logger;
  * Servlet implementation class RegistryServlet
  */
 public class RegistryServlet extends AbstractRegistryServlet {
+
+	private static final String CONTENT_LENGTH_HEADER = "Content-Length";
+
+	private static final String LAST_MODIFIED_HEADER = "Last-Modified";
+
+	private static final String EXPIRES_HEADER = "Expires";
+
+	private static final String IF_MODIFIED_SINCE_HEADER = "If-Modified-Since";
 
 	private static final String ACCEPT_HEADER = "Accept"; //$NON-NLS-1$
 
@@ -86,7 +100,7 @@ public class RegistryServlet extends AbstractRegistryServlet {
 					data = buildResourceData(entity, request, response);
 				} else if (entity instanceof ICollection) {
 					String collectionPath = request.getRequestURI().toString();
-					String acceptHeader = request.getHeader(ACCEPT_HEADER);              	
+					String acceptHeader = request.getHeader(ACCEPT_HEADER);
 					if (acceptHeader != null && acceptHeader.contains(JSON)) {
 						if (!collectionPath.endsWith(IRepository.SEPARATOR)) {
 							collectionPath += IRepository.SEPARATOR;
@@ -112,7 +126,7 @@ public class RegistryServlet extends AbstractRegistryServlet {
 				}
 			} else {
 				exceptionHandler(response, repositoryPath, HttpServletResponse.SC_NOT_FOUND,
-						String.format("Resource at [%s] does not exist",requestPath));
+						String.format("Resource at [%s] does not exist", requestPath));
 				return;
 			}
 
@@ -168,8 +182,55 @@ public class RegistryServlet extends AbstractRegistryServlet {
 
 	protected byte[] buildResourceData(final IEntity entity, final HttpServletRequest request,
 			final HttpServletResponse response) throws IOException {
-		final byte[] data = readResourceData((IResource) entity);
+		byte[] data = new byte[] {};
+		if (!setCacheHeaders(entity, request, response)) {
+			data = readResourceData((IResource) entity);
+			setContentLengthHeader(entity, data.length, request, response);
+		}
 		return data;
+	}
+
+	private void setContentLengthHeader(IEntity entity, int contentLength,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setHeader(CONTENT_LENGTH_HEADER, Integer.toString(contentLength));
+	}
+
+	private boolean setCacheHeaders(IEntity entity, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		boolean cached = false;
+		IEntityInformation entityInformation = entity.getInformation();
+		String modifiedSinceHeader = request.getHeader(IF_MODIFIED_SINCE_HEADER);
+
+		if ((entityInformation != null) && (!StringUtils.isEmpty(modifiedSinceHeader))) {
+
+			Calendar lastModified = getCalendar(entityInformation.getModifiedAt());
+			Calendar modifiedSince = getCalendar(DateUtils.parseDate(modifiedSinceHeader));
+
+			if (lastModified.compareTo(modifiedSince) <= 0) {
+
+				Calendar expires = getCalendar(lastModified);
+				expires.add(Calendar.MONTH, 1);
+
+				response.setDateHeader(EXPIRES_HEADER, expires.getTimeInMillis());
+				response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+
+				cached = true;
+			}
+			response.setDateHeader(LAST_MODIFIED_HEADER, lastModified.getTimeInMillis());
+		}
+		return cached;
+	}
+
+	private Calendar getCalendar(Calendar calendar) {
+		return getCalendar(calendar.getTime());
+	}
+
+	private Calendar getCalendar(Date time) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(time);
+		calendar.clear(Calendar.MILLISECOND);
+		return calendar;
 	}
 
 	private JsonArray enumerateCollectionData(final String collectionPath,
