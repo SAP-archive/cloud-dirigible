@@ -202,20 +202,22 @@ public class RegistryServlet extends AbstractRegistryServlet {
 		IEntityInformation entityInformation = entity.getInformation();
 		String modifiedSinceHeader = request.getHeader(IF_MODIFIED_SINCE_HEADER);
 
-		if ((entityInformation != null) && (!StringUtils.isEmpty(modifiedSinceHeader))) {
-
+		if ((entityInformation != null)) {
 			Calendar lastModified = getCalendar(entityInformation.getModifiedAt());
-			Calendar modifiedSince = getCalendar(DateUtils.parseDate(modifiedSinceHeader));
 
-			if (lastModified.compareTo(modifiedSince) <= 0) {
+			if ((!StringUtils.isEmpty(modifiedSinceHeader))) {
+				Calendar modifiedSince = getCalendar(DateUtils.parseDate(modifiedSinceHeader));
+				
+				if (lastModified.compareTo(modifiedSince) <= 0) {
 
-				Calendar expires = getCalendar(lastModified);
-				expires.add(Calendar.MONTH, 1);
+					Calendar expires = getCalendar(lastModified);
+					expires.add(Calendar.MONTH, 1);
 
-				response.setDateHeader(EXPIRES_HEADER, expires.getTimeInMillis());
-				response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+					response.setDateHeader(EXPIRES_HEADER, expires.getTimeInMillis());
+					response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
 
-				cached = true;
+					cached = true;
+				}
 			}
 			response.setDateHeader(LAST_MODIFIED_HEADER, lastModified.getTimeInMillis());
 		}
