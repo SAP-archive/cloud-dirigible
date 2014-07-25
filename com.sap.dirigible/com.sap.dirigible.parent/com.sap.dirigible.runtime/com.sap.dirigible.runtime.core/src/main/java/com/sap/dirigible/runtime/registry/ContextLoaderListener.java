@@ -38,25 +38,27 @@ public class ContextLoaderListener implements ServletContextListener {
 
 	private static final Logger logger = Logger.getLogger(ContextLoaderListener.class);
 
-	private ScheduledExecutorService scheduler;
+	private ScheduledExecutorService securitySynchronizerScheduler;
+	private ScheduledExecutorService taskManagerShortScheduler;
+	private ScheduledExecutorService taskManagerMediumScheduler;
+	private ScheduledExecutorService taskManagerLongScheduler;
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "contextInitialized"); //$NON-NLS-1$
 
-		scheduler = Executors.newSingleThreadScheduledExecutor();
-		scheduler.scheduleAtFixedRate(new SecuritySynchronizer(), 1, 1, TimeUnit.MINUTES);
+		securitySynchronizerScheduler = Executors.newSingleThreadScheduledExecutor();
+		securitySynchronizerScheduler.scheduleAtFixedRate(new SecuritySynchronizer(), 1, 1, TimeUnit.MINUTES);
 
-		scheduler = Executors.newSingleThreadScheduledExecutor();
-		scheduler.scheduleAtFixedRate(TaskManagerShort.getInstance(), 10, 10, TimeUnit.SECONDS);
+		taskManagerShortScheduler = Executors.newSingleThreadScheduledExecutor();
+		taskManagerShortScheduler.scheduleAtFixedRate(TaskManagerShort.getInstance(),10, 10, TimeUnit.SECONDS);
 
-		scheduler = Executors.newSingleThreadScheduledExecutor();
-		scheduler.scheduleAtFixedRate(TaskManagerMedium.getInstance(), 1, 1, TimeUnit.MINUTES);
+		taskManagerMediumScheduler = Executors.newSingleThreadScheduledExecutor();
+		taskManagerMediumScheduler.scheduleAtFixedRate(TaskManagerMedium.getInstance(), 1, 1,TimeUnit.MINUTES);
 
-		scheduler = Executors.newSingleThreadScheduledExecutor();
-		scheduler.scheduleAtFixedRate(TaskManagerLong.getInstance(), 1, 1, TimeUnit.HOURS);
+		taskManagerLongScheduler = Executors.newSingleThreadScheduledExecutor();
+		taskManagerLongScheduler.scheduleAtFixedRate(TaskManagerLong.getInstance(),	1, 1,TimeUnit.HOURS);
 
 		registerRunnableTasks();
 
@@ -102,11 +104,13 @@ public class ContextLoaderListener implements ServletContextListener {
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "contextDestroyed"); //$NON-NLS-1$
 
-		scheduler.shutdownNow();
+		securitySynchronizerScheduler.shutdownNow();
+		taskManagerShortScheduler.shutdownNow();
+		taskManagerMediumScheduler.shutdownNow();
+		taskManagerLongScheduler.shutdownNow();
 
 		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "contextDestroyed"); //$NON-NLS-1$
-
 	}
 
 }
