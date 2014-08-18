@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.workspace.ui.wizards.rename;
 
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -26,9 +25,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
 
-public class RenameWizardNamingPage extends WizardPage {
+public class RenameWizardNamingPage extends FocusableWizardPage {
 
 	private static final long serialVersionUID = -1496466639907638752L;
 
@@ -59,6 +59,7 @@ public class RenameWizardNamingPage extends WizardPage {
 		this.model = model;
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		setControl(composite);
@@ -68,7 +69,7 @@ public class RenameWizardNamingPage extends WizardPage {
 
 		initialize();
 	}
-
+	
 	private void createNameField(Composite parent) {
 		final Label nameLabel = new Label(parent, SWT.NONE);
 		nameLabel.setText(ENTER_NEW_NAME);
@@ -87,6 +88,7 @@ public class RenameWizardNamingPage extends WizardPage {
 				onResourceNameChanged(nameText.getText());
 			}
 		});
+		setFocusable(nameText);
 	}
 
 	public void setResourceName(String resourceName) {

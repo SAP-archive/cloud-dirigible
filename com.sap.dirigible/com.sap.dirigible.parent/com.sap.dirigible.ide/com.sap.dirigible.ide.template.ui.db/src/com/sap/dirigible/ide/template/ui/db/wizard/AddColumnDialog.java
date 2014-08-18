@@ -286,6 +286,7 @@ public class AddColumnDialog extends TitleAreaDialog {
 
 		nameText = new Text(parent, SWT.BORDER);
 		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		nameText.setFocus();
 		nameText.addModifyListener(new ModifyListener() {
 			/**
 			 * 

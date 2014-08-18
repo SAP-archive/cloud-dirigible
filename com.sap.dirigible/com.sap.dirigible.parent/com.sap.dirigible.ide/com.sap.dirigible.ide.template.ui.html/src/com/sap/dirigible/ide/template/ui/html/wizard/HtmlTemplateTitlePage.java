@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.template.ui.html.wizard;
 
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -25,7 +24,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class HtmlTemplateTitlePage extends WizardPage {
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
+
+public class HtmlTemplateTitlePage extends FocusableWizardPage {
 
 	private static final long serialVersionUID = -6815434141371322133L;
 
@@ -85,6 +86,7 @@ public class HtmlTemplateTitlePage extends WizardPage {
 				checkPageStatus();
 			}
 		});
+		setFocusable(pageTitleText);
 	}
 
 	private void checkPageStatus() {

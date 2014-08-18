@@ -15,6 +15,7 @@ Import-Package: com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.db.data,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.ide.ui.common.validation,
+ com.sap.dirigible.ide.workspace.ui.shared,
  org.eclipse.core.resources
 Export-Package: com.sap.dirigible.ide.template.ui.db.command,
  com.sap.dirigible.ide.template.ui.db.wizard

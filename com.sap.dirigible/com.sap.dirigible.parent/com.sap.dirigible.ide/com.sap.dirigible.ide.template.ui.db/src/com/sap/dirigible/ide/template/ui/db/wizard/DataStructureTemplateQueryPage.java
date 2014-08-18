@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.template.ui.db.wizard;
 
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -25,7 +24,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class DataStructureTemplateQueryPage extends WizardPage {
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
+
+public class DataStructureTemplateQueryPage extends FocusableWizardPage {
 
 	/**
 	 * 
@@ -62,7 +63,7 @@ public class DataStructureTemplateQueryPage extends WizardPage {
 		createRouteIdField(composite);
 		checkPageStatus();
 	}
-
+	
 	private void createRouteIdField(Composite parent) {
 		final Label label = new Label(parent, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
@@ -90,6 +91,7 @@ public class DataStructureTemplateQueryPage extends WizardPage {
 				checkPageStatus();
 			}
 		});
+		setFocusable(queryText);
 	}
 
 	private void checkPageStatus() {

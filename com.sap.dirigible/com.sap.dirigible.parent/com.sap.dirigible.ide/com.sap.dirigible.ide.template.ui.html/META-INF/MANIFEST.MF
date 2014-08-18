@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.rap.ui;bundle-version="1.4.2",
 Import-Package: com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.ide.ui.common.validation,
+ com.sap.dirigible.ide.workspace.ui.shared,
  org.eclipse.core.resources
 Export-Package: com.sap.dirigible.ide.template.ui.html.command,
  com.sap.dirigible.ide.template.ui.html.wizard

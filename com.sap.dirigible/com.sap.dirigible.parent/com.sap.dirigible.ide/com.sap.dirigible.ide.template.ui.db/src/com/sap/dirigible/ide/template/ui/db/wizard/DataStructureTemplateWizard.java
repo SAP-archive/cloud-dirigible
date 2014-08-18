@@ -66,25 +66,26 @@ public class DataStructureTemplateWizard extends TemplateWizard {
 
 	@Override
 	public IWizardPage getNextPage(IWizardPage page) {
+		IWizardPage nextPage = null;
 		if (page instanceof DataStructureTemplateTypePage) {
 			if (DataStructureTemplateLocations.TABLE //$NON-NLS-1$
 					.equals(model.getTemplate().getLocation())) {
-				return structurePage;
-			}
-			if (DataStructureTemplateLocations.VIEW //$NON-NLS-1$
+				nextPage = structurePage;
+			}else if (DataStructureTemplateLocations.VIEW //$NON-NLS-1$
 					.equals(model.getTemplate().getLocation())) {
-				return queryPage;
-			}
-			if (DataStructureTemplateLocations.DSV //$NON-NLS-1$
+				nextPage = queryPage;
+			}else if (DataStructureTemplateLocations.DSV //$NON-NLS-1$
 					.equals(model.getTemplate().getLocation())) {
-				return dsvPage;
+				nextPage = dsvPage;
 			}
-		}
-		if (page instanceof DataStructureTemplateStructurePage
+		} else if (page instanceof DataStructureTemplateStructurePage
 				|| page instanceof DataStructureTemplateDSVPage) {
-			return targetLocationPage;
+			nextPage = targetLocationPage;
+		} else {
+			nextPage = super.getNextPage(page);
 		}
-		return super.getNextPage(page);
+		
+		return nextPage;
 	}
 
 	@Override

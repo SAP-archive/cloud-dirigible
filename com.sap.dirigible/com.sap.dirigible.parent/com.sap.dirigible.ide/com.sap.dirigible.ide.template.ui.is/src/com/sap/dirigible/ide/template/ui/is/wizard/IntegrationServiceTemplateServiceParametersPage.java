@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.template.ui.is.wizard;
 
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -25,7 +24,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class IntegrationServiceTemplateServiceParametersPage extends WizardPage {
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
+
+public class IntegrationServiceTemplateServiceParametersPage extends FocusableWizardPage {
 
 	private static final long serialVersionUID = -1909594239505630715L;
 
@@ -103,6 +104,7 @@ public class IntegrationServiceTemplateServiceParametersPage extends WizardPage 
 				checkPageStatus();
 			}
 		});
+		setFocusable(routeIdText);
 	}
 
 	private void createEndpointNameField(Composite parent) {

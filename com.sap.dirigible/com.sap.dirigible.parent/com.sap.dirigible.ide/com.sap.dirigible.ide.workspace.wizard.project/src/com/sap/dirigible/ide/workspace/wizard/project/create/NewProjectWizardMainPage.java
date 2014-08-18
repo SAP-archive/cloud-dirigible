@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.workspace.wizard.project.create;
 
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -25,9 +24,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 
-public class NewProjectWizardMainPage extends WizardPage {
+public class NewProjectWizardMainPage extends FocusableWizardPage {
 
 	private static final long serialVersionUID = -2191030355904715681L;
 	private static final String ENTER_PROJECT_NAME = Messages.NewProjectWizardMainPage_ENTER_PROJECT_NAME;
@@ -66,6 +66,7 @@ public class NewProjectWizardMainPage extends WizardPage {
 				onProjectNameChanged(projectNameField.getText());
 			}
 		});
+		setFocusable(projectNameField);
 		
 		this.initialize();
 	}

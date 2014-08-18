@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -30,10 +29,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewer;
 
-public class NewFolderWizardMainPage extends WizardPage {
+public class NewFolderWizardMainPage extends FocusableWizardPage {
 
 	private static final long serialVersionUID = 2122979040935623152L;
 
@@ -116,6 +116,7 @@ public class NewFolderWizardMainPage extends WizardPage {
 				onFolderNameChanged(folderNameField.getText());
 			}
 		});
+		setFocusable(folderNameField);
 
 		initialize();
 	}

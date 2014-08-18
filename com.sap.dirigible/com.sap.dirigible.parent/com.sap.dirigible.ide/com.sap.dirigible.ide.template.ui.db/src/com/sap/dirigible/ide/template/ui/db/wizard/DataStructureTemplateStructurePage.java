@@ -29,7 +29,6 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -44,8 +43,9 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
 
-public class DataStructureTemplateStructurePage extends WizardPage {
+public class DataStructureTemplateStructurePage extends FocusableWizardPage {
 
 	private static final long serialVersionUID = -1988896787139142411L;
 
@@ -112,7 +112,7 @@ public class DataStructureTemplateStructurePage extends WizardPage {
 		// state)
 		hideErrorMessages();
 	}
-
+	
 	class DataStructureTemplateStructurePageViewContentProvider implements ITreeContentProvider {
 		/**
 		 * 
@@ -222,7 +222,8 @@ public class DataStructureTemplateStructurePage extends WizardPage {
 				addClicked();
 			}
 		});
-
+		setFocusable(addButton);
+		
 		removeButton = new Button(parent, SWT.BORDER);
 		removeButton.setText(REMOVE);
 		// removeButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,

@@ -22,7 +22,6 @@ import java.util.Set;
 
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -35,13 +34,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
+
 /**
  * The upload wizard page, that contains: 1) an info message about the possible
  * user input 2) a browse button for selecting files 3) an SWT list that
  * contains the selected .dsv files
  * 
  */
-public class UploadDataWizardPage extends WizardPage {
+public class UploadDataWizardPage extends FocusableWizardPage {
 
 	private static final String FILE_EXTENSION_DSV = "*.dsv"; //$NON-NLS-1$
 
@@ -113,6 +114,7 @@ public class UploadDataWizardPage extends WizardPage {
 		});
 		browseButton.setEnabled(true);
 		browseButton.setVisible(true);
+		setFocusable(browseButton);
 	}
 
 	private void handleFileBrowseButtonPressed(SelectionEvent event) {

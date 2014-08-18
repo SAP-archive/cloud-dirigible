@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -29,10 +28,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewer;
 
-public class NewFileWizardMainPage extends WizardPage {
+public class NewFileWizardMainPage extends FocusableWizardPage {
 
 	private static final long serialVersionUID = 9151517663731999150L;
 
@@ -117,9 +117,10 @@ public class NewFileWizardMainPage extends WizardPage {
 			}
 		});
 
+		setFocusable(fileNameField);
 		initialize();
 	}
-
+	
 	private void onWorkspaceViewerSelected(IStructuredSelection selection) {
 		Object element = selection.getFirstElement();
 		if (element instanceof IContainer) {
