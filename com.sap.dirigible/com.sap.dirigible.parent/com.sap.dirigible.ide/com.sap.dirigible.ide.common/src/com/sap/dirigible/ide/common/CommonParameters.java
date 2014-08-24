@@ -50,6 +50,8 @@ public class CommonParameters {
 
 	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
 	public static final String RUNTIME_URL_DEFAULT = "/dirigible"; //$NON-NLS-1$
+	
+	public static final String LOGGER_FACTORY = "loggerFactory"; //$NON-NLS-1$
 
 	public static final String WEB_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
 	public static final String WEB_CONTENT_REGISTRY_PUBLISH_LOCATION = DB_DIRIGIBLE_REGISTRY
@@ -184,7 +186,7 @@ public class CommonParameters {
 		}
 		return runtimeUrl;
 	}
-
+	
 	static {
 		HttpServletRequest req = RWT.getRequest();
 		String parameterHC_HOST = System.getProperty(HC_HOST);

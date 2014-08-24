@@ -191,7 +191,7 @@ public class ConfigStorageUtils extends AbstractStorageUtils {
 
 				ResultSet rs = pstmt.executeQuery();
 				if (rs.next()) {
-					byte[] data = DBMapper.dbToDataBinary(rs, CONFIG_STORAGE_DATA);
+					byte[] data = DBMapper.dbToDataBinary(connection, rs, CONFIG_STORAGE_DATA);
 					ByteArrayInputStream bis = new ByteArrayInputStream(data);
 
 					Properties properties = new Properties();

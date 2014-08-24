@@ -187,9 +187,14 @@ public class DatabaseViewContentProvider implements IStructuredContentProvider,
 		IFilter schemaFilter = databaseViewer.getSchemaFilter(connection);
 		try {
 			if (dialectSpecifier.isSchemaFilterSupported()) {
-				// low level filtering for schema
-				rs = connection.createStatement().executeQuery(
-						dialectSpecifier.getSchemaFilterScript());
+				try {
+					// low level filtering for schema
+					rs = connection.createStatement().executeQuery(
+							dialectSpecifier.getSchemaFilterScript());
+				} catch (Exception e) {
+					// backup in case of wrong product recognition
+					rs = metaData.getSchemas(catalogName, null);
+				}
 			} else {
 				rs = metaData.getSchemas(catalogName, null);
 			}

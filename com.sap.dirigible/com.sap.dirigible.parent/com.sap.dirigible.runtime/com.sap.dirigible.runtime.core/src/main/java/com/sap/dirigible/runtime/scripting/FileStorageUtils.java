@@ -157,7 +157,7 @@ public class FileStorageUtils extends AbstractStorageUtils {
 
 				ResultSet rs = pstmt.executeQuery();
 				if (rs.next()) {
-					byte[] data = DBMapper.dbToDataBinary(rs, FILE_STORAGE_DATA);
+					byte[] data = DBMapper.dbToDataBinary(connection, rs, FILE_STORAGE_DATA);
 					String contentType = rs.getString(FILE_STORAGE_CONTENT_TYPE);
 					return new FileStorageFile(data, contentType);
 				}

@@ -73,6 +73,7 @@ public class WrappedConnection implements Connection {
 
 	public void close() throws SQLException {
 		logger.debug("entering - close()");
+		originalConnection.commit();
 		originalConnection.close();
 		dataSource.closedConnection(this);
 		logger.debug("exiting - close()");

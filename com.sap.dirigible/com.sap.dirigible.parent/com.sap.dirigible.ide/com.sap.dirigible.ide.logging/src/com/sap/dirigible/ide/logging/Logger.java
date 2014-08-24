@@ -17,6 +17,8 @@ package com.sap.dirigible.ide.logging;
 
 import java.util.logging.Level;
 
+import org.eclipse.rap.rwt.RWT;
+import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -32,6 +34,11 @@ public class Logger {
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	
 	private static boolean printInSystemOutput = true;
+	
+	private static ILoggerFactory getLoggerFactory() {
+		ILoggerFactory loggerFactory = (ILoggerFactory) RWT.getRequest().getSession().getAttribute("LOGGER_FACTORY");
+		return loggerFactory;
+	}
 
 	/**
 	 * Returns a {@link Logger} instance that is bound to the specified name.
@@ -43,7 +50,7 @@ public class Logger {
 		// return new Logger(org.apache.log4j.Logger.getLogger(name),
 		// java.util.logging.Logger.getLogger(name));
 		// return new Logger(java.util.logging.Logger.getLogger(name));
-		return new Logger(LoggerFactory.getLogger(name),
+		return new Logger(getLoggerFactory().getLogger(name),
 				java.util.logging.Logger.getLogger(name));
 	}
 
@@ -55,7 +62,7 @@ public class Logger {
 		// java.util.logging.Logger.getLogger(clazz.getCanonicalName()));
 		// return new
 		// Logger(java.util.logging.Logger.getLogger(clazz.getCanonicalName()));
-		return new Logger(LoggerFactory.getLogger(clazz),
+		return new Logger(getLoggerFactory().getLogger(clazz.getCanonicalName()),
 				java.util.logging.Logger.getLogger(clazz.getCanonicalName()));
 	}
 

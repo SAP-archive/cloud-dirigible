@@ -151,7 +151,7 @@ public class StorageUtils extends AbstractStorageUtils {
 
 				ResultSet rs = pstmt.executeQuery();
 				if (rs.next()) {
-					return DBMapper.dbToDataBinary(rs, STORAGE_DATA);
+					return DBMapper.dbToDataBinary(connection, rs, STORAGE_DATA);
 				}
 
 			} finally {

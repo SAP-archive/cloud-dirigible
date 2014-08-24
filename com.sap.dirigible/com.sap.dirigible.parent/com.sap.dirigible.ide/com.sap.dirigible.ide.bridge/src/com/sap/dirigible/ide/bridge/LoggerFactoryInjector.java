@@ -13,34 +13,26 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db.dialect;
+package com.sap.dirigible.ide.bridge;
 
-import java.io.InputStream;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.IOException;
 
-public interface IDialectSpecifier {
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-	public static final String DIALECT_TIMESTAMP = "$TIMESTAMP$"; //$NON-NLS-1$
-	public static final String DIALECT_BLOB = "$BLOB$"; //$NON-NLS-1$
-	public static final String DIALECT_CURRENT_TIMESTAMP = "$CURRENT_TIMESTAMP$"; //$NON-NLS-1$
+import org.slf4j.LoggerFactory;
 
-	String specify(String sql);
-
-	String getSpecificType(String commonType);
-
-	String createLimitAndOffset(int limit, int offset);
-
-	String createTopAndStart(int limit, int offset);
+public class LoggerFactoryInjector implements Injector {
 	
-	boolean isSchemaFilterSupported();
+	public static final String LOGGER_FACTORY = "loggerFactory"; //$NON-NLS-1$
 	
-	String getSchemaFilterScript();
-	
-	String getAlterAddOpen();
-	
-	String getAlterAddClose();
-
-	InputStream getBinaryStream(ResultSet resultSet, String columnName) throws SQLException;
+	@Override
+	public void inject(ServletConfig servletConfig, HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+		req.getSession().setAttribute(LOGGER_FACTORY, LoggerFactory.getILoggerFactory());
+	}
 
 }

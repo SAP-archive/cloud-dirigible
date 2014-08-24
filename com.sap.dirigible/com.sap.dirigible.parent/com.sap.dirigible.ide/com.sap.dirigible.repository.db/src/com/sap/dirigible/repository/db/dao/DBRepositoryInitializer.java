@@ -28,7 +28,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
 
 /**
@@ -37,6 +36,8 @@ import com.sap.dirigible.repository.db.DBRepository;
  * 
  */
 public class DBRepositoryInitializer {
+
+	private static final String IT_SEEMS_DGB_SCHEMA_VERSIONS_DOESN_T_EXISTS_CHECK_WHETHER_THIS_MESSAGE_HAS_BEEN_APPEARING_MORE_THAN_ONCE = Messages.getString("DBRepositoryInitializer.IT_SEEMS_DGB_SCHEMA_VERSIONS_DOESN_T_EXISTS_CHECK_WHETHER_THIS_MESSAGE_HAS_BEEN_APPEARING_MORE_THAN_ONCE"); //$NON-NLS-1$
 
 	private static final String EXTENSION_POINTS = Messages.getString("DBRepositoryInitializer.EXTENSION_POINTS"); //$NON-NLS-1$
 
@@ -237,7 +238,15 @@ public class DBRepositoryInitializer {
 			if (rs.next()) {
 				result = true;
 			} else {
-				result = false;
+				rs = databaseMetaData.getTables(null, null,
+						TABLE_NAME_DGB_SCHEMA_VERSIONS.toLowerCase(), new String[] { "TABLE", //$NON-NLS-1$
+								"VIEW" }); //$NON-NLS-1$
+				if (rs.next()) {
+					result = true;
+				} else {
+					logger.warn(IT_SEEMS_DGB_SCHEMA_VERSIONS_DOESN_T_EXISTS_CHECK_WHETHER_THIS_MESSAGE_HAS_BEEN_APPEARING_MORE_THAN_ONCE);
+					result = false;
+				}
 			}
 		} finally {
 			if (rs != null) {

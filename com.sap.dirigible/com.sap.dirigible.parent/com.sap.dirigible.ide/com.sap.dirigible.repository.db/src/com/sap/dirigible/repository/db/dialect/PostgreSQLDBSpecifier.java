@@ -17,72 +17,64 @@ package com.sap.dirigible.repository.db.dialect;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.sap.dirigible.repository.db.DBSupportedTypesMap;
 
-public class SybaseDBSpecifier implements IDialectSpecifier {
-
-	private static final String SYBASE_TIMESTAMP = "DATETIME"; //$NON-NLS-1$
-	private static final String SYBASE_FLOAT = "REAL"; //$NON-NLS-1$
-	private static final String SYBASE_BLOB = "IMAGE"; //$NON-NLS-1$
-	private static final String SYBASE_CURRENT_TIMESTAMP = "GETDATE()"; //$NON-NLS-1$
+public class PostgreSQLDBSpecifier implements IDialectSpecifier {
+	
+	private static final String LIMIT_D_OFFSET_D = "LIMIT %d OFFSET %d";  //$NON-NLS-1$
+	
+	private static final String POSTGRESQL_TIMESTAMP = "TIMESTAMP"; //$NON-NLS-1$
+	private static final String POSTGRESQL_FLOAT = "REAL"; //$NON-NLS-1$
+	private static final String POSTGRESQL_BLOB = "BYTEA"; //$NON-NLS-1$
+	private static final String POSTGRESQL_CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP"; //$NON-NLS-1$
 
 	@Override
+	public String createLimitAndOffset(int limit, int offset) {
+		return String.format(LIMIT_D_OFFSET_D, limit, offset);
+	}
+	
+	@Override
 	public String specify(String sql) {
-		sql = sql.replace(DIALECT_CURRENT_TIMESTAMP, SYBASE_CURRENT_TIMESTAMP);
-		sql = sql.replace(DIALECT_TIMESTAMP, SYBASE_TIMESTAMP);
-		sql = sql.replace(DIALECT_BLOB, SYBASE_BLOB);
+		sql = sql.replace(DIALECT_CURRENT_TIMESTAMP, POSTGRESQL_CURRENT_TIMESTAMP);
+		sql = sql.replace(DIALECT_TIMESTAMP, POSTGRESQL_TIMESTAMP);
+		sql = sql.replace(DIALECT_BLOB, POSTGRESQL_BLOB);
 		return sql;
 	}
 
 	@Override
 	public String getSpecificType(String commonType) {
-		if (DBSupportedTypesMap.TIMESTAMP.equals(commonType)) {
-			return SYBASE_TIMESTAMP;
-		}
 		if (DBSupportedTypesMap.FLOAT.equals(commonType)) {
-			return SYBASE_FLOAT;
+			return POSTGRESQL_FLOAT;
 		}
-		if (DBSupportedTypesMap.BLOB.equals(commonType)) {
-			return SYBASE_BLOB;
-		}
-
 		return commonType;
 	}
 
 	@Override
-	public String createLimitAndOffset(int limit, int offset) {
-		return "";  //$NON-NLS-1$
-	}
-	
-	@Override
 	public String createTopAndStart(int limit, int offset) {
-		return String.format("TOP %d ROWS START AT %d", limit, offset);
+		return "";  //$NON-NLS-1$
 	}
 
 	@Override
 	public boolean isSchemaFilterSupported() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String getSchemaFilterScript() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getAlterAddOpen() {
-		// TODO Auto-generated method stub
-		return "";
+		return " ADD COLUMN ";
 	}
 
 	@Override
 	public String getAlterAddClose() {
-		// TODO Auto-generated method stub
 		return "";
 	}
 

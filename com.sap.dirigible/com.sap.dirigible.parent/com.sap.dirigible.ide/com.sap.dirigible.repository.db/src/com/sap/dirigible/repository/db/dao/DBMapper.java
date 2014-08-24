@@ -17,8 +17,9 @@ package com.sap.dirigible.repository.db.dao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.sql.Blob;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +28,8 @@ import org.apache.commons.io.IOUtils;
 
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.db.DBUtils;
+import com.sap.dirigible.repository.db.dialect.IDialectSpecifier;
 
 /**
  * Utility class for transformation between JDBC related objects to DB
@@ -114,22 +117,24 @@ public class DBMapper {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public static byte[] dbToDataBinary(ResultSet resultSet,
+	public static byte[] dbToDataBinary(Connection connection, ResultSet resultSet,
 			String columnName) throws SQLException, IOException {
-		Blob data = resultSet.getBlob(columnName);
+		String productName = connection.getMetaData().getDatabaseProductName();
+		IDialectSpecifier dialectSpecifier = DBUtils.getDialectSpecifier(productName);
+		InputStream is = dialectSpecifier.getBinaryStream(resultSet, columnName);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		IOUtils.copy(data.getBinaryStream(), baos);
+		IOUtils.copy(is, baos);
 		byte[] bytes = baos.toByteArray();
 		return bytes;
 	}
 
-	public static DBFileVersion dbToFileVersion(DBRepository repository,
+	public static DBFileVersion dbToFileVersion(Connection connection, DBRepository repository,
 			ResultSet resultSet) throws SQLException, DBBaseException,
 			IOException {
 
 		String path = resultSet.getString("FV_FILE_PATH"); //$NON-NLS-1$
 		int version = resultSet.getInt("FV_VERSION"); //$NON-NLS-1$
-		byte[] bytes = dbToDataBinary(resultSet, "FV_CONTENT"); //$NON-NLS-1$
+		byte[] bytes = dbToDataBinary(connection, resultSet, "FV_CONTENT"); //$NON-NLS-1$
 		int type = resultSet.getInt("FV_TYPE"); //$NON-NLS-1$
 		String content = resultSet.getString("FV_CONTENT_TYPE"); //$NON-NLS-1$
 		String createdBy = resultSet.getString("FV_CREATED_BY"); //$NON-NLS-1$

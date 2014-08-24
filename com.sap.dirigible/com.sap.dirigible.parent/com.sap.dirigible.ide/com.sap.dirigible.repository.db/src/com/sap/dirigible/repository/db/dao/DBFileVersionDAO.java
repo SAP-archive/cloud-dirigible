@@ -106,7 +106,7 @@ public class DBFileVersionDAO {
 				resultSet = preparedStatement.executeQuery();
 
 				if (resultSet.next()) {
-					dbFileVersion = DBMapper.dbToFileVersion(getRepository(),
+					dbFileVersion = DBMapper.dbToFileVersion(connection, getRepository(),
 							resultSet);
 				}
 			} finally {
@@ -284,7 +284,7 @@ public class DBFileVersionDAO {
 
 				while (resultSet.next()) {
 					DBFileVersion dbFileVersion = DBMapper.dbToFileVersion(
-							getRepository(), resultSet);
+							connection, getRepository(), resultSet);
 					dbFileVersions.add(dbFileVersion);
 				}
 			} finally {

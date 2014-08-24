@@ -81,6 +81,7 @@ public class NewFileWizard extends Wizard {
 			model.execute();
 			return true;
 		} catch (CoreException e) {
+			logger.error(e.getMessage(), e);
 			showErrorDialog(OPERATION_FAILED, COULD_NOT_SAVE_FILE);
 			return false;
 		}

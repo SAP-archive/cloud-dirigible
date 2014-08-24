@@ -6,5 +6,8 @@ Bundle-Version: 1.2.0
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.logging
-Import-Package: org.osgi.framework,
+Import-Package: javax.servlet;version="2.6.0",
+ javax.servlet.http,
+ org.osgi.framework,
  org.slf4j
+Require-Bundle: org.eclipse.rap.rwt

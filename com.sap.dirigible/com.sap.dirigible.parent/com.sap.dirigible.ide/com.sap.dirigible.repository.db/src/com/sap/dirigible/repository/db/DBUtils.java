@@ -37,6 +37,7 @@ import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.dialect.DerbyDBSpecifier;
 import com.sap.dirigible.repository.db.dialect.HANADBSpecifier;
 import com.sap.dirigible.repository.db.dialect.IDialectSpecifier;
+import com.sap.dirigible.repository.db.dialect.PostgreSQLDBSpecifier;
 import com.sap.dirigible.repository.db.dialect.SAPDBSpecifier;
 import com.sap.dirigible.repository.db.dialect.SybaseDBSpecifier;
 
@@ -46,6 +47,8 @@ public class DBUtils {
 	private static final String PRODUCT_SYBASE = "Adaptive Server Enterprise"; //$NON-NLS-1$
 	private static final String PRODUCT_SAP_DB = "SAP DB"; //$NON-NLS-1$
 	private static final String PRODUCT_HDB = "HDB"; //$NON-NLS-1$
+	private static final String PRODUCT_POSTGRESQL = "PostgreSQL"; //$NON-NLS-1$
+	
 
 	private static Logger logger = LoggerFactory.getLogger(DBUtils.class
 			.getCanonicalName());
@@ -234,6 +237,8 @@ public class DBUtils {
 				return new SybaseDBSpecifier();
 			} else if (PRODUCT_DERBY.equals(productName)) {
 				return new DerbyDBSpecifier();
+			} else if (PRODUCT_POSTGRESQL.equals(productName)) {
+				return new PostgreSQLDBSpecifier();
 			}
 		}
 		return new HANADBSpecifier();

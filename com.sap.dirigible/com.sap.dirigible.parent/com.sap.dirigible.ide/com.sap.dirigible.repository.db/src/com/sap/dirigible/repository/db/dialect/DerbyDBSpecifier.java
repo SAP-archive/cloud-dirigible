@@ -15,6 +15,11 @@
 
 package com.sap.dirigible.repository.db.dialect;
 
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.sap.dirigible.repository.db.DBSupportedTypesMap;
 
 public class DerbyDBSpecifier implements IDialectSpecifier {
@@ -70,6 +75,12 @@ public class DerbyDBSpecifier implements IDialectSpecifier {
 	@Override
 	public String getAlterAddClose() {
 		return "";
+	}
+
+	@Override
+	public InputStream getBinaryStream(ResultSet resultSet, String columnName) throws SQLException {
+		Blob data = resultSet.getBlob(columnName);
+		return data.getBinaryStream();
 	}
 
 
