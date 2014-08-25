@@ -18,7 +18,6 @@ package com.sap.dirigible.ide.logging;
 import java.util.logging.Level;
 
 import org.eclipse.rap.rwt.RWT;
-import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -33,11 +32,10 @@ public class Logger {
 	
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	
-	private static boolean printInSystemOutput = true;
+	public static final String LOG_IN_SYSTEM_OUTPUT = "logInSystemOutput"; //$NON-NLS-1$
 	
-	private static ILoggerFactory getLoggerFactory() {
-		ILoggerFactory loggerFactory = (ILoggerFactory) RWT.getRequest().getSession().getAttribute("LOGGER_FACTORY");
-		return loggerFactory;
+	public static boolean isLogInSystemOutput() {
+		return Boolean.parseBoolean((String) RWT.getRequest().getSession().getAttribute(LOG_IN_SYSTEM_OUTPUT));
 	}
 
 	/**
@@ -50,7 +48,7 @@ public class Logger {
 		// return new Logger(org.apache.log4j.Logger.getLogger(name),
 		// java.util.logging.Logger.getLogger(name));
 		// return new Logger(java.util.logging.Logger.getLogger(name));
-		return new Logger(getLoggerFactory().getLogger(name),
+		return new Logger(LoggerFactory.getLogger(name),
 				java.util.logging.Logger.getLogger(name));
 	}
 
@@ -62,7 +60,7 @@ public class Logger {
 		// java.util.logging.Logger.getLogger(clazz.getCanonicalName()));
 		// return new
 		// Logger(java.util.logging.Logger.getLogger(clazz.getCanonicalName()));
-		return new Logger(getLoggerFactory().getLogger(clazz.getCanonicalName()),
+		return new Logger(LoggerFactory.getLogger(clazz),
 				java.util.logging.Logger.getLogger(clazz.getCanonicalName()));
 	}
 
@@ -94,7 +92,7 @@ public class Logger {
 		// delegate.fatal(message);
 		delegate2.severe(message);
 		delegate3.error(message);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.err.println(message);
 		}
 	}
@@ -107,7 +105,7 @@ public class Logger {
 		// delegate.fatal(message, ex);
 		delegate2.log(Level.SEVERE, message, ex);
 		delegate3.error(message, ex);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.err.println(message);
 			ex.printStackTrace();
 		}
@@ -121,7 +119,7 @@ public class Logger {
 		// delegate.error(message);
 		delegate2.severe(message);
 		delegate3.error(message);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.err.println(message);
 		}
 	}
@@ -136,7 +134,7 @@ public class Logger {
 		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
 		delegate3.error(message, ex);
 		delegate3.trace(message, ex);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.err.println(message);
 			ex.printStackTrace();
 		}
@@ -149,7 +147,7 @@ public class Logger {
 		// delegate.warn(message);
 		delegate2.warning(message);
 		delegate3.warn(message);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.err.println(message);
 		}
 	}
@@ -163,7 +161,7 @@ public class Logger {
 		delegate2.warning(message);
 		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
 		delegate3.warn(message, ex);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.err.println(message);
 			ex.printStackTrace();
 		}
@@ -176,7 +174,7 @@ public class Logger {
 		// delegate.info(message);
 		delegate2.info(message);
 		delegate3.info(message);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.out.println(message);
 		}
 	}
@@ -190,7 +188,7 @@ public class Logger {
 		delegate2.info(message);
 		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
 		delegate3.info(message, ex);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.out.println(message);
 			ex.printStackTrace();
 		}
@@ -203,7 +201,7 @@ public class Logger {
 		// delegate.debug(message);
 		delegate2.info(message);
 		delegate3.debug(message);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.out.println(message);
 		}
 	}
@@ -217,7 +215,7 @@ public class Logger {
 		delegate2.info(message);
 		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
 		delegate3.debug(message, ex);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.out.println(message);
 			ex.printStackTrace();
 		}
@@ -230,7 +228,7 @@ public class Logger {
 		// delegate.trace(message);
 		delegate2.info(message);
 		delegate3.trace(message);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.err.println(message);
 		}
 	}
@@ -244,7 +242,7 @@ public class Logger {
 		delegate2.info(message);
 		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
 		delegate3.trace(message, ex);
-		if (printInSystemOutput) {
+		if (isLogInSystemOutput()) {
 			System.err.println(message);
 			ex.printStackTrace();
 		}

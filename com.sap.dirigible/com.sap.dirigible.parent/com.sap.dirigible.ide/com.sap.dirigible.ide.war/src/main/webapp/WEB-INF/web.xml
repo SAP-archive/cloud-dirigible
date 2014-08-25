@@ -45,9 +45,22 @@
 			<param-value>org.apache.naming.java,org.apache.tomcat.dbcp.dbcp</param-value>
 		</init-param>
 
+		<!-- Corresponding Runtime URL. Used for Registry Perspective, Log Service, etc. -->
 		<init-param>
 			<param-name>runtimeUrl</param-name>
 			<param-value>/dirigible</param-value>
+		</init-param>
+		
+		<!-- Enable usage of roles - Developer, Operators, etc. Default is true, false means Everyone can do anything -->
+		<init-param>
+			<param-name>enableRoles</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		
+		<!-- Print logs in System output in addition to the standard logger. Workaround for some application servers -->
+		<init-param>
+			<param-name>logInSystemOutput</param-name>
+			<param-value>true</param-value>
 		</init-param>
 
 		<load-on-startup>2</load-on-startup>

@@ -115,7 +115,9 @@ public class DbUtils {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.executeQuery();
 		} catch (Exception e) {
-			// e.printStackTrace();
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
 			sql = CREATE_TABLE + DGB_SEQUENCES
 					+ SEQ_NAME_VARCHAR_128_SEQ_VALUE_INTEGER;
 			preparedStatement = connection.prepareStatement(sql);

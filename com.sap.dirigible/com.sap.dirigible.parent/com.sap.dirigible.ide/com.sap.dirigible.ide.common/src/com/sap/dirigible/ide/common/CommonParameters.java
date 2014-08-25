@@ -51,6 +51,8 @@ public class CommonParameters {
 	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
 	public static final String RUNTIME_URL_DEFAULT = "/dirigible"; //$NON-NLS-1$
 	
+	public static final String ENABLE_ROLES = "enableRoles"; //$NON-NLS-1$
+	
 	public static final String LOGGER_FACTORY = "loggerFactory"; //$NON-NLS-1$
 
 	public static final String WEB_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
@@ -187,6 +189,11 @@ public class CommonParameters {
 		return runtimeUrl;
 	}
 	
+	public static Boolean isRolesEnabled() {
+		Boolean rolesEnabled = Boolean.parseBoolean(CommonParameters.get(CommonParameters.ENABLE_ROLES));
+		return rolesEnabled;
+	}
+	
 	static {
 		HttpServletRequest req = RWT.getRequest();
 		String parameterHC_HOST = System.getProperty(HC_HOST);
@@ -224,7 +231,11 @@ public class CommonParameters {
 	}
 
 	public static boolean isUserInRole(String role) {
-		return RWT.getRequest().isUserInRole(role);
+		if (isRolesEnabled()) {
+			return RWT.getRequest().isUserInRole(role);
+		} else {
+			return true;
+		}
 	}
 
 	public static String getSessionId() {
