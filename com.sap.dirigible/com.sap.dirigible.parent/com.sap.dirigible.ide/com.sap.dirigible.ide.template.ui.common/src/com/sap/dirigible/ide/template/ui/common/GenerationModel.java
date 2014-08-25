@@ -33,7 +33,7 @@ import com.sap.dirigible.ide.ui.common.validation.ValidationStatus;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 
 public abstract class GenerationModel {
-
+	
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	private static final String COULD_NOT_OPEN_INPUT_STREAM_FOR = Messages.GenerationModel_COULD_NOT_OPEN_INPUT_STREAM_FOR;
