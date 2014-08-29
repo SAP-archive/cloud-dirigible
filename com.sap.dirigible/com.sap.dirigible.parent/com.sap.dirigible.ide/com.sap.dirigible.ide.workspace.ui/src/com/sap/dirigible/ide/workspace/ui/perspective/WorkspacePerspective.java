@@ -19,6 +19,8 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
+import com.sap.dirigible.ide.workspace.ui.view.WebViewerView;
+
 public class WorkspacePerspective implements IPerspectiveFactory {
 
 	public static final String PERSPECTIVE_ID = "workspace"; //$NON-NLS-1$
@@ -32,7 +34,7 @@ public class WorkspacePerspective implements IPerspectiveFactory {
 
 	public static final String LOGS_VIEW_ID = "com.sap.dirigible.ide.workspace.ui.view.LogsView";
 
-	public static final String WEB_VIEWER_VIEW_ID = "com.sap.dirigible.ide.publish.ui.view.WebViewerView"; //$NON-NLS-1$
+	public static final String WEB_VIEWER_VIEW_ID = WebViewerView.class.getName();
 
 	public static final String SECURITY_MANAGER_VIEW_ID = "com.sap.dirigible.ide.services.security.manager.views.SecurityManagerView"; //$NON-NLS-1$
 

@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.template.ui.common;
 
-import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
@@ -27,26 +26,37 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 
-public abstract class TemplateCommandHandler extends AbstractHandler {
+public abstract class TemplateCommandHandler extends AbstractWorkspaceHandler {
 
 	private static final String COULD_NOT_OPEN_WIZARD = Messages.TemplateCommandHandler_COULD_NOT_OPEN_WIZARD;
 	private static final String OPEN_WIZARD_ERROR = Messages.TemplateCommandHandler_OPEN_WIZARD_ERROR;
-	private static final Logger logger = Logger
-			.getLogger(TemplateCommandHandler.class);
+	private static final Logger logger = Logger.getLogger(TemplateCommandHandler.class);
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		final ISelection selection = HandlerUtil.getCurrentSelection(event);
+		ISelection selection = null;
+		if (event != null) {
+			selection = HandlerUtil.getCurrentSelection(event);
+		}
+
+		if (selection == null) {
+			Object lastSelectedElement = getLastSelectedWorkspaceElement();
+			if (lastSelectedElement != null && lastSelectedElement instanceof IResource) {
+				openWizard(((IResource) lastSelectedElement));
+				return null;
+			}
+		}
+
 		openWizard(selection);
 		return null;
 	}
 
 	private void openWizard(ISelection selection) {
 		IResource resource = null;
-		if (IStructuredSelection.class.isInstance(selection)) {
-			Object element = ((IStructuredSelection) selection)
-					.getFirstElement();
+		if (selection != null && IStructuredSelection.class.isInstance(selection)) {
+			Object element = ((IStructuredSelection) selection).getFirstElement();
 			if (IResource.class.isInstance(element)) {
 				resource = (IResource) element;
 			}

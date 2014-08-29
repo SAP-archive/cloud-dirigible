@@ -83,7 +83,19 @@
             location="/com/sap/dirigible/ide/template/ui/js/templates/terminal-command.command"
             text="Terminal Command">
       </template>
-      
    </extension>
+   
+   <extension
+       point="com.sap.dirigible.ide.workspace.ui.new.menu">
+       <newMenuItem
+            text="Scripting Service"
+            toolTip="Scripting Service"
+            order="6"
+            imageBundle="com.sap.dirigible.ide.template.ui.js"
+            imagePrefix="/icons/"
+            imageName="wizard_javascript-service.png"
+            defaultHandler="com.sap.dirigible.ide.template.ui.js.command.JavascriptServiceCommandHandler">
+        </newMenuItem>
+ 	</extension>
    
 </plugin>

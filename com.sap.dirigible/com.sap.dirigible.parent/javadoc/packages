@@ -75,7 +75,6 @@ com.sap.dirigible.ide.ui.widgets.connection.spline
 com.sap.dirigible.ide.db.publish
 com.sap.dirigible.ide.ui.publish
 com.sap.dirigible.ide.publish.ui.command
-com.sap.dirigible.ide.publish.ui.view
 com.sap.dirigible.ide.scripts.publish
 com.sap.dirigible.ide.extensions.publish
 com.sap.dirigible.ide.integration.publish

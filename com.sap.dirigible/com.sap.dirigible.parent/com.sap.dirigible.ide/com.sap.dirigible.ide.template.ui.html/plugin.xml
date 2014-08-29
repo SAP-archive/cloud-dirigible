@@ -192,4 +192,26 @@
       </template>
    </extension>
    
+   <extension
+       point="com.sap.dirigible.ide.workspace.ui.new.menu">
+       <newMenuItem
+            text="Wiki Page"
+            toolTip="Wiki Page"
+            order="8"
+            imageBundle="com.sap.dirigible.ide.template.ui.html"
+            imagePrefix="/icons/"
+            imageName="wizard_wiki.png"
+            defaultHandler="com.sap.dirigible.ide.template.ui.html.command.WikiCommandHandler">
+        </newMenuItem>
+        <newMenuItem
+            text="User Interface"
+            toolTip="User Interface"
+            order="9"
+            imageBundle="com.sap.dirigible.ide.template.ui.html"
+            imagePrefix="/icons/"
+            imageName="wizard_user-interface.png"
+            defaultHandler="com.sap.dirigible.ide.template.ui.html.command.HtmlCommandHandler">
+        </newMenuItem>
+ 	</extension>
+ 	
 </plugin>

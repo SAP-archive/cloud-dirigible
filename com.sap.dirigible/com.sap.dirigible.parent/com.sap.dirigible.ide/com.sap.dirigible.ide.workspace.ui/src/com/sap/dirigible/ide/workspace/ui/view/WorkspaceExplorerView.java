@@ -30,9 +30,11 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
@@ -41,13 +43,14 @@ import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.ui.view.IRefreshableView;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewer;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewerUtils;
 
 public class WorkspaceExplorerView extends ViewPart implements IRefreshableView {
-	
-	public static final String VIEW_ID = "com.sap.dirigible.ide.workspace.ui.view.WorkspaceExplorerView";	
-	
+
+	public static final String VIEW_ID = "com.sap.dirigible.ide.workspace.ui.view.WorkspaceExplorerView";
+
 	private static final String CHECK_LOGS_FOR_MORE_INFO = Messages.WorkspaceExplorerView_CHECK_LOGS_FOR_MORE_INFO;
 
 	private static final String COULD_NOT_EXECUTE_OPEN_COMMAND_DUE_TO_THE_FOLLOWING_ERROR = Messages.WorkspaceExplorerView_COULD_NOT_EXECUTE_OPEN_COMMAND_DUE_TO_THE_FOLLOWING_ERROR;
@@ -56,15 +59,15 @@ public class WorkspaceExplorerView extends ViewPart implements IRefreshableView 
 
 	private static final String COULD_NOT_EXECUTE_OPEN_COMMAND = Messages.WorkspaceExplorerView_COULD_NOT_EXECUTE_OPEN_COMMAND;
 
-	private static final Logger logger = Logger
-			.getLogger(WorkspaceExplorerView.class);
+	private static final Logger logger = Logger.getLogger(WorkspaceExplorerView.class);
 
 	private static final String OPEN_COMMAND_ID = "com.sap.dirigible.ide.workspace.ui.commands.OpenHandler"; //$NON-NLS-1$
 
 	private WorkspaceViewer viewer = null;
 
 	public void createPartControl(Composite parent) {
-		parent.setLayout(new FillLayout());
+		parent.setLayout(new GridLayout());
+		ToolBarMenuViewProvider.createToolBarMenu(parent, getSite().getShell());
 
 		viewer = new WorkspaceViewer(parent, SWT.MULTI);
 		viewer.getViewer().addDoubleClickListener(new IDoubleClickListener() {
@@ -73,18 +76,28 @@ public class WorkspaceExplorerView extends ViewPart implements IRefreshableView 
 			}
 		});
 		getSite().setSelectionProvider(viewer.getSelectionProvider());
-		getSite().registerContextMenu(
-				"com.sap.dirigible.ide.workspace.ui.view.Menu", //$NON-NLS-1$
+		getSite().registerContextMenu("com.sap.dirigible.ide.workspace.ui.view.Menu", //$NON-NLS-1$
 				viewer.getMenuManager(), viewer.getSelectionProvider());
 
 		setSelectedProjectFromRequest();
 
 	}
 
+	@Override
+	public void init(IViewSite site) throws PartInitException {
+		super.init(site);
+		AbstractWorkspaceHandler.attachSelectionListener(site);
+	}
+
+	@Override
+	public void dispose() {
+		AbstractWorkspaceHandler.detachSelectionListener(getSite());
+		super.dispose();
+	}
+
 	private void setSelectedProjectFromRequest() {
 		try {
-			String projectName = RWT.getRequest().getParameter(
-					CommonParameters.PARAMETER_PROJECT);
+			String projectName = RWT.getRequest().getParameter(CommonParameters.PARAMETER_PROJECT);
 			if (projectName != null) {
 				List<Object> selected = new ArrayList<Object>();
 				TreeItem[] treeItems = viewer.getViewer().getTree().getItems();
@@ -92,16 +105,14 @@ public class WorkspaceExplorerView extends ViewPart implements IRefreshableView 
 					TreeItem treeItem = treeItems[i];
 					Object treeObject = treeItem.getData();
 					if (treeObject instanceof IProject) {
-						if (projectName.equals(((IProject) treeObject)
-								.getName())) {
+						if (projectName.equals(((IProject) treeObject).getName())) {
 							selected.add(treeObject);
 							break;
 						}
 					}
 				}
 
-				viewer.getViewer().setExpandedElements(
-						selected.toArray(new Object[] {}));
+				viewer.getViewer().setExpandedElements(selected.toArray(new Object[] {}));
 			}
 		} catch (Exception e) {
 			// do nothing - just usability feature, which should not bother user
@@ -110,27 +121,25 @@ public class WorkspaceExplorerView extends ViewPart implements IRefreshableView 
 	}
 
 	private void onWorkspaceViewerDoubleClicked(DoubleClickEvent event) {
-		ICommandService commandService = (ICommandService) getSite()
-				.getService(ICommandService.class);
-		IHandlerService handlerService = (IHandlerService) getSite()
-				.getService(IHandlerService.class);
+		ICommandService commandService = (ICommandService) getSite().getService(
+				ICommandService.class);
+		IHandlerService handlerService = (IHandlerService) getSite().getService(
+				IHandlerService.class);
 		Command command = commandService.getCommand(OPEN_COMMAND_ID);
-		ExecutionEvent executionEvent = handlerService.createExecutionEvent(
-				command, null);
+		ExecutionEvent executionEvent = handlerService.createExecutionEvent(command, null);
 		try {
 			command.executeWithChecks(executionEvent);
 		} catch (Exception ex) {
 			logger.error(COULD_NOT_EXECUTE_OPEN_COMMAND, ex);
 			MessageDialog.openError(null, OPERATION_FAILED,
-					COULD_NOT_EXECUTE_OPEN_COMMAND_DUE_TO_THE_FOLLOWING_ERROR
-							+ ex.getMessage() + CHECK_LOGS_FOR_MORE_INFO);
+					COULD_NOT_EXECUTE_OPEN_COMMAND_DUE_TO_THE_FOLLOWING_ERROR + ex.getMessage()
+							+ CHECK_LOGS_FOR_MORE_INFO);
 		}
 		ISelection selection = event.getSelection();
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
 			for (Object element : structuredSelection.toArray()) {
-				if (element instanceof IFolder
-						|| element instanceof IProject) {
+				if (element instanceof IFolder || element instanceof IProject) {
 					WorkspaceViewerUtils.doubleClickedElement(element);
 				}
 			}
@@ -150,7 +159,7 @@ public class WorkspaceExplorerView extends ViewPart implements IRefreshableView 
 	public void refresh() {
 		viewer.refresh();
 	}
-	
+
 	public WorkspaceViewer getViewer() {
 		return viewer;
 	}

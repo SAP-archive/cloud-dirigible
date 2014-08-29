@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="com.sap.dirigible.ide.workspace.ui.new.menu" name="NewMenuItem" schema="schema/com.sap.dirigible.ide.workspace.ui.new.menu.exsd"/>
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
             class="com.sap.dirigible.ide.workspace.ui.perspective.WorkspacePerspective"
-            icon="icons/icon-workspace.png"
+            icon="resources/icons/icon-workspace.png"
             id="workspace"
             name="Workspace">
       </perspective>
@@ -20,7 +21,7 @@
             allowMultiple="false"
             category="com.sap.dirigible.ide.workspace.ui.category"
             class="com.sap.dirigible.ide.workspace.ui.view.WorkspaceExplorerView"
-            icon="icons/icon-workspace.png"
+            icon="resources/icons/icon-workspace.png"
             id="com.sap.dirigible.ide.workspace.ui.view.WorkspaceExplorerView"
             name="Workspace Explorer"
             restorable="true">
@@ -29,10 +30,17 @@
             allowMultiple="false"
             category="com.sap.dirigible.ide.workspace.ui.category"
             class="com.sap.dirigible.ide.workspace.ui.view.LogsView"
-            icon="icons/icon-logs.png"
+            icon="resources/icons/icon-logs.png"
             id="com.sap.dirigible.ide.workspace.ui.view.LogsView"
             name="Log Viewer"
             restorable="true">
+      </view>
+      <view
+            name="Preview"
+            icon="resources/icons/preview-browser.png"
+            category="com.sap.dirigible.ide.workspace.ui.category"
+            class="com.sap.dirigible.ide.workspace.ui.view.WebViewerView"
+            id="com.sap.dirigible.ide.workspace.ui.view.WebViewerView">
       </view>
    </extension>
    <extension
@@ -90,13 +98,13 @@
          	</separator>
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.command.File"
-                  icon="icons/icon-txt.png"
+                  icon="resources/icons/icon-txt.png"
                   label="File"
                   style="push">
             </command>
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.command.Folder"
-                  icon="icons/icon-collection.png"
+                  icon="resources/icons/icon-collection.png"
                   label="Folder"
                   style="push">
             </command>
@@ -143,7 +151,7 @@
             </visibleWhen>
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.commands.OpenHandler"
-                  icon="icons/editor-icon.png"
+                  icon="resources/icons/editor-icon.png"
                   label="Default Editor"
                   style="push">
             </command>
@@ -161,7 +169,7 @@
                label="Import">
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.commands.UploadHandler"
-                  icon="icons/icon-picture.png"
+                  icon="resources/icons/icon-picture.png"
                   label="File"
                   style="push">
                <visibleWhen
@@ -180,7 +188,7 @@
             </command>
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.commands.UploadDataHandler"
-                  icon="icons/icon-xml.png"
+                  icon="resources/icons/icon-xml.png"
                   label="Data"
                   style="push">
                <visibleWhen
@@ -251,13 +259,13 @@
          	</separator>
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.command.File"
-                  icon="icons/icon-txt.png"
+                  icon="resources/icons/icon-txt.png"
                   label="File"
                   style="push">
             </command>
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.command.Folder"
-                  icon="icons/icon-collection.png"
+                  icon="resources/icons/icon-collection.png"
                   label="Folder"
                   style="push">
             </command>
@@ -308,7 +316,7 @@
             </visibleWhen>
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.commands.OpenHandler"
-                  icon="icons/editor-icon.png"
+                  icon="resources/icons/editor-icon.png"
                   label="Default Editor"
                   style="push">
             </command>
@@ -326,7 +334,7 @@
                label="Import">
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.commands.UploadHandler"
-                  icon="icons/icon-picture.png"
+                  icon="resources/icons/icon-picture.png"
                   label="File"
                   style="push">
                <visibleWhen
@@ -345,7 +353,7 @@
             </command>
             <command
                   commandId="com.sap.dirigible.ide.workspace.ui.commands.UploadDataHandler"
-                  icon="icons/icon-xml.png"
+                  icon="resources/icons/icon-xml.png"
                   label="Data"
                   style="push">
                <visibleWhen
@@ -359,7 +367,7 @@
                
                <command
                   commandId="com.sap.dirigible.ide.workspace.ui.commands.DataExportHandler"
-                  icon="icons/icon-xml.png"
+                  icon="resources/icons/icon-xml.png"
                   label="Data"
                   style="push">
                <visibleWhen
@@ -469,11 +477,11 @@
          point="org.eclipse.ui.commandImages">
       <image
             commandId="com.sap.dirigible.ide.workspace.ui.command.Folder"
-            icon="icons/icon-collection.png">
+            icon="resources/icons/icon-collection.png">
       </image>
       <image
             commandId="com.sap.dirigible.ide.workspace.ui.command.File"
-            icon="icons/icon-txt.png">
+            icon="resources/icons/icon-txt.png">
       </image>
    </extension>
 	<extension
@@ -486,4 +494,25 @@
          </adapter>
       </factory>
    </extension>
+   <extension
+       point="com.sap.dirigible.ide.workspace.ui.new.menu">
+       <newMenuItem
+            text="File"
+            toolTip="File"
+            order="2"
+            imageBundle="com.sap.dirigible.ide.workspace.ui"
+            imagePrefix="/resources/icons/"
+            imageName="icon-txt.png"
+            defaultHandler="com.sap.dirigible.ide.workspace.ui.commands.FileHandler">
+        </newMenuItem>
+        <newMenuItem
+            text="Folder"
+            toolTip="Folder"
+            order="3"
+            imageBundle="com.sap.dirigible.ide.workspace.ui"
+            imagePrefix="/resources/icons/"
+            imageName="icon-collection.png"
+            defaultHandler="com.sap.dirigible.ide.workspace.ui.commands.FolderHandler">
+        </newMenuItem>
+ 	</extension>
 </plugin>

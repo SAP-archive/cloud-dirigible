@@ -53,5 +53,18 @@
             text="Delimiter Separated Values (DSV) Sample Data">
       </template>
    </extension>
+   
+   <extension
+       point="com.sap.dirigible.ide.workspace.ui.new.menu">
+       <newMenuItem
+            text="Data Structure"
+            toolTip="Data Structure"
+            order="11"
+            imageBundle="com.sap.dirigible.ide.template.ui.db"
+            imagePrefix="/icons/"
+            imageName="wizard_data-structure.png"
+            defaultHandler="com.sap.dirigible.ide.template.ui.db.command.DataStructureCommandHandler">
+        </newMenuItem>
+ 	</extension>
 
 </plugin>

@@ -16,8 +16,6 @@
 package com.sap.dirigible.ide.publish.ui.command;
 
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -33,7 +31,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.PublishManager;
 
@@ -64,7 +61,7 @@ public class PublishCommandHandler extends AbstractHandler {
 			return null;
 		}
 
-		final IProject[] projects = getProjects(selection);
+		final IProject[] projects = PublishManager.getProjects(selection);
 		if (projects.length == 0) {
 			logger.warn(NO_PROJECTS_IN_SELECTION_NOTHING_TO_PUBLISH);
 			return null;
@@ -96,43 +93,9 @@ public class PublishCommandHandler extends AbstractHandler {
 		return StatusLineManagerUtil.ARTIFACT_HAS_BEEN_PUBLISHED;
 	}
 
-	private IProject[] getProjects(ISelection selection) {
-		if (!(selection instanceof IStructuredSelection)) {
-			logger.error(UNKNOWN_SELECTION_TYPE);
-			return new IProject[0];
-		}
-		final Set<IProject> result = new HashSet<IProject>();
-		final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-
-		IProject project = null;
-		for (Object element : structuredSelection.toArray()) {
-			project = getProject(element);
-			if(project != null){
-				result.add(project);
-			}
-		}
-		return result.toArray(new IProject[0]);
-	}
-
-	private IProject getProject(Object element) {
-		IProject project = null;
-		if (element instanceof IProject) {
-			project = (IProject) element;
-		} else if (element instanceof IFile) {
-			project = ((IFile) element).getProject();
-		} else if (element instanceof IFolder) {
-			project = ((IFolder) element).getProject();
-		}
-		return project;
-	}
 
 	protected void publishProject(IProject project) throws PublishException {
-		final List<IPublisher> publishers = PublishManager.getPublishers();
-
-		for (Iterator<IPublisher> iterator = publishers.iterator(); iterator.hasNext();) {
-			IPublisher publisher = (IPublisher) iterator.next();
-			publisher.publish(project);
-		}
+		PublishManager.publishProject(project);
 	}
 
 }

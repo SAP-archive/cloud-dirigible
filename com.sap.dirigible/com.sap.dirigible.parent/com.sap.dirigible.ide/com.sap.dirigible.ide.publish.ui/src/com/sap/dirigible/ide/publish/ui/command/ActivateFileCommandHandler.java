@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.publish.ui.command;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,17 +22,15 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.PublishManager;
-import com.sap.dirigible.ide.publish.IPublisher;
 
 /**
  * Handler for the Publish command.
@@ -41,7 +38,6 @@ import com.sap.dirigible.ide.publish.IPublisher;
  */
 public class ActivateFileCommandHandler extends AbstractHandler {
 	
-	private static final String UNKNOWN_SELECTION_TYPE = PublishCommandMessages.UNKNOWN_SELECTION_TYPE;
 	private static final String NO_PROJECTS_IN_SELECTION_NOTHING_TO_ACTIVATE = PublishCommandMessages.NO_PROJECTS_IN_SELECTION_NOTHING_TO_ACTIVATE;
 	private static final String NOTHING_IS_SELECTED_TO_BE_ACTIVATED = PublishCommandMessages.NOTHING_IS_SELECTED_TO_BE_ACTIVATED;
 	private static final Logger logger = Logger.getLogger(ActivateFileCommandHandler.class);
@@ -55,7 +51,7 @@ public class ActivateFileCommandHandler extends AbstractHandler {
 			return null;
 		}
 
-		final IFile[] files = getFiles(selection);
+		final IFile[] files = PublishManager.getFiles(selection);
 		if (files.length == 0) {
 			logger.warn(NO_PROJECTS_IN_SELECTION_NOTHING_TO_ACTIVATE);
 			return null;
@@ -81,21 +77,6 @@ public class ActivateFileCommandHandler extends AbstractHandler {
 					PublishCommandMessages.ACTIVATION_FAIL_TITLE, errorMessage);
 		}
 		return null;
-	}
-	
-	private IFile[] getFiles(ISelection selection) {
-		if (!(selection instanceof IStructuredSelection)) {
-			logger.error(UNKNOWN_SELECTION_TYPE);
-			return new IFile[0];
-		}
-		final List<IFile> result = new ArrayList<IFile>();
-		final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-		for (Object element : structuredSelection.toArray()) {
-			if (element instanceof IFile) {
-				result.add((IFile) element);
-			}
-		}
-		return result.toArray(new IFile[0]);
 	}
 	
 	protected void activateFile(IFile file) throws PublishException {

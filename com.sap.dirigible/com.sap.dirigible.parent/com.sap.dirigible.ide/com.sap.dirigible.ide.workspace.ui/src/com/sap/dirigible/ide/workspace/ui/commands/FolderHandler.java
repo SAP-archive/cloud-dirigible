@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.workspace.ui.commands;
 
-import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
@@ -27,10 +26,21 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.workspace.ui.wizard.folder.NewFolderWizard;
 
-public class FolderHandler extends AbstractHandler {
+public class FolderHandler extends AbstractWorkspaceHandler {
 
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IContainer container = getSelectedContainer(event);
+		IContainer selectedContainer = getSelectedContainer(event);
+		if (selectedContainer == null) {
+			Object lastSelectedElement = getLastSelectedWorkspaceElement();
+			if (lastSelectedElement != null && lastSelectedElement instanceof IContainer) {
+				selectedContainer = ((IContainer) lastSelectedElement);
+			}
+		}
+		return execute(selectedContainer);
+	}
+
+	public Object execute(IContainer container) {
 		Wizard wizard = new NewFolderWizard(container);
 		WizardDialog dialog = new WizardDialog(null, wizard);
 		dialog.open();
@@ -38,11 +48,14 @@ public class FolderHandler extends AbstractHandler {
 	}
 
 	private IContainer getSelectedContainer(ExecutionEvent event) {
-		ISelection selection = HandlerUtil.getCurrentSelection(event);
-		if (selection instanceof IStructuredSelection) {
-			return getSelectedContainer((IStructuredSelection) selection);
+		IContainer container = null;
+		if (event != null) {
+			ISelection selection = HandlerUtil.getCurrentSelection(event);
+			if (selection instanceof IStructuredSelection) {
+				container = getSelectedContainer((IStructuredSelection) selection);
+			}
 		}
-		return null;
+		return container;
 	}
 
 	private IContainer getSelectedContainer(IStructuredSelection selection) {

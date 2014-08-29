@@ -131,7 +131,19 @@
                value="fileName">
          </parameter>
       </template>
-      
    </extension>
+   
+   <extension
+       point="com.sap.dirigible.ide.workspace.ui.new.menu">
+       <newMenuItem
+            text="Integration Service"
+            toolTip="Integration Service"
+            order="7"
+            imageBundle="com.sap.dirigible.ide.template.ui.is"
+            imagePrefix="/icons/"
+            imageName="wizard_integration-service.png"
+            defaultHandler="com.sap.dirigible.ide.template.ui.is.command.IntegrationServiceCommandHandler">
+        </newMenuItem>
+ 	</extension>
    
 </plugin>

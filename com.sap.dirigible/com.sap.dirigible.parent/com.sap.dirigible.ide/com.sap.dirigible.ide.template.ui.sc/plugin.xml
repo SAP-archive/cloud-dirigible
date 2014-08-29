@@ -31,4 +31,16 @@
             text="Main Access File">
       </template>
    </extension>
+   <extension
+       point="com.sap.dirigible.ide.workspace.ui.new.menu">
+       <newMenuItem
+            text="Security Constraint"
+            toolTip="Security Constraint"
+            order="5"
+            imageBundle="com.sap.dirigible.ide.template.ui.sc"
+            imagePrefix="/icons/"
+            imageName="wizard_security-constraint.png"
+            defaultHandler="com.sap.dirigible.ide.template.ui.sc.command.SecurityConstraintCommandHandler">
+        </newMenuItem>
+ 	</extension>
 </plugin>

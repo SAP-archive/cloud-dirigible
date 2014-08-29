@@ -29,19 +29,32 @@ import com.sap.dirigible.ide.workspace.ui.wizard.file.NewFileWizard;
 public class FileHandler extends AbstractWorkspaceHandler {
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IContainer container = getContainer(event);
+		IContainer selectedContainer = getSelectedContainer(event);
+		if (selectedContainer == null) {
+			Object lastSelectedElement = getLastSelectedWorkspaceElement();
+			if (lastSelectedElement != null && lastSelectedElement instanceof IContainer) {
+				selectedContainer = ((IContainer) lastSelectedElement);
+			}
+		}
+		return execute(selectedContainer);
+	}
+
+	public Object execute(IContainer container) {
 		Wizard wizard = new NewFileWizard(container);
 		WizardDialog dialog = new WizardDialog(null, wizard);
 		dialog.open();
 		return null;
 	}
 
-	private IContainer getContainer(ExecutionEvent event) {
-		ISelection selection = HandlerUtil.getCurrentSelection(event);
-		if (selection instanceof IStructuredSelection) {
-			return getContainer((IStructuredSelection) selection);
+	private IContainer getSelectedContainer(ExecutionEvent event) {
+		IContainer container = null;
+		if (event != null) {
+			ISelection selection = HandlerUtil.getCurrentSelection(event);
+			if (selection instanceof IStructuredSelection) {
+				container = getContainer((IStructuredSelection) selection);
+			}
 		}
-		return null;
+		return container;
 	}
 
 	private IContainer getContainer(IStructuredSelection selection) {

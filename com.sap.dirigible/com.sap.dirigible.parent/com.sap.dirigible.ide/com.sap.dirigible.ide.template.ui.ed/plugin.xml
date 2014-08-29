@@ -48,5 +48,17 @@
             name="Extensions Viewer"
             restorable="true">
       </view>
-</extension>
+	</extension>
+	<extension
+       point="com.sap.dirigible.ide.workspace.ui.new.menu">
+       <newMenuItem
+            text="Extension Definition"
+            toolTip="Extension Definition"
+            order="10"
+            imageBundle="com.sap.dirigible.ide.template.ui.ed"
+            imagePrefix="/icons/"
+            imageName="wizard_extension-definition.png"
+            defaultHandler="com.sap.dirigible.ide.template.ui.ed.command.ExtensionDefinitionCommandHandler">
+        </newMenuItem>
+ 	</extension>
 </plugin>

@@ -22,21 +22,17 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.ide.workspace.ui.view.WebViewerView;
 
 public class ShowWebViewerHandler extends AbstractHandler {
 
-	private static final Logger logger = Logger
-			.getLogger(ShowWebViewerHandler.class);
+	private static final Logger logger = Logger.getLogger(ShowWebViewerHandler.class);
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		try {
-			PlatformUI
-					.getWorkbench()
-					.getActiveWorkbenchWindow()
-					.getActivePage()
-					.showView(
-							"com.sap.dirigible.ide.publish.ui.view.RuntimeViewerView"); //$NON-NLS-1$
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+					.showView(WebViewerView.class.getName()); //$NON-NLS-1$
 		} catch (PartInitException e) {
 			logger.error(e.getMessage(), e);
 		}

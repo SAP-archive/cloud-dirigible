@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.publish.ui.view;
+package com.sap.dirigible.ide.workspace.ui.view;
 
 import java.net.URL;
 import java.util.Iterator;
@@ -42,6 +42,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -64,7 +65,7 @@ public class WebViewerView extends ViewPart {
 
 	private static final String SANDBOX = Messages.WebViewerView_SANDBOX;
 
-	private static final String REFRESH = Messages.RuntimeViewerView_REFRESH;
+	private static final String REFRESH = Messages.WebViewerView_REFRESH;
 
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
@@ -89,10 +90,20 @@ public class WebViewerView extends ViewPart {
 
 	private IFile lastSelectedFile;
 
+	public static void refreshWebViewerViewIfVisible() {
+		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getActivePage();
+		IViewPart view = activePage.findView(WebViewerView.class.getName());
+		if (view != null && view instanceof WebViewerView) {
+			if (activePage.isPartVisible(view)) {
+				((WebViewerView) view).refresh();
+			}
+		}
+	}
+
 	public WebViewerView() {
 		super();
-		resourceManager = new LocalResourceManager(
-				JFaceResources.getResources());
+		resourceManager = new LocalResourceManager(JFaceResources.getResources());
 		isSandbox = true;
 	}
 
@@ -117,18 +128,15 @@ public class WebViewerView extends ViewPart {
 		createUrlAddressField(holder);
 
 		browser = new ExtendedBrowser(parent, SWT.NONE);
-		browser.getControl().setLayoutData(
-				new GridData(SWT.FILL, SWT.FILL, true, true));
+		browser.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 		setUrl(EMPTY_STRING);
 	}
 
 	private void createOpenInNewTabButton(Composite holder) {
-		final UrlLauncher launcher = RWT.getClient().getService(
-				UrlLauncher.class);
+		final UrlLauncher launcher = RWT.getClient().getService(UrlLauncher.class);
 		final Button openInNewTabButton = new Button(holder, SWT.PUSH);
-		openInNewTabButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL,
-				false, false));
+		openInNewTabButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
 		openInNewTabButton.setToolTipText(OPEN);
 		openInNewTabButton.setImage(createImage(DIRIGIBLE_OPEN_ICON_URL));
 		openInNewTabButton.addSelectionListener(new SelectionAdapter() {
@@ -143,8 +151,7 @@ public class WebViewerView extends ViewPart {
 
 	private void createSandboxToggleButton(final Composite holder) {
 		final Button sandboxToggleButton = new Button(holder, SWT.TOGGLE);
-		sandboxToggleButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL,
-				false, false));
+		sandboxToggleButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
 		sandboxToggleButton.setToolTipText(isSandbox ? SANDBOX : PUBLIC);
 		sandboxToggleButton.setSelection(isSandbox);
 		sandboxToggleButton.setImage(createImage(DIRIGIBLE_SANDBOX_ICON_URL));
@@ -153,8 +160,7 @@ public class WebViewerView extends ViewPart {
 
 			public void widgetSelected(SelectionEvent e) {
 				isSandbox = sandboxToggleButton.getSelection();
-				sandboxToggleButton
-						.setToolTipText(isSandbox ? SANDBOX : PUBLIC);
+				sandboxToggleButton.setToolTipText(isSandbox ? SANDBOX : PUBLIC);
 				if (lastSelectedFile != null) {
 					handleElementSelected(lastSelectedFile);
 					refresh();
@@ -165,8 +171,7 @@ public class WebViewerView extends ViewPart {
 
 	private void createRefreshButton(final Composite holder) {
 		Button refreshButton = new Button(holder, SWT.PUSH);
-		refreshButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false,
-				false));
+		refreshButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
 		refreshButton.setToolTipText(REFRESH);
 		refreshButton.setImage(createImage(DIRIGIBLE_REFRESH_ICON_URL));
 		refreshButton.addSelectionListener(new SelectionAdapter() {
@@ -185,8 +190,7 @@ public class WebViewerView extends ViewPart {
 
 	private void createUrlAddressField(Composite parent) {
 		pageUrlText = new Text(parent, SWT.BORDER);
-		pageUrlText
-				.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		pageUrlText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		pageUrlText.addTraverseListener(new TraverseListener() {
 			private static final long serialVersionUID = 793018001113676818L;
 
@@ -249,8 +253,8 @@ public class WebViewerView extends ViewPart {
 				if ("debug".equals(activePerspectiveId)) { //$NON-NLS-1$
 					endpoint = publisher.getDebugEndpoint(file);
 				} else {
-					endpoint = isSandbox ? publisher.getActivatedEndpoint(file)
-							: publisher.getPublishedEndpoint(file);
+					endpoint = isSandbox ? publisher.getActivatedEndpoint(file) : publisher
+							.getPublishedEndpoint(file);
 				}
 
 				if (endpoint != null) {
@@ -273,8 +277,7 @@ public class WebViewerView extends ViewPart {
 	private IPublisher getPublisher(IFile file) {
 		final List<IPublisher> publishers = PublishManager.getPublishers();
 
-		for (Iterator<IPublisher> iterator = publishers.iterator(); iterator
-				.hasNext();) {
+		for (Iterator<IPublisher> iterator = publishers.iterator(); iterator.hasNext();) {
 			IPublisher publisher = (IPublisher) iterator.next();
 			if (publisher.recognizedFile(file)) {
 				return publisher;
@@ -302,8 +305,7 @@ public class WebViewerView extends ViewPart {
 
 	private Image createImage(URL imageURL) {
 		// TODO - cached?
-		ImageDescriptor imageDescriptor = ImageDescriptor
-				.createFromURL(imageURL);
+		ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(imageURL);
 		return resourceManager.createImage(imageDescriptor);
 	}
 
@@ -312,8 +314,7 @@ public class WebViewerView extends ViewPart {
 			return;
 		}
 		try {
-			String url = RWT.getRequest().getScheme()
-					+ "://" + RWT.getRequest().getServerName() //$NON-NLS-1$
+			String url = RWT.getRequest().getScheme() + "://" + RWT.getRequest().getServerName() //$NON-NLS-1$
 					+ ":" //$NON-NLS-1$
 					+ RWT.getRequest().getServerPort() + text;
 			pageUrlText.setText(url);

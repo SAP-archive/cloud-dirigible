@@ -15,15 +15,11 @@
 
 package com.sap.dirigible.ide.publish.ui.command;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.eclipse.core.resources.IProject;
 
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.PublishManager;
-import com.sap.dirigible.ide.publish.IPublisher;
 
 /**
  * Handler for the Publish command.
@@ -31,14 +27,9 @@ import com.sap.dirigible.ide.publish.IPublisher;
  */
 public class ActivateCommandHandler extends PublishCommandHandler {
 
+	@Override
 	protected void publishProject(IProject project) throws PublishException {
-		final List<IPublisher> publishers = PublishManager.getPublishers();
-
-		for (Iterator<IPublisher> iterator = publishers.iterator(); iterator
-				.hasNext();) {
-			IPublisher publisher = (IPublisher) iterator.next();
-			publisher.activate(project);
-		}
+		PublishManager.activateProject(project);
 	}
 	
 	@Override

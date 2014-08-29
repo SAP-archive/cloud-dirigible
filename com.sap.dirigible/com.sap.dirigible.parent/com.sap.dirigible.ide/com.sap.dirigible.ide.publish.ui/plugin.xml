@@ -163,15 +163,4 @@
          </actionSet>
       </perspectiveExtension>
    </extension>
-
-	<extension 
-	       point="org.eclipse.ui.views">
-      <view
-            name="Preview"
-            icon="resources/icons/runtime-browser.png"
-            category="com.sap.dirigible.ide.workspace.ui.category"
-            class="com.sap.dirigible.ide.publish.ui.view.WebViewerView"
-            id="com.sap.dirigible.ide.publish.ui.view.WebViewerView">
-      </view>
-   </extension>
 </plugin>

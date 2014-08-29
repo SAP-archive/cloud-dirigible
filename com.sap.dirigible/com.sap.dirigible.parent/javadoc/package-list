@@ -30,7 +30,6 @@ com.sap.dirigible.ide.jgit.utils
 com.sap.dirigible.ide.logging
 com.sap.dirigible.ide.publish
 com.sap.dirigible.ide.publish.ui.command
-com.sap.dirigible.ide.publish.ui.view
 com.sap.dirigible.ide.registry.ui
 com.sap.dirigible.ide.repository
 com.sap.dirigible.ide.repository.ui.adapters
