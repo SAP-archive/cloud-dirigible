@@ -53,6 +53,7 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 	public static final URL TYPE_DSV_ICON_URL = getIconURL("icon-dsv.png"); //$NON-NLS-1$
 	public static final URL TYPE_RUBY_ICON_URL = getIconURL("icon-ruby.png"); //$NON-NLS-1$
 	public static final URL TYPE_GROOVY_ICON_URL = getIconURL("icon-groovy.png"); //$NON-NLS-1$
+	public static final URL TYPE_TERMINAL_ICON_URL = getIconURL("icon-terminal.png"); //$NON-NLS-1$
 	public static final URL TYPE_WIKI_ICON_URL = getIconURL("icon-wiki.png"); //$NON-NLS-1$
 	public static final URL TYPE_BATCH_ICON_URL = getIconURL("icon-batch.png"); //$NON-NLS-1$
 	public static final URL TYPE_EXTENSION_POINT_ICON_URL = getIconURL("icon-extension-point.png"); //$NON-NLS-1$
@@ -155,6 +156,9 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 		}
 		if (resourceName.endsWith("extension")) { //$NON-NLS-1$
 			return createImage(TYPE_EXTENSION_ICON_URL);
+		}
+		if (resourceName.endsWith("command")) { //$NON-NLS-1$
+			return createImage(TYPE_TERMINAL_ICON_URL);
 		}
 
 		return createImage(TYPE_UNKNOWN_ICON_URL);

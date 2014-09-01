@@ -28,6 +28,20 @@
 		<url-pattern>/js-secured/*</url-pattern>
 		<url-pattern>/js-sandbox/*</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Command Execution Servlet -->
+	<servlet>
+		<description>Command Servlet</description>
+		<display-name>Command Servlet</display-name>
+		<servlet-name>CommandServlet</servlet-name>
+		<servlet-class>com.sap.dirigible.runtime.command.CommandServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommandServlet</servlet-name>
+		<url-pattern>/command/*</url-pattern>
+		<url-pattern>/command-secured/*</url-pattern>
+		<url-pattern>/command-sandbox/*</url-pattern>
+	</servlet-mapping>
 
 	<!-- Ruby Execution Servlet 
 	<servlet>
@@ -125,6 +139,19 @@
 		<servlet-name>JavaScriptRegistryServlet</servlet-name>
 		<url-pattern>/scripting/javascript/*</url-pattern>
 		<url-pattern>/registry-js/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Registry for Command Endpoints Servlet -->
+	<servlet>
+		<description>Command Registry Servlet</description>
+		<display-name>Command Registry Servlet</display-name>
+		<servlet-name>CommandRegistryServlet</servlet-name>
+		<servlet-class>com.sap.dirigible.runtime.registry.CommandRegistryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommandRegistryServlet</servlet-name>
+		<url-pattern>/scripting/command/*</url-pattern>
+		<url-pattern>/registry-command/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Registry for Ruby Endpoints Servlet 
@@ -319,12 +346,14 @@
 		<url-pattern>/rb-secured/*</url-pattern>
 		<url-pattern>/py-secured/*</url-pattern>
 		<url-pattern>/groovy-secured/*</url-pattern>
+		<url-pattern>/command-secured/*</url-pattern>
 		<url-pattern>/wiki-secured/*</url-pattern>
 		<url-pattern>/web-sandbox/*</url-pattern>
 		<url-pattern>/js-sandbox/*</url-pattern>
 		<url-pattern>/rb-sandbox/*</url-pattern>
 		<url-pattern>/py-sandbox/*</url-pattern>
 		<url-pattern>/groovy-sandbox/*</url-pattern>
+		<url-pattern>/command-sandbox/*</url-pattern>
 		<url-pattern>/wiki-sandbox/*</url-pattern>
 	</filter-mapping>
 
@@ -344,6 +373,15 @@
 	<filter-mapping>
 		<filter-name>JavaScriptRegistrySecureFilter</filter-name>
 		<url-pattern>/js/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>CommandRegistrySecureFilter</filter-name>
+		<filter-class>com.sap.dirigible.runtime.filter.CommandRegistrySecureFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CommandRegistrySecureFilter</filter-name>
+		<url-pattern>/command/*</url-pattern>
 	</filter-mapping>
 
 	<!-- Ruby Secure Filter
@@ -515,6 +553,7 @@
 			<url-pattern>/web-secured/*</url-pattern>
 			<url-pattern>/web/content-secured/*</url-pattern>
 			<url-pattern>/js-secured/*</url-pattern>
+			<url-pattern>/command-secured/*</url-pattern>
 			<!--
 			<url-pattern>/rb-secured/*</url-pattern>
 			<url-pattern>/groovy-secured/*</url-pattern>
@@ -523,6 +562,7 @@
 			<url-pattern>/web/wiki-secured/*</url-pattern>
 			<url-pattern>/index.html</url-pattern>
 			<url-pattern>/js-sandbox/*</url-pattern>
+			<url-pattern>/command-sandbox/*</url-pattern>
 			<!--
 			<url-pattern>/rb-sandbox/*</url-pattern>
 			<url-pattern>/groovy-sandbox/*</url-pattern>

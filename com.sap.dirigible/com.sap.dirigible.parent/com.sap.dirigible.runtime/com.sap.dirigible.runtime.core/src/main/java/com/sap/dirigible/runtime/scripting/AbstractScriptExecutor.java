@@ -15,7 +15,9 @@
 
 package com.sap.dirigible.runtime.scripting;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
@@ -141,9 +143,37 @@ public abstract class AbstractScriptExecutor {
 			throws IOException {
 		final IResource resource = repository.getResource(repositoryPath);
 		if (!resource.exists()) {
+			logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath));
 			throw new IOException(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
 					resource.getName(), repositoryPath));
 		}
 		return resource.getContent();
 	}
+	
+	public byte[] retrieveModule(IRepository repository, String module, String extension, String ... rootPaths)
+			throws IOException {
+		
+		for (String rootPath : rootPaths) {
+			String resourcePath = createResourcePath(rootPath, module, extension);
+			byte[] result;
+			final IResource resource = repository.getResource(resourcePath);
+			if (resource.exists()) {
+				result = readResourceData(repository, resourcePath);
+				return result;
+			}
+		}
+		
+		logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, (module + extension), Arrays.toString(rootPaths)));
+			throw new FileNotFoundException(
+					THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
+					+ module + extension);
+	}
+	
+	private String createResourcePath(String root, String module,
+			String extension) {
+		String resourcePath = new StringBuilder().append(root).append('/')
+				.append(module).append(extension).toString();
+		return resourcePath;
+	}
+	
 }

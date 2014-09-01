@@ -18,8 +18,8 @@ package com.sap.dirigible.runtime.content;
 import java.io.IOException;
 
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.ext.db.DsvUpdater;
 import com.sap.dirigible.repository.ext.db.DatabaseUpdater;
+import com.sap.dirigible.repository.ext.db.DsvUpdater;
 import com.sap.dirigible.repository.ext.extensions.ExtensionUpdater;
 import com.sap.dirigible.repository.ext.security.SecurityUpdater;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;

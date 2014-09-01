@@ -30,25 +30,28 @@ import org.mozilla.javascript.commonjs.module.provider.ModuleSourceProviderBase;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 import com.sap.dirigible.runtime.scripting.Messages;
 
 public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 
 	private static final long serialVersionUID = -5527033249080497877L;
 	
-	private static final String THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH = Messages.getString("ScriptLoader.THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH"); //$NON-NLS-1$
-	private static final String THERE_IS_NO_SERVICE_OR_LIBRARY_MODULE_AT_THE_SPECIFIED_LOCATION = Messages.getString("ScriptLoader.THERE_IS_NO_SERVICE_OR_LIBRARY_MODULE_AT_THE_SPECIFIED_LOCATION"); //$NON-NLS-1$
 	private static final String MODULE_LOCATION_CANNOT_BE_NULL = Messages.getString("ScriptLoader.MODULE_LOCATION_CANNOT_BE_NULL"); //$NON-NLS-1$
 	private static final String JS_EXTENSION = ".js"; //$NON-NLS-1$
 	private static final String JSLIB_EXTENSION = ".jslib"; //$NON-NLS-1$
 	
+	private AbstractScriptExecutor executor;
 	private IRepository repository;
 	private String[] rootPaths;
 	
+	
+	
 	private static final Logger logger = Logger.getLogger(RepositoryModuleSourceProvider.class);
 
-	public RepositoryModuleSourceProvider(IRepository repository, String ... rootPaths) {
+	public RepositoryModuleSourceProvider(AbstractScriptExecutor executor, IRepository repository, String ... rootPaths) {
 		super();
+		this.executor = executor;
 		this.repository = repository;
 		this.rootPaths = rootPaths;
 	}
@@ -64,51 +67,16 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 		byte[] sourceCode = null;
 		ModuleSource moduleSource = null;
 		if (moduleId.endsWith(JS_EXTENSION)) {
-			sourceCode = retrieveModule(moduleId, "");
+			sourceCode = executor.retrieveModule(repository, moduleId, "", rootPaths);
 			moduleSource = new ModuleSource(new InputStreamReader(
 					new ByteArrayInputStream(sourceCode)), null, new URI(moduleId), null, null);
 		} else {
-			sourceCode = retrieveModule(moduleId, JSLIB_EXTENSION);
+			sourceCode = executor.retrieveModule(repository, moduleId, JSLIB_EXTENSION, rootPaths);
 			moduleSource = new ModuleSource(new InputStreamReader(
 					new ByteArrayInputStream(sourceCode)), null, new URI(moduleId + JSLIB_EXTENSION), null, null);
 		}
 		
 		return moduleSource;
-	}
-	
-	private byte[] retrieveModule(String module, String extension)
-			throws IOException {
-		
-		for (String rootPath : rootPaths) {
-			String resourcePath = createResourcePath(rootPath, module, extension);
-			byte[] result;
-			final IResource resource = repository.getResource(resourcePath);
-			if (resource.exists()) {
-				result = readResourceData(resourcePath);
-				return result;
-			}
-		}
-		
-		logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, (module + extension), Arrays.toString(rootPaths)));
-			throw new FileNotFoundException(
-				THERE_IS_NO_SERVICE_OR_LIBRARY_MODULE_AT_THE_SPECIFIED_LOCATION
-					+ module + extension);
-	}
-
-	private String createResourcePath(String root, String module,
-			String extension) {
-		String resourcePath = new StringBuilder().append(root).append('/')
-				.append(module).append(extension).toString();
-		return resourcePath;
-	}
-	
-	public byte[] readResourceData(String repositoryPath) throws IOException {
-		final IResource resource = repository.getResource(repositoryPath);
-		if (!resource.exists()) {
-			logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath));
-			throw new IOException(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath));
-		}
-		return resource.getContent();
 	}
 
 	@Override
