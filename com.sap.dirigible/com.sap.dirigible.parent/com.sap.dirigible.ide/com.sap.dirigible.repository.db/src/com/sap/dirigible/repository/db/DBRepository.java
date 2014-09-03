@@ -283,6 +283,12 @@ public class DBRepository implements IRepository {
 	}
 
 	@Override
+	public List<IEntity> searchName(String root, String parameter, boolean caseInsensitive)
+			throws IOException {
+		return repositoryDAO.searchName(root, parameter, caseInsensitive);
+	}
+	
+	@Override
 	public List<IEntity> searchPath(String parameter, boolean caseInsensitive)
 			throws IOException {
 		return repositoryDAO.searchPath(parameter, caseInsensitive);

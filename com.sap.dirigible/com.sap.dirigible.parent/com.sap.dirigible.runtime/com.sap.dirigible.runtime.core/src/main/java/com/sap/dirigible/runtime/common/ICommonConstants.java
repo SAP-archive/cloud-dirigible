@@ -20,7 +20,10 @@ import com.sap.dirigible.repository.api.IRepository;
 public interface ICommonConstants {
 
 	public static final String SEPARATOR = IRepository.SEPARATOR; //$NON-NLS-1$
-
+	public static final String SANDBOX = "sandbox";
+	public static final String REGISTRY = "registry";
+	public static final String WORKSPACE = "workspace";
+	
 	public interface ARTIFACT_TYPE {
 		public final static String DATA_STRUCTURES = "DataStructures"; //$NON-NLS-1$
 		public final static String INTEGRATION_SERVICES = "IntegrationServices"; //$NON-NLS-1$

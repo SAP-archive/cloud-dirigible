@@ -17,11 +17,11 @@ package com.sap.dirigible.runtime.filter;
 
 public class JavaRegistrySecureFilter extends AbstractRegistrySecureFilter {
 
-	private static final String JAAS_SECURED_MAPPING = "/jaas-secured"; //$NON-NLS-1$
+	private static final String JAVA_SECURED_MAPPING = "/java-secured"; //$NON-NLS-1$
 
 	@Override
 	protected String getSecuredMapping() {
-		return JAAS_SECURED_MAPPING;
+		return JAVA_SECURED_MAPPING;
 	}
 
 }

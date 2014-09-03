@@ -51,8 +51,10 @@ public class DBScriptsMap {
 	public static final String SCRIPT_IS_FOLDER_EMPTY = "/com/sap/dirigible/repository/db/sql/is_folder_empty.sql"; //$NON-NLS-1$
 
 	public static final String SCRIPT_SEARCH_NAME = "/com/sap/dirigible/repository/db/sql/search_name.sql"; //$NON-NLS-1$
-	public static final String SCRIPT_SEARCH_TEXT = "/com/sap/dirigible/repository/db/sql/search_text.sql"; //$NON-NLS-1$
 	public static final String SCRIPT_SEARCH_NAME_SENSE = "/com/sap/dirigible/repository/db/sql/search_name_sense.sql"; //$NON-NLS-1$
+	public static final String SCRIPT_SEARCH_NAME_UNDER_ROOT = "/com/sap/dirigible/repository/db/sql/search_name_under_root.sql"; //$NON-NLS-1$
+	public static final String SCRIPT_SEARCH_NAME_UNDER_ROOT_SENSE = "/com/sap/dirigible/repository/db/sql/search_name_under_root_sense.sql"; //$NON-NLS-1$
+	public static final String SCRIPT_SEARCH_TEXT = "/com/sap/dirigible/repository/db/sql/search_text.sql"; //$NON-NLS-1$
 	public static final String SCRIPT_SEARCH_TEXT_SENSE = "/com/sap/dirigible/repository/db/sql/search_text_sense.sql"; //$NON-NLS-1$
 
 	public static final String SCRIPT_GET_FILE_VERSION_BY_PATH = "/com/sap/dirigible/repository/db/sql/get_file_version_by_path.sql"; //$NON-NLS-1$

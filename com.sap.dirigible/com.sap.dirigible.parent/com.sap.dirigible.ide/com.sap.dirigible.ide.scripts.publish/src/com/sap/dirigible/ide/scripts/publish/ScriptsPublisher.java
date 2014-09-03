@@ -73,7 +73,7 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 							.equals(DOT + file.getFileExtension())
 					|| CommonParameters.GROOVY_SERVICE_EXTENSION.equals(DOT
 							+ file.getFileExtension())
-					|| CommonParameters.JAAS_SERVICE_EXTENSION.equals(DOT
+					|| CommonParameters.JAVA_SERVICE_EXTENSION.equals(DOT
 							+ file.getFileExtension())
 					|| CommonParameters.COMMAND_SERVICE_EXTENSION.equals(DOT
 							+ file.getFileExtension())) {
@@ -94,8 +94,8 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 		if (CommonParameters.GROOVY_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
 			return CommonParameters.GROOVY_CONTAINER_MAPPING;
 		}
-		if (CommonParameters.JAAS_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
-			return CommonParameters.JAAS_CONTAINER_MAPPING;
+		if (CommonParameters.JAVA_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+			return CommonParameters.JAVA_CONTAINER_MAPPING;
 		}
 		if (CommonParameters.COMMAND_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
 			return CommonParameters.COMMAND_CONTAINER_MAPPING;
@@ -114,8 +114,8 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 		if (CommonParameters.GROOVY_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
 			return CommonParameters.GROOVY_SANDBOX_MAPPING;
 		}
-		if (CommonParameters.JAAS_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
-			return CommonParameters.JAAS_SANDBOX_MAPPING;
+		if (CommonParameters.JAVA_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+			return CommonParameters.JAVA_SANDBOX_MAPPING;
 		}
 		if (CommonParameters.COMMAND_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
 			return CommonParameters.COMMAND_SANDBOX_MAPPING;

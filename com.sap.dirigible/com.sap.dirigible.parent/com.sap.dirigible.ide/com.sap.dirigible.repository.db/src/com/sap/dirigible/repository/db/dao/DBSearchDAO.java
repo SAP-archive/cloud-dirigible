@@ -36,8 +36,7 @@ import com.sap.dirigible.repository.db.DBResource;
 
 public class DBSearchDAO extends DBObjectDAO {
 
-	private static Logger logger = LoggerFactory.getLogger(DBSearchDAO.class
-			.getCanonicalName());
+	private static Logger logger = LoggerFactory.getLogger(DBSearchDAO.class.getCanonicalName());
 
 	DBSearchDAO(DBRepositoryDAO dbRepositoryDAO) {
 		super(dbRepositoryDAO);
@@ -49,9 +48,26 @@ public class DBSearchDAO extends DBObjectDAO {
 	 * @param parameter
 	 * @return
 	 */
-	List<IEntity> searchName(String parameter, boolean caseInsensitive)
+	List<IEntity> searchName(String parameter, boolean caseInsensitive) throws DBBaseException {
+		List<String> parameters = new ArrayList<String>();
+		parameters.add("%" + getParameter(parameter, caseInsensitive) + "%"); //$NON-NLS-1$
+		return search(parameters, getSearchNameSQLFile(caseInsensitive));
+	}
+
+	/**
+	 * Search for files and folders containing the parameter (means *parameter)
+	 * in their name under specified root folder (means *root)
+	 * 
+	 * @param root
+	 * @param parameter
+	 * @return
+	 */
+	List<IEntity> searchName(String root, String parameter, boolean caseInsensitive)
 			throws DBBaseException {
-		return searchInPath("%" + parameter, caseInsensitive); //$NON-NLS-1$
+		List<String> parameters = new ArrayList<String>();
+		parameters.add(root + "%"); //$NON-NLS-1$
+		parameters.add("%" + getParameter(parameter, caseInsensitive)); //$NON-NLS-1$
+		return search(parameters, getSearchNameUnderRootSQLFile(caseInsensitive));
 	}
 
 	/**
@@ -60,55 +76,48 @@ public class DBSearchDAO extends DBObjectDAO {
 	 * @param parameter
 	 * @return
 	 */
-	List<IEntity> searchPath(String parameter, boolean caseInsensitive)
-			throws DBBaseException {
-		return searchInPath("%" + parameter + "%", caseInsensitive); //$NON-NLS-1$ //$NON-NLS-2$
+	List<IEntity> searchPath(String parameter, boolean caseInsensitive) throws DBBaseException {
+		List<String> parameters = new ArrayList<String>();
+		parameters.add("%" + getParameter(parameter, caseInsensitive) + "%"); //$NON-NLS-1$
+		return search(parameters, getSearchNameSQLFile(caseInsensitive));
 	}
 
-	private List<IEntity> searchInPath(String parameter, boolean caseInsensitive)
-			throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering searchInPath"); //$NON-NLS-1$
+	private String getParameter(String parameter, boolean caseInsensitive) {
+		return caseInsensitive ? parameter.toUpperCase() : parameter;
+	}
+
+	private String getSearchNameSQLFile(boolean caseInsensitive) {
+		return caseInsensitive ? DBScriptsMap.SCRIPT_SEARCH_NAME
+				: DBScriptsMap.SCRIPT_SEARCH_NAME_SENSE;
+	}
+
+	private String getSearchNameUnderRootSQLFile(boolean caseInsensitive) {
+		return caseInsensitive ? DBScriptsMap.SCRIPT_SEARCH_NAME_UNDER_ROOT
+				: DBScriptsMap.SCRIPT_SEARCH_NAME_UNDER_ROOT_SENSE;
+	}
+
+	private List<IEntity> search(List<String> parameters, String sqlFile) throws DBBaseException {
+		logger.debug(this.getClass().getCanonicalName(), "entering searchInPath"); //$NON-NLS-1$
 
 		checkInitialized();
 
-		if (parameter == null) {
+		if (parameters == null || parameters.isEmpty()) {
 			return null;
 		}
-
-		List<IEntity> result = new ArrayList<IEntity>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = getRepository().getDbUtils().getConnection();
-			String script;
-			if (caseInsensitive) {
-				parameter = parameter.toUpperCase();
-				script = getRepository().getDbUtils().readScript(connection,
-						DBScriptsMap.SCRIPT_SEARCH_NAME, this.getClass());
-			} else {
-				script = getRepository().getDbUtils().readScript(connection,
-						DBScriptsMap.SCRIPT_SEARCH_NAME_SENSE, this.getClass());
+			String script = getRepository().getDbUtils().readScript(connection, sqlFile,
+					this.getClass());
+
+			preparedStatement = getRepository().getDbUtils().getPreparedStatement(connection,
+					script);
+			for (int i = 0; i < parameters.size(); i++) {
+				preparedStatement.setString(i + 1, parameters.get(i));
 			}
-			preparedStatement = getRepository().getDbUtils()
-					.getPreparedStatement(connection, script);
-			preparedStatement.setString(1, parameter);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				DBObject dbObject = DBMapper.dbToObject(getRepository(),
-						resultSet);
-				if (dbObject instanceof DBFolder) {
-					ICollection collection = new DBCollection(getRepository(),
-							new DBRepositoryPath(dbObject.getPath()));
-					result.add(collection);
-				} else {
-					IResource resource = new DBResource(getRepository(),
-							new DBRepositoryPath(dbObject.getPath()));
-					result.add(resource);
-				}
-			}
-			return result;
+			return getEntityList(preparedStatement);
 		} catch (SQLException e) {
 			throw new DBBaseException(e);
 		} catch (IOException e) {
@@ -116,15 +125,31 @@ public class DBSearchDAO extends DBObjectDAO {
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
-			logger.debug(this.getClass().getCanonicalName(),
-					"exiting searchInPath"); //$NON-NLS-1$
+			logger.debug(this.getClass().getCanonicalName(), "exiting searchInPath"); //$NON-NLS-1$
 		}
 	}
 
-	public List<IEntity> searchInPathAndText(String parameter,
-			boolean caseInsensitive) throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering searchInPathAndText"); //$NON-NLS-1$
+	private List<IEntity> getEntityList(PreparedStatement preparedStatement) throws SQLException {
+		List<IEntity> result = new ArrayList<IEntity>();
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while (resultSet.next()) {
+			DBObject dbObject = DBMapper.dbToObject(getRepository(), resultSet);
+			if (dbObject instanceof DBFolder) {
+				ICollection collection = new DBCollection(getRepository(), new DBRepositoryPath(
+						dbObject.getPath()));
+				result.add(collection);
+			} else {
+				IResource resource = new DBResource(getRepository(), new DBRepositoryPath(
+						dbObject.getPath()));
+				result.add(resource);
+			}
+		}
+		return result;
+	}
+
+	public List<IEntity> searchInPathAndText(String parameter, boolean caseInsensitive)
+			throws DBBaseException {
+		logger.debug(this.getClass().getCanonicalName(), "entering searchInPathAndText"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -149,8 +174,8 @@ public class DBSearchDAO extends DBObjectDAO {
 				script = getRepository().getDbUtils().readScript(connection,
 						DBScriptsMap.SCRIPT_SEARCH_TEXT_SENSE, this.getClass());
 			}
-			preparedStatement = getRepository().getDbUtils()
-					.getPreparedStatement(connection, script);
+			preparedStatement = getRepository().getDbUtils().getPreparedStatement(connection,
+					script);
 			preparedStatement.setString(1, parameter);
 			preparedStatement.setString(2, parameter);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -167,8 +192,7 @@ public class DBSearchDAO extends DBObjectDAO {
 		} finally {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
-			logger.debug(this.getClass().getCanonicalName(),
-					"exiting searchInPathAndText"); //$NON-NLS-1$
+			logger.debug(this.getClass().getCanonicalName(), "exiting searchInPathAndText"); //$NON-NLS-1$
 		}
 	}
 }

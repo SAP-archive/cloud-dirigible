@@ -38,15 +38,15 @@ import com.sap.dirigible.repository.db.DBResourceVersion;
  * 
  * Base tables:
  * 
- * DGB_FILES - the files and folder registry 
- * DGB_DOCUMENTS - the content of text files separated by chunks 
- * DGB_BINARIES - the content of binary files
+ * DGB_FILES - the files and folder registry DGB_DOCUMENTS - the content of text
+ * files separated by chunks DGB_BINARIES - the content of binary files
  * DGB_SCHEMA_VERSIONS - the version of the current repository schema
  * 
  */
 public class DBRepositoryDAO {
 
-	private static final String DATA_ACCESS_OBJECT_FOR_REPOSITORY_NOT_INITIALIZED = Messages.getString("DBRepositoryDAO.DATA_ACCESS_OBJECT_FOR_REPOSITORY_NOT_INITIALIZED"); //$NON-NLS-1$
+	private static final String DATA_ACCESS_OBJECT_FOR_REPOSITORY_NOT_INITIALIZED = Messages
+			.getString("DBRepositoryDAO.DATA_ACCESS_OBJECT_FOR_REPOSITORY_NOT_INITIALIZED"); //$NON-NLS-1$
 
 	private static Logger logger = LoggerFactory
 			.getLogger(DBRepositoryDAO.class.getCanonicalName());
@@ -85,11 +85,9 @@ public class DBRepositoryDAO {
 	 * @return
 	 */
 	DBRepository getRepository() {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getRepository"); //$NON-NLS-1$
+		logger.debug(this.getClass().getCanonicalName(), "entering getRepository"); //$NON-NLS-1$
 		DBRepository dbRepository = repository;
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getRepository"); //$NON-NLS-1$
+		logger.debug(this.getClass().getCanonicalName(), "exiting getRepository"); //$NON-NLS-1$
 		return dbRepository;
 	}
 
@@ -160,13 +158,11 @@ public class DBRepositoryDAO {
 	 * @return
 	 */
 	private boolean initialize(Connection connection, boolean forceRecreate) {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering initialize with connection"); //$NON-NLS-1$
-		DBRepositoryInitializer dbRepositoryInitializer = new DBRepositoryInitializer(
-				repository, connection, forceRecreate);
+		logger.debug(this.getClass().getCanonicalName(), "entering initialize with connection"); //$NON-NLS-1$
+		DBRepositoryInitializer dbRepositoryInitializer = new DBRepositoryInitializer(repository,
+				connection, forceRecreate);
 		boolean result = dbRepositoryInitializer.initialize();
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting initialize with connection"); //$NON-NLS-1$
+		logger.debug(this.getClass().getCanonicalName(), "exiting initialize with connection"); //$NON-NLS-1$
 		return result;
 	}
 
@@ -177,8 +173,7 @@ public class DBRepositoryDAO {
 	 */
 	void checkInitialized() throws DBBaseException {
 		if (!initialized) {
-			throw new DBBaseException(
-					DATA_ACCESS_OBJECT_FOR_REPOSITORY_NOT_INITIALIZED);
+			throw new DBBaseException(DATA_ACCESS_OBJECT_FOR_REPOSITORY_NOT_INITIALIZED);
 		}
 	}
 
@@ -248,12 +243,10 @@ public class DBRepositoryDAO {
 	 * @return
 	 * @throws DBBaseException
 	 */
-	public DBFile createFile(String path, byte[] bytes, boolean isBinary,
-			String contentType) throws DBBaseException {
-		DBFile dbFile = this.dbFileDAO.createFile(path, bytes, isBinary,
-				contentType);
-		this.dbFileVersionDAO.createFileVersion(path, bytes, isBinary,
-				contentType);
+	public DBFile createFile(String path, byte[] bytes, boolean isBinary, String contentType)
+			throws DBBaseException {
+		DBFile dbFile = this.dbFileDAO.createFile(path, bytes, isBinary, contentType);
+		this.dbFileVersionDAO.createFileVersion(path, bytes, isBinary, contentType);
 		return dbFile;
 	}
 
@@ -264,11 +257,10 @@ public class DBRepositoryDAO {
 	 * @param bytes
 	 * @throws DBBaseException
 	 */
-	public void setDocument(DBFile resource, byte[] bytes)
-			throws DBBaseException {
+	public void setDocument(DBFile resource, byte[] bytes) throws DBBaseException {
 		this.dbFileDAO.setDocument(resource, bytes);
-		this.dbFileVersionDAO.createFileVersion(resource.getPath(), bytes,
-				resource.isBinary(), resource.getContentType());
+		this.dbFileVersionDAO.createFileVersion(resource.getPath(), bytes, resource.isBinary(),
+				resource.getContentType());
 	}
 
 	/**
@@ -292,7 +284,7 @@ public class DBRepositoryDAO {
 		this.dbFileDAO.removeFileByPath(path);
 		this.dbFileVersionDAO.removeAllFileVersions(path);
 	}
-	
+
 	public void cleanupOldVersions() throws DBBaseException {
 		Calendar calendar = new GregorianCalendar();
 		calendar.roll(Calendar.MONTH, false);
@@ -309,8 +301,7 @@ public class DBRepositoryDAO {
 	 * @return
 	 * @throws DBBaseException
 	 */
-	public List<DBObject> getChildrenByFolder(String path)
-			throws DBBaseException {
+	public List<DBObject> getChildrenByFolder(String path) throws DBBaseException {
 		return this.dbFolderDAO.getChildrenByFolder(path);
 	}
 
@@ -334,8 +325,7 @@ public class DBRepositoryDAO {
 	 * @param contentType
 	 * @throws DBBaseException
 	 */
-	public void setBinary(DBFile resource, byte[] bytes, String contentType)
-			throws DBBaseException {
+	public void setBinary(DBFile resource, byte[] bytes, String contentType) throws DBBaseException {
 		this.dbFileDAO.setBinary(resource, bytes, contentType);
 	}
 
@@ -348,6 +338,18 @@ public class DBRepositoryDAO {
 	 */
 	public List<IEntity> searchName(String parameter, boolean caseInsensitive) {
 		return this.dbSearchDAO.searchName(parameter, caseInsensitive);
+	}
+
+	/**
+	 * Search for files and folders containing the parameter in their name
+	 * (means %parameter) under specified root folder (means *root)
+	 * 
+	 * @param root
+	 * @param parameter
+	 * @return
+	 */
+	public List<IEntity> searchName(String root, String parameter, boolean caseInsensitive) {
+		return this.dbSearchDAO.searchName(root, parameter, caseInsensitive);
 	}
 
 	/**
@@ -383,11 +385,10 @@ public class DBRepositoryDAO {
 	public List<IResourceVersion> getResourceVersionsByPath(String path) {
 		List<IResourceVersion> resultList = new ArrayList<IResourceVersion>();
 		List<DBFileVersion> fileVersions = getFileVersionsByPath(path);
-		for (Iterator<DBFileVersion> iterator = fileVersions.iterator(); iterator
-				.hasNext();) {
+		for (Iterator<DBFileVersion> iterator = fileVersions.iterator(); iterator.hasNext();) {
 			DBFileVersion dbFileVersion = iterator.next();
-			resultList.add(new DBResourceVersion(getRepository(),
-					new DBRepositoryPath(path), dbFileVersion.getVersion()));
+			resultList.add(new DBResourceVersion(getRepository(), new DBRepositoryPath(path),
+					dbFileVersion.getVersion()));
 		}
 		return resultList;
 	}
@@ -395,59 +396,59 @@ public class DBRepositoryDAO {
 	public void renameFolder(String path, String newPath) {
 		this.dbFolderDAO.renameFolderByPath(path, newPath);
 	}
-	
+
 	public void renameFile(String path, String newPath) {
 		this.dbFileDAO.renameFileByPath(path, newPath);
 	}
 
-//	public void renameFileByPath(String path, String newPath)
-//			throws DBBaseException {
-//
-//		// resourcesCache.remove(path);
-//
-//		renameDocument(getFileByPath(path), newPath);
-//
-//		String script = getRepository().getDbUtils().readScript(
-//				"sql/rename_file_by_path.sql");
-//
-//		Connection connection = null;
-//		PreparedStatement preparedStatement = null;
-//		try {
-//			connection = getRepository().getDbUtils().getConnection();
-//			preparedStatement = getRepository().getDbUtils()
-//					.getPreparedStatement(connection, script);
-//			preparedStatement.setString(1, newPath);
-//			preparedStatement.setString(2, path);
-//			preparedStatement.executeUpdate();
-//		} catch (SQLException e) {
-//			throw new DBBaseException(e);
-//		} finally {
-//			getRepository().getDbUtils().closeStatement(preparedStatement);
-//			getRepository().getDbUtils().closeConnection(connection);
-//		}
-//
-//	}
-//
-//	private void renameDocument(DBFile resource, String newPath)
-//			throws DBBaseException {
-//
-//		String script = getRepository().getDbUtils().readScript(
-//				"sql/rename_document.sql");
-//
-//		Connection connection = null;
-//		PreparedStatement preparedStatement = null;
-//		try {
-//			connection = getRepository().getDbUtils().getConnection();
-//			preparedStatement = getRepository().getDbUtils()
-//					.getPreparedStatement(connection, script);
-//			preparedStatement.setString(1, newPath);
-//			preparedStatement.setString(2, resource.getPath());
-//			preparedStatement.executeUpdate();
-//		} catch (SQLException e) {
-//			throw new DBBaseException(e);
-//		} finally {
-//			getRepository().getDbUtils().closeStatement(preparedStatement);
-//			getRepository().getDbUtils().closeConnection(connection);
-//		}
-//	}
+	// public void renameFileByPath(String path, String newPath)
+	// throws DBBaseException {
+	//
+	// // resourcesCache.remove(path);
+	//
+	// renameDocument(getFileByPath(path), newPath);
+	//
+	// String script = getRepository().getDbUtils().readScript(
+	// "sql/rename_file_by_path.sql");
+	//
+	// Connection connection = null;
+	// PreparedStatement preparedStatement = null;
+	// try {
+	// connection = getRepository().getDbUtils().getConnection();
+	// preparedStatement = getRepository().getDbUtils()
+	// .getPreparedStatement(connection, script);
+	// preparedStatement.setString(1, newPath);
+	// preparedStatement.setString(2, path);
+	// preparedStatement.executeUpdate();
+	// } catch (SQLException e) {
+	// throw new DBBaseException(e);
+	// } finally {
+	// getRepository().getDbUtils().closeStatement(preparedStatement);
+	// getRepository().getDbUtils().closeConnection(connection);
+	// }
+	//
+	// }
+	//
+	// private void renameDocument(DBFile resource, String newPath)
+	// throws DBBaseException {
+	//
+	// String script = getRepository().getDbUtils().readScript(
+	// "sql/rename_document.sql");
+	//
+	// Connection connection = null;
+	// PreparedStatement preparedStatement = null;
+	// try {
+	// connection = getRepository().getDbUtils().getConnection();
+	// preparedStatement = getRepository().getDbUtils()
+	// .getPreparedStatement(connection, script);
+	// preparedStatement.setString(1, newPath);
+	// preparedStatement.setString(2, resource.getPath());
+	// preparedStatement.executeUpdate();
+	// } catch (SQLException e) {
+	// throw new DBBaseException(e);
+	// } finally {
+	// getRepository().getDbUtils().closeStatement(preparedStatement);
+	// getRepository().getDbUtils().closeConnection(connection);
+	// }
+	// }
 }

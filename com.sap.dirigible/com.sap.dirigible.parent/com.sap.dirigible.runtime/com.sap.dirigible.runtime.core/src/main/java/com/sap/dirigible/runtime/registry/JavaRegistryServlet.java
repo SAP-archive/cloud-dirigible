@@ -21,12 +21,12 @@ public class JavaRegistryServlet extends AbstractRegistryServiceServlet {
 
 	@Override
 	protected String getServletMapping() {
-		return "/jaas/";
+		return "/java/";
 	}
 
 	@Override
 	protected String getFileExtension() {
-		return ".jaas";
+		return ".java";
 	}
 
 	@Override

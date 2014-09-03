@@ -65,7 +65,7 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			throw new IOException(COMMAND_MODULE_NAME_CANNOT_BE_NULL);
 		}
 		
-		String commandSource = new String(retrieveModule(repository, module, "", rootPaths));
+		String commandSource = new String(retrieveModule(repository, module, "", rootPaths).getContent());
 		
 		CommandData commandData;
 		try {

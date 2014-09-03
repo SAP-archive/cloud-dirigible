@@ -39,9 +39,9 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>JavaServlet</servlet-name>
-		<url-pattern>/jaas/*</url-pattern>
-		<url-pattern>/jaas-secured/*</url-pattern>
-		<url-pattern>/jaas-sandbox/*</url-pattern>
+		<url-pattern>/java/*</url-pattern>
+		<url-pattern>/java-secured/*</url-pattern>
+		<url-pattern>/java-sandbox/*</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Command Execution Servlet -->
@@ -166,7 +166,7 @@
 	<servlet-mapping>
 		<servlet-name>JavaRegistryServlet</servlet-name>
 		<url-pattern>/scripting/java/*</url-pattern>
-		<url-pattern>/registry-jaas/*</url-pattern>
+		<url-pattern>/registry-java/*</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Registry for Command Endpoints Servlet -->
@@ -374,7 +374,7 @@
 		<url-pattern>/rb-secured/*</url-pattern>
 		<url-pattern>/py-secured/*</url-pattern>
 		<url-pattern>/groovy-secured/*</url-pattern>
-		<url-pattern>/jaas-secured/*</url-pattern>
+		<url-pattern>/java-secured/*</url-pattern>
 		<url-pattern>/command-secured/*</url-pattern>
 		<url-pattern>/wiki-secured/*</url-pattern>
 		<url-pattern>/web-sandbox/*</url-pattern>
@@ -382,7 +382,7 @@
 		<url-pattern>/rb-sandbox/*</url-pattern>
 		<url-pattern>/py-sandbox/*</url-pattern>
 		<url-pattern>/groovy-sandbox/*</url-pattern>
-		<url-pattern>/jaas-sandbox/*</url-pattern>
+		<url-pattern>/java-sandbox/*</url-pattern>
 		<url-pattern>/command-sandbox/*</url-pattern>
 		<url-pattern>/wiki-sandbox/*</url-pattern>
 	</filter-mapping>
@@ -411,7 +411,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>JavaRegistrySecureFilter</filter-name>
-		<url-pattern>/jaas/*</url-pattern>
+		<url-pattern>/java/*</url-pattern>
 	</filter-mapping>
 	
 	<filter>
@@ -592,7 +592,7 @@
 			<url-pattern>/web-secured/*</url-pattern>
 			<url-pattern>/web/content-secured/*</url-pattern>
 			<url-pattern>/js-secured/*</url-pattern>
-			<url-pattern>/jaas-secured/*</url-pattern>
+			<url-pattern>/java-secured/*</url-pattern>
 			<url-pattern>/command-secured/*</url-pattern>
 			<!--
 			<url-pattern>/rb-secured/*</url-pattern>
@@ -602,7 +602,7 @@
 			<url-pattern>/web/wiki-secured/*</url-pattern>
 			<url-pattern>/index.html</url-pattern>
 			<url-pattern>/js-sandbox/*</url-pattern>
-			<url-pattern>/jaas-sandbox/*</url-pattern>
+			<url-pattern>/java-sandbox/*</url-pattern>
 			<url-pattern>/command-sandbox/*</url-pattern>
 			<!--
 			<url-pattern>/rb-sandbox/*</url-pattern>

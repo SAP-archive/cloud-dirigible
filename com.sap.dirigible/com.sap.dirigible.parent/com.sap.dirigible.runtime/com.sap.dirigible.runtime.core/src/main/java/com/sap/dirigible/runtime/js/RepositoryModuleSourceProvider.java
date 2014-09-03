@@ -67,11 +67,11 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 		byte[] sourceCode = null;
 		ModuleSource moduleSource = null;
 		if (moduleId.endsWith(JS_EXTENSION)) {
-			sourceCode = executor.retrieveModule(repository, moduleId, "", rootPaths);
+			sourceCode = executor.retrieveModule(repository, moduleId, "", rootPaths).getContent();
 			moduleSource = new ModuleSource(new InputStreamReader(
 					new ByteArrayInputStream(sourceCode)), null, new URI(moduleId), null, null);
 		} else {
-			sourceCode = executor.retrieveModule(repository, moduleId, JSLIB_EXTENSION, rootPaths);
+			sourceCode = executor.retrieveModule(repository, moduleId, JSLIB_EXTENSION, rootPaths).getContent();
 			moduleSource = new ModuleSource(new InputStreamReader(
 					new ByteArrayInputStream(sourceCode)), null, new URI(moduleId + JSLIB_EXTENSION), null, null);
 		}

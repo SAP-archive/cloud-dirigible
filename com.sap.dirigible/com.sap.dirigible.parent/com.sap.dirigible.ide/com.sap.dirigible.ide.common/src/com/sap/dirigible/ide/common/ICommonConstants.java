@@ -21,7 +21,7 @@ public interface ICommonConstants {
 		public static final String JAVASCRIPT= ".js"; //$NON-NLS-1$
 		public static final String RUBY = ".rb"; //$NON-NLS-1$
 		public static final String GROOVY = ".groovy"; //$NON-NLS-1$
-		public static final String JAAS = ".jaas"; //$NON-NLS-1$
+		public static final String JAVA = ".java"; //$NON-NLS-1$
 		public static final String COMMAND = ".command"; //$NON-NLS-1$
 		public static final String EXTENSION_POINT = ".extensionpoint"; //$NON-NLS-1$
 		public static final String EXTENSION = ".extension"; //$NON-NLS-1$

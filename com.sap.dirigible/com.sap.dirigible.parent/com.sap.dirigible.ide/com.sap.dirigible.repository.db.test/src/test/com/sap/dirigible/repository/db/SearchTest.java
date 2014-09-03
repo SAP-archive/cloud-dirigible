@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,17 +68,38 @@ public class SearchTest {
 			assertTrue(resource.exists());
 			assertFalse(resource.isBinary());
 
-//			List<IEntity> entities = repository.searchName("param1.txt", false); //$NON-NLS-1$
-			// assertEquals(1, entities.size());
-			// for (Iterator<IEntity> iterator = entities.iterator();
-			// iterator.hasNext();) {
-			// IEntity iEntity = iterator.next();
-			// System.out.println(iEntity.getPath());
-			// }
-
 			repository.removeResource("/testCollectionSearch/param1.txt"); //$NON-NLS-1$
 			repository.removeResource("/testCollectionSearch/param2.txt"); //$NON-NLS-1$
 			repository.removeResource("/testCollectionSearch/param12.txt"); //$NON-NLS-1$
+
+		} catch (IOException e) {
+			assertTrue(e.getMessage(), false);
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testSearchNameUnderRoot() {
+		try {
+			IResource resource = repository.createResource("/dddd/file1.txt"); //$NON-NLS-1$ //$NON-NLS-2$
+			assertNotNull(resource);
+			assertTrue(resource.exists());
+			assertFalse(resource.isBinary());
+			resource = repository.createResource("/dddd/file2.txt"); //$NON-NLS-1$ //$NON-NLS-2$
+			assertNotNull(resource);
+			assertTrue(resource.exists());
+			assertFalse(resource.isBinary());
+			resource = repository.createResource("/dddd/file3.txt"); //$NON-NLS-1$ //$NON-NLS-2$
+			assertNotNull(resource);
+			assertTrue(resource.exists());
+			assertFalse(resource.isBinary());
+
+			List<IEntity> entities = repository.searchName("/dddd/", ".txt", false); //$NON-NLS-1$
+			assertEquals(3, entities.size());
+
+			repository.removeResource("/dddd/file1.txt"); //$NON-NLS-1$
+			repository.removeResource("/dddd/file2.txt"); //$NON-NLS-1$
+			repository.removeResource("/dddd/file3.txt"); //$NON-NLS-1$
 
 		} catch (IOException e) {
 			assertTrue(e.getMessage(), false);

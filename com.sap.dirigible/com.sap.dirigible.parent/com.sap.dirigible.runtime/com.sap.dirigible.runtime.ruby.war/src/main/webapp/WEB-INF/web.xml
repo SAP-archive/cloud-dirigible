@@ -39,9 +39,9 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>JavaServlet</servlet-name>
-		<url-pattern>/jaas/*</url-pattern>
-		<url-pattern>/jaas-secured/*</url-pattern>
-		<url-pattern>/jaas-sandbox/*</url-pattern>
+		<url-pattern>/java/*</url-pattern>
+		<url-pattern>/java-secured/*</url-pattern>
+		<url-pattern>/java-sandbox/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Ruby Execution Servlet  -->

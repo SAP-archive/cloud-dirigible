@@ -3,6 +3,7 @@ package com.sap.dirigible.runtime.java;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,10 +14,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.tools.JavaCompiler;
-import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 import com.sap.dirigible.repository.api.IRepository;
@@ -24,8 +23,19 @@ import com.sap.dirigible.runtime.java.dynamic.compilation.CharSequenceJavaFileOb
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
+import com.sap.dirigible.runtime.scripting.Module;
 
 public class JavaExecutor extends AbstractScriptExecutor {
+
+	private static final String JAVA_EXTENSION = ".java";
+
+	private static final String DOT = ".";
+
+	private static final String SLASH = "/";
+
+	private static final String CLASSPATH = "-classpath";
+
+	private static final String PATH_SEPARATOR = "path.separator";
 
 	private static final Logger logger = Logger.getLogger(JavaExecutor.class);
 
@@ -43,10 +53,6 @@ public class JavaExecutor extends AbstractScriptExecutor {
 	protected Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
 			Object input, String module) throws IOException {
 
-		// TODO Delete me
-		logger.error("JavaExecutor#executeServiceModule()");
-		logger.error("JavaExecutor#executeServiceModule() -> module=" + module);
-
 		registerDefaultVariables(request, response, input, null, repository, null);
 
 		try {
@@ -54,49 +60,59 @@ public class JavaExecutor extends AbstractScriptExecutor {
 			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
 			// TODO implement Diagnostic Listener!
-			StandardJavaFileManager standardFileManager = compiler.getStandardFileManager(null,
-					null, null);
-			JavaFileManager fileManager = new ClassFileManager(standardFileManager);
+			JavaFileManager fileManager = new ClassFileManager(compiler.getStandardFileManager(
+					null, null, null));
 
-			URL url = JavaExecutor.class.getProtectionDomain().getCodeSource().getLocation();
-			File libDirectory = new File(url.toURI()).getParentFile();
+			compiler.getTask(null, fileManager, null, Arrays.asList(CLASSPATH, getJars()), null,
+					getSourceFiles()).call();
 
-			String separator = System.getProperty("path.separator");
-			StringBuilder jars = new StringBuilder();
+			String fqn = getFQN(module);
+			Class<?> loadedClass = fileManager.getClassLoader(null).loadClass(fqn);
 
-			for (File jar : libDirectory.listFiles()) {
-				jars.append(jar.getCanonicalPath() + separator);
-			}
+			Class<?>[] inputParameters = new Class<?>[] { HttpServletRequest.class,
+					HttpServletResponse.class, Map.class };
 
-			CompilationTask task = compiler.getTask(null, fileManager, null,
-					Arrays.asList("-classpath", jars.toString()), null, getSourceFiles(module));
-			task.call();
-
-			ClassLoader classLoader = fileManager.getClassLoader(null);
-
-			// TODO Determine class name (FQN)
-			Class<?> loadedClass = classLoader
-					.loadClass("com.sap.dirigible.dynamic.test.Calculator");
-
-			Object instance = loadedClass.newInstance();
-			Method serviceMethod = loadedClass.getMethod("service",
-					new Class<?>[] { HttpServletResponse.class });
-			return serviceMethod.invoke(instance, response);
+			Method serviceMethod = loadedClass.getMethod("service", inputParameters);
+			return serviceMethod.invoke(loadedClass.newInstance(), request, response,
+					defaultVariables);
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
 	}
 
-	private Iterable<? extends JavaFileObject> getSourceFiles(String module) throws IOException {
-		String sourceCode = new String(retrieveModule(repository, module, "", rootPaths));
+	private String getJars() throws URISyntaxException, IOException {
+		URL url = JavaExecutor.class.getProtectionDomain().getCodeSource().getLocation();
+		File libDirectory = new File(url.toURI()).getParentFile();
 
-		// TODO Delete me
-		logger.error("JavaExecutor#getSourceFiles() rootPaths -> " + Arrays.toString(rootPaths));
+		String separator = System.getProperty(PATH_SEPARATOR);
+		StringBuilder jars = new StringBuilder();
 
-		// TODO Determine class name (FQN)
+		for (File jar : libDirectory.listFiles()) {
+			jars.append(jar.getCanonicalPath() + separator);
+		}
+		return jars.toString();
+	}
+
+	private String getFQN(String module) {
+		StringBuilder fqn = new StringBuilder(module);
+		if (fqn.charAt(0) == SLASH.charAt(0)) {
+			fqn.delete(0, 1);
+		}
+		int indexOf = fqn.indexOf(DOT);
+		if (indexOf > 0) {
+			fqn.delete(indexOf, fqn.length());
+		}
+
+		return fqn.toString().replace(SLASH, DOT);
+	}
+
+	private Iterable<? extends JavaFileObject> getSourceFiles() throws IOException {
 		List<JavaFileObject> javaFiles = new ArrayList<JavaFileObject>();
-		javaFiles.add(new CharSequenceJavaFileObject("com.sap.dirigible.dynamic.test.Calculator",
-				sourceCode));
+		List<Module> modules = retrieveModulesByExtension(repository, JAVA_EXTENSION, rootPaths);
+		for (Module module : modules) {
+			javaFiles.add(new CharSequenceJavaFileObject(getFQN(module.getPath()), new String(
+					module.getContent())));
+		}
 		return javaFiles;
 	}
 

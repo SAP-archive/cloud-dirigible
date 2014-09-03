@@ -25,7 +25,7 @@ import java.util.zip.ZipInputStream;
  * 
  */
 public interface IRepository {
-	
+
 	public static final String SEPARATOR = "/"; //$NON-NLS-1$
 
 	/**
@@ -81,8 +81,7 @@ public interface IRepository {
 	 * The returned value is an instance of <code>IResource</code> that
 	 * represents the newly created resource.
 	 */
-	public IResource createResource(String path, byte[] content)
-			throws IOException;
+	public IResource createResource(String path, byte[] content) throws IOException;
 
 	/**
 	 * This method creates a new empty resource at the specified path.
@@ -90,8 +89,8 @@ public interface IRepository {
 	 * The returned value is an instance of <code>IResource</code> that
 	 * represents the newly created resource.
 	 */
-	public IResource createResource(String path, byte[] content,
-			boolean isBinary, String contentType) throws IOException;
+	public IResource createResource(String path, byte[] content, boolean isBinary,
+			String contentType) throws IOException;
 
 	/**
 	 * Returns an instance of <code>IResource</code> which represents the
@@ -131,8 +130,7 @@ public interface IRepository {
 	 * @param relativeRoot
 	 * @throws IOException
 	 */
-	public void importZip(ZipInputStream zipInputStream, String relativeRoot)
-			throws IOException;
+	public void importZip(ZipInputStream zipInputStream, String relativeRoot) throws IOException;
 
 	/**
 	 * Imports content from zip file to the repository, based on the relative
@@ -169,19 +167,30 @@ public interface IRepository {
 	 * @return
 	 * @throws IOException
 	 */
-	public byte[] exportZip(String relativeRoot, boolean inclusive)
-			throws IOException;
+	public byte[] exportZip(String relativeRoot, boolean inclusive) throws IOException;
 
 	/**
-	 * Search the given given parameter in the names of the files and folders (
-	 * means *parameter)
+	 * Search the given parameter in the names of the files and folders ( means
+	 * *parameter)
 	 * 
 	 * @param parameter
 	 * @param caseInsensitive
 	 * @return
 	 * @throws IOException
 	 */
-	public List<IEntity> searchName(String parameter, boolean caseInsensitive)
+	public List<IEntity> searchName(String parameter, boolean caseInsensitive) throws IOException;
+
+	/**
+	 * Search the given parameter in the names of the files and folders ( means
+	 * *parameter) under specified root folder (means *root)
+	 * 
+	 * @param root
+	 * @param parameter
+	 * @param caseInsensitive
+	 * @return
+	 * @throws IOException
+	 */
+	public List<IEntity> searchName(String root, String parameter, boolean caseInsensitive)
 			throws IOException;
 
 	/**
@@ -193,8 +202,7 @@ public interface IRepository {
 	 * @return
 	 * @throws IOException
 	 */
-	public List<IEntity> searchPath(String parameter, boolean caseInsensitive)
-			throws IOException;
+	public List<IEntity> searchPath(String parameter, boolean caseInsensitive) throws IOException;
 
 	/**
 	 * Search the given given parameter in the names of the files and folders as
@@ -205,8 +213,7 @@ public interface IRepository {
 	 * @return
 	 * @throws IOException
 	 */
-	public List<IEntity> searchText(String parameter, boolean caseInsensitive)
-			throws IOException;
+	public List<IEntity> searchText(String parameter, boolean caseInsensitive) throws IOException;
 
 	/**
 	 * Retrieve all the kept versions of a given resource
@@ -215,8 +222,7 @@ public interface IRepository {
 	 * @return
 	 * @throws IOException
 	 */
-	public List<IResourceVersion> getResourceVersions(String path)
-			throws IOException;
+	public List<IResourceVersion> getResourceVersions(String path) throws IOException;
 
 	/**
 	 * Retrieve a particular version of a given resource
@@ -226,13 +232,12 @@ public interface IRepository {
 	 * @return
 	 * @throws IOException
 	 */
-	public IResourceVersion getResourceVersion(String path, int version)
-			throws IOException;
+	public IResourceVersion getResourceVersion(String path, int version) throws IOException;
 
 	/**
-	 * Clean-up the file versions older than a month
-	 * For full fledged SCM system, use external e.g. Git 
-	 *  
+	 * Clean-up the file versions older than a month For full fledged SCM
+	 * system, use external e.g. Git
+	 * 
 	 * @throws IOException
 	 */
 	public void cleanupOldVersions() throws IOException;

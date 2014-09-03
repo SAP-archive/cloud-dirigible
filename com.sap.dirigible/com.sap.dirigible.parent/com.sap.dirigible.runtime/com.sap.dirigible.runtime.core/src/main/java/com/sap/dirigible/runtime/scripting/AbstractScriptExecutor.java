@@ -18,6 +18,8 @@ package com.sap.dirigible.runtime.scripting;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,10 +35,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
+import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
+import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.mail.MailSender;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
@@ -143,37 +147,71 @@ public abstract class AbstractScriptExecutor {
 			throws IOException {
 		final IResource resource = repository.getResource(repositoryPath);
 		if (!resource.exists()) {
-			logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath));
+			logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
+					resource.getName(), repositoryPath));
 			throw new IOException(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
 					resource.getName(), repositoryPath));
 		}
 		return resource.getContent();
 	}
-	
-	public byte[] retrieveModule(IRepository repository, String module, String extension, String ... rootPaths)
-			throws IOException {
-		
+
+	public Module retrieveModule(IRepository repository, String module, String extension,
+			String... rootPaths) throws IOException {
+
 		for (String rootPath : rootPaths) {
 			String resourcePath = createResourcePath(rootPath, module, extension);
-			byte[] result;
 			final IResource resource = repository.getResource(resourcePath);
 			if (resource.exists()) {
-				result = readResourceData(repository, resourcePath);
-				return result;
+				return new Module(getModuleName(resource.getPath()), readResourceData(repository,
+						resourcePath));
 			}
 		}
-		
-		logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, (module + extension), Arrays.toString(rootPaths)));
-			throw new FileNotFoundException(
-					THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH
-					+ module + extension);
+
+		logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
+				(module + extension), Arrays.toString(rootPaths)));
+		throw new FileNotFoundException(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH + module
+				+ extension);
 	}
-	
-	private String createResourcePath(String root, String module,
-			String extension) {
-		String resourcePath = new StringBuilder().append(root).append('/')
+
+	public List<Module> retrieveModulesByExtension(IRepository repository, String extension,
+			String... rootPaths) throws IOException {
+		Map<String, Module> modules = new HashMap<String, Module>();
+		for (int i = rootPaths.length - 1; i >= 0; i--) {
+			List<IEntity> entities = repository.searchName(rootPaths[i], "%" + extension, false);
+			for (IEntity entity : entities) {
+				if (entity.exists()) {
+					String path = entity.getPath();
+					String moduleName = getModuleName(path);
+					Module module = new Module(moduleName, readResourceData(repository, path));
+					modules.put(moduleName, module);
+				}
+			}
+		}
+		return Arrays.asList(modules.values().toArray(new Module[] {}));
+	}
+
+	private static String getModuleName(String path) {
+		String workspace = ICommonConstants.WORKSPACE + ICommonConstants.SEPARATOR;
+		String scriptingServices = ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES
+				+ ICommonConstants.SEPARATOR;
+		int indexOfSandbox = path.indexOf(ICommonConstants.SANDBOX);
+		int indexOfRegistry = path.indexOf(ICommonConstants.REGISTRY);
+		String result = null;
+		if (indexOfSandbox > 0 || indexOfRegistry > 0) {
+			int indexOfScriptingServices = path.indexOf(scriptingServices);
+			result = path.substring(indexOfScriptingServices + scriptingServices.length());
+		} else {
+			int indexOfWorkspace = path.indexOf(workspace);
+			result = path.substring(indexOfWorkspace + workspace.length());
+			result = result.replace(scriptingServices, "");
+		}
+		return result;
+	}
+
+	private String createResourcePath(String root, String module, String extension) {
+		String resourcePath = new StringBuilder().append(root).append(ICommonConstants.SEPARATOR)
 				.append(module).append(extension).toString();
 		return resourcePath;
 	}
-	
+
 }
