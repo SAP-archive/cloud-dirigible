@@ -29,6 +29,21 @@
 		<url-pattern>/js-sandbox/*</url-pattern>
 	</servlet-mapping>
 	
+	<!-- Java Execution Servlet -->
+	<servlet>
+		<description>Java Servlet</description>
+		<display-name>Java Servlet</display-name>
+		<servlet-name>JavaServlet</servlet-name>
+		
+		<servlet-class>com.sap.dirigible.runtime.java.JavaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JavaServlet</servlet-name>
+		<url-pattern>/jaas/*</url-pattern>
+		<url-pattern>/jaas-secured/*</url-pattern>
+		<url-pattern>/jaas-sandbox/*</url-pattern>
+	</servlet-mapping>
+	
 	<!-- Command Execution Servlet -->
 	<servlet>
 		<description>Command Servlet</description>
@@ -139,6 +154,19 @@
 		<servlet-name>JavaScriptRegistryServlet</servlet-name>
 		<url-pattern>/scripting/javascript/*</url-pattern>
 		<url-pattern>/registry-js/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Registry for JavaScript Endpoints Servlet -->
+	<servlet>
+		<description>Java Registry Servlet</description>
+		<display-name>Java Registry Servlet</display-name>
+		<servlet-name>JavaRegistryServlet</servlet-name>
+		<servlet-class>com.sap.dirigible.runtime.registry.JavaRegistryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JavaRegistryServlet</servlet-name>
+		<url-pattern>/scripting/java/*</url-pattern>
+		<url-pattern>/registry-jaas/*</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Registry for Command Endpoints Servlet -->
@@ -346,6 +374,7 @@
 		<url-pattern>/rb-secured/*</url-pattern>
 		<url-pattern>/py-secured/*</url-pattern>
 		<url-pattern>/groovy-secured/*</url-pattern>
+		<url-pattern>/jaas-secured/*</url-pattern>
 		<url-pattern>/command-secured/*</url-pattern>
 		<url-pattern>/wiki-secured/*</url-pattern>
 		<url-pattern>/web-sandbox/*</url-pattern>
@@ -353,6 +382,7 @@
 		<url-pattern>/rb-sandbox/*</url-pattern>
 		<url-pattern>/py-sandbox/*</url-pattern>
 		<url-pattern>/groovy-sandbox/*</url-pattern>
+		<url-pattern>/jaas-sandbox/*</url-pattern>
 		<url-pattern>/command-sandbox/*</url-pattern>
 		<url-pattern>/wiki-sandbox/*</url-pattern>
 	</filter-mapping>
@@ -373,6 +403,15 @@
 	<filter-mapping>
 		<filter-name>JavaScriptRegistrySecureFilter</filter-name>
 		<url-pattern>/js/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>JavaRegistrySecureFilter</filter-name>
+		<filter-class>com.sap.dirigible.runtime.filter.JavaRegistrySecureFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>JavaRegistrySecureFilter</filter-name>
+		<url-pattern>/jaas/*</url-pattern>
 	</filter-mapping>
 	
 	<filter>
@@ -553,6 +592,7 @@
 			<url-pattern>/web-secured/*</url-pattern>
 			<url-pattern>/web/content-secured/*</url-pattern>
 			<url-pattern>/js-secured/*</url-pattern>
+			<url-pattern>/jaas-secured/*</url-pattern>
 			<url-pattern>/command-secured/*</url-pattern>
 			<!--
 			<url-pattern>/rb-secured/*</url-pattern>
@@ -562,6 +602,7 @@
 			<url-pattern>/web/wiki-secured/*</url-pattern>
 			<url-pattern>/index.html</url-pattern>
 			<url-pattern>/js-sandbox/*</url-pattern>
+			<url-pattern>/jaas-sandbox/*</url-pattern>
 			<url-pattern>/command-sandbox/*</url-pattern>
 			<!--
 			<url-pattern>/rb-sandbox/*</url-pattern>
