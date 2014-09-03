@@ -9,6 +9,9 @@ import java.util.StringTokenizer;
 
 public class ProcessUtils {
 	
+	public static int DEFAULT_WAIT_TIME = 1000;
+	public static int DEFAULT_LOOP_COUNT = 30;
+	
 	public static ProcessBuilder createProcess(String[] args) throws IOException {
 		
 		ProcessBuilder processBuilder = new ProcessBuilder(args);

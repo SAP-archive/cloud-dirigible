@@ -118,14 +118,14 @@ public class TerminalView extends ViewPart {
         	int i=0;
             boolean deadYet = false;
             do {
-                Thread.sleep(1000);
+                Thread.sleep(ProcessUtils.DEFAULT_WAIT_TIME);
                 try {
                     process.exitValue();
                     deadYet = true;
                 } catch (IllegalThreadStateException e) {
-                    if (++i >= 5) {
+                    if (++i >= ProcessUtils.DEFAULT_LOOP_COUNT) {
                     	process.destroy();
-                    	throw new RuntimeException("Exeeds timeout - 5s");
+                    	throw new RuntimeException("Exeeds timeout - " + ((ProcessUtils.DEFAULT_WAIT_TIME/1000) * ProcessUtils.DEFAULT_LOOP_COUNT));
                     }
                 }
             } while (!deadYet);

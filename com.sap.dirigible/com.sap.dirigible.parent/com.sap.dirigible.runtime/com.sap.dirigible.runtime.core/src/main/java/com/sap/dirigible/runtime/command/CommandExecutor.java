@@ -16,6 +16,7 @@
 package com.sap.dirigible.runtime.command;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.command.Piper;
 import com.sap.dirigible.repository.ext.command.ProcessUtils;
@@ -54,7 +53,7 @@ public class CommandExecutor extends AbstractScriptExecutor {
 		}
 		logger.debug("exiting: constructor()");
 	}
-
+	
 	@Override
 	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
 			Object input, String module) throws IOException {
@@ -66,43 +65,63 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			throw new IOException(COMMAND_MODULE_NAME_CANNOT_BE_NULL);
 		}
 		
-//		String commandSource = new String(retrieveModule(repository, module, COMMAND_EXTENSION, rootPaths));
 		String commandSource = new String(retrieveModule(repository, module, "", rootPaths));
 		
-		JsonParser parser = new JsonParser();
-		JsonObject commandObject = (JsonObject) parser.parse(commandSource);
+		CommandData commandData;
+		try {
+			commandData = CommandDataParser.parseCommandData(commandSource);
+		} catch (IllegalArgumentException e2) {
+			logger.error(e2.getMessage());
+			return e2.getMessage();
+		}
 		
+		String commandLine = commandData.getTargetCommand().getCommand(); 
 		
-		String[] args = ProcessUtils.translateCommandline(commandObject.get("command").getAsString());
-		ProcessBuilder processBuilder = ProcessUtils.createProcess(args);
+		String[] args = null;
+		try {
+			args = ProcessUtils.translateCommandline(commandLine);
+		} catch (Exception e1) {
+			logger.error(e1.getMessage());
+			return e1.getMessage();
+		}
 		
-		ProcessUtils.addEnvironmentVariables(processBuilder, null);
-		ProcessUtils.removeEnvironmentVariables(processBuilder, null);
-		//processBuilder.directory(new File(workingDirectory));
-		processBuilder.redirectErrorStream(true);
+		logger.debug("executing command=" + commandLine); //$NON-NLS-1$
 		
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		Process process = ProcessUtils.startProcess(args, processBuilder);
-		Piper pipe = new Piper(process.getInputStream(), out);
-        new Thread(pipe).start();
-        try {
-			//process.waitFor();
-        	
-        	int i=0;
-            boolean deadYet = false;
-            do {
-                Thread.sleep(1000);
-                try {
-                    process.exitValue();
-                    deadYet = true;
-                } catch (IllegalThreadStateException e) {
-                    if (++i >= 5) {
-                    	process.destroy();
-                    	throw new RuntimeException("Exeeds timeout - 5s");
-                    }
-                }
-            } while (!deadYet);
-            
+		ByteArrayOutputStream out;
+		try {
+			ProcessBuilder processBuilder = ProcessUtils.createProcess(args);
+			
+			ProcessUtils.addEnvironmentVariables(processBuilder, commandData.getEnvAdd());
+			ProcessUtils.removeEnvironmentVariables(processBuilder, commandData.getEnvRemove());
+			processBuilder.directory(new File(commandData.getWorkDir()));
+			processBuilder.redirectErrorStream(true);
+			
+			out = new ByteArrayOutputStream();
+			Process process = ProcessUtils.startProcess(args, processBuilder);
+			Piper pipe = new Piper(process.getInputStream(), out);
+			new Thread(pipe).start();
+			try {
+				//process.waitFor();
+				
+				int i=0;
+			    boolean deadYet = false;
+			    do {
+			        Thread.sleep(ProcessUtils.DEFAULT_WAIT_TIME);
+			        try {
+			            process.exitValue();
+			            deadYet = true;
+			        } catch (IllegalThreadStateException e) {
+			            if (++i >= ProcessUtils.DEFAULT_LOOP_COUNT) {
+			            	process.destroy();
+			            	throw new RuntimeException("Exeeds timeout - " + ((ProcessUtils.DEFAULT_WAIT_TIME/1000) * ProcessUtils.DEFAULT_LOOP_COUNT));
+			            }
+			        }
+			    } while (!deadYet);
+			    
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+				return e.getMessage();
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return e.getMessage();
