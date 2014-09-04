@@ -37,9 +37,9 @@
          point="com.sap.dirigible.ide.template.type">
       <template
             category="ScriptingServices"
-            image="/icons/blank-service.png"
-            location="/com/sap/dirigible/ide/template/ui/js/templates/blank-service.js"
-            text="Blank Server-Side JavaScript Service">
+            image="/icons/javascript-service.png"
+            location="/com/sap/dirigible/ide/template/ui/js/templates/javascript-service.js"
+            text="Server-Side JavaScript Service">
       </template>
       <template
             category="ScriptingServices"
@@ -58,6 +58,12 @@
             image="/icons/database-crud.png"
             location="/com/sap/dirigible/ide/template/ui/js/templates/database-crud.js"
             text="Entity Service on Table">
+      </template>
+       <template
+            category="ScriptingServices"
+            image="/icons/java-service.png"
+            location="/com/sap/dirigible/ide/template/ui/js/templates/java-service.java_"
+            text="Server-Side Java Service">
       </template>
       <template
             category="ScriptingServices"

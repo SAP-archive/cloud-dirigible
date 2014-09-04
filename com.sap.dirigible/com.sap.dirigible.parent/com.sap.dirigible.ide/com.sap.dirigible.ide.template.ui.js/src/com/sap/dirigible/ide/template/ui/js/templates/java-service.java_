@@ -1,0 +1,12 @@
+package ${projectName};
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class HelloWorld {
+
+    public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.getWriter().println("Hello World!");
+        response.setContentType("text/html");
+    }
+}

@@ -90,6 +90,10 @@ public class JavascriptServiceTemplateTargetLocationPage extends
 				.equals(model.getTemplate().getLocation())) {
 			jsOrLibExt = "command"; //$NON-NLS-1$
 		}
+		else if("/com/sap/dirigible/ide/template/ui/js/templates/java-service.java_" //$NON-NLS-1$
+				.equals(model.getTemplate().getLocation())) {
+			jsOrLibExt = "java"; //$NON-NLS-1$
+		}
 		return jsOrLibName + "_name." + jsOrLibExt; //$NON-NLS-1$
 	}
 
