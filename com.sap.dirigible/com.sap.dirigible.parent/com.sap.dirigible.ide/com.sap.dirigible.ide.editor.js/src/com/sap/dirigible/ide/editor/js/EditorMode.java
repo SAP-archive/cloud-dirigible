@@ -26,6 +26,7 @@ public enum EditorMode {
 	HTML("html", "html", "css"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	TXT("text", "txt"), //$NON-NLS-1$ //$NON-NLS-2$
 	RUBY("ruby", "rb"), //$NON-NLS-1$ //$NON-NLS-2$
+	JAVA("java", "java"), //$NON-NLS-1$ //$NON-NLS-2$
 	GROOVY("groovy", "groovy", "gvy", "gy", "gsh");
 	
 	private static final EditorMode DEFAULT_MODE = TXT;

@@ -35,6 +35,7 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 	public static final URL TYPE_HTML_ICON_URL = getIconURL("icon-html.png"); //$NON-NLS-1$
 	public static final URL TYPE_TXT_ICON_URL = getIconURL("icon-txt.png"); //$NON-NLS-1$
 	public static final URL TYPE_JS_ICON_URL = getIconURL("icon-js.png"); //$NON-NLS-1$
+	public static final URL TYPE_JAVA_ICON_URL = getIconURL("icon-java.png"); //$NON-NLS-1$
 	public static final URL TYPE_JSON_ICON_URL = getIconURL("icon-json.png"); //$NON-NLS-1$
 	public static final URL TYPE_XSD_ICON_URL = getIconURL("icon-xsd.png"); //$NON-NLS-1$
 	public static final URL TYPE_UNKNOWN_ICON_URL = getIconURL("icon-unknown.png"); //$NON-NLS-1$
@@ -89,6 +90,9 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 		}
 		if (resourceName.endsWith("js")) { //$NON-NLS-1$
 			return createImage(TYPE_JS_ICON_URL);
+		}
+		if (resourceName.endsWith("java")) { //$NON-NLS-1$
+			return createImage(TYPE_JAVA_ICON_URL);
 		}
 		if (resourceName.endsWith("json")) { //$NON-NLS-1$
 			return createImage(TYPE_JSON_ICON_URL);
