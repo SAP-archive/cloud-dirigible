@@ -29,6 +29,20 @@
 		<url-pattern>/js-sandbox/*</url-pattern>
 	</servlet-mapping>
 	
+	<!-- Java Execution Servlet -->
+	<servlet>
+		<description>Java Servlet</description>
+		<display-name>Java Servlet</display-name>
+		<servlet-name>JavaServlet</servlet-name>
+		
+		<servlet-class>com.sap.dirigible.runtime.java.JavaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JavaServlet</servlet-name>
+		<url-pattern>/jaas/*</url-pattern>
+		<url-pattern>/jaas-secured/*</url-pattern>
+		<url-pattern>/jaas-sandbox/*</url-pattern>
+	</servlet-mapping>
 
 	<!-- Ruby Execution Servlet  -->
 	<servlet>
