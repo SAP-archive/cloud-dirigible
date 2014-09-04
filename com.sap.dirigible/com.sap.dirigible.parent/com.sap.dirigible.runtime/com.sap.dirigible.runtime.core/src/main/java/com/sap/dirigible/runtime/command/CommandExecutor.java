@@ -24,21 +24,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
+import org.w3c.dom.html.HTMLUListElement;
 
+import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.command.Piper;
 import com.sap.dirigible.repository.ext.command.ProcessUtils;
+import com.sap.dirigible.repository.ext.utils.FileUtils;
+import com.sap.dirigible.runtime.filter.XSSUtils;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class CommandExecutor extends AbstractScriptExecutor {
 
+	private static final String WORK = "work";
+
 	private static final String COMMAND_MODULE_NAME_CANNOT_BE_NULL = Messages
 			.getString("CommandExecutor.COMMAND_MODULE_NAME_CANNOT_BE_NULL"); //$NON-NLS-1$
 	
 	private static final Logger logger = Logger.getLogger(CommandExecutor.class);
-
-	private static final String COMMAND_EXTENSION = ".command";
 
 	private IRepository repository;
 	private String[] rootPaths;
@@ -65,6 +70,7 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			throw new IOException(COMMAND_MODULE_NAME_CANNOT_BE_NULL);
 		}
 		
+		String result = null; 
 		String commandSource = new String(retrieveModule(repository, module, "", rootPaths).getContent());
 		
 		CommandData commandData;
@@ -72,7 +78,7 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			commandData = CommandDataParser.parseCommandData(commandSource);
 		} catch (IllegalArgumentException e2) {
 			logger.error(e2.getMessage());
-			return e2.getMessage();
+			throw new IOException(e2);
 		}
 		
 		String commandLine = commandData.getTargetCommand().getCommand(); 
@@ -82,7 +88,7 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			args = ProcessUtils.translateCommandline(commandLine);
 		} catch (Exception e1) {
 			logger.error(e1.getMessage());
-			return e1.getMessage();
+			throw new IOException(e1);
 		}
 		
 		logger.debug("executing command=" + commandLine); //$NON-NLS-1$
@@ -93,7 +99,29 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			
 			ProcessUtils.addEnvironmentVariables(processBuilder, commandData.getEnvAdd());
 			ProcessUtils.removeEnvironmentVariables(processBuilder, commandData.getEnvRemove());
-			processBuilder.directory(new File(commandData.getWorkDir()));
+			
+			if (commandData.isUseContent()) {
+				if (commandData.getWorkDir() == null) {
+					commandData.setWorkDir(WORK);
+				}
+				String directory = XSSUtils.stripXSS(commandData.getWorkDir());
+				
+				if (directory == null
+						|| "".equals(directory)) {
+					directory = WORK;
+				}
+				File targetFolder = FileUtils.createTempDirectory(directory);
+				
+				for (int i = rootPaths.length-1; i >=0 ; i--) {
+					ICollection collection = getCollection(repository, rootPaths[i]);
+					FileUtils.copyCollectionToDirectory(collection, targetFolder, rootPaths);
+				}
+				
+				processBuilder.directory(targetFolder);
+			
+			} else {
+				processBuilder.directory(new File(commandData.getWorkDir()));
+			}
 			processBuilder.redirectErrorStream(true);
 			
 			out = new ByteArrayOutputStream();
@@ -120,13 +148,13 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			    
 			} catch (Exception e) {
 				logger.error(e.getMessage());
-				return e.getMessage();
+				throw new IOException(e);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			return e.getMessage();
+			throw new IOException(e);
 		}
-		String result = new String(out.toByteArray());
+		result = new String(out.toByteArray());
 		
 		response.getWriter().write(result);
 		response.getWriter().flush();

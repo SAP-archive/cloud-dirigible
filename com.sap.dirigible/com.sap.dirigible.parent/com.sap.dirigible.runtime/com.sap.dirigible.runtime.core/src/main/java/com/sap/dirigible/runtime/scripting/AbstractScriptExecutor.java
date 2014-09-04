@@ -35,6 +35,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
+import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
@@ -49,6 +50,9 @@ public abstract class AbstractScriptExecutor {
 
 	private static final String THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH = Messages
 			.getString("ScriptLoader.THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH"); //$NON-NLS-1$
+	
+	private static final String THERE_IS_NO_COLLECTION_AT_THE_SPECIFIED_SERVICE_PATH = Messages
+			.getString("ScriptLoader.THERE_IS_NO_COLLECTION_AT_THE_SPECIFIED_SERVICE_PATH"); //$NON-NLS-1$
 
 	private static final Logger logger = Logger.getLogger(AbstractScriptExecutor.class);
 
@@ -214,4 +218,14 @@ public abstract class AbstractScriptExecutor {
 		return resourcePath;
 	}
 
+	public ICollection getCollection(IRepository repository, String repositoryPath)
+			throws IOException {
+		final ICollection collection = repository.getCollection(repositoryPath);
+		if (!collection.exists()) {
+			logger.error(String.format(THERE_IS_NO_COLLECTION_AT_THE_SPECIFIED_SERVICE_PATH, collection.getName(), repositoryPath));
+			throw new IOException(String.format(THERE_IS_NO_COLLECTION_AT_THE_SPECIFIED_SERVICE_PATH,
+					collection.getName(), repositoryPath));
+		}
+		return collection;
+	}
 }

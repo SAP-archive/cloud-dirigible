@@ -39,6 +39,7 @@ import com.sap.dirigible.repository.api.ContentTypeHelper;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.repository.ext.utils.FileUtils;
 
 public class GitFileUtils {
 	private static final String COULD_NOT_CREATE_TEMP_DIRECTORY = Messages.GitFileUtils_COULD_NOT_CREATE_TEMP_DIRECTORY;
@@ -52,20 +53,11 @@ public class GitFileUtils {
 	}
 
 	public static File createTempDirectory(String directory) throws IOException {
-		String suffix = Long.toString(System.nanoTime());
-		return createTempDirectory(directory, suffix);
+		return FileUtils.createTempDirectory(directory);
 	}
 
 	public static File createTempDirectory(String directory, String suffix) throws IOException {
-		final File temp = File.createTempFile(directory, suffix);
-		if (!(temp.delete())) {
-			throw new IOException(String.format(COULD_NOT_DELETE_TEMP_FILE, temp.getAbsolutePath()));
-		}
-		if (!(temp.mkdir())) {
-			throw new IOException(String.format(COULD_NOT_CREATE_TEMP_DIRECTORY,
-					temp.getAbsolutePath()));
-		}
-		return temp;
+		return FileUtils.createTempDirectory(directory, suffix);
 	}
 
 	public static List<String> importProject(File gitDirectory, IRepository repository,
