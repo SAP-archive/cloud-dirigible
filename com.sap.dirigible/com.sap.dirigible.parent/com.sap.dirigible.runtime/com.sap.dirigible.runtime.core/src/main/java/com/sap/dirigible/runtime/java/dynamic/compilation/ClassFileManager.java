@@ -27,7 +27,6 @@ public class ClassFileManager extends ForwardingJavaFileManager {
 		return new SecureClassLoader(ClassLoader.getSystemClassLoader()) {
 			@Override
 			public Class<?> loadClass(String name) throws ClassNotFoundException {
-				System.out.println("SecureClassLoader#loadClass(String name) name-> " + name);
 				Class<?> result = null;
 				JavaClassObject javaClassObject = (JavaClassObject) javaClassObjects.get(name);
 				if (javaClassObject != null) {

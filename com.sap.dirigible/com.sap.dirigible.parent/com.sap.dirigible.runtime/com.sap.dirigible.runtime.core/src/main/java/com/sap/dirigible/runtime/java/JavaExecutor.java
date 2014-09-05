@@ -1,7 +1,9 @@
 package com.sap.dirigible.runtime.java;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -14,6 +16,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.tools.JavaCompiler;
+import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
@@ -21,7 +24,8 @@ import javax.tools.ToolProvider;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.java.dynamic.compilation.CharSequenceJavaFileObject;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.java.dynamic.compilation.DynamicJavaCompilationDiagnosticListener;
+import com.sap.dirigible.runtime.java.dynamic.compilation.DynamicJavaCompilationException;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 import com.sap.dirigible.runtime.scripting.Module;
 
@@ -37,8 +41,6 @@ public class JavaExecutor extends AbstractScriptExecutor {
 
 	private static final String PATH_SEPARATOR = "path.separator";
 
-	private static final Logger logger = Logger.getLogger(JavaExecutor.class);
-
 	private IRepository repository;
 	private String[] rootPaths;
 	private Map<String, Object> defaultVariables;
@@ -51,7 +53,7 @@ public class JavaExecutor extends AbstractScriptExecutor {
 
 	@Override
 	protected Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
-			Object input, String module) throws IOException {
+			Object input, String module) throws DynamicJavaCompilationException {
 
 		registerDefaultVariables(request, response, input, null, repository, null);
 
@@ -59,12 +61,19 @@ public class JavaExecutor extends AbstractScriptExecutor {
 
 			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
-			// TODO implement Diagnostic Listener!
+			DynamicJavaCompilationDiagnosticListener diagnosticListener = new DynamicJavaCompilationDiagnosticListener();
 			JavaFileManager fileManager = new ClassFileManager(compiler.getStandardFileManager(
-					null, null, null));
+					diagnosticListener, null, null));
 
-			compiler.getTask(null, fileManager, null, Arrays.asList(CLASSPATH, getJars()), null,
-					getSourceFiles()).call();
+			CompilationTask compilationTask = compiler
+					.getTask(null, fileManager, diagnosticListener,
+							Arrays.asList(CLASSPATH, getJars()), null, getSourceFiles());
+
+			Boolean compilationTaskResult = compilationTask.call();
+
+			if (compilationTaskResult == null || !compilationTaskResult.booleanValue()) {
+				throw new DynamicJavaCompilationException(diagnosticListener);
+			}
 
 			String fqn = getFQN(module);
 			Class<?> loadedClass = fileManager.getClassLoader(null).loadClass(fqn);
@@ -76,7 +85,9 @@ public class JavaExecutor extends AbstractScriptExecutor {
 			return serviceMethod.invoke(loadedClass.newInstance(), request, response,
 					defaultVariables);
 		} catch (Exception e) {
-			throw new IOException(e);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			e.printStackTrace(new PrintStream(baos));
+			throw new DynamicJavaCompilationException(baos.toString());
 		}
 	}
 
