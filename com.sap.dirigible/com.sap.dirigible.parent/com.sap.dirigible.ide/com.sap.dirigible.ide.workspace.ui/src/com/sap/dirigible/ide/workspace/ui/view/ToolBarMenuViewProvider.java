@@ -88,9 +88,7 @@ public class ToolBarMenuViewProvider {
 			public void widgetSelected(SelectionEvent e) {
 				StatusLineManagerUtil.getDefaultStatusLineManager().removeAll();
 				try {
-					// TODO getActivePages() to determine opened project and
-					// publish/activate them!
-					publish();
+					activate();
 				} catch (Exception ex) {
 					logger.error(ex.getMessage(), ex);
 					StatusLineManagerUtil.setErrorMessage(ex.getMessage());
@@ -117,9 +115,7 @@ public class ToolBarMenuViewProvider {
 			public void widgetSelected(SelectionEvent e) {
 				StatusLineManagerUtil.getDefaultStatusLineManager().removeAll();
 				try {
-					// TODO getActivePages() to determine opened project and
-					// publish/activate them!
-					activate();
+					publish();
 				} catch (Exception ex) {
 					logger.error(ex.getMessage(), ex);
 					StatusLineManagerUtil.setErrorMessage(ex.getMessage());
