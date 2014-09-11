@@ -10,9 +10,9 @@ import javax.sql.DataSource;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.utils.DataSourceUtils;
 

@@ -38,6 +38,7 @@ import com.sap.dirigible.ide.workspace.wizard.project.create.Messages;
 import com.sap.dirigible.ide.workspace.wizard.project.create.ProjectTemplateType;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.RepositoryException;
 
 public class SampleProjectWizardModel {
@@ -130,13 +131,13 @@ public class SampleProjectWizardModel {
 	private boolean isValidRepositoryProject() {
 		IRepository repository = RepositoryFacade.getInstance().getRepository();
 		ICollection userFolders = repository
-				.getCollection(CommonParameters.DB_DIRIGIBLE_USERS);
+				.getCollection(IRepositoryPaths.DB_DIRIGIBLE_USERS);
 		boolean isValid = true;
 		try {
 			for (ICollection user : userFolders.getCollections()) {
 				if (user.exists()) {
 					ICollection workspace = user
-							.getCollection(CommonParameters.WORKSPACE_FOLDER_NAME);
+							.getCollection(IRepositoryPaths.WORKSPACE_FOLDER_NAME);
 					for (ICollection nextProject : workspace.getCollections()) {
 						if (nextProject.exists()) {
 							if (nextProject.getName().equals(projectName)) {

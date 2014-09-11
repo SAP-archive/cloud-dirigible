@@ -27,10 +27,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.filter.SandboxFilter;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.PathUtils;
@@ -62,10 +63,10 @@ public class WikiRegistryServlet extends WebRegistryServlet {
 		if (request.getAttribute(SandboxFilter.SANDBOX_CONTEXT) != null
 				&& (Boolean) request.getAttribute(SandboxFilter.SANDBOX_CONTEXT)) {
 			
-			return SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR
+			return IRepositoryPaths.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR
 					+ RepositoryFacade.getUser(request) + WIKI_CONTENT + requestPath;
 		}
-		return REGISTRY_DEPLOY_PATH + WIKI_CONTENT + requestPath;
+		return IRepositoryPaths.REGISTRY_DEPLOY_PATH + WIKI_CONTENT + requestPath;
 	}
 	
 	@Override

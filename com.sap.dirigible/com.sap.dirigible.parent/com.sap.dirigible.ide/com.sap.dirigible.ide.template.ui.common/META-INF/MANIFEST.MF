@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.rap.ui;bundle-version="1.4.2",
  org.eclipse.core.resources;bundle-version="3.6.0",
  com.sap.dirigible.ide.workspace.ui,
  com.sap.dirigible.ide.common,
- org.apache.commons.io
+ org.apache.commons.io,
+ com.sap.dirigible.repository.api
 Export-Package: com.sap.dirigible.ide.template.ui.common
 Import-Package: com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.logging,

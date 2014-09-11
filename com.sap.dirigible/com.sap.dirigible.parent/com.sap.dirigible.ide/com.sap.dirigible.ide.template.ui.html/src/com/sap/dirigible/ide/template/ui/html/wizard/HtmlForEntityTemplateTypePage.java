@@ -15,11 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.html.wizard;
 
-import java.net.MalformedURLException;
-
-import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
-import com.sap.dirigible.ide.template.ui.common.TemplateType;
 import com.sap.dirigible.ide.template.ui.common.TemplateTypeWizardPage;
 
 public class HtmlForEntityTemplateTypePage extends TemplateTypeWizardPage {

@@ -18,10 +18,10 @@ package com.sap.dirigible.ide.template.ui.is.wizard;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
-import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 import com.sap.dirigible.ide.ui.common.validation.ValidationStatus;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class IntegrationServiceTemplateModel extends GenerationModel {
 

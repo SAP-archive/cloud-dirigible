@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.ext.lucene.RepositoryMemoryIndexer;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
@@ -102,8 +103,8 @@ public class SearchServlet extends AbstractRegistryServlet {
 
 		for (final String entity : paths) {
 			String entityName = entity;
-			if (entityName.startsWith(AbstractRegistryServlet.REGISTRY_DEPLOY_PATH)) {
-				entityName = entityName.substring(AbstractRegistryServlet.REGISTRY_DEPLOY_PATH
+			if (entityName.startsWith(IRepositoryPaths.REGISTRY_DEPLOY_PATH)) {
+				entityName = entityName.substring(IRepositoryPaths.REGISTRY_DEPLOY_PATH
 						.length());
 				final String path = collectionPath + entityName;
 				final JsonObject elementObject = new JsonObject();

@@ -27,16 +27,16 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.publish.PublishManager;
 import com.sap.dirigible.ide.publish.IPublisher;
+import com.sap.dirigible.ide.publish.PublishManager;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.RepositoryException;
 
 public class NewProjectWizardModel {
@@ -100,13 +100,13 @@ public class NewProjectWizardModel {
 	private boolean isValidRepositoryProject() {
 		IRepository repository = RepositoryFacade.getInstance().getRepository();
 		ICollection userFolders = repository
-				.getCollection(CommonParameters.DB_DIRIGIBLE_USERS);
+				.getCollection(IRepositoryPaths.DB_DIRIGIBLE_USERS);
 		boolean isValid = true;
 		try {
 			for (ICollection user : userFolders.getCollections()) {
 				if (user.exists()) {
 					ICollection workspace = user
-							.getCollection(CommonParameters.WORKSPACE_FOLDER_NAME);
+							.getCollection(IRepositoryPaths.WORKSPACE_FOLDER_NAME);
 					for (ICollection nextProject : workspace.getCollections()) {
 						if (nextProject.exists()) {
 							if (nextProject.getName().equals(projectName)) {

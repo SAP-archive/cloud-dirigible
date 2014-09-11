@@ -15,7 +15,7 @@
 
 package com.sap.dirigible.runtime.agent;
 
-import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public interface ConfigurationCommands {
 
@@ -47,7 +47,7 @@ public interface ConfigurationCommands {
 
 	public static final String LOCAL_CONFIGURATION_FILE = "/WEB-INF/beans.xml"; //$NON-NLS-1$
 
-	public static final String REPOSITORY_INTEGRATION_DEPLOY_PATH = AbstractRegistryServlet.REGISTRY_DEPLOY_PATH
+	public static final String REPOSITORY_INTEGRATION_DEPLOY_PATH = IRepositoryPaths.REGISTRY_DEPLOY_PATH
 			+ "/IntegrationServices"; //$NON-NLS-1$
 
 	public static final String EXTENSION_ROUTE = ".routes"; //$NON-NLS-1$

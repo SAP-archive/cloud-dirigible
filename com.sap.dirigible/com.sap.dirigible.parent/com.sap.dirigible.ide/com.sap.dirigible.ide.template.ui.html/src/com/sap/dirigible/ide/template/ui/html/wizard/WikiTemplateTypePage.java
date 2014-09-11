@@ -15,9 +15,9 @@
 
 package com.sap.dirigible.ide.template.ui.html.wizard;
 
-import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTypeWizardPage;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class WikiTemplateTypePage extends TemplateTypeWizardPage {
 

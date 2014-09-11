@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateGenerator;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class IntegrationServiceTemplateGenerator extends TemplateGenerator {
 

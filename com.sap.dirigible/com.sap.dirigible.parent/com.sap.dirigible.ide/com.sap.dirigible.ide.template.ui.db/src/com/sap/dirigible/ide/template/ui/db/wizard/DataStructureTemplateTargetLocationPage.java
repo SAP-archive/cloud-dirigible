@@ -15,10 +15,10 @@
 
 package com.sap.dirigible.ide.template.ui.db.wizard;
 
-import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class DataStructureTemplateTargetLocationPage extends TemplateTargetLocationPage {
 

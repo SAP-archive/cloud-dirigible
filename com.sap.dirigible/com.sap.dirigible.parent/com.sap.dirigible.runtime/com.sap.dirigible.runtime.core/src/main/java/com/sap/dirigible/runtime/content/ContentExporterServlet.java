@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.runtime.logger.Logger;
-import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class ContentExporterServlet extends HttpServlet {
@@ -35,8 +35,8 @@ public class ContentExporterServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(ContentExporterServlet.class);
 
 	private static final String SYSTEM_USER = "SYSTEM"; //$NON-NLS-1$
-	private static final String DEFAULT_PATH_FOR_EXPORT = AbstractRegistryServlet.REGISTRY_DEPLOY_PATH;
-	private static final String DEFAULT_PATH_FOR_IMPORT = "/db/dirigible/registry"; //$NON-NLS-1$
+	private static final String DEFAULT_PATH_FOR_EXPORT = IRepositoryPaths.REGISTRY_DEPLOY_PATH;
+	private static final String DEFAULT_PATH_FOR_IMPORT = IRepositoryPaths.REGISTRY_IMPORT_PATH; //$NON-NLS-1$
 
 	// Folder in the generated zip-file (com.sap.dirigible.runtime*.zip) for
 	// exported content

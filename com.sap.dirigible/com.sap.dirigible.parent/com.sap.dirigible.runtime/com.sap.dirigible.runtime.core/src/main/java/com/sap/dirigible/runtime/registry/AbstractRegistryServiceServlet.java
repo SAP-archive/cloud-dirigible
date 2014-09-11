@@ -28,8 +28,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.runtime.common.ICommonConstants;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.runtime.logger.Logger;
 
 public abstract class AbstractRegistryServiceServlet extends AbstractRegistryServlet {
@@ -38,14 +39,13 @@ public abstract class AbstractRegistryServiceServlet extends AbstractRegistrySer
 
 	private static final Logger logger = Logger.getLogger(AbstractRegistryServiceServlet.class);
 
-	private static final String SERVICES_FOLDER = IRepository.SEPARATOR
-			+ ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES + IRepository.SEPARATOR;
+	private static final String SERVICES_FOLDER = ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES + IRepository.SEPARATOR;
 
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
 
-		final String repositoryPath = REGISTRY_DEPLOY_PATH + getServicesFolder();
+		final String repositoryPath = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY + getServicesFolder();
 		try {
 			final ICollection collection = getRepository(request).getCollection(repositoryPath);
 			buildList(

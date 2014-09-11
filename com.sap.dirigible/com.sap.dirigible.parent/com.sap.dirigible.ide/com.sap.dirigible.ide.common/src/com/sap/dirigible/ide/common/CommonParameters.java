@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.rap.rwt.RWT;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
+
 public class CommonParameters {
 
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
@@ -28,21 +31,12 @@ public class CommonParameters {
 	public static final String SEPARATOR = "/"; //$NON-NLS-1$
 	public static final String DEBUG_SEPARATOR = ":"; //$NON-NLS-1$
 
-	public static final String DB_DIRIGIBLE_ROOT = "/db/dirigible/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_REGISTRY = DB_DIRIGIBLE_ROOT + "registry/public/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_SANDBOX = DB_DIRIGIBLE_ROOT + "sandbox/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_USERS = DB_DIRIGIBLE_ROOT + "users/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_TEMPLATES = DB_DIRIGIBLE_ROOT + "templates/"; //$NON-NLS-1$
-	public static final String DB_DIRIGIBLE_TEMPLATES_PROJECTS = DB_DIRIGIBLE_TEMPLATES
-			+ "projects/"; //$NON-NLS-1$
-
-	public static final String WORKSPACE_FOLDER_NAME = "workspace"; //$NON-NLS-1$
-
+	
 	public static String getWorkspace() {
-		return DB_DIRIGIBLE_USERS + getUserName() + SEPARATOR + WORKSPACE_FOLDER_NAME;
+		return IRepositoryPaths.DB_DIRIGIBLE_USERS + getUserName() + SEPARATOR + IRepositoryPaths.WORKSPACE_FOLDER_NAME;
 	}
 
-	public static final String DB_DIRIGIBLE_CONFIGURATIONS = DB_DIRIGIBLE_REGISTRY
+	public static final String DB_DIRIGIBLE_CONFIGURATIONS = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
 			+ ICommonConstants.ARTIFACT_TYPE.CONFIGURATION_SETTINGS; //$NON-NLS-1$
 
 	public static final String REGISTRY = "/registry"; //$NON-NLS-1$
@@ -56,53 +50,53 @@ public class CommonParameters {
 	public static final String LOGGER_FACTORY = "loggerFactory"; //$NON-NLS-1$
 
 	public static final String WEB_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
-	public static final String WEB_CONTENT_REGISTRY_PUBLISH_LOCATION = DB_DIRIGIBLE_REGISTRY
+	public static final String WEB_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
 			+ WEB_CONTENT_FOLDER;
 
 	public static String getWebContentSandbox() {
-		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
 				+ ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
 	}
 
 	public static final String WIKI_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
-	public static final String WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION = DB_DIRIGIBLE_REGISTRY
+	public static final String WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
 			+ WIKI_CONTENT_FOLDER;
 
 	public static String getWikiContentSandbox() {
-		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
 				+ ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
 	}
 
 	public static final String SCRIPTING_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
-	public static final String SCRIPTING_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
+	public static final String SCRIPTING_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
 			+ SCRIPTING_CONTENT_FOLDER;
 
 	public static String getScriptingContentSandbox() {
-		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SCRIPTING_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SCRIPTING_CONTENT_FOLDER;
 	}
 
 	public static final String SECURITY_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS;
-	public static final String SECURITY_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
+	public static final String SECURITY_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
 			+ SECURITY_CONTENT_FOLDER;
 
 	public static String getSecuritContentSandbox() {
-		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SECURITY_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SECURITY_CONTENT_FOLDER;
 	}
 
 	public static final String TESTS_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.TEST_CASES;
-	public static final String TESTS_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
+	public static final String TESTS_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
 			+ TESTS_CONTENT_FOLDER;
 
 	public static String getTestingContentSandbox() {
-		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + TESTS_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + TESTS_CONTENT_FOLDER;
 	}
 
 	public static final String EXTENSION_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS;
-	public static final String EXTENSION_REGISTRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
+	public static final String EXTENSION_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
 			+ EXTENSION_CONTENT_FOLDER;
 
 	public static String getExtensionContentSandbox() {
-		return DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + EXTENSION_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + EXTENSION_CONTENT_FOLDER;
 	}
 
 	// github url

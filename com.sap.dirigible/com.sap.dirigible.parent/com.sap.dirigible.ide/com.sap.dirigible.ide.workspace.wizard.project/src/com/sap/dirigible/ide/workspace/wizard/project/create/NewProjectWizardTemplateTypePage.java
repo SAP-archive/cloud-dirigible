@@ -33,12 +33,12 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.image.ImageUtils;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public class NewProjectWizardTemplateTypePage extends WizardPage {
 
@@ -146,7 +146,7 @@ public class NewProjectWizardTemplateTypePage extends WizardPage {
 		List<ProjectTemplateType> projectTemplateTypesList = new ArrayList<ProjectTemplateType>();
 		IRepository repository = RepositoryFacade.getInstance().getRepository();
 		ICollection projectTemplatesRoot = repository
-				.getCollection(CommonParameters.DB_DIRIGIBLE_TEMPLATES_PROJECTS);
+				.getCollection(IRepositoryPaths.DB_DIRIGIBLE_TEMPLATES_PROJECTS);
 		if (!projectTemplatesRoot.exists()) {
 			model.setUseTemplate(false);
 			return new ProjectTemplateType[] {};

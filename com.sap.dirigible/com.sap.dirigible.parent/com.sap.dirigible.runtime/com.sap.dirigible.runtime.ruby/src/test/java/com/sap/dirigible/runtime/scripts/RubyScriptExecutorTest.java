@@ -12,9 +12,9 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.ruby.RubyExecutor;
 
 public class RubyScriptExecutorTest {

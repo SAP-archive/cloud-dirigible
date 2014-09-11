@@ -23,6 +23,7 @@ import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.repository.api.IEntity;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public class RepositoryPermissionTester extends PropertyTester {
 	private static final Logger logger = Logger.getLogger(RepositoryPermissionTester.class);
@@ -36,9 +37,9 @@ public class RepositoryPermissionTester extends PropertyTester {
 		String createdBy = null;
 		boolean allowed = false;
 
-		String allowedCopyPath = CommonParameters.DB_DIRIGIBLE_ROOT;
+		String allowedCopyPath = IRepositoryPaths.DB_DIRIGIBLE_ROOT;
 		String allowedWorkspacePath = CommonParameters.getWorkspace();
-		String allowedSandboxPath = CommonParameters.DB_DIRIGIBLE_SANDBOX + currentUser;
+		String allowedSandboxPath = IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + currentUser;
 		
 		boolean isOperator = CommonParameters.isUserInRole(CommonParameters.ROLE_OPERATOR);
 		

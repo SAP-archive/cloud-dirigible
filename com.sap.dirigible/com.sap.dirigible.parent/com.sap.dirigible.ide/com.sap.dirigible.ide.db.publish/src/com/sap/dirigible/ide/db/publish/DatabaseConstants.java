@@ -15,12 +15,12 @@
 
 package com.sap.dirigible.ide.db.publish;
 
-import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.common.ICommonConstants;
+import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public interface DatabaseConstants {
 
-	public static final String REGISTYRY_PUBLISH_LOCATION = CommonParameters.DB_DIRIGIBLE_REGISTRY
+	public static final String REGISTYRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
 			+ ICommonConstants.ARTIFACT_TYPE.DATA_STRUCTURES;
 
 }

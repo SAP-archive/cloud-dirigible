@@ -40,7 +40,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import com.sap.dirigible.ide.common.ExtensionPointUtils;
-import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 

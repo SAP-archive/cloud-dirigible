@@ -58,6 +58,7 @@ import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.RepositoryException;
 
 @SuppressWarnings("deprecation")
@@ -109,7 +110,7 @@ public class Workspace implements IWorkspace {
 
 	private static final String WORKSPACE = "/workspace"; //$NON-NLS-1$
 
-	private static final String DB_DIRIGIBLE_USERS = CommonParameters.DB_DIRIGIBLE_USERS; //$NON-NLS-1$
+	private static final String DB_DIRIGIBLE_USERS = IRepositoryPaths.DB_DIRIGIBLE_USERS; //$NON-NLS-1$
 	
 	private static final Logger logger = Logger.getLogger(Workspace.class); 
 

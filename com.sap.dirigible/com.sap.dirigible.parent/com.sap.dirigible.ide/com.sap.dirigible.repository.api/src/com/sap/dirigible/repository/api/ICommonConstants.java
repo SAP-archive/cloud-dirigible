@@ -13,9 +13,15 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.common;
+package com.sap.dirigible.repository.api;
 
 public interface ICommonConstants {
+	
+	public static final String SEPARATOR = IRepository.SEPARATOR; //$NON-NLS-1$
+	
+	public static final String SANDBOX = "sandbox"; //$NON-NLS-1$
+	public static final String REGISTRY = "registry"; //$NON-NLS-1$
+	public static final String WORKSPACE = "workspace"; //$NON-NLS-1$
 
 	public interface ARTIFACT_EXTENSION {
 		public static final String JAVASCRIPT= ".js"; //$NON-NLS-1$

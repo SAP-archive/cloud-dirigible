@@ -15,6 +15,8 @@
 
 package com.sap.dirigible.ide.common;
 
+import com.sap.dirigible.repository.api.IRepositoryPaths;
+
 public class CommonUtils {
 
 	public static String formatToIDEPath(String folder, String runtimePath) {
@@ -29,7 +31,7 @@ public class CommonUtils {
 
 	public static String formatToRuntimePath(String folder, String idePath) {
 		StringBuilder path = new StringBuilder(idePath);
-		int indexOfWorkspace = path.indexOf(CommonParameters.WORKSPACE_FOLDER_NAME);
+		int indexOfWorkspace = path.indexOf(IRepositoryPaths.WORKSPACE_FOLDER_NAME);
 		int indexOfSlash = path.indexOf(CommonParameters.SEPARATOR, indexOfWorkspace);
 		path.replace(0, indexOfSlash, CommonParameters.EMPTY_STRING);
 		int indexOfFolder = path.indexOf(folder);

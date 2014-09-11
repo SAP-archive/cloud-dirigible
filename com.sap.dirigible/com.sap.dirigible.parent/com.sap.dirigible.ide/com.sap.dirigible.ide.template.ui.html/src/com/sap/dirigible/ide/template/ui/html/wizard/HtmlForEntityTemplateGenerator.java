@@ -20,9 +20,9 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 
-import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateGenerator;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class HtmlForEntityTemplateGenerator extends TemplateGenerator {
 

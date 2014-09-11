@@ -22,10 +22,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.runtime.common.ICommonConstants;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.runtime.filter.SandboxFilter;
-import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 /**
@@ -37,11 +37,11 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -9115022531455267478L;
 
-	public static final String REGISTRY_SCRIPTING_DEPLOY_PATH = AbstractRegistryServlet.REGISTRY_DEPLOY_PATH
+	public static final String REGISTRY_SCRIPTING_DEPLOY_PATH = IRepositoryPaths.REGISTRY_DEPLOY_PATH
 			+ ICommonConstants.SEPARATOR + ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES; //$NON-NLS-1$
 	
 	public static String getSandboxScripting(HttpServletRequest request) {
-		return AbstractRegistryServlet.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR 
+		return IRepositoryPaths.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR 
 				+ RepositoryFacade.getUser(request) + ICommonConstants.SEPARATOR
 				+ ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES; //$NON-NLS-1$
 	}

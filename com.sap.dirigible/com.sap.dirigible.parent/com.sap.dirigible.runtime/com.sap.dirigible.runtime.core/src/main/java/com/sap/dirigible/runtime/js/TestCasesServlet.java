@@ -19,9 +19,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.sap.dirigible.runtime.common.ICommonConstants;
+import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.runtime.filter.SandboxFilter;
-import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class TestCasesServlet extends JavaScriptServlet {
@@ -30,14 +30,14 @@ public class TestCasesServlet extends JavaScriptServlet {
 
 	public static final String TEST_CASES = "/TestCases"; //$NON-NLS-1$  
 
-	public static final String REGISTRY_TESTS_DEPLOY_PATH = AbstractRegistryServlet.REGISTRY_DEPLOY_PATH
+	public static final String REGISTRY_TESTS_DEPLOY_PATH = IRepositoryPaths.REGISTRY_DEPLOY_PATH
 			+ TEST_CASES; //$NON-NLS-1$
 
 	@Override
 	protected String getScriptingRegistryPath(HttpServletRequest request) {
 		if (request.getAttribute(SandboxFilter.SANDBOX_CONTEXT) != null
 				&& (Boolean) request.getAttribute(SandboxFilter.SANDBOX_CONTEXT)) {
-			return AbstractRegistryServlet.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR
+			return IRepositoryPaths.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR
 					+ RepositoryFacade.getUser(request) + TEST_CASES;
 		}
 		return REGISTRY_TESTS_DEPLOY_PATH;

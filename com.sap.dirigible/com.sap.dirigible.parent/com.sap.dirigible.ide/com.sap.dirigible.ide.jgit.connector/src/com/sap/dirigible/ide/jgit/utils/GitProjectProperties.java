@@ -19,15 +19,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public class GitProjectProperties {
 	private final Properties gitProperties;
 	public static final String PROJECT_GIT_PROPERTY = "git.property";
 	public static final String PROPERTY_LAST_COMMIT_SHA = "last.commit.sha";
 	public static final String PROPERTY_GIT_REPOSITORY_URL = "git.repository.url";
-	public static final String DB_DIRIGIBLE_USERS_S_GIT_S_REPOSITORY = CommonParameters.DB_DIRIGIBLE_ROOT + "users/%s/git/%s";
-	public static final String DB_DIRIGIBLE_USERS_S_WORKSPACE = CommonParameters.DB_DIRIGIBLE_ROOT + "users/%s/workspace/";
+	public static final String DB_DIRIGIBLE_USERS_S_GIT_S_REPOSITORY = IRepositoryPaths.DB_DIRIGIBLE_ROOT + "users/%s/git/%s";
+	public static final String DB_DIRIGIBLE_USERS_S_WORKSPACE = IRepositoryPaths.DB_DIRIGIBLE_ROOT + "users/%s/workspace/";
 	public static final String GIT_PROPERTY_FILE_LOCATION = DB_DIRIGIBLE_USERS_S_GIT_S_REPOSITORY
 			+ "/" + PROJECT_GIT_PROPERTY;
 

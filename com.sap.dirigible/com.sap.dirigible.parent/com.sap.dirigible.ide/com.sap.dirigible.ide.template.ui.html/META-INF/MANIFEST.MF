@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.rap.ui;bundle-version="1.4.2",
  com.sap.dirigible.ide.datasource,
  com.google.gson,
  com.sap.dirigible.ide.common,
- com.sap.dirigible.ide.workspace
+ com.sap.dirigible.ide.workspace,
+ com.sap.dirigible.repository.api
 Import-Package: com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.ide.ui.common.validation,

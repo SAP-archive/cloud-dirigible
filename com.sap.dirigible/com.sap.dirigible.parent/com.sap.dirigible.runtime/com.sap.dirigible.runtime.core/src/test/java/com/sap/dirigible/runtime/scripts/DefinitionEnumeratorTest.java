@@ -12,9 +12,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.registry.DefinitionEnumerator;
 import com.sap.dirigible.runtime.utils.DataSourceUtils;
 

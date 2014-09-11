@@ -20,11 +20,11 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.common.ICommonConstants;
 import com.sap.dirigible.ide.publish.AbstractPublisher;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IResource;
 
 public class TestCasesPublisher extends AbstractPublisher implements IPublisher {

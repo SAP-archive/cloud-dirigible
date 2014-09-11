@@ -36,12 +36,12 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
-import com.sap.dirigible.runtime.common.ICommonConstants;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.mail.MailSender;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;

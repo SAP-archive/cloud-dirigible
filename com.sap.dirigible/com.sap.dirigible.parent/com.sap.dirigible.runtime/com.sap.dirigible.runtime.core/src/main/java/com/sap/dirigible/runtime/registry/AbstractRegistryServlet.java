@@ -29,6 +29,7 @@ import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 /**
@@ -37,9 +38,6 @@ import com.sap.dirigible.runtime.repository.RepositoryFacade;
 public abstract class AbstractRegistryServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -9115022531455267478L;
-
-	public static final String REGISTRY_DEPLOY_PATH = "/db/dirigible/registry/public"; //$NON-NLS-1$
-	public static final String SANDBOX_DEPLOY_PATH = "/db/dirigible/sandbox"; //$NON-NLS-1$
 
 	protected static final String REPOSITORY_ATTRIBUTE = "com.sap.dirigible.services.registry.repository"; //$NON-NLS-1$
 
@@ -66,8 +64,8 @@ public abstract class AbstractRegistryServlet extends HttpServlet {
 		try {
 			final IRepository repository = RepositoryFacade.getInstance().getRepository(request);
 			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
-			if (!repository.hasCollection(REGISTRY_DEPLOY_PATH)) {
-				repository.createCollection(REGISTRY_DEPLOY_PATH);
+			if (!repository.hasCollection(IRepositoryPaths.REGISTRY_DEPLOY_PATH)) {
+				repository.createCollection(IRepositoryPaths.REGISTRY_DEPLOY_PATH);
 			}
 		} catch (Exception ex) {
 			throw new ServletException("Could not initialize repository.", ex); //$NON-NLS-1$
@@ -91,7 +89,7 @@ public abstract class AbstractRegistryServlet extends HttpServlet {
 	protected String extractRepositoryPath(HttpServletRequest request)
 			throws IllegalArgumentException {
 		String requestPath = PathUtils.extractPath(request);
-		return REGISTRY_DEPLOY_PATH + requestPath;
+		return IRepositoryPaths.REGISTRY_DEPLOY_PATH + requestPath;
 	}
 
 	protected IEntity getEntity(String repositoryPath, HttpServletRequest request)

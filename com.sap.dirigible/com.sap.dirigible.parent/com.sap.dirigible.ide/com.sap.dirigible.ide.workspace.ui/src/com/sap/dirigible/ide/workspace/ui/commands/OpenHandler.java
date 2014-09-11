@@ -31,9 +31,9 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.sap.dirigible.ide.common.ICommonConstants.ARTIFACT_TYPE;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
+import com.sap.dirigible.repository.api.ICommonConstants.ARTIFACT_TYPE;
 import com.sap.rap.ui.shared.editor.EditorUtil;
 import com.sap.rap.ui.shared.editor.SourceFileEditorInput;
 
