@@ -20,7 +20,7 @@ import com.sap.dirigible.repository.api.IRepositoryPaths;
 public interface ExtensionsConstants {
 
 	public static final String ED_CONTENT_FOLDER = "ExtensionDefinitions"; //$NON-NLS-1$
-	public static final String REGISTYRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String REGISTYRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ ED_CONTENT_FOLDER;
 
 }

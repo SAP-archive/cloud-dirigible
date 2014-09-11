@@ -29,7 +29,8 @@ import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.repository.ext.conf.ConfigurationStorage;
+import com.sap.dirigible.repository.ext.conf.ConfigurationStore;
+import com.sap.dirigible.repository.ext.conf.IConfigurationStore;
 import com.sap.dirigible.repository.ext.utils.FileUtils;
 
 public class ConfigurationStoreTest {
@@ -45,13 +46,13 @@ public class ConfigurationStoreTest {
 	@Test
 	public void testcopyCollectionToDirectory() {
 		try {
-			ConfigurationStorage configurationStorage = 
-					new ConfigurationStorage(repository);
+			IConfigurationStore configurationStorage = 
+					new ConfigurationStore(repository);
 			
 			Properties properties = new Properties();
 			properties.put("property1", "value1");
 			properties.put("property2", "value2");
-			configurationStorage.setGeneralSettings("/myConfig", "special_settings", properties);
+			configurationStorage.setGlobalSettings("/myConfig", "special_settings", properties);
 
 			String path = IRepositoryPaths.CONF_REGISTRY + "/myConfig/special_settings.properties";
 			assertTrue(repository.hasResource(path));

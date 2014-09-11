@@ -45,7 +45,7 @@ public abstract class AbstractRegistryServiceServlet extends AbstractRegistrySer
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
 
-		final String repositoryPath = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY + getServicesFolder();
+		final String repositoryPath = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC + getServicesFolder();
 		try {
 			final ICollection collection = getRepository(request).getCollection(repositoryPath);
 			buildList(

@@ -170,7 +170,7 @@ public abstract class AbstractPublisher implements IPublisher {
 					logger.debug(String.format(PUBLISH_OF_FOLDER_S_SKIPPED, folderName));
 					return false;
 				} else {
-					CommonParameters.set(PUBLISH_OVERRIDE, "true");
+					CommonParameters.set(PUBLISH_OVERRIDE, Boolean.TRUE.toString());
 				}
 			}
 			logger.warn(String.format(

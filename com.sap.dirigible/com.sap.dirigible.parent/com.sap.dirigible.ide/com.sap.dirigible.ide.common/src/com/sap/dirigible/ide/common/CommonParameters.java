@@ -36,7 +36,7 @@ public class CommonParameters {
 		return IRepositoryPaths.DB_DIRIGIBLE_USERS + getUserName() + SEPARATOR + IRepositoryPaths.WORKSPACE_FOLDER_NAME;
 	}
 
-	public static final String DB_DIRIGIBLE_CONFIGURATIONS = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String DB_DIRIGIBLE_CONFIGURATIONS = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ ICommonConstants.ARTIFACT_TYPE.CONFIGURATION_SETTINGS; //$NON-NLS-1$
 
 	public static final String REGISTRY = "/registry"; //$NON-NLS-1$
@@ -50,7 +50,7 @@ public class CommonParameters {
 	public static final String LOGGER_FACTORY = "loggerFactory"; //$NON-NLS-1$
 
 	public static final String WEB_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
-	public static final String WEB_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String WEB_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ WEB_CONTENT_FOLDER;
 
 	public static String getWebContentSandbox() {
@@ -59,7 +59,7 @@ public class CommonParameters {
 	}
 
 	public static final String WIKI_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
-	public static final String WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ WIKI_CONTENT_FOLDER;
 
 	public static String getWikiContentSandbox() {
@@ -68,7 +68,7 @@ public class CommonParameters {
 	}
 
 	public static final String SCRIPTING_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
-	public static final String SCRIPTING_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String SCRIPTING_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ SCRIPTING_CONTENT_FOLDER;
 
 	public static String getScriptingContentSandbox() {
@@ -76,7 +76,7 @@ public class CommonParameters {
 	}
 
 	public static final String SECURITY_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS;
-	public static final String SECURITY_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String SECURITY_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ SECURITY_CONTENT_FOLDER;
 
 	public static String getSecuritContentSandbox() {
@@ -84,7 +84,7 @@ public class CommonParameters {
 	}
 
 	public static final String TESTS_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.TEST_CASES;
-	public static final String TESTS_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String TESTS_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ TESTS_CONTENT_FOLDER;
 
 	public static String getTestingContentSandbox() {
@@ -92,7 +92,7 @@ public class CommonParameters {
 	}
 
 	public static final String EXTENSION_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS;
-	public static final String EXTENSION_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String EXTENSION_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ EXTENSION_CONTENT_FOLDER;
 
 	public static String getExtensionContentSandbox() {

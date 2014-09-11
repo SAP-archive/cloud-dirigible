@@ -91,7 +91,7 @@ public class MessagingServlet extends ControlServlet {
 			String reload, String routes, String ws) throws IOException {
 		
 		String message = null;
-		if (reload != null && "true".equalsIgnoreCase(reload)) { //$NON-NLS-1$
+		if (reload != null && Boolean.TRUE.toString().equalsIgnoreCase(reload)) { //$NON-NLS-1$
 			message = forceReload(request);
 		} else if (routes != null) {
 			message  = pushRoutes(request, routes);

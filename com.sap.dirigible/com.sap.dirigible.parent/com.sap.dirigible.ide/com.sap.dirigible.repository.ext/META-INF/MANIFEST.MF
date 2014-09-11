@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Export-Package: com.sap.dirigible.repository.ext.command,
+ com.sap.dirigible.repository.ext.conf,
  com.sap.dirigible.repository.ext.db,
  com.sap.dirigible.repository.ext.debug,
  com.sap.dirigible.repository.ext.extensions,

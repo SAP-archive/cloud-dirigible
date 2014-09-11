@@ -21,7 +21,7 @@ import com.sap.dirigible.repository.api.IRepositoryPaths;
 public interface IntegrationConstants {
 
 	public static final String IS_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES;
-	public static final String IS_REGISTYRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY + IS_CONTENT_FOLDER; //$NON-NLS-1$
+	public static final String IS_REGISTYRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC + IS_CONTENT_FOLDER; //$NON-NLS-1$
 
 	public static final String EXTENSION_ROUTE = ".routes"; //$NON-NLS-1$
 	public static final String EXTENSION_WS = ".ws"; //$NON-NLS-1$

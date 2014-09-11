@@ -11,6 +11,8 @@ Require-Bundle: com.sap.dirigible.ide.datasource,
  org.eclipse.rap.rwt,
  com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,
- javax.servlet
+ javax.servlet,
+ org.eclipse.rap.jface,
+ com.sap.dirigible.repository.ext
 Import-Package: javax.servlet.http,
  org.slf4j

@@ -21,7 +21,7 @@ import com.sap.dirigible.repository.api.IRepositoryPaths;
 public interface SecurityConstants {
 
 	public static final String SC_CONTENT_FOLDER = "SecurityConstraints"; //$NON-NLS-1$
-	public static final String REGISTYRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY
+	public static final String REGISTYRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ SC_CONTENT_FOLDER;
 
 }
