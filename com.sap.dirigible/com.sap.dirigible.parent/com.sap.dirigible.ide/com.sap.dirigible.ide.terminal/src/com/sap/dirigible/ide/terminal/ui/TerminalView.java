@@ -18,6 +18,7 @@ package com.sap.dirigible.ide.terminal.ui;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -101,6 +102,10 @@ public class TerminalView extends ViewPart {
 		if (args.length <= 0) {
 			return "Need command to run";
 		}
+		
+		IPreferenceStore preferenceStore = TerminalPreferencePage.getTerminalPreferenceStore();
+		boolean limitEnabled = preferenceStore.getBoolean(TerminalPreferencePage.LIMIT_ENABLED);
+		int limitTimeout = preferenceStore.getInt(TerminalPreferencePage.LIMIT_TIMEOUT);
 
 		ProcessBuilder processBuilder = ProcessUtils.createProcess(args);
 		ProcessUtils.addEnvironmentVariables(processBuilder, null);
@@ -123,10 +128,12 @@ public class TerminalView extends ViewPart {
                     process.exitValue();
                     deadYet = true;
                 } catch (IllegalThreadStateException e) {
-                    if (++i >= ProcessUtils.DEFAULT_LOOP_COUNT) {
-                    	process.destroy();
-                    	throw new RuntimeException("Exeeds timeout - " + ((ProcessUtils.DEFAULT_WAIT_TIME/1000) * ProcessUtils.DEFAULT_LOOP_COUNT));
-                    }
+                	if (limitEnabled) {
+	                    if (++i >= limitTimeout) {
+	                    	process.destroy();
+	                    	throw new RuntimeException("Exeeds timeout - " + ((ProcessUtils.DEFAULT_WAIT_TIME/1000) * ProcessUtils.DEFAULT_LOOP_COUNT));
+	                    }
+                	}
                 }
             } while (!deadYet);
             

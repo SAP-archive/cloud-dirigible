@@ -1,59 +1,55 @@
 package com.sap.dirigible.ide.terminal.ui;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Properties;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
-import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.repository.RepositoryFacade;
-import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.ext.conf.ConfigurationStore;
-import com.sap.dirigible.repository.ext.conf.IConfigurationStore;
+import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.ide.repository.RepositoryGlobalPreferenceStore;
 
 public class TerminalPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
-	private static final String CONF_NAME_TERMINAL = "terminal";
-	private static final String CONF_PATH_IDE = "/ide";
-	private static final String LIMIT_TIMEOUT = "limitTimeout";
-	private static final String LIMIT_ENABLED = "limitEnabled";
 	private static final long serialVersionUID = -877187045002896492L;
 	
-	private PreferenceStore preferenceStore;
+	private static final Logger logger = Logger.getLogger(TerminalPreferencePage.class);
+	
+	private static final String CONF_NAME_TERMINAL = "terminal";
+	
+	public static final String LIMIT_TIMEOUT = "limitTimeout";
+	public static final String LIMIT_ENABLED = "limitEnabled";
+	
+	
+	private RepositoryGlobalPreferenceStore repositoryPreferenceStore;
 
 	private BooleanFieldEditor enableTimeLimitField;
 	private IntegerFieldEditor limitTimeoutField;
 	
-	public static PreferenceStore getTerminalPreferenceStore() {
+	public static RepositoryGlobalPreferenceStore getTerminalPreferenceStore() {
 		try {
-			PreferenceStore preferenceStore = new PreferenceStore();
-			byte[] bytes = getConfigurationSettings();
-			preferenceStore.load(new ByteArrayInputStream(bytes));
-			return preferenceStore;
+			RepositoryGlobalPreferenceStore repositoryPreferenceStore = 
+					new RepositoryGlobalPreferenceStore(CommonParameters.CONF_PATH_IDE, CONF_NAME_TERMINAL);
+			repositoryPreferenceStore.load();
+			return repositoryPreferenceStore;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		return null;
 	}
 
 	public TerminalPreferencePage() {
 		super(FieldEditorPreferencePage.GRID);
-		this.preferenceStore = new PreferenceStore();
+		this.repositoryPreferenceStore = 
+				new RepositoryGlobalPreferenceStore(CommonParameters.CONF_PATH_IDE, CONF_NAME_TERMINAL);
 		try {
-			byte[] bytes = getConfigurationSettings();
-			preferenceStore.load(new ByteArrayInputStream(bytes));
-			setPreferenceStore(preferenceStore);
+			repositoryPreferenceStore.load();
+			setPreferenceStore(repositoryPreferenceStore);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 	
@@ -61,11 +57,13 @@ public class TerminalPreferencePage extends FieldEditorPreferencePage implements
 	protected void createFieldEditors() {
 		
 		try {
-			byte[] bytes = getConfigurationSettings();
-			preferenceStore.load(new ByteArrayInputStream(bytes));
+			repositoryPreferenceStore.load();
+			if (repositoryPreferenceStore.preferenceNames().length == 0) {
+				repositoryPreferenceStore.setValue(LIMIT_ENABLED, true);
+				repositoryPreferenceStore.setValue(LIMIT_TIMEOUT, 30);
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		
 		enableTimeLimitField = new BooleanFieldEditor(
@@ -78,35 +76,12 @@ public class TerminalPreferencePage extends FieldEditorPreferencePage implements
 	
 		limitTimeoutField = new IntegerFieldEditor(
 				LIMIT_TIMEOUT,
-				"&Limit Timeout:",
+				"&Limit Timeout (s):",
 		 		getFieldEditorParent());
 			limitTimeoutField.setPreferenceStore(getPreferenceStore());
 			limitTimeoutField.load();
 		addField(limitTimeoutField);
 
-	}
-
-	private static byte[] getConfigurationSettings() throws IOException {
-		IConfigurationStore configurationStorage = getConfigurationStore();
-		
-		byte[] bytes = configurationStorage.getGlobalSettingsAsBytes(CONF_PATH_IDE, CONF_NAME_TERMINAL);
-		if (bytes.length == 0) {
-			Properties properties = new Properties(); 
-			properties.put(LIMIT_ENABLED, Boolean.TRUE.toString());
-			properties.put(LIMIT_TIMEOUT, "30");
-			configurationStorage.setGlobalSettings(CONF_PATH_IDE, CONF_NAME_TERMINAL, properties);
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			properties.store(baos, "Default Settings Created");
-			bytes = baos.toByteArray();
-		}
-		return bytes;
-	}
-
-	private static IConfigurationStore getConfigurationStore() {
-		IRepository repository = RepositoryFacade.getInstance().getRepository();
-		IConfigurationStore configurationStorage = 
-				new ConfigurationStore(repository);
-		return configurationStorage;
 	}
 
 	@Override
@@ -115,15 +90,12 @@ public class TerminalPreferencePage extends FieldEditorPreferencePage implements
 	}
 	
 	private void storeValues() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			enableTimeLimitField.store();
 			limitTimeoutField.store();
-			preferenceStore.save(baos, "Chanaged by " + CommonParameters.getUserName());
-			getConfigurationStore().setGlobalSettingsAsBytes(CONF_PATH_IDE, CONF_NAME_TERMINAL, baos.toByteArray());
+			repositoryPreferenceStore.save();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 

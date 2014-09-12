@@ -245,4 +245,6 @@ public class CommonParameters {
 		return sessionId;
 	}
 
+	public static final String CONF_PATH_IDE = "/ide";
+
 }
