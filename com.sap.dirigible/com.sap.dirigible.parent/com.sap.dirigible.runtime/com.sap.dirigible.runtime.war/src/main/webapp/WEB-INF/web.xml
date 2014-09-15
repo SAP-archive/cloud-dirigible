@@ -570,13 +570,24 @@
     	<res-type>com.sap.core.connectivity.api.configuration.ConnectivityConfiguration</res-type>
 	</resource-ref>
 	<!-- // -->
-  	
-  	
+
+
 	<!-- Security -->
 	<login-config>
 		<auth-method>FORM</auth-method>
 	</login-config>
 	
+	<!-- Remove comment when #109 is fixed
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>file</realm-name>
+		<form-login-config>
+			<form-login-page>/authentication/login.html</form-login-page>
+			<form-error-page>/authentication/error.html</form-error-page>
+		</form-login-config>
+	</login-config>
+  	-->
+  	 
 	<!-- Registry Services -->
 	<security-constraint>
 		<web-resource-collection>
