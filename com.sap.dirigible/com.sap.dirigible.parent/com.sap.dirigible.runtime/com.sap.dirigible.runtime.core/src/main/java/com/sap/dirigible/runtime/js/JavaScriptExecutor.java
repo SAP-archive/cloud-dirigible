@@ -115,7 +115,7 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 	private RepositoryModuleSourceProvider createRepositoryModuleSourceProvider() {
 		RepositoryModuleSourceProvider repositoryModuleSourceProvider = null;
 		repositoryModuleSourceProvider = new RepositoryModuleSourceProvider(this, repository,
-				rootPaths[0], rootPaths[1]);
+				rootPaths);
 		return repositoryModuleSourceProvider;
 	}
 

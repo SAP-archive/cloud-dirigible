@@ -384,6 +384,7 @@
 		<url-pattern>/groovy-sandbox/*</url-pattern>
 		<url-pattern>/java-sandbox/*</url-pattern>
 		<url-pattern>/command-sandbox/*</url-pattern>
+		<url-pattern>/test-sandbox/*</url-pattern>
 		<url-pattern>/wiki-sandbox/*</url-pattern>
 	</filter-mapping>
 
@@ -615,6 +616,7 @@
 			<url-pattern>/js-sandbox/*</url-pattern>
 			<url-pattern>/java-sandbox/*</url-pattern>
 			<url-pattern>/command-sandbox/*</url-pattern>
+			<url-pattern>/test-sandbox/*</url-pattern>
 			<!--
 			<url-pattern>/rb-sandbox/*</url-pattern>
 			<url-pattern>/groovy-sandbox/*</url-pattern>

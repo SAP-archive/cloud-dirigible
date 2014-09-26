@@ -16,20 +16,16 @@
 package com.sap.dirigible.runtime.js;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.commonjs.module.provider.ModuleSource;
 import org.mozilla.javascript.commonjs.module.provider.ModuleSourceProviderBase;
 
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 import com.sap.dirigible.runtime.scripting.Messages;
 
@@ -44,10 +40,6 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 	private AbstractScriptExecutor executor;
 	private IRepository repository;
 	private String[] rootPaths;
-	
-	
-	
-	private static final Logger logger = Logger.getLogger(RepositoryModuleSourceProvider.class);
 
 	public RepositoryModuleSourceProvider(AbstractScriptExecutor executor, IRepository repository, String ... rootPaths) {
 		super();
