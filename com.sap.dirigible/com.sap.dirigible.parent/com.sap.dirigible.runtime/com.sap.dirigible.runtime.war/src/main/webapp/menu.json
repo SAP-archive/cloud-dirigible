@@ -21,7 +21,15 @@
     {
         "name": "JavaScript Services",
         "link": "#/scripting/javascript"
-    }, 
+    },
+    {
+        "name": "Java Services",
+        "link": "#/scripting/java"
+    },
+    {
+        "name": "Command Services",
+        "link": "#/scripting/command"
+    },
     {
         "name": "Test Services",
         "link": "#/scripting/tests"

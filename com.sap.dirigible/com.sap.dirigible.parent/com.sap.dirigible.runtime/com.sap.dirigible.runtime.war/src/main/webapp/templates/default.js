@@ -116,6 +116,14 @@ defaultControllers.controller('RubyCtrl', function($scope, $resource) {
   $scope.restService = $resource('scripting/ruby');
 });
 
+defaultControllers.controller('JavaCtrl', function($scope, $resource) {
+	  $scope.restService = $resource('scripting/java');
+});
+
+defaultControllers.controller('CommandCtrl', function($scope, $resource) {
+	$scope.restService = $resource('scripting/command');
+});
+
 defaultControllers.controller('TestsCtrl', function($scope, $resource) {
   $scope.restService = $resource('scripting/tests');
 });
