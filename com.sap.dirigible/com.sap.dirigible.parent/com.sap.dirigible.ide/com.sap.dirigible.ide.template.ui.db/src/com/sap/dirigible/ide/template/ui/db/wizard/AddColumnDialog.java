@@ -75,11 +75,15 @@ public class AddColumnDialog extends TitleAreaDialog {
 	private Button nnButton;
 	private Button pkButton;
 	private Text defaultText;
+	private Shell parentShell;
 
 	public AddColumnDialog(ColumnDefinition columnDefinition,
 			ColumnDefinition[] columnDefinitions, Shell parentShell) {
 		super(parentShell);
-
+		
+		this.parentShell = parentShell;
+		this.parentShell.setEnabled(false);
+		
 		this.columnDefinition = columnDefinition;
 		this.columnDefinitions = columnDefinitions;
 	}
@@ -310,11 +314,24 @@ public class AddColumnDialog extends TitleAreaDialog {
 		String errors = validateInput();
 		if (errors == null) {
 			super.okPressed();
+			this.parentShell.setEnabled(true);
 		} else {
 			setErrorMessage(errors);
 		}
 	}
+	
+	@Override
+	protected void cancelPressed() {
+		super.cancelPressed();
+		this.parentShell.setEnabled(true);
+	}
 
+	@Override
+	protected void handleShellCloseEvent() {
+		super.handleShellCloseEvent();
+		this.parentShell.setEnabled(true);
+	}
+	
 	private String validateInput() {
 		StringBuilder buff = new StringBuilder();
 		if (columnDefinition.getName() == null

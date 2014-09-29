@@ -214,12 +214,12 @@ public class DataStructureTemplateStructurePage extends FocusableWizardPage {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				addClicked();
+				addClickedEvent();
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				addClicked();
+				addClickedEvent();
 			}
 		});
 		setFocusable(addButton);
@@ -246,8 +246,14 @@ public class DataStructureTemplateStructurePage extends FocusableWizardPage {
 		});
 
 	}
+	
+	private void addClickedEvent() {
+		setEnabled(false);
+		addClicked();
+		setEnabled(true);
+	}
 
-	protected void addClicked() {
+	private void addClicked() {
 		ColumnDefinition columnDefinition = new ColumnDefinition();
 		AddColumnDialog addColumnDialog = new AddColumnDialog(columnDefinition,
 				columnDefinitions.clone(), getShell());
@@ -262,7 +268,7 @@ public class DataStructureTemplateStructurePage extends FocusableWizardPage {
 		}
 	}
 
-	protected void removeClicked() {
+	private void removeClicked() {
 		TreeItem[] selection = typeViewer.getTree().getSelection();
 		List<Integer> removeIndexes = new ArrayList<Integer>();
 
