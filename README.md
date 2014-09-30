@@ -1,5 +1,13 @@
-dirigible [![Build Status](https://travis-ci.org/SAP/cloud-dirigible.svg)](https://travis-ci.org/SAP/cloud-dirigible)
+dirigible 
 =========
+
+[![Build Status](https://travis-ci.org/SAP/cloud-dirigible.svg)](https://travis-ci.org/SAP/cloud-dirigible)
+
+<p align="center">
+  <img src="https://github.com/SAP/cloud-dirigible/blob/master/logo/dirigible-logo-symbol.png" width="60%" alt="dirigible logo"/>
+</p>
+
+> Enjoy Programming Like Never Before
 
 Introduction
 ------------
