@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/SAP/cloud-dirigible.svg)](https://travis-ci.org/SAP/cloud-dirigible)
 
+**Dirigible** is an Integrated Development Environment as a Service (IDEaaS) for dynamic applications. It provides both development tools and runtime environment.
+
 <p align="center">
   <img src="https://github.com/SAP/cloud-dirigible/blob/master/logo/dirigible-logo-symbol.png" width="60%" alt="dirigible logo"/>
 </p>
 
 > Enjoy Programming Like Never Before
-
-**Dirigible** is an Integrated Development Environment as a Service (IDEaaS) for dynamic applications. It provides both development tools and runtime environment.
 
 From the end user's perspective (developer), Dirigible runs directly in the browser, therefore does not require any downloads or installations.
 
