@@ -37,6 +37,8 @@ import com.sap.dirigible.repository.ext.command.ProcessUtils;
 
 public class TerminalView extends ViewPart {
 	
+	private static final String EXEEDS_TIMEOUT = "Exeeds timeout - ";
+
 	private static final Logger logger = Logger.getLogger(TerminalView.class);
 
 	private Text commandLine;
@@ -131,7 +133,7 @@ public class TerminalView extends ViewPart {
                 	if (limitEnabled) {
 	                    if (++i >= limitTimeout) {
 	                    	process.destroy();
-	                    	throw new RuntimeException("Exeeds timeout - " + ((ProcessUtils.DEFAULT_WAIT_TIME/1000) * ProcessUtils.DEFAULT_LOOP_COUNT));
+	                    	throw new RuntimeException(EXEEDS_TIMEOUT + ((ProcessUtils.DEFAULT_WAIT_TIME/1000) * limitTimeout));
 	                    }
                 	}
                 }

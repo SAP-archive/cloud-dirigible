@@ -26,7 +26,7 @@ public class CommonParameters {
 
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	public static final String DIRIGIBLE_PRODUCT_NAME = "Dirigible"; //$NON-NLS-1$
-	public static final String DIRIGIBLE_PRODUCT_VERSION = "1.2.0-beta"; //$NON-NLS-1$
+	public static final String DIRIGIBLE_PRODUCT_VERSION = "1.3.0-beta"; //$NON-NLS-1$
 
 	public static final String SEPARATOR = "/"; //$NON-NLS-1$
 	public static final String DEBUG_SEPARATOR = ":"; //$NON-NLS-1$
