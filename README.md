@@ -1,7 +1,8 @@
-dirigible 
-=========
+# dirigible 
 
 [![Build Status](https://travis-ci.org/SAP/cloud-dirigible.svg)](https://travis-ci.org/SAP/cloud-dirigible)
+
+**Dirigible** is an Integrated Development Environment as a Service (IDEaaS) for dynamic applications. It provides both development tools and runtime environment.
 
 <p align="center">
   <img src="https://github.com/SAP/cloud-dirigible/blob/master/logo/dirigible-logo-symbol.png" width="60%" alt="dirigible logo"/>
@@ -9,78 +10,91 @@ dirigible
 
 > Enjoy Programming Like Never Before
 
-Introduction
-------------
+From the end user's perspective (developer), Dirigible runs directly in the browser, therefore does not require any downloads or installations.
 
-### Overview ###
+From the service provider's perspective (PaaS/SaaS), Dirigible packs all required components in a self-contained software bundle that can be deployed in any Java-based web server, such as Tomcat, Jetty, JBoss.
 
-Dirigible is an open source project that provides Integrated Development Environment as a Service (IDEaaS) as well as the runtime engines integration for the running applications.
-The applications created with Dirigible comply with the Dynamic Applications concepts and structure.
-The environment itself runs directly in the browser, therefore does not require additional downloads and installations.
-It packs all the needed components, which makes it self-contained and well integrated software bundle that can be deployed on any Java based Web Server such as Tomcat, Jetty, JBoss connected via JDBC to the RDBMS of your choice (currently supported versions for RDBMS are HANA 1.x and MaxDB, experimental - Sybase ASE).
+Dirigible supports access to RDBMS via  JDBC. Currently supported versions for RDBMS are HANA 1.x, MaxDB, Sybase ASE (experimental), and PostgreSQL (experimental).
 
-### Background ###
+The project started as an internal SAP initiative to address the extension and adaption use-cases related to SOA and Enterprise Services.
 
-The Dirigible project came out of an internal SAP initiative to address the extension and adaptation use-cases around SOA and Enterprise Services.
-On one hand in this project were implied the lessons learned from the standard tools and approaches so far and on the other hand, there were added features aligned with the most recent technologies and architectural patterns related to Web 2.0 and HTML5, which made it complete enough to be used as the only tool and environment needed for building and running on demand application in the cloud.
+- [Try](#try)
+- [Get Started](#get-started)
+	- [Download](#download)
+	- [Build](#build)
+	- [Deploy](#deploy)
+		- [HANA Cloud Platform](#hana-cloud-platform)
+		- [Tomcat](#tomcat)
+		- [Eclipse](#eclipse)
+- [Additional Information](#additional-information)
+	- [License](#license)
+	- [Contributors](#contributors)
+	- [References](#references)
+		
+## Try
 
-### Try ###
+You can try a full fledged Dirigible deployment on [HANA Cloud Platform](https://account.hana.ondemand.com/). Create your own unlimited free trial account at [https://account.hanatrial.ondemand.com/](https://account.hanatrial.ondemand.com/).
 
-Dirigible project is deployed and tested against the [HANA Cloud Platform](https://account.hana.ondemand.com/).
+You can also try the sandbox instance with restricted functionality that is available at [http://trial.dirigible.io](http://trial.dirigible.io).
 
-You can start by creating your own unlimited free trial account at [https://account.hanatrial.ondemand.com/](https://account.hanatrial.ondemand.com/) with HANA database underneath.
+## Get Started
 
-Sandbox instance with restricted functionality is available at: [http://trial.dirigible.io](http://trial.dirigible.io).
+### Download
 
+The "fast-track" - you can download the precompiled binaries produced from the released versions from [https://github.com/SAP/dirigible/releases/](https://github.com/SAP/dirigible/releases/) and skip the build section.
 
-Get Started
------
+Nevertheless, we highly recommend building the binaries from source in order to have all experimental features that are not available in the releases.
 
-##### Download #####
-The "fast-track" - you can download the precompiled binaries produced from the released versions from:
-[https://github.com/SAP/dirigible/releases/](https://github.com/SAP/dirigible/releases/)
-and skip the build section.
+### Build
 
-Nevertheless, we highly recommend to build the WAR files from the sources to be able to consume also the experimental features not available yet in the releases.
+##### Prerequisites
 
-##### Build #####
+- [Git](http://git-scm.com/)
+- [Maven 3.0.x](http://maven.apache.org/)
 
-1. Get the [Maven](http://maven.apache.org/) build tool version 3.0.x
-2. Clone the repository <https://github.com/SAP/cloud-dirigible.git> or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip).
-3. Go to the folder *com.sap.dirigible.parent*
-4. Build the project executing:
+##### Steps
+
+1. Clone the [project repository](https://github.com/SAP/cloud-dirigible.git) or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip).
+2. Go to the `com.sap.dirigible.parent` folder.
+3. Build the project via
 
         mvn clean install
 
-5. The build should pass successfully
-6. The two produced WAR files dirigible-ide\*.war and dirigible-runtime\*.war are ready to be deployed
+The build should pass successfully. The produced WAR files `dirigible-ide\*.war` and `dirigible-runtime\*.war` are ready to be deployed.
 
+### Deploy
 
-##### Deploy #####
-###### HANA Cloud Platform ######
+#### HANA Cloud Platform
 
-1. Deploy on [HANA Cloud Platform](https://account.hana.ondemand.com/) with the [Cloud SDK](https://tools.hana.ondemand.com/#cloud).
-2. Get the SDK from <https://tools.hana.ondemand.com/#cloud>
-3. Go to *neo-java-web-sdk-1.xxx/tools* folder
-4. Deploy with command:
+Deploy on [HANA Cloud Platform](https://account.hana.ondemand.com/) with the [Cloud SDK](https://tools.hana.ondemand.com/#cloud).
+
+##### Prerequisites
+
+- [HANA Cloud Platform SDK](https://tools.hana.ondemand.com/#cloud)
+
+##### Steps
+
+1. Go to the `neo-java-web-sdk-1.xxx/tools` SDK folder.
+2. Deploy with command:
 
         neo deploy --account <your_account> --application <application_name> --user <your_user> --host <target_landscape_host> --source <source_directory> --password <your_password>
 
-6. Start with command:
+3. Start with command:
 
         neo start --account <your_account> --application <application_name> --user <your_user> --host <target_landscape_host> --password <your_password> -y
 
+4. Go to https://account.hanatrial.ondemand.com/cockpit at Authorizations section. Add Developer and Operator role to your user which gives you full access to all features.
 
-7. Go to https://account.hanatrial.ondemand.com/cockpit at Authorizations section. Add both roles - Developer and Operator - to your user to have full access to all the features.
+#### Tomcat
 
-###### Tomcat ######
+The same WAR files can be deployed on [Tomcat](http://tomcat.apache.org/) web container. In this case the built-in Derby database is used.
 
-1. The same WAR files can be deployed on [Tomcat](http://tomcat.apache.org/) Web Container. In this case the built-in Derby database will be used.
+More information about how to deploy on Tomcat can be found [here](http://tomcat.apache.org/tomcat-7.0-doc/appdev/deployment.html).
 
-More information about how to deploy on Tomcat can be found [here](http://tomcat.apache.org/tomcat-7.0-doc/appdev/deployment.html)
+##### Steps
 
-2. For simplicity rename the WAR respectively *dirigible-ide.war* for IDE and *dirigible.war* for Runtime
-3. Configure Users store:
+1. For simplicity rename the WARs to respectively `dirigible-ide.war` and `dirigible.war`.
+2. Configure Users store:
 
         <tomcat-users>
                 <role rolename="Developer"/>
@@ -89,40 +103,43 @@ More information about how to deploy on Tomcat can be found [here](http://tomcat
                 <user username="tomcat" password="tomcat" roles="Developer,Operator,Everyone"/>
         </tomcat-users>
 
-4. Open a Web Browser and go to location:
+4. Open a web browser and go to:
 
         http://localhost:8080/dirigible-ide (IDE)
         http://localhost:8080/dirigible     (Runtime)
 
-        and login with tomcat/tomcat
+4. Login with tomcat/tomcat.
 
-###### Eclipse ######
+#### Eclipse
 
-1. The IDE part can be run directly via the Eclipse. This is useful for easy testing of new features during development
-2. Import the project as existing Maven project into your local Eclipse environment
-3. Go to project *com.sap.dirigible.ide.target* and open the file with the same name with the Target Editor
-4. Click on the *Set as Target Platform* link and wait until the required bundles get synchronized
-5. Use *dirigible-local.launch* file to *Run As* configuration
-6. Open a Web Browser and go to location
+The IDE part can be run directly via Eclipse. This is useful when testing new features during development.
+
+##### Prerequisites
+
+- [Maven 3.0.x](http://maven.apache.org/)
+- [Eclipse IDE](https://www.eclipse.org/)
+
+##### Steps
+
+1. Import the project as existing Maven project into your local Eclipse environment.
+2. Go to project `com.sap.dirigible.ide.target` and open the file with the same name using the Target Editor.
+3. Click on the `Set as Target Platform` link and wait until the required bundles get synchronized.
+4. Use `dirigible-local.launch` file for `Run As` configuration.
+5. Open a web browser and go to:
 
         http://localhost:8080/dirigible
 
+## Additional Information
 
-Additional Information
-----------------------
+### License
 
-### License ###
+This project is copyrighted by [SAP AG](http://www.sap.com/) and is available under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html). See [LICENSE.txt](LICENSE.txt) and [NOTICE.txt](NOTICE.txt) for further details.
 
-This project is copyrighted by [SAP AG](http://www.sap.com/) and made available under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html). Please also confer to the text files "LICENSE" and "NOTICE" included with the project sources.
+### Contributors
 
+If you'd like to contribute to Dirigible, please file an [issue](https://github.com/SAP/dirigible/issues) or send us a [pull request](https://github.com/SAP/dirigible/pulls).
 
-### Contributors ###
-
-File an [issue](https://github.com/SAP/dirigible/issues) or send us a [pull request](https://github.com/SAP/dirigible/pulls).
-
-
-### References ###
-
+### References
 
 - Project Home
 [http://www.dirigible.io](http://www.dirigible.io)
