@@ -186,7 +186,7 @@ public abstract class AbstractScriptExecutor {
 				if (entity.exists()) {
 					String path = entity.getPath();
 					String moduleName = getModuleName(path);
-					Module module = new Module(moduleName, readResourceData(repository, path));
+					Module module = new Module(moduleName, readResourceData(repository, path), entity.getInformation());
 					modules.put(moduleName, module);
 				}
 			}
