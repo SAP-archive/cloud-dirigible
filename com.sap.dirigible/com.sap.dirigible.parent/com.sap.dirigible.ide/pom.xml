@@ -131,7 +131,8 @@
 		<module>com.sap.dirigible.ide.jgit.connector</module>
 		<module>com.sap.dirigible.ide.help</module>
 		<module>com.sap.dirigible.ide.terminal</module>
-
+		<module>com.sap.dirigible.ide.feature</module>
+		<module>com.sap.dirigible.ide.p2repo</module>
 		<!-- this module must be the last one -->
 		<module>com.sap.dirigible.ide.war</module>
 	</modules>
