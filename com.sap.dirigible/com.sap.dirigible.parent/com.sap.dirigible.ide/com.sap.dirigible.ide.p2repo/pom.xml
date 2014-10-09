@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>com.sap.dirigible.ide.p2repo</artifactId>
 	<packaging>eclipse-repository</packaging>
-	<name>SAP HANA Cloud Server Platform Adapter Update Site</name>
+	<name>com.sap.dirigible.ide.p2repo</name>
 	<parent>
 		<groupId>com.sap.dirigible.ide</groupId>
 		<artifactId>com.sap.dirigible.ide.parent</artifactId>

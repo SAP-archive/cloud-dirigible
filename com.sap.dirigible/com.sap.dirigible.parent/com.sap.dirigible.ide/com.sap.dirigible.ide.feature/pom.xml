@@ -9,4 +9,5 @@
   <artifactId>com.sap.dirigible.ide.feature</artifactId>
 
   <packaging>eclipse-feature</packaging>
+  <name>com.sap.dirigible.ide.feature</name>
 </project>
