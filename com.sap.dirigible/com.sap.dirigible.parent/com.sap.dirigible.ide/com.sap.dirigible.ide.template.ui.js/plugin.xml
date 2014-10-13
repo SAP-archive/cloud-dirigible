@@ -63,7 +63,7 @@
             category="ScriptingServices"
             image="/icons/java-service.png"
             location="/com/sap/dirigible/ide/template/ui/js/templates/java-service.java_"
-            text="Server-Side Java Service">
+            text="Java Service">
       </template>
       <template
             category="ScriptingServices"
