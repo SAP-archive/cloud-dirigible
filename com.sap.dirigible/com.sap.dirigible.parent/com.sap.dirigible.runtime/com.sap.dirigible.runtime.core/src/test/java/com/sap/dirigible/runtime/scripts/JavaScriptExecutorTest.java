@@ -31,21 +31,6 @@ public class JavaScriptExecutorTest {
 		DataSource dataSource = DataSourceUtils.createLocal();
 		try {
 			repository = new DBRepository(dataSource, "guest", false); //$NON-NLS-1$
-//			repository.createResource(
-//					REPOSITORY_JS_DEPLOY_PATH + "/root.jslib", ("$ = {}; " //$NON-NLS-1$ //$NON-NLS-2$
-//							+ "$.request = request; " //$NON-NLS-1$
-//							+ "$.response = response; " //$NON-NLS-1$
-//							+ "$.datasource = datasource; " + "$.mail = mail; " //$NON-NLS-1$ //$NON-NLS-2$
-//							+ "$.io = io; " + "$.out = out; " //$NON-NLS-1$ //$NON-NLS-2$
-//							+ "$.http = http; " + "$.base64 = base64; " //$NON-NLS-1$ //$NON-NLS-2$
-//							+ "$.hex = hex; " + "$.digest = digest; " //$NON-NLS-1$ //$NON-NLS-2$
-//							+ "$.url = url; " + "$.user = user; " //$NON-NLS-1$ //$NON-NLS-2$
-//							+ "$.upload = upload; " + "$.uuid = uuid;") //$NON-NLS-1$ //$NON-NLS-2$
-//							.getBytes());
-//			repository.createResource(REPOSITORY_JS_DEPLOY_PATH
-//					+ "/require.jslib", ("function require(module) {" //$NON-NLS-1$ //$NON-NLS-2$
-//					+ "	return loader.load(module);" + "}; " //$NON-NLS-1$ //$NON-NLS-2$
-//					+ "$.require = require;").getBytes()); //$NON-NLS-1$
 			repository.createResource(
 					REPOSITORY_JS_DEPLOY_PATH + "/testSum.js", ("var testSum = function(){ var a=2;" //$NON-NLS-1$ //$NON-NLS-2$
 							+ "var b=2; " + "var c=a+b; " + "return c;}; testSum(); ") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -58,7 +43,7 @@ public class JavaScriptExecutorTest {
 			
 			
 			repository.createResource(REPOSITORY_JS_DEPLOY_PATH
-					+ "/test/testLibrary.jslib", //$NON-NLS-1$
+					+ "/test/testLibrary.js", //$NON-NLS-1$
 					("exports.add = function(a,b) {return a+b};").getBytes()); //$NON-NLS-1$
 			repository
 					.createResource(

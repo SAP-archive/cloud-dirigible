@@ -35,7 +35,7 @@ public class RepositoryModuleSourceProvider extends ModuleSourceProviderBase {
 	
 	private static final String MODULE_LOCATION_CANNOT_BE_NULL = Messages.getString("ScriptLoader.MODULE_LOCATION_CANNOT_BE_NULL"); //$NON-NLS-1$
 	private static final String JS_EXTENSION = ".js"; //$NON-NLS-1$
-	private static final String JSLIB_EXTENSION = ".jslib"; //$NON-NLS-1$
+	private static final String JSLIB_EXTENSION = ".js"; //$NON-NLS-1$
 	
 	private AbstractScriptExecutor executor;
 	private IRepository repository;

@@ -126,9 +126,9 @@ public class JavascriptServiceTemplateGenerator extends TemplateGenerator {
 					model.getTargetLocation(), model.getFileNameNoExtension()
 							+ ".entity"); //$NON-NLS-1$
 			generateFile(
-					"/com/sap/dirigible/ide/template/ui/js/templates/database-crud.jslib", //$NON-NLS-1$
+					"/com/sap/dirigible/ide/template/ui/js/templates/database-crud-lib.js", //$NON-NLS-1$
 					model.getTargetLocation(), model.getFileNameNoExtension()
-							+ ".jslib"); //$NON-NLS-1$
+							+ "_lib.js"); //$NON-NLS-1$
 
 		}
 

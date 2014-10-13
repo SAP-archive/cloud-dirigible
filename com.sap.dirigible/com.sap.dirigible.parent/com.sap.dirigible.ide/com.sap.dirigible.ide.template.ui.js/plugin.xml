@@ -44,7 +44,7 @@
       <template
             category="ScriptingServices"
             image="/icons/guid-generator.png"
-            location="/com/sap/dirigible/ide/template/ui/js/templates/guid-generator.jslib"
+            location="/com/sap/dirigible/ide/template/ui/js/templates/guid-generator.js"
             text="Server-Side JavaScript Guid Generator Library">
       </template>
       <template

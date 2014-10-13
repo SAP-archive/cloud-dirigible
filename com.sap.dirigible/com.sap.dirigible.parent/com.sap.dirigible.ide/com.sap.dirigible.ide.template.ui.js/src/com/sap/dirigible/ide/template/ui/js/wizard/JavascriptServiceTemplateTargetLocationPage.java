@@ -73,11 +73,12 @@ public class JavascriptServiceTemplateTargetLocationPage extends
 
 	@Override
 	protected String getDefaultFileName() {
-		String jsOrLibName = ("/com/sap/dirigible/ide/template/ui/js/templates/guid-generator.jslib" //$NON-NLS-1$
+		String jsOrLibName = ("/com/sap/dirigible/ide/template/ui/js/templates/guid-generator.js" //$NON-NLS-1$
 				.equals(model.getTemplate().getLocation())) ? "library" //$NON-NLS-1$
 				: "service"; //$NON-NLS-1$
-		String jsOrLibExt = ("/com/sap/dirigible/ide/template/ui/js/templates/guid-generator.jslib" //$NON-NLS-1$
-				.equals(model.getTemplate().getLocation())) ? "jslib" : "js"; //$NON-NLS-1$ //$NON-NLS-2$
+//		String jsOrLibExt = ("/com/sap/dirigible/ide/template/ui/js/templates/guid-generator.jslib" //$NON-NLS-1$
+//				.equals(model.getTemplate().getLocation())) ? "jslib" : "js"; //$NON-NLS-1$ //$NON-NLS-2$
+		String jsOrLibExt = "js";
 		if ("/com/sap/dirigible/ide/template/ui/js/templates/ruby-service.rb" //$NON-NLS-1$
 				.equals(model.getTemplate().getLocation())) {
 			jsOrLibExt = "rb"; //$NON-NLS-1$
