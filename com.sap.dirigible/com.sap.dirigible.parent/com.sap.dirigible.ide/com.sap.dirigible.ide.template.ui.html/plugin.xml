@@ -155,6 +155,12 @@
       
       <template
             category="WebContent"
+            image="/icons/blank.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/blank.html"
+            text="Blank Page">
+      </template>
+      <template
+            category="WebContent"
             image="/icons/index-page.png"
             location="/com/sap/dirigible/ide/template/ui/html/templates/index-page.html"
             text="Index Page with Main Menu, Header and Footer">

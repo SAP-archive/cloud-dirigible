@@ -29,6 +29,8 @@ import com.sap.dirigible.ide.logging.Logger;
 
 public class DesignerEditor extends TextEditor {
 
+	private static final String EMPTY_HTML = "<!DOCTYPE html><html><head></head><body></body></html>"; //$NON-NLS-1$
+
 	private static final String ERROR = Messages.DesignerEditor_Error;
 
 	private static final String CANNOT_LOAD_DOCUMENT = Messages.DesignerEditor_Cannot_load_document;
@@ -51,6 +53,10 @@ public class DesignerEditor extends TextEditor {
 
 		try {
 			String content = getContentProvider(input).getContent(input);
+			if (content == null
+					|| "".equals(content)) {
+				content = EMPTY_HTML;
+			}
 			text.setText(content);
 		} catch (ContentProviderException e) {
 			logger.error(CANNOT_LOAD_DOCUMENT, e);
