@@ -253,9 +253,11 @@ public class SQLConsole extends ViewPart {
 	}
 
 	public Connection getConnection() throws Exception {
-		DataSource dataSource = DataSourceFacade.getInstance().getDataSource();
-		Connection connection = dataSource.getConnection();
-		return connection;
+//		DataSource dataSource = DataSourceFacade.getInstance().getDataSource();
+//		Connection connection = dataSource.getConnection();
+//		return connection;
+		
+		return DatabaseViewer.getConnectionFromSelectedDatasource();
 	}
 
 	private void printResultSet(ResultSet resultSet) throws SQLException {

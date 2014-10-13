@@ -238,6 +238,17 @@ public class DatabaseViewer extends ViewPart implements IDbConnectionFactory {
 	}
 
 	public Connection getDatabaseConnection() throws SQLException {
+		return getConnectionFromSelectedDatasource();
+	}
+
+	/**
+	 * Create connection from the data-source selected at this view
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Connection getConnectionFromSelectedDatasource()
+			throws SQLException {
 		DataSource dataSource = DataSourceFacade.getInstance().getDataSource();
 		Connection connection = dataSource.getConnection();
 		return connection;
