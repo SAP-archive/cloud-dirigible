@@ -151,10 +151,10 @@ public abstract class AbstractScriptExecutor {
 			throws IOException {
 		final IResource resource = repository.getResource(repositoryPath);
 		if (!resource.exists()) {
-			logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
-					resource.getName(), repositoryPath));
-			throw new IOException(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
-					resource.getName(), repositoryPath));
+			final String logMsg = String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
+					resource.getName(), repositoryPath); 
+			logger.error(logMsg);
+			throw new IOException(logMsg);
 		}
 		return resource.getContent();
 	}
@@ -171,10 +171,10 @@ public abstract class AbstractScriptExecutor {
 			}
 		}
 
-		logger.error(String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
-				(module + extension), Arrays.toString(rootPaths)));
-		throw new FileNotFoundException(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH + module
-				+ extension);
+		final String logMsg = String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH,
+				(module + extension), Arrays.toString(rootPaths));
+		logger.error(logMsg);
+		throw new FileNotFoundException(logMsg);
 	}
 
 	public List<Module> retrieveModulesByExtension(IRepository repository, String extension,
@@ -222,9 +222,9 @@ public abstract class AbstractScriptExecutor {
 			throws IOException {
 		final ICollection collection = repository.getCollection(repositoryPath);
 		if (!collection.exists()) {
-			logger.error(String.format(THERE_IS_NO_COLLECTION_AT_THE_SPECIFIED_SERVICE_PATH, collection.getName(), repositoryPath));
-			throw new IOException(String.format(THERE_IS_NO_COLLECTION_AT_THE_SPECIFIED_SERVICE_PATH,
-					collection.getName(), repositoryPath));
+			final String logMsg = String.format(THERE_IS_NO_COLLECTION_AT_THE_SPECIFIED_SERVICE_PATH, collection.getName(), repositoryPath); 
+			logger.error(logMsg);
+			throw new IOException(logMsg);
 		}
 		return collection;
 	}
