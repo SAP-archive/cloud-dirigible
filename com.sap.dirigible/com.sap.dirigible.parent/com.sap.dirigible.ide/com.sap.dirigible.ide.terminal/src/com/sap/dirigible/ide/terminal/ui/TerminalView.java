@@ -19,7 +19,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -40,6 +39,8 @@ public class TerminalView extends ViewPart {
 	private static final String EXEEDS_TIMEOUT = "Exeeds timeout - ";
 
 	private static final Logger logger = Logger.getLogger(TerminalView.class);
+	
+	private static Font terminalFont = new Font( null, "Courier New", 14, SWT.NORMAL);
 
 	private Text commandLine;
 	
@@ -57,8 +58,6 @@ public class TerminalView extends ViewPart {
 		parent.setBackground(new Color(null, 0,0,0));
 		parent.setForeground(new Color(null, 0,255,0));
 
-		Font terminalFont = JFaceResources.getFont(JFaceResources.TEXT_FONT);
-		
 	    commandHistory = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.READ_ONLY);
 	    commandHistory.setLayoutData(new GridData(GridData.FILL_BOTH));
 	    commandHistory.setBackground(new Color(null, 0,0,0));
