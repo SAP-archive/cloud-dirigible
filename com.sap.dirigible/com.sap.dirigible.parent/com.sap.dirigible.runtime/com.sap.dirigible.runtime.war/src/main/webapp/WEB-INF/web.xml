@@ -34,7 +34,6 @@
 		<description>Java Servlet</description>
 		<display-name>Java Servlet</display-name>
 		<servlet-name>JavaServlet</servlet-name>
-		
 		<servlet-class>com.sap.dirigible.runtime.java.JavaServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>

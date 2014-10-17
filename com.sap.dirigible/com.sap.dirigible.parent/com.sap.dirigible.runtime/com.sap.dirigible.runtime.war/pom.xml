@@ -193,6 +193,16 @@
 		
 		
 		
+		<!-- Java -->
+		<dependency>
+			<groupId>com.sap.dirigible.runtime</groupId>
+			<artifactId>com.sap.dirigible.runtime.java</artifactId>
+			<version>1.3.0</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		
+		
 		<!-- Groovy -->
 		<dependency>
 			<groupId>com.sap.dirigible.runtime</groupId>

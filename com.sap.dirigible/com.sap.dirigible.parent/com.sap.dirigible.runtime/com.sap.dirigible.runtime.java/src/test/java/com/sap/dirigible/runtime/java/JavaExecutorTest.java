@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.scripts;
+package com.sap.dirigible.runtime.java;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,7 +8,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import javax.sql.DataSource;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,30 +20,32 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.runtime.java.JavaExecutor;
-import com.sap.dirigible.runtime.utils.DataSourceUtils;
+import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
+
 
 public class JavaExecutorTest {
-
-	private static final String USER = "guest";
+	
 	private static final String LIB_DIRECTORY = "src/test/resources/lib";
+	
 	private static final String REPOSITORY_DEPLOY_PATH = "/db/dirigible/registry/public/" + ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
+	private static final String USER = "guest";
 	
 	private static final File HELLO_WORLD_SOURCЕ = new File("src/test/resources/src/HelloWorld.java");
 	private static final File HELLO_WORLD_UPDATED_SOURCE = new File("src/test/resources/src/HelloWorld_Updated.java");
 	private static final String HELLO_WORLD_MODULE = "/project/HelloWorld.java";
 	private static final String HELLO_WORLD_RESOURCE_PATH = REPOSITORY_DEPLOY_PATH + HELLO_WORLD_MODULE;
 	
-	private static final File UTILS_SOURCЕ = new File("src/test/resources/src/Utils.java");
 	private static final File CALCULATOR_SOURCЕ = new File("src/test/resources/src/Calculator.java");
 	private static final File CALCULATOR_UPDATED_SOURCE = new File("src/test/resources/src/Calculator_Updated.java");
-	private static final String UTILS_MODULE = "/project/Utils.java";
 	private static final String CALCULATOR_MODULE = "/project/Calculator.java";
-	private static final String UTILS_RESOURCE_PATH = REPOSITORY_DEPLOY_PATH + UTILS_MODULE;
 	private static final String CALCULATOR_RESOURCE_PATH = REPOSITORY_DEPLOY_PATH + CALCULATOR_MODULE;
 
-
+	private static final File UTILS_SOURCЕ = new File("src/test/resources/src/Utils.java");
+	private static final String UTILS_MODULE = "/project/Utils.java";
+	private static final String UTILS_RESOURCE_PATH = REPOSITORY_DEPLOY_PATH + UTILS_MODULE;
+	
 	private IRepository repository;
-	private JavaExecutor executor;
+	private AbstractScriptExecutor executor;
 	
 	private PrintStream backupOut;
 	private PrintStream backupErr;
@@ -50,8 +55,8 @@ public class JavaExecutorTest {
 
 	@Before
 	public void setUp() throws Exception {
-		repository = new DBRepository(DataSourceUtils.createLocal(), USER, true);
-		executor = new JavaExecutor(repository, new File(LIB_DIRECTORY), REPOSITORY_DEPLOY_PATH, null);
+		repository = new DBRepository(createLocal(), USER, true);
+		executor = new JavaExecutor(getRepository(), new File(LIB_DIRECTORY), REPOSITORY_DEPLOY_PATH, null);
 		
 		backupOut = System.out;
 		backupErr = System.err;
@@ -63,6 +68,13 @@ public class JavaExecutorTest {
 		System.setErr(printStream);
 	}
 
+	public static DataSource createLocal() {
+		EmbeddedDataSource dataSource = new EmbeddedDataSource();
+		dataSource.setDatabaseName("derby"); //$NON-NLS-1$
+		dataSource.setCreateDatabase("create"); //$NON-NLS-1$
+		return dataSource;
+	}
+	
 	@After
 	public void tearDown() throws Exception {
 		if (baos != null) {
@@ -73,6 +85,10 @@ public class JavaExecutorTest {
 		}
 		System.setOut(backupOut);
 		System.setErr(backupErr);
+	}
+
+	private IRepository getRepository() {
+		return repository;
 	}
 
 	private String getOutput() throws IOException {
@@ -94,8 +110,8 @@ public class JavaExecutorTest {
 		return System.currentTimeMillis() - startTime;
 	}
 	
-	private void execute(String module) throws IOException {
-		executor.executeServiceModule(null, null, module);
+	private Object execute(String module) throws IOException {
+		return executor.executeServiceModule(null, null, module);
 	}
 	
 	private void createResource(String path, File source) throws IOException {

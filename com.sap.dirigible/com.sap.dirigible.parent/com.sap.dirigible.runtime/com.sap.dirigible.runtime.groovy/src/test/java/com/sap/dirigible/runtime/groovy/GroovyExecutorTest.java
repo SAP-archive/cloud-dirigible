@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.scripts;
+package com.sap.dirigible.runtime.groovy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -18,7 +18,7 @@ import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.runtime.groovy.GroovyExecutor;
 
-public class GroovyScriptExecutorTest {
+public class GroovyExecutorTest {
 
 	private static final String REPOSITORY_JS_DEPLOY_PATH = "/db/dirigible/registry/public/" //$NON-NLS-1$
 			+ ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;

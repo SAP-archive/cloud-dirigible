@@ -7,10 +7,8 @@ import javax.tools.JavaFileObject;
 public class DynamicJavaCompilationDiagnosticListener implements DiagnosticListener<JavaFileObject> {
 
 	private static final String NEW_LINE = "\n"; //$NON-NLS-1$
-	private static final String COLUMN = Messages
-			.getString("DynamicJavaCompilationDiagnosticListener.COLUMN"); //$NON-NLS-1$
-	private static final String LINE = Messages
-			.getString("DynamicJavaCompilationDiagnosticListener.LINE"); //$NON-NLS-1$
+	private static final String COLUMN = "Column: ";
+	private static final String LINE = "Line: ";
 	private StringBuilder errors;
 	private StringBuilder warnings;
 
