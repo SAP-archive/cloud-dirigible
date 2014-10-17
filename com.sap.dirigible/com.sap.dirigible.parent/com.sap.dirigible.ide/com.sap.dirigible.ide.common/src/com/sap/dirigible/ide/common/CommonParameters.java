@@ -246,5 +246,7 @@ public class CommonParameters {
 	}
 
 	public static final String CONF_PATH_IDE = "/ide";
+	
+	public static final String CONF_PATH_GENERIC_VIEWS = "/ide/generic/views";
 
 }

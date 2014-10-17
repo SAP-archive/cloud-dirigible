@@ -39,5 +39,9 @@ public class CommonUtils {
 				CommonParameters.EMPTY_STRING);
 		return path.toString();
 	}
+	
+	public static String replaceNonAlphaNumericCharacters(String text) {
+		return text.replaceAll("[^\\w]", "");
+	}
 
 }

@@ -3,8 +3,11 @@ package com.sap.dirigible.repository.ext.conf;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.IResource;
@@ -119,5 +122,68 @@ public class ConfigurationStore implements IConfigurationStore {
 		}
 
 		resource.setContent(bytes);
+	}
+
+	@Override
+	public List<String> listGlobalSettingsNames(String path) throws IOException {
+		return listSettingsByRoot(IRepositoryPaths.CONF_REGISTRY, path);
+	}
+
+	@Override
+	public List<String> listUserSettingsNames(String path, String userName) throws IOException {
+		String root = getUserPath(userName);
+		return listSettingsByRoot(root, path);
+	}
+	
+	private List<String> listSettingsByRoot(String root, String path) throws IOException {	
+		String collectionPath = root + path;
+		if (repository != null 
+				&& repository.hasCollection(collectionPath)) {
+			ICollection collection = repository.getCollection(collectionPath);
+			return collection.getResourcesNames();
+		}
+		return new ArrayList<String>();
+	}
+
+	@Override
+	public void removeGlobalSettings(String path, String name) throws IOException {
+		removeSettingsByRoot(IRepositoryPaths.CONF_REGISTRY, path, name);
+	}
+
+	@Override
+	public void removeUserSettings(String path, String userName, String name)
+			throws IOException {
+		String root = getUserPath(userName);
+		removeSettingsByRoot(root, path, name);
+	}
+	
+	public void removeSettingsByRoot(String root, String path, String name) throws IOException {
+		String resourcePath = root + path + IRepository.SEPARATOR + name + PROPERTIES_EXT;
+		if (repository != null 
+				&& repository.hasResource(resourcePath)) {
+			repository.removeResource(resourcePath);
+		}
+	}
+	
+	
+	@Override
+	public boolean existsGlobalSettings(String path, String name) throws IOException {
+		return existsSettingsByRoot(IRepositoryPaths.CONF_REGISTRY, path, name);
+	}
+
+	@Override
+	public boolean existsUserSettings(String path, String userName, String name)
+			throws IOException {
+		String root = getUserPath(userName);
+		return existsSettingsByRoot(root, path, name);
+	}
+	
+	public boolean existsSettingsByRoot(String root, String path, String name) throws IOException {
+		String resourcePath = root + path + IRepository.SEPARATOR + name + PROPERTIES_EXT;
+		if (repository != null 
+				&& repository.hasResource(resourcePath)) {
+			return true;
+		}
+		return false;
 	}
 }

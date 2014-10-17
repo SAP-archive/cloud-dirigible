@@ -133,6 +133,7 @@
 		<module>com.sap.dirigible.ide.terminal</module>
 		<module>com.sap.dirigible.ide.feature</module>
 		<module>com.sap.dirigible.ide.p2repo</module>
+		<module>com.sap.dirigible.ide.generic</module>
 		<!-- this module must be the last one -->
 		<module>com.sap.dirigible.ide.war</module>
 	</modules>
