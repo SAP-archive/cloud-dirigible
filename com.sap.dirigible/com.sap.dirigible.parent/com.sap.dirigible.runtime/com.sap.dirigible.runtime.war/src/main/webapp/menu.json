@@ -27,6 +27,10 @@
         "link": "#/scripting/java"
     },
     {
+        "name": "Groovy Services",
+        "link": "#/scripting/groovy"
+    },
+    {
         "name": "Command Services",
         "link": "#/scripting/command"
     },

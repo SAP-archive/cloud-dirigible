@@ -65,12 +65,14 @@
             location="/com/sap/dirigible/ide/template/ui/js/templates/java-service.java_"
             text="Java Service">
       </template>
+      <!-- Ruby Template
       <template
             category="ScriptingServices"
             image="/icons/ruby-service.png"
             location="/com/sap/dirigible/ide/template/ui/js/templates/ruby-service.rb"
             text="Ruby Service">
       </template>
+      -->
       <template
             category="ScriptingServices"
             image="/icons/groovy-service.png"

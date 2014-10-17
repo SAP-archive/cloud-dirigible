@@ -32,6 +32,8 @@
 			<scope>compile</scope>
 		</dependency>
 		
+		
+		
 		<!-- Core -->
 		<dependency>
 			<groupId>com.sap.dirigible.runtime</groupId>
@@ -45,7 +47,6 @@
 			<version>1.3.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -70,7 +71,7 @@
 			<version>4.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
-	
 
 </project>

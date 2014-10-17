@@ -106,6 +106,11 @@ menuControllers.controller('HomeCtrl', ['$scope',
       title: "JavaScript",
       description: "JavaScript Services Endpoints"
     }, {
+      image: "images/java-groovy.png",
+      path: "#/scripting/groovy",
+      title: "Groovy",
+      description: "Groovy Services Endpoints"
+    }, {
       image: "images/java.png",
       path: "#/scripting/java",
       title: "Java",

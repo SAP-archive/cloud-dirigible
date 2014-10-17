@@ -15,10 +15,10 @@
 	<modules>
 		<module>com.sap.dirigible.runtime.core</module>
 		<module>com.sap.dirigible.runtime.camel</module>
+		<module>com.sap.dirigible.runtime.groovy</module>
 		<module>com.sap.dirigible.runtime.war</module>
 		<!-- 
 		<module>com.sap.dirigible.runtime.ruby</module>
-		<module>com.sap.dirigible.runtime.groovy</module>
 		<module>com.sap.dirigible.runtime.ruby.war</module>
 		<module>com.sap.dirigible.runtime.groovy.war</module>
 		-->
