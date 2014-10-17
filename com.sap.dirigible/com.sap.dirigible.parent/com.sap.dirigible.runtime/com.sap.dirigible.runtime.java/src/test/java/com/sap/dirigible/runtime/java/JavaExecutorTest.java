@@ -19,10 +19,6 @@ import org.junit.Test;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
-<<<<<<< Upstream, based on creates_runtime_java_plugin
-import com.sap.dirigible.runtime.java.JavaExecutor;
-=======
->>>>>>> 490154e Separetes java runtime into com.sap.dirigible.runtime.java plugin
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 
