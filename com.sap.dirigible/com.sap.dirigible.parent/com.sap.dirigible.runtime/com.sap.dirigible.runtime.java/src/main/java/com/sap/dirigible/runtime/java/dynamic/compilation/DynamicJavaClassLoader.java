@@ -28,7 +28,13 @@ public class DynamicJavaClassLoader extends SecureClassLoader {
 			byte[] bytes = ((JavaClassObject) sourceFile).getBytes();
 			clazz = super.defineClass(name, bytes, 0, bytes.length);
 		} else {
-			clazz = Servlet.class.getClassLoader().loadClass(name);
+			try {
+				// try server classloader
+				clazz = Servlet.class.getClassLoader().loadClass(name);
+			} catch (ClassNotFoundException e) {
+				// try application classloader
+				clazz = DynamicJavaClassLoader.class.getClassLoader().loadClass(name);
+			}
 		}
 		resolveClass(clazz);
 		return clazz;
