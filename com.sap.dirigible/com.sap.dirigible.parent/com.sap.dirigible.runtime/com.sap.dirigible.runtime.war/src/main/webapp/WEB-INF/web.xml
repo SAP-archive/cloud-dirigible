@@ -249,6 +249,19 @@
 		<url-pattern>/content-init/*</url-pattern>
 	</servlet-mapping>
 	
+	
+	<servlet>
+		<description>Base Content Servlet</description>
+		<display-name>Base Content Servlet</display-name>
+		<servlet-name>BaseContentServlet</servlet-name>
+		<servlet-class>com.sap.dirigible.runtime.content.BaseContentServlet</servlet-class>
+		<load-on-startup>11</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BaseContentServlet</servlet-name>
+		<url-pattern>/load/*</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<description>Content Exporter Servlet</description>
 		<display-name>Content Exporter Servlet</display-name>
@@ -259,6 +272,18 @@
 	<servlet-mapping>
 		<servlet-name>ContentExporterServlet</servlet-name>
 		<url-pattern>/export/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>Content Importer Servlet</description>
+		<display-name>Content Importer Servlet</display-name>
+		<servlet-name>ContentImporterServlet</servlet-name>
+		<servlet-class>com.sap.dirigible.runtime.content.ContentImporterServlet</servlet-class>
+		<load-on-startup>12</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ContentImporterServlet</servlet-name>
+		<url-pattern>/import/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Operational Servlet -->
@@ -623,6 +648,7 @@
 			<url-pattern>/memory</url-pattern>
 			<url-pattern>/js-debug/*</url-pattern>
 			<url-pattern>/export/*</url-pattern>
+			<url-pattern>/import/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Everyone</role-name>
