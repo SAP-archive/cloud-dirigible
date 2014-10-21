@@ -50,6 +50,7 @@ public class JavaExecutor extends AbstractScriptExecutor {
 	protected Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
 			Object input, String module) throws DynamicJavaCompilationException {
 		try {
+			registerDefaultVariables(request, response, input, null, repository, null);
 			ClassFileManager fileManager = compile();
 			return execute(request, response, module, fileManager);
 		} catch (Exception e) {
