@@ -55,7 +55,7 @@ public class JavaExecutorTest {
 	@Before
 	public void setUp() throws Exception {
 		repository = new DBRepository(createLocal(), USER, true);
-		executor = new JavaExecutor(getRepository(), new File(LIB_DIRECTORY), REPOSITORY_DEPLOY_PATH, null);
+		executor = new JavaExecutorStub(getRepository(), new File(LIB_DIRECTORY), REPOSITORY_DEPLOY_PATH, null);
 		
 		backupOut = System.out;
 		backupErr = System.err;
