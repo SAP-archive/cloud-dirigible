@@ -51,26 +51,11 @@
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${war.project.directory}/src/main/webapp/WEB-INF/plugins</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
 	<modules>
 		<module>com.sap.dirigible.ide.target</module>
-		<module>com.sap.dirigible.ide.target.dependencies</module>
 		<module>com.sap.dirigible.repository.api</module>
 		<module>com.sap.dirigible.repository.db</module>
 		<module>com.sap.dirigible.repository.db.test</module>
