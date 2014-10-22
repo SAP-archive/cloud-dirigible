@@ -26,7 +26,7 @@ import com.sap.dirigible.repository.api.IResource;
 public class DefinitionEnumerator {
 
 	private final List<String> list = new ArrayList<String>();
-
+	
 	public DefinitionEnumerator(final String repositoryPath, final ICollection collection,
 			final String fileExtension) throws IOException {
 		enumerateJsDefinitions(repositoryPath, collection, fileExtension);
@@ -42,10 +42,12 @@ public class DefinitionEnumerator {
 			for (final IResource resource : collection.getResources()) {
 				if (resource != null && resource.getName() != null) {
 					if (resource.getName().endsWith(fileExtension)) {
-						final String fullPath = collection.getPath().substring(
-								repositoryPath.length())
-								+ IRepository.SEPARATOR + resource.getName();
-						this.list.add(fullPath);
+						String collecationPath = collection.getPath();
+						if (collecationPath.length() >= repositoryPath.length()) {
+							final String fullPath = collecationPath.substring(repositoryPath.length())
+									+ IRepository.SEPARATOR + resource.getName();
+							this.list.add(fullPath);
+						}
 					}
 				}
 			}
