@@ -1,5 +1,5 @@
 var fileApp = angular.module('fileApp', ['ngRoute', 'defaultServices',
-  'menuControllers', 'defaultControllers'
+  'menuControllers', 'defaultControllers', 'angularFileUpload'
 ]);
 
 fileApp.config(function($routeProvider) {
@@ -10,12 +10,15 @@ fileApp.config(function($routeProvider) {
     }).when('/content', {
       controller: 'ContentCtrl',
       templateUrl: 'templates/content/content.html'
+    }).when('/content/import', {
+      controller: 'ImportCtrl',
+      templateUrl: 'templates/content/import/import.html'
     }).when('/web/content', {
-        controller: 'WebContentCtrl',
-        templateUrl: 'templates/web/content/content.html'
+      controller: 'WebContentCtrl',
+      templateUrl: 'templates/web/content/content.html'
     }).when('/web/wiki', {
-        controller: 'WebWikiCtrl',
-        templateUrl: 'templates/web/wiki/wiki.html'
+      controller: 'WebWikiCtrl',
+      templateUrl: 'templates/web/wiki/wiki.html'
     }).when('/scripting/javascript', {
       controller: 'JavaScriptCtrl',
       templateUrl: 'templates/scripting/javascript/javascript.html'
@@ -29,34 +32,45 @@ fileApp.config(function($routeProvider) {
       controller: 'CommandCtrl',
       templateUrl: 'templates/scripting/command/command.html'
     }).when('/scripting/tests', {
-        controller: 'TestsCtrl',
-        templateUrl: 'templates/scripting/tests/tests.html'
+      controller: 'TestsCtrl',
+      templateUrl: 'templates/scripting/tests/tests.html'
     }).when('/scripting/ruby', {
       controller: 'RubyCtrl',
       templateUrl: 'templates/scripting/ruby/ruby.html'
     }).when('/routes', {
-        controller: 'RoutesCtrl',
-        templateUrl: 'templates/routes/routes.html'
+      controller: 'RoutesCtrl',
+      templateUrl: 'templates/routes/routes.html'
     }).when('/monitoring', {
-        controller: 'MonitoringCtrl',
-        templateUrl: 'templates/monitoring/monitoring.html'
+      controller: 'MonitoringCtrl',
+      templateUrl: 'templates/monitoring/monitoring.html'
     }).when('/monitoring/manage', {
-        controller: 'MonitoringManageCtrl',
-        templateUrl: 'templates/monitoring/manage/manage.html'
+      controller: 'MonitoringManageCtrl',
+      templateUrl: 'templates/monitoring/manage/manage.html'
     }).when('/monitoring/hits', {
-        templateUrl: 'templates/monitoring/hits/hits.html'
+      templateUrl: 'templates/monitoring/hits/hits.html'
     }).when('/monitoring/response', {
-        templateUrl: 'templates/monitoring/response/response.html'
+      templateUrl: 'templates/monitoring/response/response.html'
     }).when('/monitoring/memory', {
-        templateUrl: 'templates/monitoring/memory/memory.html'
+      templateUrl: 'templates/monitoring/memory/memory.html'
     }).when('/monitoring/acclog', {
-    	controller: 'MonitoringAccessCtrl',
-        templateUrl: 'templates/monitoring/acclog/acclog.html'
+      controller: 'MonitoringAccessCtrl',
+      templateUrl: 'templates/monitoring/acclog/acclog.html'
     }).when('/monitoring/logging', {
-        templateUrl: 'templates/monitoring/logging/logging.html'
+      templateUrl: 'templates/monitoring/logging/logging.html'
     }).otherwise({
       redirectTo: '/home'
     });
+}).controller('ImportCtrl', function($scope, FileUploader) {
+  var uploader = $scope.uploader = new FileUploader({
+    url: 'import'
+  });
+
+  uploader.filters.push({
+    name: 'onlyZip',
+    fn: function(item) {
+      return item.name.lastIndexOf(".zip") === item.name.length - 4;
+    }
+  });
 });
 
 var menuControllers = angular.module('menuControllers', []);
@@ -96,10 +110,10 @@ menuControllers.controller('HomeCtrl', ['$scope',
       title: "Wiki",
       description: "Browse Applications Documentation"
     }, {
-        image: "images/routes.png",
-        path: "#/routes",
-        title: "Routes",
-        description: "Integration Services Endpoints"
+      image: "images/routes.png",
+      path: "#/routes",
+      title: "Routes",
+      description: "Integration Services Endpoints"
     }, {
       image: "images/java-script.png",
       path: "#/scripting/javascript",
@@ -121,10 +135,10 @@ menuControllers.controller('HomeCtrl', ['$scope',
       title: "Command",
       description: "Command Services Endpoints"
     }, {
-        image: "images/test.png",
-        path: "#/scripting/tests",
-        title: "Tests",
-        description: "Test Cases Endpoints"
+      image: "images/test.png",
+      path: "#/scripting/tests",
+      title: "Tests",
+      description: "Test Cases Endpoints"
     }, {
       image: "images/monitor.png",
       path: "#/monitoring",
@@ -157,40 +171,40 @@ menuControllers.controller('HomeCtrl', ['$scope',
 ]);
 
 menuControllers.controller('MonitoringCtrl', ['$scope',
-	function($scope) {
-	$scope.monitoringData = [ {
-	  image: "images/hits.png",
-	  path: "#/monitoring/hits",
-	  title: "Hits",
-	  description: "Hit count graphics"
-	}, {
-	  image: "images/memory.png",
-	  path: "#/monitoring/memory",
-	  title: "Memory",
-	  description: "Memory graphics"
-	}, {
-	  image: "images/response.png",
-	  path: "#/monitoring/response",
-	  title: "Response",
-	  description: "Response time graphics"
-	},{
-	  image: "images/manage.png",
-	  path: "#/monitoring/manage",
-	  title: "Manage",
-	  description: "Manage access locations"
-	}, {
-	  image: "images/access.png",
-	  path: "#/monitoring/acclog",
-	  title: "Access Log",
-	  description: "Access Log"
-	}, {
-	  image: "images/logging.png",
-	  path: "#/monitoring/logging",
-	  title: "Logging",
-	  description: "Logging"
-	}];
+  function($scope) {
+    $scope.monitoringData = [{
+      image: "images/hits.png",
+      path: "#/monitoring/hits",
+      title: "Hits",
+      description: "Hit count graphics"
+    }, {
+      image: "images/memory.png",
+      path: "#/monitoring/memory",
+      title: "Memory",
+      description: "Memory graphics"
+    }, {
+      image: "images/response.png",
+      path: "#/monitoring/response",
+      title: "Response",
+      description: "Response time graphics"
+    }, {
+      image: "images/manage.png",
+      path: "#/monitoring/manage",
+      title: "Manage",
+      description: "Manage access locations"
+    }, {
+      image: "images/access.png",
+      path: "#/monitoring/acclog",
+      title: "Access Log",
+      description: "Access Log"
+    }, {
+      image: "images/logging.png",
+      path: "#/monitoring/logging",
+      title: "Logging",
+      description: "Logging"
+    }];
   }
- ]);
+]);
 
 menuControllers.controller('MonitoringManageCtrl', ['$scope', '$http',
   function($scope, $http) {
