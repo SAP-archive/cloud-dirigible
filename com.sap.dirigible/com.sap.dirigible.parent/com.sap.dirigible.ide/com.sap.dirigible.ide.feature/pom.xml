@@ -3,7 +3,7 @@
   <parent>
 		<groupId>com.sap.dirigible.ide</groupId>
 		<artifactId>com.sap.dirigible.ide.parent</artifactId>
-		<version>1.3.0</version>
+		<version>1.3.39</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
   <artifactId>com.sap.dirigible.ide.feature</artifactId>
