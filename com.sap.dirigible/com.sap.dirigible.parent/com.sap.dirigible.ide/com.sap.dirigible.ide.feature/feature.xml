@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.sap.dirigible.ide.feature"
-      label="Dirigible IDE Agragating Feature"
-      version="1.3.0"
+      label="Dirigible IDE Aggregating Feature"
+      version="1.3.39"
       provider-name="SAP">
 
    <description url="http://www.dirigible.io/">
@@ -350,6 +350,13 @@
 
    <plugin
          id="com.sap.dirigible.ide.workspace.wizard.project"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="com.sap.dirigible.ide.generic"
          download-size="0"
          install-size="0"
          version="0.0.0"
