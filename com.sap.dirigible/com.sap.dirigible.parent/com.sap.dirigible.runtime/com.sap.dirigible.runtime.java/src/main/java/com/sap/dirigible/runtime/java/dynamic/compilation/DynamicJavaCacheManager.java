@@ -11,7 +11,7 @@ public class DynamicJavaCacheManager {
 	private static final Map<String, JavaFileObject> cachedJavaFileObjects = Collections.synchronizedMap(new HashMap<String, JavaFileObject>());
 	private static final Map<String, Class<?>> cachedClasses = Collections.synchronizedMap(new HashMap<String, Class<?>>());
 	
-	public static void clearCache() {
+	public synchronized static void clearCache() {
 		cachedJavaFileObjects.clear();
 		cachedClasses.clear();
 	}
@@ -20,7 +20,7 @@ public class DynamicJavaCacheManager {
 		return cachedJavaFileObjects.get(name);
 	}
 	
-	public static JavaFileObject putJavaFileObjectCacheEntry(String name, JavaFileObject javaFileObject) {
+	public synchronized static JavaFileObject putJavaFileObjectCacheEntry(String name, JavaFileObject javaFileObject) {
 		return cachedJavaFileObjects.put(name, javaFileObject);
 	}
 	
@@ -28,7 +28,7 @@ public class DynamicJavaCacheManager {
 		return cachedClasses.get(name);
 	}
 	
-	public static Class<?> putClassCacheEntry(String name, Class<?> clazz) {
+	public synchronized static Class<?> putClassCacheEntry(String name, Class<?> clazz) {
 		return cachedClasses.put(name, clazz);
 	}
 	

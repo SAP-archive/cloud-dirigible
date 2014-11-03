@@ -9,21 +9,22 @@ import javax.tools.SimpleJavaFileObject;
 
 public class JavaClassObject extends SimpleJavaFileObject implements CommonConstants {
 
-	private String name;
-	private String content;
-	private long lastModified;
-
-	 private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	private final String name;
+	private final String content;
+	private final long lastModified;
+	private ByteArrayOutputStream bos;
 
 	public JavaClassObject(String name, Kind kind, String content, long lastModified) {
 		super(URI.create(STRING_URI + name.replace(DOT, SLASH) + kind.extension), kind);
 		this.name = name;
 		this.content = content.trim();
 		this.lastModified = lastModified;
+		this.bos = new ByteArrayOutputStream();
 	}
 
 	public byte[] getBytes() {
-		return bos.toByteArray();
+		byte[] bytes = bos.toByteArray();
+		return bytes;
 	}
 
 	public String getContent() {
@@ -47,6 +48,7 @@ public class JavaClassObject extends SimpleJavaFileObject implements CommonConst
 
 	@Override
 	public OutputStream openOutputStream() throws IOException {
+		bos.reset();
 		return bos;
 	}
 }

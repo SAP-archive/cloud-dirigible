@@ -213,7 +213,9 @@ public class Logger {
 	private static void logInSystemOutput(String message, Throwable t) {
 		if (isLogInSystemOutput()) {
 			System.err.println(message);
-			t.printStackTrace();
+			if (t != null) {
+				t.printStackTrace();
+			}
 		}
 	}
 

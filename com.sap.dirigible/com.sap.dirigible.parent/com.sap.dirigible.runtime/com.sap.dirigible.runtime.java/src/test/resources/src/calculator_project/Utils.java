@@ -1,4 +1,4 @@
-package project;
+package calculator_project;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;

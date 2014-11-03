@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.tools.FileObject;
 import javax.tools.ForwardingJavaFileManager;
@@ -27,13 +29,13 @@ public class ClassFileManager extends ForwardingJavaFileManager<JavaFileManager>
 	private static final String PATH_SEPARATOR = "path.separator";
 	
 	private static ClassFileManager instance;
-	private static List<JavaFileObject> lastKnownSourceFiles = Collections.synchronizedList(new ArrayList<JavaFileObject>());
+	private static final Map<String, JavaFileObject> lastKnownSourceFiles = Collections.synchronizedMap(new HashMap<String, JavaFileObject>());
 	
 	public synchronized static ClassFileManager getInstance(StandardJavaFileManager standardManager) {
 		if (instance == null) {
 			instance = new ClassFileManager(standardManager);
 		}
-		return instance;
+		return new ClassFileManager(standardManager);
 	}
 	
 	public static String getFQN(String module) {
@@ -66,30 +68,22 @@ public class ClassFileManager extends ForwardingJavaFileManager<JavaFileManager>
 	}
 	
 	public static JavaFileObject getSourceFile(String className) {
-		JavaFileObject javaFileObject = null;
-		if (lastKnownSourceFiles != null) {
-			for (JavaFileObject sourceFile : lastKnownSourceFiles) {
-				if (sourceFile.getName().equals(className)) {
-					javaFileObject = sourceFile;
-					break;
-				}
-			}
-		}
-		return javaFileObject;
+		return lastKnownSourceFiles.get(className);
 	}
 	
 	public static List<JavaFileObject> getSourceFiles(List<Module> modules) throws IOException {
-		List<JavaFileObject> javaFiles = new ArrayList<JavaFileObject>();
 		for (Module module : modules) {
 			String fqn = getFQN(module.getPath());
-			String content = new String(module.getContent());
 			long lastModified = getLastModified(module);
 
-			javaFiles.add(new JavaClassObject(fqn, Kind.SOURCE, content, lastModified));
+			JavaClassObject lastKnownSoruceFile = (JavaClassObject) getSourceFile(fqn);
+			if(lastKnownSoruceFile == null || lastKnownSoruceFile.getLastModified() < lastModified) {
+				String content = new String(module.getContent());
+				lastKnownSourceFiles.put(fqn, new JavaClassObject(fqn, Kind.SOURCE, content, lastModified));
+			}
 		}
-		lastKnownSourceFiles.clear();
-		lastKnownSourceFiles.addAll(javaFiles);
-		return javaFiles;
+		JavaFileObject[] array = lastKnownSourceFiles.values().toArray(new JavaFileObject[]{});
+		return Arrays.asList(array);
 	}
 	
 	private static long getLastModified(Module module) {

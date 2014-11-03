@@ -53,12 +53,12 @@ public class JavaExecutor extends AbstractScriptExecutor {
 			registerDefaultVariables(request, response, input, null, repository, null);
 			ClassFileManager fileManager = compile();
 			return execute(request, response, module, fileManager);
-		} catch (Exception e) {
-			if (!(e instanceof DynamicJavaCompilationException)) {
+		} catch (Throwable t) {
+			if (!(t instanceof DynamicJavaCompilationException)) {
 				ClassFileManager.clearCache();
 			}
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			e.printStackTrace(new PrintStream(baos));
+			t.printStackTrace(new PrintStream(baos));
 			throw new DynamicJavaCompilationException(baos.toString());
 		}
 	}
