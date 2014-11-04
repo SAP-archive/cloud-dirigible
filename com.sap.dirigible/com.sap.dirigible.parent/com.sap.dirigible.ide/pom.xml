@@ -22,7 +22,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<war.project.directory>../com.sap.dirigible.ide.war</war.project.directory>
+		<!-- <war.project.directory>../com.sap.dirigible.ide.war</war.project.directory> -->
 	</properties>
 
 	<build>

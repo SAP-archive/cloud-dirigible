@@ -32,25 +32,47 @@
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
-					<execution>
-						<phase>package</phase>
+					 <execution>
+						<phase>compile</phase>
 						<goals>
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/${project.name}-${project.version}/WEB-INF/</outputDirectory>
+							<includeArtifactIds>com.sap.dirigible.ide.p2repo</includeArtifactIds>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-dependencies-lib</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.name}-${project.version}/WEB-INF/lib</outputDirectory>
+							<excludeArtifactIds>com.sap.dirigible.ide.p2repo</excludeArtifactIds>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
+ 	<dependencies>
 		<dependency>
 			<groupId>com.sap.dirigible.ide</groupId>
 			<artifactId>com.sap.dirigible.ide.p2repo</artifactId>
-			<version>1.3.0</version>
+			<version>${project.version}</version>
 			<type>eclipse-repository</type>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.dirigible.ide</groupId>
+			<artifactId>com.sap.dirigible.ide.bridge</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.dirigible.ide</groupId>
+			<artifactId>com.sap.dirigible.ide.bridge.ext</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 </project>
