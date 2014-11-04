@@ -25,7 +25,7 @@
   			<plugin> 
                     <artifactId>maven-dependency-plugin</artifactId> 
                         <executions> 
-                            <execution> 
+ <!--                           <execution> 
                             	<id>copy-dependencies-lib</id>
                                 <phase>install</phase> 
                                 <goals> 
@@ -44,7 +44,7 @@
                                 <configuration> 
                                     <outputDirectory>${war.project.directory}/src/main/webapp/WEB-INF/plugins</outputDirectory>
                                 </configuration> 
-                            </execution>
+                            </execution>-->
                         </executions> 
                 </plugin> 
 		</plugins>
