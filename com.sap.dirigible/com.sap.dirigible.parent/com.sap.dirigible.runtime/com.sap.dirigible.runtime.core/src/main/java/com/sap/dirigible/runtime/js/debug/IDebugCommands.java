@@ -21,7 +21,7 @@ import com.sap.dirigible.repository.ext.debug.BreakpointMetadata;
 
 public interface IDebugCommands {
 	public enum DebugCommand {
-		CONTINUE, PAUSE, STEPOVER, STEPINTO, SKIPALLBREAKPOINTS;
+		CONTINUE, PAUSE, STEPOVER, STEPINTO, SKIP_ALL_BREAKPOINTS;
 	}
 
 	/**

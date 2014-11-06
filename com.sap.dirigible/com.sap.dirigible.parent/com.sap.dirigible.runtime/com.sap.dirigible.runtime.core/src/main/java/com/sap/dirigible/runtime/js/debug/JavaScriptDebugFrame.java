@@ -71,7 +71,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 			JavaScriptDebugger javaScriptDebugger) {
 		// get the instance of debugger action manager from the session
 
-		logger.debug("entering JavaScriptDebugFrame.constructor");
+		logDebug("entering JavaScriptDebugFrame.constructor");
 
 		this.debuggerActionManager = DebuggerActionManager.getInstance(request.getSession(true));
 
@@ -82,8 +82,8 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 				executionId, userId);
 
 		this.debuggerActionCommander.init();
-		this.debuggerActionCommander.setJavaScriptDebugFrame(this);
-		this.debuggerActionCommander.setJavaScriptDebugger(javaScriptDebugger);
+		this.debuggerActionCommander.setDebugFrame(this);
+		this.debuggerActionCommander.setDebugger(javaScriptDebugger);
 
 		this.debuggerBridge = debuggerBridge;
 		this.debuggerBridge.addPropertyChangeListener(this);
@@ -93,25 +93,25 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 
 		registerDebugFrame();
 
-		logger.debug("exiting JavaScriptDebugFrame.constructor");
+		logDebug("exiting JavaScriptDebugFrame.constructor");
 	}
 
 	private void registerDebugFrame() {
-		logger.debug("entering JavaScriptDebugFrame.registerDebugFrame");
+		logDebug("entering JavaScriptDebugFrame.registerDebugFrame");
 		String commandBody = new Gson().toJson(new DebugSessionMetadata(
 				getDebuggerActionCommander().getSessionId(), getDebuggerActionCommander()
 						.getExecutionId(), getDebuggerActionCommander().getUserId()));
 		send(DebugConstants.VIEW_REGISTER, commandBody);
-		logger.debug("exiting JavaScriptDebugFrame.registerDebugFrame");
+		logDebug("exiting JavaScriptDebugFrame.registerDebugFrame");
 	}
 
 	@Override
 	public void onEnter(Context context, Scriptable activation, Scriptable thisObj, Object[] args) {
-		logger.debug("entering JavaScriptDebugFrame.onEnter()");
+		logDebug("entering JavaScriptDebugFrame.onEnter()");
 		DebuggableScript script = (DebuggableScript) context.getDebuggerContextData();
 		scriptStack.push(script);
 		activationStack.push(activation);
-		logger.debug("exiting JavaScriptDebugFrame.onEnter()");
+		logDebug("exiting JavaScriptDebugFrame.onEnter()");
 	}
 
 	@Override
@@ -122,12 +122,12 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 
 	@Override
 	public void onExceptionThrown(Context context, Throwable ex) {
-		logger.error("[debugger] onExceptionThrown()");
+		logError("[debugger] onExceptionThrown()");
 	}
 
 	@Override
 	public void onExit(Context context, boolean byThrow, Object resultOrException) {
-		logger.debug("entering JavaScriptDebugFrame.onExit()");
+		logDebug("entering JavaScriptDebugFrame.onExit()");
 		scriptStack.pop();
 		activationStack.pop();
 		if (scriptStack.isEmpty()) {
@@ -139,7 +139,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 			String json = new Gson().toJson(metadata);
 			send(DebugConstants.VIEW_FINISH, json);
 		}
-		logger.debug("exiting JavaScriptDebugFrame.onExit()");
+		logDebug("exiting JavaScriptDebugFrame.onExit()");
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 	}
 
 	private void processAction(int lineNumber, DebugCommand nextCommand) {
-		if (nextCommand != DebugCommand.SKIPALLBREAKPOINTS) {
+		if (nextCommand != DebugCommand.SKIP_ALL_BREAKPOINTS) {
 			if (isBreakpoint(lineNumber)) {
 				hitBreakpoint(lineNumber);
 			} else {
@@ -164,7 +164,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 				case STEPOVER:
 					stepOver(lineNumber);
 					break;
-				case SKIPALLBREAKPOINTS:
+				case SKIP_ALL_BREAKPOINTS:
 					break;
 				default:
 					break;
@@ -175,22 +175,22 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 	}
 
 	private void hitBreakpoint(int lineNumber) {
-		logger.debug("entering JavaScriptDebugFrame.hitBreakpoint(): " + lineNumber);
+		logDebug("entering JavaScriptDebugFrame.hitBreakpoint(): " + lineNumber);
 		print(lineNumber);
 		debuggerActionCommander.stepOver();
 		debuggerActionCommander.pauseExecution();
-		logger.debug("exiting JavaScriptDebugFrame.hitBreakpoint()");
+		logDebug("exiting JavaScriptDebugFrame.hitBreakpoint()");
 	}
 
 	private void stepInto(int lineNumber) {
-		logger.debug("entering JavaScriptDebugFrame.stepInto(): " + lineNumber);
+		logDebug("entering JavaScriptDebugFrame.stepInto(): " + lineNumber);
 		print(lineNumber);
 		debuggerActionCommander.pauseExecution();
-		logger.debug("exiting JavaScriptDebugFrame.stepInto()");
+		logDebug("exiting JavaScriptDebugFrame.stepInto()");
 	}
 
 	private void stepOver(int lineNumber) {
-		logger.debug("entering JavaScriptDebugFrame.stepOver(): " + lineNumber);
+		logDebug("entering JavaScriptDebugFrame.stepOver(): " + lineNumber);
 		if (stepOverFinished) {
 			stepOverFinished = false;
 			stepOverLineNumber = previousLineNumber;
@@ -200,20 +200,20 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 			stepOverLineNumber = -1;
 			stepInto(lineNumber);
 		}
-		logger.debug("entering JavaScriptDebugFrame.stepOver()");
+		logDebug("entering JavaScriptDebugFrame.stepOver()");
 	}
 
 	private void blockExecution() {
-		logger.debug("entering JavaScriptDebugFrame.blockExecution()");
+		logDebug("entering JavaScriptDebugFrame.blockExecution()");
 		while (!debuggerActionCommander.isExecuting() && getNextCommand() != DebugCommand.CONTINUE
-				&& getNextCommand() != DebugCommand.SKIPALLBREAKPOINTS) {
+				&& getNextCommand() != DebugCommand.SKIP_ALL_BREAKPOINTS) {
 			try {
 				Thread.sleep(SLEEP_TIME);
 			} catch (InterruptedException e) {
 				// Ignore
 			}
 		}
-		logger.debug("exiting JavaScriptDebugFrame.blockExecution()");
+		logDebug("exiting JavaScriptDebugFrame.blockExecution()");
 	}
 
 	private DebugCommand getNextCommand() {
@@ -283,7 +283,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		String commandId = event.getPropertyName();
 		String clientId = (String) event.getOldValue();
 		String commandBody = (String) event.getNewValue();
-		logger.debug("JavaScriptDebugFrame propertyChange() command: " + commandId + ", clientId: "
+		logDebug("JavaScriptDebugFrame propertyChange() command: " + commandId + ", clientId: "
 				+ clientId + ", body: " + commandBody);
 
 		if (clientId == null || !clientId.equals(getDebuggerActionCommander().getExecutionId())) {
@@ -356,12 +356,22 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 	}
 
 	public void send(String commandId, String commandBody) {
-		logger.debug("JavaScriptDebugFrame send() command: " + commandId + ", body: " + commandBody);
+		logDebug("JavaScriptDebugFrame send() command: " + commandId + ", body: " + commandBody);
 		DebugBridgeUtils.send(this.debuggerBridge, commandId, getDebuggerActionCommander()
 				.getExecutionId(), commandBody);
 	}
 
 	public DebuggerActionCommander getDebuggerActionCommander() {
 		return debuggerActionCommander;
+	}
+
+	private void logError(String message) {
+		logger.error(message);
+	}
+
+	private void logDebug(String message) {
+		if (logger.isDebugEnabled()) {
+			logger.debug(message);
+		}
 	}
 }

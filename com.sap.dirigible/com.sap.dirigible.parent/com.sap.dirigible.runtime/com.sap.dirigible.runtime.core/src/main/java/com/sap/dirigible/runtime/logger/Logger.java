@@ -29,8 +29,6 @@ import org.slf4j.LoggerFactory;
  */
 public class Logger {
 
-	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
-
 	private static boolean printInSystemOutput = false;
 
 	/**
@@ -51,36 +49,12 @@ public class Logger {
 				.getCanonicalName()));
 	}
 
-	private final java.util.logging.Logger delegate2;
-	private final org.slf4j.Logger delegate3;
+	private final org.slf4j.Logger logger1;
+	private final java.util.logging.Logger logger2;
 
-	private Logger(org.slf4j.Logger delegate3, java.util.logging.Logger delegate2) {
-		this.delegate3 = delegate3;
-		this.delegate2 = delegate2;
-	}
-
-	/**
-	 * Log a severe error that would most likely lead to an application abort.
-	 */
-	public void fatal(String message) {
-		delegate2.severe(message);
-		delegate3.error(message);
-		if (printInSystemOutput) {
-			System.err.println(message);
-		}
-	}
-
-	/**
-	 * Same as {@link #fatal(String)} with the ability to specify an exception
-	 * that caused the logging.
-	 */
-	public void fatal(String message, Throwable ex) {
-		delegate2.log(Level.SEVERE, message, ex);
-		delegate3.error(message, ex);
-		if (printInSystemOutput) {
-			System.err.println(message);
-			ex.printStackTrace();
-		}
+	private Logger(org.slf4j.Logger logger1, java.util.logging.Logger logger2) {
+		this.logger1 = logger1;
+		this.logger2 = logger2;
 	}
 
 	/**
@@ -88,126 +62,152 @@ public class Logger {
 	 * operate.
 	 */
 	public void error(String message) {
-		delegate2.severe(message);
-		delegate3.error(message);
-		if (printInSystemOutput) {
-			System.err.println(message);
-		}
+		error(message, null);
 	}
 
 	/**
 	 * Same as {@link #error(String)} with the ability to specify an exception
 	 * that caused the logging.
 	 */
-	public void error(String message, Throwable ex) {
-		delegate2.log(Level.SEVERE, message, ex);
-		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
-		delegate3.error(message, ex);
-		delegate3.trace(message, ex);
-		if (printInSystemOutput) {
-			System.err.println(message);
-			ex.printStackTrace();
+	public void error(String message, Throwable t) {
+		if (isErrorEnabled()) {
+			logger1.error(message, t);
+			logger2.log(Level.SEVERE, message, t);
 		}
+		logInSystemOutput(message, t);
 	}
 
 	/**
 	 * Log a potentially harmful situation.
 	 */
 	public void warn(String message) {
-		delegate2.warning(message);
-		delegate3.warn(message);
-		if (printInSystemOutput) {
-			System.err.println(message);
-		}
+		warn(message, null);
 	}
 
 	/**
 	 * Same as {@link #warn(String)} with the ability to specify an exception
 	 * that caused the logging.
 	 */
-	public void warn(String message, Throwable ex) {
-		delegate2.warning(message);
-		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
-		delegate3.warn(message, ex);
-		if (printInSystemOutput) {
-			System.err.println(message);
-			ex.printStackTrace();
+	public void warn(String message, Throwable t) {
+		if (isWarnEnabled()) {
+			logger1.warn(message, t);
+			logger2.log(Level.WARNING, message, t);
 		}
+		logInSystemOutput(message, t);
 	}
 
 	/**
 	 * Log an event in the application or progress.
 	 */
 	public void info(String message) {
-		delegate2.info(message);
-		delegate3.info(message);
-		if (printInSystemOutput) {
-			System.out.println(message);
-		}
+		info(message, null);
 	}
 
 	/**
 	 * Same as {@link #info(String)} with the ability to specify an exception
 	 * that caused the logging.
 	 */
-	public void info(String message, Throwable ex) {
-		delegate2.info(message);
-		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
-		delegate3.info(message, ex);
-		if (printInSystemOutput) {
-			System.out.println(message);
-			ex.printStackTrace();
+	public void info(String message, Throwable t) {
+		if (isInfoEnabled()) {
+			logger1.info(message, t);
+			logger2.log(Level.INFO, message, t);
 		}
+		logInSystemOutput(message, t);
 	}
 
 	/**
 	 * Log fine-grained information events.
 	 */
 	public void debug(String message) {
-		delegate2.info(message);
-		delegate3.debug(message);
-		if (printInSystemOutput) {
-			System.out.println(message);
-		}
+		debug(message, null);
 	}
 
 	/**
 	 * Same as {@link #debug(String)} with the ability to specify an exception
 	 * that caused the logging.
 	 */
-	public void debug(String message, Throwable ex) {
-		delegate2.info(message);
-		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
-		delegate3.debug(message, ex);
-		if (printInSystemOutput) {
-			System.out.println(message);
-			ex.printStackTrace();
+	public void debug(String message, Throwable t) {
+		if (isDebugEnabled()) {
+			logger1.debug(message, t);
+			logger2.log(Level.INFO, message, t);
 		}
+		logInSystemOutput(message, t);
 	}
 
 	/**
 	 * Log the most fine-grained events.
 	 */
 	public void trace(String message) {
-		delegate2.info(message);
-		delegate3.trace(message);
-		if (printInSystemOutput) {
-			System.err.println(message);
-		}
+		trace(message, null);
 	}
 
 	/**
 	 * Same as {@link #trace(String)} with the ability to specify an exception
 	 * that caused the logging.
 	 */
-	public void trace(String message, Throwable ex) {
-		delegate2.info(message);
-		delegate2.throwing(EMPTY_STRING, EMPTY_STRING, ex);
-		delegate3.trace(message, ex);
-		if (printInSystemOutput) {
-			System.err.println(message);
-			ex.printStackTrace();
+	public void trace(String message, Throwable t) {
+		if (isTraceEnabled()) {
+			logger1.trace(message, t);
+			logger2.log(Level.INFO, message, t);
 		}
+		logInSystemOutput(message, t);
 	}
 
+	
+	/**
+	 * Is the logger instance enabled for the ERROR level?
+	 * 
+	 * @return True if this Logger is enabled for the ERROR level, false
+	 *         otherwise.
+	 */
+	public boolean isErrorEnabled() {
+		return logger1.isErrorEnabled() || logger2.isLoggable(Level.SEVERE);
+	}
+
+	/**
+	 * Is the logger instance enabled for the DEBUG level?
+	 * 
+	 * @return True if this Logger is enabled for the DEBUG level, false
+	 *         otherwise.
+	 */
+	public boolean isDebugEnabled() {
+		return logger1.isDebugEnabled() || logger2.isLoggable(Level.INFO);
+	}
+
+	/**
+	 * Is the logger instance enabled for the WARN level?
+	 * 
+	 * @return True if this Logger is enabled for the WARN level, false
+	 *         otherwise.
+	 */
+	public boolean isWarnEnabled() {
+		return logger1.isWarnEnabled() || logger2.isLoggable(Level.WARNING);
+	}
+	
+	/**
+	 * Is the logger instance enabled for the INFO level?
+	 * 
+	 * @return True if this Logger is enabled for the INFO level, false
+	 *         otherwise.
+	 */
+	public boolean isInfoEnabled() {
+		return logger1.isInfoEnabled() || logger2.isLoggable(Level.INFO);
+	}
+	
+	/**
+	 * Is the logger instance enabled for the TRACE level?
+	 * 
+	 * @return True if this Logger is enabled for the TRACE level, false
+	 *         otherwise.
+	 */
+	public boolean isTraceEnabled() {
+		return logger1.isTraceEnabled() || logger2.isLoggable(Level.INFO);
+	}
+
+	private static void logInSystemOutput(String message, Throwable t) {
+		if (printInSystemOutput) {
+			System.err.println(message);
+			t.printStackTrace();
+		}
+	}
 }

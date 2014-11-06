@@ -346,7 +346,7 @@ public class DebugView extends ViewPart implements IDebugController {
 			try {
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
-				logger.error(e.getMessage(), e);
+				logError(e.getMessage(), e);
 			}
 			wait++;
 			if (debugModel.getVariableValuesMetadata() != null) {
@@ -390,7 +390,7 @@ public class DebugView extends ViewPart implements IDebugController {
 		String commandId = evt.getPropertyName();
 		String clientId = (String) evt.getOldValue();
 		String commandBody = (String) evt.getNewValue();
-		logger.debug("DebugView.propertyChange() with commandId: " + commandId + ", clientId: "
+		logDebug("DebugView.propertyChange() with commandId: " + commandId + ", clientId: "
 				+ clientId + ", commandBody: " + commandBody);
 		Gson gson = new Gson();
 
@@ -472,7 +472,7 @@ public class DebugView extends ViewPart implements IDebugController {
 	}
 
 	private void sendCommand(final String commandId, final String clientId, String commandBody) {
-		logger.debug("entering DebugView.sendCommand() with commandId: " + commandId
+		logDebug("entering DebugView.sendCommand() with commandId: " + commandId
 				+ ", clientId: " + clientId + ", commandBody: " + commandBody);
 		DebugModel debugModel = DebugModelFacade.getActiveDebugModel();
 		if (debugModel != null) {
@@ -485,10 +485,10 @@ public class DebugView extends ViewPart implements IDebugController {
 		} else if (DebugConstants.DEBUG_REFRESH.equals(commandId)) {
 			sendToBridge(commandId, clientId, commandBody);
 		} else {
-			logger.warn("sending in DebugView.sendCommand() failed - DebugModel is null for commandId: "
+			logWarn("sending in DebugView.sendCommand() failed - DebugModel is null for commandId: "
 					+ commandId + ", and commandBody: " + commandBody);
 		}
-		logger.debug("exiting DebugView.sendCommand() with commandId: " + commandId
+		logDebug("exiting DebugView.sendCommand() with commandId: " + commandId
 				+ ", and commandBody: " + commandBody);
 	}
 
@@ -496,7 +496,7 @@ public class DebugView extends ViewPart implements IDebugController {
 		if (this.debuggerBridge != null) {
 			this.debuggerBridge.firePropertyChange(commandId, clientId, commandBody);
 		} else {
-			logger.debug("sending DebugView.sendCommand() failed - DebugBridge is not present - with commandId: "
+			logDebug("sending DebugView.sendCommand() failed - DebugBridge is not present - with commandId: "
 					+ commandId + ", and commandBody: " + commandBody);
 			MessageDialog.openError(null, DEBUG_PROCESS_TITLE,
 					INTERNAL_ERROR_DEBUG_BRIDGE_IS_NOT_PRESENT);
@@ -586,5 +586,22 @@ public class DebugView extends ViewPart implements IDebugController {
 		final String commandId = DebugConstants.DEBUG_CLEAR_ALL_BREAKPOINTS_FOR_FILE;
 		sendCommand(commandId, debugModel.getExecutionId(), path);
 	}
+	
+	private void logError(String message, Throwable t) {
+		if (logger.isErrorEnabled()) {
+			logger.error(message, t);
+		}
+	}
 
+	private void logDebug(String message) {
+		if (logger.isDebugEnabled()) {
+			logger.debug(message);
+		}
+	}
+
+	private void logWarn(String message) {
+		if (logger.isWarnEnabled()) {
+			logger.warn(message);
+		}
+	}
 }

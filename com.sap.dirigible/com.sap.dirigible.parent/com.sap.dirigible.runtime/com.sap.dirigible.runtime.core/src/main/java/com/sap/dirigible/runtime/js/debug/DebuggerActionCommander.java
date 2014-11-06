@@ -25,9 +25,9 @@ public class DebuggerActionCommander implements IDebugCommands {
 	private boolean executing = false;
 	private DebugCommand currentCommand;
 
-	private JavaScriptDebugFrame javaScriptDebugFrame;
+	private JavaScriptDebugFrame debugFrame;
 
-	private JavaScriptDebugger javaScriptDebugger;
+	private JavaScriptDebugger debugger;
 
 	private String executionId;
 
@@ -44,10 +44,6 @@ public class DebuggerActionCommander implements IDebugCommands {
 		init();
 	}
 
-	/**
-	 * Resets debugger state machine
-	 * 
-	 */
 	public void init() {
 		currentCommand = null;
 		executing = false;
@@ -117,7 +113,7 @@ public class DebuggerActionCommander implements IDebugCommands {
 
 	@Override
 	public void skipAllBreakpoints() {
-		currentCommand = DebugCommand.SKIPALLBREAKPOINTS;
+		currentCommand = DebugCommand.SKIP_ALL_BREAKPOINTS;
 	}
 
 	@Override
@@ -129,45 +125,25 @@ public class DebuggerActionCommander implements IDebugCommands {
 		return debuggerActionManager;
 	}
 
-	/**
-	 * @return the debug frame
-	 */
-	public JavaScriptDebugFrame getJavaScriptDebugFrame() {
-		return javaScriptDebugFrame;
+	public JavaScriptDebugFrame getDebugFrame() {
+		return debugFrame;
 	}
 
-	/**
-	 * Sets the debug frame
-	 * 
-	 * @param javaScriptDebugFrame
-	 */
-	public void setJavaScriptDebugFrame(JavaScriptDebugFrame javaScriptDebugFrame) {
-		this.javaScriptDebugFrame = javaScriptDebugFrame;
+	public void setDebugFrame(JavaScriptDebugFrame debugFrame) {
+		this.debugFrame = debugFrame;
 	}
 
-	/**
-	 * @return the debugger
-	 */
-	public JavaScriptDebugger getJavaScriptDebugger() {
-		return javaScriptDebugger;
+	public JavaScriptDebugger getDebugger() {
+		return debugger;
 	}
 
-	/**
-	 * Sets the debugger
-	 * 
-	 * @param javaScriptDebugger
-	 */
-	public void setJavaScriptDebugger(JavaScriptDebugger javaScriptDebugger) {
-		this.javaScriptDebugger = javaScriptDebugger;
+	public void setDebugger(JavaScriptDebugger debugger) {
+		this.debugger = debugger;
 	}
 
-	/**
-	 * Clean up the debugger environment
-	 * 
-	 */
 	public void clean() {
-		this.javaScriptDebugFrame = null;
-		this.javaScriptDebugger = null;
+		this.debugFrame = null;
+		this.debugger = null;
 		this.debuggerActionManager.removeCommander(this);
 	}
 
