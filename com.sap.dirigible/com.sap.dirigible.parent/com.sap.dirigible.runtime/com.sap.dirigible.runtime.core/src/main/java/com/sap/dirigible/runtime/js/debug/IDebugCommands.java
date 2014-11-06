@@ -24,82 +24,29 @@ public interface IDebugCommands {
 		CONTINUE, PAUSE, STEPOVER, STEPINTO, SKIP_ALL_BREAKPOINTS;
 	}
 
-	/**
-	 * Continue script's execution to the next breakpoint
-	 */
 	public void continueExecution();
 
-	/**
-	 * Pause script's execution until new command is executed e.g. (stepOver,
-	 * stepInto, continueExecution)
-	 */
 	public void pauseExecution();
 
-	/**
-	 * Check if script's execution was resumed
-	 */
 	public boolean isExecuting();
 
-	/**
-	 * Resume script's execution
-	 */
 	public void resumeExecution();
 
-	/**
-	 * Go to the next line
-	 */
 	public void stepOver();
 
-	/**
-	 * If function call, go to the function
-	 */
 	public void stepInto();
 
-	/**
-	 * Add breakpoint
-	 * 
-	 * @param breakpoint
-	 */
 	public void addBreakpoint(BreakpointMetadata breakpoint);
 
-	/**
-	 * Remove breakpoint
-	 * 
-	 * @param breakpoint
-	 */
 	public void clearBreakpoint(BreakpointMetadata breakpoint);
 
-	/**
-	 * Clear all breakpoints
-	 * 
-	 */
 	public void clearAllBreakpoints();
 
-	/**
-	 * Clear all breakpoints for specific file
-	 * 
-	 * @param path
-	 *            to the file
-	 */
 	public void clearAllBreakpoints(String path);
 
-	/**
-	 * Get all {@link BreakpointMetadata breakpoints meta data}
-	 * 
-	 * @return {@link java.util.Set Set} of breakpoints meta data
-	 */
 	public Set<BreakpointMetadata> getBreakpoints();
 
-	/**
-	 * Skips all breakpoints
-	 * 
-	 */
 	public void skipAllBreakpoints();
 
-	/**
-	 * Gets next {@link DebugCommand} that will be executed
-	 * 
-	 * @return
-	 */
 	public DebugCommand getCommand();
 }
