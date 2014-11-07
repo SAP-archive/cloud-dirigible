@@ -58,11 +58,11 @@ public class MemoryLogRecordDAO {
 
 	public static String generateMemoryInfo() {
 		Gson gson = new Gson();
-		Map map = new HashMap();
+		Map<String, Long> map = new HashMap<String, Long>();
 		map.put(FREE_MEMORY, Runtime.getRuntime().freeMemory());
 		map.put(TOTAL_MEMORY, Runtime.getRuntime().totalMemory());
 		map.put(MAX_MEMORY, Runtime.getRuntime().maxMemory());
-		map.put(AVAILABLE_PROCESSORS, Runtime.getRuntime().availableProcessors());
+		map.put(AVAILABLE_PROCESSORS, Long.valueOf(Runtime.getRuntime().availableProcessors()));
 		String content = gson.toJson(map);
 		return content;
 	}

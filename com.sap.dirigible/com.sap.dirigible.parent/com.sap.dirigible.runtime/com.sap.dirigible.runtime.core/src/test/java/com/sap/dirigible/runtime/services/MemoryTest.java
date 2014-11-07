@@ -10,9 +10,6 @@ public class MemoryTest {
 	
 	@Test
 	public void testMemory() {
-		String memoryInfo = MemoryLogRecordDAO.generateMemoryInfo();
-		System.out.println(memoryInfo);
-		assertNotNull(memoryInfo);
+		assertNotNull(MemoryLogRecordDAO.generateMemoryInfo());
 	}
-	
 }

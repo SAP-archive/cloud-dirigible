@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Logger {
 
-	private static boolean printInSystemOutput = false;
+	protected boolean printInSystemOutput = false;
 
 	/**
 	 * Returns a {@link Logger} instance that is bound to the specified name.
@@ -52,7 +52,7 @@ public class Logger {
 	private final org.slf4j.Logger logger1;
 	private final java.util.logging.Logger logger2;
 
-	private Logger(org.slf4j.Logger logger1, java.util.logging.Logger logger2) {
+	protected Logger(org.slf4j.Logger logger1, java.util.logging.Logger logger2) {
 		this.logger1 = logger1;
 		this.logger2 = logger2;
 	}
@@ -204,10 +204,12 @@ public class Logger {
 		return logger1.isTraceEnabled() || logger2.isLoggable(Level.INFO);
 	}
 
-	private static void logInSystemOutput(String message, Throwable t) {
+	private void logInSystemOutput(String message, Throwable t) {
 		if (printInSystemOutput) {
 			System.err.println(message);
-			t.printStackTrace();
+			if (t != null) {
+				t.printStackTrace();
+			}
 		}
 	}
 }

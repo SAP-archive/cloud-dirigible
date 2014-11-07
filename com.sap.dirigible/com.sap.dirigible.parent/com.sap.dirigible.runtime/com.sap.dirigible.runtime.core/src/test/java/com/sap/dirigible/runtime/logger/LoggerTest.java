@@ -11,7 +11,7 @@ import com.sap.dirigible.runtime.commons.AbstractConsoleOutputTest;
 
 public class LoggerTest extends AbstractConsoleOutputTest {
 
-	private static final Logger logger = Logger.getLogger(LoggerTest.class);
+	private static final Logger logger = LoggerStub.getLogger(LoggerTest.class);
 	
 	private static final String ERROR = "Error";
 	private static final String DEBUG = "Debug";
