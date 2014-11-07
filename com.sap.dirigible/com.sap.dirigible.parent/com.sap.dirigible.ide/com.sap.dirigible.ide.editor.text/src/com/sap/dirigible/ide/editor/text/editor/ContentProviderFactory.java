@@ -117,7 +117,7 @@ public class ContentProviderFactory {
 				String msg = MessageFormat
 						.format(CANNOT_READ_CONTENT_PROVIDER_EXTENSION_CLASS_0_INPUT_TYPE_1,
 								configurationElement.getAttribute("class"), inputType); //$NON-NLS-1$
-				LOGGER.fatal(msg, e);
+				LOGGER.error(msg, e);
 			}
 		}
 	}
