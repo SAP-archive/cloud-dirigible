@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 
 import com.sap.dirigible.ide.logging.Logger;
@@ -39,12 +38,12 @@ public class VelocityGenerator {
 	private VelocityEngine engine;
 
 	public VelocityGenerator() {
+		engine = new VelocityEngine();
 		try {
-			Velocity.init();
+			engine.init();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-		engine = new VelocityEngine();
 	}
 
 	public void generate(Reader in, Writer out, Map<String, Object> parameters,
