@@ -74,5 +74,5 @@
 			<artifactId>com.sap.dirigible.ide.bridge.ext</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-	</dependencies>
+ 	</dependencies>
 </project>
