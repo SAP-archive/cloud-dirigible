@@ -113,7 +113,7 @@
 		function ManageController($scope, $http){
 			
 			var url = '${serviceFileName}';
-			
+#[[			
 			$http.get(url)
 			.success(function(data){
 				$scope.data = data;
@@ -174,7 +174,7 @@
                               break;
                        }
             }
-                    
+                   
             $scope.confirmAction = function(){
                 switch($scope.operation){
                     case 'show':
@@ -232,7 +232,7 @@
 					$scope.errorMessage = response.err.message;
 				});
 			}
-					
+]]#					
 			function deleteEntry(entry){
 				var primaryKey;
 #foreach ($tableColumn in $tableColumns) 
