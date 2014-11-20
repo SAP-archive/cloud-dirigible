@@ -16,7 +16,6 @@ import org.junit.Before;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
 import com.sap.dirigible.runtime.java.executors.JavaExecutorStub;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
@@ -79,7 +78,6 @@ public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResor
 		}
 		System.setOut(backupOut);
 		System.setErr(backupErr);
-		ClassFileManager.clearCache();
 	}
 
 	protected String getOutput() throws IOException {
@@ -110,7 +108,7 @@ public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResor
 	}
 	
 	protected void assertCacheExecutionTime(long firstExecutionTime, long secondExecutionTime) {
-		String format = "Cache is not working. Second execution time \"%d ms\" (execution with cache) should be less than first execution time \"%d ms\""; 
+		String format = "Java's compiler cache is not working. Second execution time \"%d ms\" (execution with cache) should be less than first execution time \"%d ms\""; 
 		String message = String.format(format, secondExecutionTime, firstExecutionTime);
 		assertTrue(message, firstExecutionTime > secondExecutionTime);
 	}

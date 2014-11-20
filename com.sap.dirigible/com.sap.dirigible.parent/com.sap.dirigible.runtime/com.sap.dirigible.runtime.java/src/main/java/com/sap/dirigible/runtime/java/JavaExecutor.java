@@ -21,8 +21,8 @@ import javax.tools.ToolProvider;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
-import com.sap.dirigible.runtime.java.dynamic.compilation.DynamicJavaCompilationDiagnosticListener;
-import com.sap.dirigible.runtime.java.dynamic.compilation.DynamicJavaCompilationException;
+import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryDiagnosticListener;
+import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryCompilationException;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class JavaExecutor extends AbstractScriptExecutor {
@@ -48,35 +48,31 @@ public class JavaExecutor extends AbstractScriptExecutor {
 
 	@Override
 	protected Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
-			Object input, String module) throws DynamicJavaCompilationException {
+			Object input, String module) throws InMemoryCompilationException {
 		try {
 			registerDefaultVariables(request, response, input, null, repository, null);
 			ClassFileManager fileManager = compile();
 			return execute(request, response, module, fileManager);
 		} catch (Throwable t) {
-			if (!(t instanceof DynamicJavaCompilationException)) {
-				ClassFileManager.clearCache();
-			}
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			t.printStackTrace(new PrintStream(baos));
-			throw new DynamicJavaCompilationException(baos.toString());
+			throw new InMemoryCompilationException(baos.toString());
 		}
 	}
 
 	private ClassFileManager compile() throws IOException, ClassNotFoundException,
 			URISyntaxException {
 		List<JavaFileObject> sourceFiles = ClassFileManager.getSourceFiles(retrieveModulesByExtension(repository, JAVA_EXTENSION, rootPaths));
-		ClassFileManager.updateCache(sourceFiles);
 
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		DynamicJavaCompilationDiagnosticListener diagnosticListener = new DynamicJavaCompilationDiagnosticListener();
+		InMemoryDiagnosticListener diagnosticListener = new InMemoryDiagnosticListener();
 		ClassFileManager fileManager = ClassFileManager.getInstance(compiler.getStandardFileManager(diagnosticListener, null, null));
 		CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnosticListener, Arrays.asList(CLASSPATH, getJars()), null, sourceFiles);
 
 		Boolean compilationTaskResult = compilationTask.call();
 
 		if (compilationTaskResult == null || !compilationTaskResult.booleanValue()) {
-			throw new DynamicJavaCompilationException(diagnosticListener);
+			throw new InMemoryCompilationException(diagnosticListener);
 		}
 		return fileManager;
 	}

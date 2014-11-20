@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.SecureClassLoader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.Servlet;
 import javax.tools.FileObject;
 import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaFileManager;
@@ -97,40 +99,31 @@ public class ClassFileManager extends ForwardingJavaFileManager<JavaFileManager>
 		return lastModified.getTime();
 	}
 
-	public static void updateCache(List<JavaFileObject> sourceFiles) throws ClassNotFoundException {
-		for(JavaFileObject sourceFile : sourceFiles){
-			String name = sourceFile.getName();
-			JavaFileObject cached = DynamicJavaCacheManager.getJavaFileObjectCacheEntry(name);
-			if (cached != null) {
-				if (cached.getLastModified() < sourceFile.getLastModified()) {
-					updateCache(sourceFile, name);
-				}
-			} else {
-				updateCache(sourceFile, name);
-			}
-		}
-	}
-	
-	public static void clearCache() {
-		DynamicJavaCacheManager.clearCache();
-	}
-	
-	private static void updateCache(JavaFileObject sourceFile, String name) {
-		DynamicJavaCacheManager.putJavaFileObjectCacheEntry(name, sourceFile);
-		DynamicJavaCacheManager.putClassCacheEntry(name, null);
-	}
-
 	private ClassFileManager(StandardJavaFileManager standardManager) {
 		super(standardManager);
 	}
 
 	@Override
 	public ClassLoader getClassLoader(final Location location) {
-		return new DynamicJavaClassLoader();
+		return new SecureClassLoader(ClassLoader.getSystemClassLoader()) {
+			
+			@Override
+			protected Class<?> findClass(String name) throws ClassNotFoundException {
+				Class<?> clazz = null;
+				JavaClassObject javaClassObject = (JavaClassObject) lastKnownSourceFiles.get(name);
+				if (javaClassObject != null) {
+					byte[] bytes = javaClassObject.getBytes();
+					clazz = super.defineClass(name, bytes, 0, bytes.length);
+				} else {
+					clazz = Servlet.class.getClassLoader().loadClass(name);
+				}
+				return clazz;
+			}
+		};
 	}
 
 	@Override
 	public JavaFileObject getJavaFileForOutput(Location location, String className, Kind kind, FileObject sibling) throws IOException {
-		return DynamicJavaCacheManager.getJavaFileObjectCacheEntry(className);
+		return lastKnownSourceFiles.get(className);
 	}
 }

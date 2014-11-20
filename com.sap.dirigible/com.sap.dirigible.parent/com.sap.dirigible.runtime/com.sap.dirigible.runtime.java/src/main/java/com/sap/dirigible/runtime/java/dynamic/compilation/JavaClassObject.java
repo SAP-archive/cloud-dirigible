@@ -7,12 +7,16 @@ import java.net.URI;
 
 import javax.tools.SimpleJavaFileObject;
 
-public class JavaClassObject extends SimpleJavaFileObject implements CommonConstants {
+public class JavaClassObject extends SimpleJavaFileObject {
 
+	private static final char SLASH = '/';
+	private static final char DOT = '.';
+	private static final String STRING_URI = "string:///";
+	
 	private final String name;
 	private final String content;
 	private final long lastModified;
-	private ByteArrayOutputStream bos;
+	private final ByteArrayOutputStream bos;
 
 	public JavaClassObject(String name, Kind kind, String content, long lastModified) {
 		super(URI.create(STRING_URI + name.replace(DOT, SLASH) + kind.extension), kind);
@@ -23,12 +27,7 @@ public class JavaClassObject extends SimpleJavaFileObject implements CommonConst
 	}
 
 	public byte[] getBytes() {
-		byte[] bytes = bos.toByteArray();
-		return bytes;
-	}
-
-	public String getContent() {
-		return content;
+		return bos.toByteArray();
 	}
 
 	@Override

@@ -6,32 +6,41 @@ import org.junit.Test;
 
 public class TwoProjectsJavaExecutorTest extends AbstractJavaExecutorTest {
 
-	// TODO Add more tests! Like execute 2 services from one project. Use Utils
-	// class from another project and so on. Project with errors in the sandbox
-	// does not affects the other projects
+	private static final String EXPECTED_OUTPUT_FOR_HELLO_WORLD = "Hello World!";
+	private static final String EXPECTED_OUTPUT_FOR_HELLO_WORLD_UPDATED = "Hello World Updated!";
+	private static final String EXPECTED_OUTPUT_FOR_CALCULATOR = "Sum of 3 + 5 = 8";
+	private static final String EXPECTED_OUTPUT_FOR_CALCULATOR_UPDATED = "Sum of 5 + 5 = 10";
 
 	@Test
 	public void testExecuteTwoServicesFromTwoProjectsOutputs() throws Exception {
-		createResource(HELLO_WORLD_RESOURCE_PATH, HELLO_WORLD_SOURCЕ);
-		createResource(UTILS_RESOURCE_PATH, UTILS_SOURCЕ);
-		createResource(CALCULATOR_RESOURCE_PATH, CALCULATOR_SOURCЕ);
+		createResource(RESOURCE_PATH_HELLO_WORLD, SOURCЕ_HELLO_WORLD);
+		createResource(RESOURCE_PATH_UTILS, SOURCЕ_UTILS);
+		createResource(PATH_CALCULATOR_RESOURCE, SOURCЕ_CALCULATOR);
 		
-		execute(HELLO_WORLD_MODULE);
-		assertEquals("Hello World!",  getOutput());
+		execute(MODULE_HELLO_WORLD);
+		assertEquals(EXPECTED_OUTPUT_FOR_HELLO_WORLD,  getOutput());
 
-		execute(CALCULATOR_MODULE);
-		assertEquals("Sum of 3 + 5 = 8", getOutput());
+		execute(MODULE_CALCULATOR);
+		assertEquals(EXPECTED_OUTPUT_FOR_CALCULATOR, getOutput());
 	}
 	
 	@Test
-	public void testExecuteTwoServicesFromOneProjectOutputs() throws Exception {
-		createResource(ENDPOINT1_RESOURCE_PATH, ENDPOINT1_SOURCЕ);
-		createResource(ENDPOINT2_RESOURCE_PATH, ENDPOINT2_SOURCЕ);
+	public void testUpdateTwoServicesFromTwoProjectsOutputs() throws Exception {
+		createResource(RESOURCE_PATH_HELLO_WORLD, SOURCЕ_HELLO_WORLD);
+		createResource(RESOURCE_PATH_UTILS, SOURCЕ_UTILS);
+		createResource(PATH_CALCULATOR_RESOURCE, SOURCЕ_CALCULATOR);
 		
-		execute(ENDPOINT1_MODULE);
-		assertEquals("Hello from Endpoint 1!", getOutput());
+		execute(MODULE_HELLO_WORLD);
+		assertEquals(EXPECTED_OUTPUT_FOR_HELLO_WORLD,  getOutput());
+		execute(MODULE_CALCULATOR);
+		assertEquals(EXPECTED_OUTPUT_FOR_CALCULATOR, getOutput());
 		
-		execute(ENDPOINT2_MODULE);
-		assertEquals("Hello from Endpoint 2!", getOutput());
+		createResource(RESOURCE_PATH_HELLO_WORLD, SOURCE_HELLO_WORLD_UPDATED);
+		execute(MODULE_HELLO_WORLD);
+		assertEquals(EXPECTED_OUTPUT_FOR_HELLO_WORLD_UPDATED, getOutput());
+		
+		createResource(PATH_CALCULATOR_RESOURCE, SOURCE_CALCULATOR_UPDATED);
+		execute(MODULE_CALCULATOR);
+		assertEquals(EXPECTED_OUTPUT_FOR_CALCULATOR_UPDATED, getOutput());
 	}
 }

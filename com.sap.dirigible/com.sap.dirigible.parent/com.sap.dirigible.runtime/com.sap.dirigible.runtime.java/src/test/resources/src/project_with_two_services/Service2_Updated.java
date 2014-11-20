@@ -1,12 +1,12 @@
-package two_endpoints_project;
+package project_with_two_services;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Endpoint2 {
+public class Service2 {
 	
 	public void service(HttpServletRequest request, HttpServletResponse response, Map<String, Object> scope) throws Exception {
-		System.out.print("Hello from Endpoint 2!");
+		System.out.print("Service 2, updated!");
 	}
 }
