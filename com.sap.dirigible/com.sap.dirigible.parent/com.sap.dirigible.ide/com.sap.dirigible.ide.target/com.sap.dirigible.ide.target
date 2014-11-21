@@ -36,7 +36,6 @@
 <unit id="org.mockito" version="1.8.4.v201303031500"/>
 <unit id="org.objenesis" version="1.0.0.v201105211943"/>
 <unit id="org.jdom" version="1.0.0.v201005080400"/>
-<unit id="org.apache.velocity" version="1.5.0.v200905192330"/>
 <unit id="org.apache.lucene.core" version="3.5.0.v20120725-1805"/>
 <unit id="org.apache.lucene.analysis" version="3.5.0.v20120725-1805"/>
 <unit id="org.apache.lucene.memory" version="3.5.0.v20120725-1805"/>
