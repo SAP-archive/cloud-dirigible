@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="com.sap.dirigible.ide.war.build">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="com.sap.dirigible.ide.bridge-1.3.39.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.ide.bridge/com.sap.dirigible.ide.bridge">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.sap.dirigible.ide.bridge.ext-1.3.39.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.ide.bridge.ext/com.sap.dirigible.ide.bridge.ext">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="com.sap.dirigible.ide"/>
+        <property name="java-output-path" value="/com.sap.dirigible.ide.war.build/target/classes"/>
+    </wb-module>
+</project-modules>

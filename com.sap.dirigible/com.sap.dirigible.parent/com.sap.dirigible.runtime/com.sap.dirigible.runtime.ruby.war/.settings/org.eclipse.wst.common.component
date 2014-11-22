@@ -4,16 +4,25 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="com.sap.dirigible.repository.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.api/com.sap.dirigible.repository.api">
+        <dependent-module archiveName="com.sap.dirigible.repository.api-1.3.39.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.api/com.sap.dirigible.repository.api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="com.sap.dirigible.repository.db-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.db/com.sap.dirigible.repository.db">
+        <dependent-module archiveName="com.sap.dirigible.repository.db-1.3.39.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.db/com.sap.dirigible.repository.db">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="com.sap.dirigible.repository.ext-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.ext/com.sap.dirigible.repository.ext">
+        <dependent-module archiveName="com.sap.dirigible.repository.ext-1.3.39.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.ext/com.sap.dirigible.repository.ext">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="context-root" value="com.sap.dirigible.runtime"/>
+        <dependent-module archiveName="com.sap.dirigible.runtime.core-1.3.39.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.runtime.core/com.sap.dirigible.runtime.core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.sap.dirigible.runtime.camel-1.3.39.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.runtime.camel/com.sap.dirigible.runtime.camel">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.sap.dirigible.runtime.ruby-1.3.39.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.runtime.ruby/com.sap.dirigible.runtime.ruby">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/com.sap.dirigible.runtime/target/classes"/>
+        <property name="context-root" value="com.sap.dirigible.runtime.ruby.war"/>
     </wb-module>
 </project-modules>
