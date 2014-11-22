@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.sap.dirigible</groupId>
+		<artifactId>com.sap.dirigible.parent</artifactId>
+		<version>1.3.39</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+
+	<groupId>com.sap.dirigible.plugins</groupId>
+	<artifactId>com.sap.dirigible.plugins.parent</artifactId>
+	<packaging>pom</packaging>
+	<url>http://www.dirigible.io</url>
+
+	<organization>
+		<name>SAP AG</name>
+		<url>http://www.sap.com</url>
+	</organization>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+					<pomDependencies>consider</pomDependencies>
+					<ignoreTychoRepositories>true</ignoreTychoRepositories>
+					<target>
+						<artifact>
+							<groupId>com.sap.dirigible.plugins</groupId>
+							<artifactId>com.sap.dirigible.plugins.target</artifactId>
+							<version>1.3.39</version>
+							<classifier>com.sap.dirigible.plugins</classifier>
+						</artifact>
+					</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>com.sap.dirigible.plugins.target</module>
+		<module>com.sap.dirigible.repository.api</module>
+		<module>com.sap.dirigible.repository.db</module>
+		<module>com.sap.dirigible.repository.db.test</module>
+		<module>com.sap.dirigible.repository.ext</module>
+		<module>com.sap.dirigible.repository.ext.test</module>
+		<module>com.sap.dirigible.ide.bridge</module>
+		<module>com.sap.dirigible.ide.bridge.ext</module>
+		<module>com.sap.dirigible.ide.common</module>
+		<module>com.sap.dirigible.ide.logging</module>
+		<module>com.sap.dirigible.ide.ui.rap</module>
+		<module>com.sap.dirigible.ide.workspace</module>
+		<!--
+		<module>com.sap.dirigible.ide.workspace.test</module>
+		-->
+		<module>com.sap.dirigible.ide.workspace.ui</module>
+		<module>com.sap.dirigible.ide.workspace.wizard.project</module>
+		<module>com.sap.dirigible.ide.repository</module>
+		<module>com.sap.dirigible.ide.datasource</module>
+		<module>com.sap.dirigible.ide.ui.common</module>
+		<module>com.sap.org.eclipse.ui.ide</module>
+		<module>com.sap.rap.ui.shared</module>
+		<module>com.sap.dirigible.ide.ui.widget.extbrowser</module>
+		<module>com.sap.dirigible.ide.ui.widget.connection</module>
+		<module>com.sap.dirigible.ide.repository.ui</module>
+		<module>com.sap.dirigible.ide.editor.text</module>
+		<module>com.sap.dirigible.ide.editor.js</module>
+		<module>com.sap.dirigible.ide.db.viewer</module>
+		<module>com.sap.dirigible.ide.db.publish</module>
+		<module>com.sap.dirigible.ide.ui.publish</module>
+		<module>com.sap.dirigible.ide.publish</module>
+		<module>com.sap.dirigible.ide.publish.ui</module>
+		<module>com.sap.dirigible.ide.scripts.publish</module>
+		<module>com.sap.dirigible.ide.extensions.publish</module>
+		<!--
+		<module>com.sap.dirigible.ide.publish.test</module>
+		-->
+		<module>com.sap.dirigible.ide.cheatsheets</module>
+		<module>com.sap.dirigible.ide.integration.publish</module>
+		<module>com.sap.dirigible.ide.services.security.manager</module>
+		<module>com.sap.dirigible.ide.template.velocity</module>
+		<module>com.sap.dirigible.ide.template.ui.common</module>
+		<!-- 
+		<module>com.sap.dirigible.ide.template.ui.common.test</module>
+		 -->
+		<module>com.sap.dirigible.ide.template.ui.db</module>
+		<module>com.sap.dirigible.ide.template.ui.js</module>
+		<module>com.sap.dirigible.ide.template.ui.html</module>
+		<module>com.sap.dirigible.ide.template.ui.is</module>
+		<module>com.sap.org.eclipse.rap.rwt.supplemental.filedialog</module>
+		<module>com.sap.dirigible.ide.registry</module>
+		<module>com.sap.dirigible.ide.debug.model</module>
+		<module>com.sap.dirigible.ide.debug.ui</module>
+		<module>com.sap.dirigible.ide.designer</module>
+		<module>com.sap.dirigible.ide.template.ui.tc</module>
+		<module>com.sap.dirigible.ide.template.ui.sc</module>
+		<module>com.sap.dirigible.ide.template.ui.ed</module>
+		<module>com.sap.dirigible.ide.security.publish</module>
+		<module>com.sap.dirigible.ide.jgit.connector</module>
+		<module>com.sap.dirigible.ide.help</module>
+		<module>com.sap.dirigible.ide.terminal</module>
+		<module>com.sap.dirigible.ide.generic</module>
+		
+		<!-- update site -->
+		<module>com.sap.dirigible.plugins.feature</module>
+		<module>com.sap.dirigible.plugins.p2</module>
+		
+		<!-- these modules must be the last one -->
+		<module>com.sap.dirigible.releng.war.all</module>
+		<module>com.sap.dirigible.releng.war.ide</module>
+		<module>com.sap.dirigible.releng.war.repository</module>
+		<module>com.sap.dirigible.releng.war.runtime</module>
+	</modules>
+ 
+</project>

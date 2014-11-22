@@ -31,9 +31,18 @@
 	</licenses>
 
 	<modules>
-		<module>com.sap.dirigible.ide</module>
-		<module>com.sap.dirigible.runtime</module>
-		<module>com.sap.dirigible.dist</module>
+		<module>p2.external</module> <!-- Update Site for External Bundles -->
+		<module>platform</module> <!-- Target Platform Definition -->
+		<module>repository</module> <!-- Artifact Repository Projects -->
+		<module>p2.repository</module> <!-- Update Site for Repository Bundles -->
+		
+		<module>ide</module> <!-- IDE Projects -->
+		
+		<!--
+		<module>runtime</module>
+		<module>p2</module>
+		<module>releng</module>
+		-->
 	</modules>
 
 	<url>http://www.dirigible.io</url>
