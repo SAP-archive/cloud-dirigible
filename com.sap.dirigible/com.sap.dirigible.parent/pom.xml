@@ -35,8 +35,10 @@
 		<module>platform</module> <!-- Target Platform Definition -->
 		<module>repository</module> <!-- Artifact Repository Projects -->
 		<module>p2.repository</module> <!-- Update Site for Repository Bundles -->
-		
 		<module>ide</module> <!-- IDE Projects -->
+		<module>p2.ide</module> <!-- Update Site for IDE Bundles -->
+		<module>bridge</module> <!-- Bridge Projects -->
+		<module>p2.bridge</module> <!-- Update Site for Bridge Bundles -->
 		
 		<!--
 		<module>runtime</module>

@@ -60,7 +60,10 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/${project.name}-${project.version}/WEB-INF/lib</outputDirectory>
-							<excludeArtifactIds>com.sap.dirigible.plugins.p2</excludeArtifactIds>
+							<!-- 
+							<excludeArtifactIds>com.sap.dirigible.ide.p2</excludeArtifactIds>
+							 -->
+							<excludeArtifactIds>com.sap.dirigible.repository.p2</excludeArtifactIds>
 						</configuration>
 					</execution>
 				</executions>
@@ -81,14 +84,10 @@
 			<type>eclipse-repository</type>
 		</dependency>
 		<dependency>
-			<groupId>com.sap.dirigible.ide</groupId>
-			<artifactId>com.sap.dirigible.ide.bridge</artifactId>
+			<groupId>com.sap.dirigible.p2.bridge</groupId>
+			<artifactId>com.sap.dirigible.bridge.p2</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sap.dirigible.ide</groupId>
-			<artifactId>com.sap.dirigible.ide.bridge.ext</artifactId>
-			<version>${project.version}</version>
+			<type>eclipse-repository</type>
 		</dependency>
  	</dependencies>
 </project>

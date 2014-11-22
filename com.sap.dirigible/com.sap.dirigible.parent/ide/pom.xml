@@ -54,8 +54,6 @@
 	</build>
 
 	<modules>
-		<module>com.sap.dirigible.ide.bridge</module>
-		<module>com.sap.dirigible.ide.bridge.ext</module>
 		<module>com.sap.dirigible.ide.common</module>
 		<module>com.sap.dirigible.ide.logging</module>
 		<module>com.sap.dirigible.ide.ui.rap</module>
@@ -125,18 +123,6 @@
 			<version>${project.version}</version>
 			<type>eclipse-repository</type>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>com.sap.dirigible.ide</groupId>
-			<artifactId>com.sap.dirigible.ide.bridge</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sap.dirigible.ide</groupId>
-			<artifactId>com.sap.dirigible.ide.bridge.ext</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		 -->
  	</dependencies>
  
 </project>
