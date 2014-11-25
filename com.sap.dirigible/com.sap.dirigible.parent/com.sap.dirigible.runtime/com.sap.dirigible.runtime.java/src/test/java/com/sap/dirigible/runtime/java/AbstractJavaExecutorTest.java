@@ -1,7 +1,5 @@
 package com.sap.dirigible.runtime.java;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -93,24 +91,12 @@ public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResor
 		return FileUtils.readFileToString(source).getBytes();
 	}
 	
-	protected long getExecutionTime(String module) throws IOException {
-		long startTime = System.currentTimeMillis();
-		execute(module);
-		return System.currentTimeMillis() - startTime;
-	}
-	
 	protected Object execute(String module) throws IOException {
 		return executor.executeServiceModule(null, null, module);
 	}
 	
 	protected void createResource(String path, File source) throws IOException {
 		getRepository().createResource(path, readSource(source));
-	}
-	
-	protected void assertCacheExecutionTime(long firstExecutionTime, long secondExecutionTime) {
-		String format = "Java's compiler cache is not working. Second execution time \"%d ms\" (execution with cache) should be less than first execution time \"%d ms\""; 
-		String message = String.format(format, secondExecutionTime, firstExecutionTime);
-		assertTrue(message, firstExecutionTime > secondExecutionTime);
 	}
 	
 }
