@@ -12,7 +12,7 @@
 	<artifactId>com.sap.dirigible.bridge.ext</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
-<!-- 
+
   <dependencies>
   
   		<dependency>
@@ -67,5 +67,5 @@
 		</dependency>
 		
   </dependencies>
-  -->
+  
 </project>

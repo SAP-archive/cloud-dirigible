@@ -30,23 +30,6 @@
 		</license>
 	</licenses>
 
-	<modules>
-		<module>p2.external</module> <!-- Update Site for External Bundles -->
-		<module>platform</module> <!-- Target Platform Definition -->
-		<module>repository</module> <!-- Artifact Repository Projects -->
-		<module>p2.repository</module> <!-- Update Site for Repository Bundles -->
-		<module>ide</module> <!-- IDE Projects -->
-		<module>p2.ide</module> <!-- Update Site for IDE Bundles -->
-		<module>bridge</module> <!-- Bridge Projects -->
-		<module>p2.bridge</module> <!-- Update Site for Bridge Bundles -->
-		
-		<!--
-		<module>runtime</module>
-		<module>p2</module>
-		<module>releng</module>
-		-->
-	</modules>
-
 	<url>http://www.dirigible.io</url>
 	<organization>
 		<name>SAP AG</name>
@@ -275,4 +258,27 @@
 	<issueManagement>
 		<url>https://github.com/SAP/dirigible/issues</url>
 	</issueManagement>
+	
+	
+	
+	<modules>
+		<module>p2.external</module> <!-- Update Site for External Bundles -->
+		<module>platform</module> <!-- Target Platform Definition -->
+		<module>repository</module> <!-- Artifact Repository Projects -->
+		<module>p2.repository</module> <!-- Update Site for Repository Bundles -->
+		<module>ide</module> <!-- IDE Projects -->
+		<module>p2.ide</module> <!-- Update Site for IDE Bundles -->
+		<module>bridge</module> <!-- Bridge Projects -->
+		<module>p2.bridge</module> <!-- Update Site for Bridge Bundles -->
+		<module>p2.lib</module> <!-- Update Site for WAR Lib Bundles -->
+		
+		<!--
+		<module>runtime</module>
+		<module>p2</module>
+		-->
+		<module>releng</module>
+		
+	</modules>
+	
+	
 </project>

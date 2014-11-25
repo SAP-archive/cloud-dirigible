@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -11,8 +10,8 @@
 	</parent>
 
 
-	<groupId>com.sap.dirigible.releng</groupId>
-	<artifactId>com.sap.dirigible.releng.parent</artifactId>
+	<groupId>com.sap.dirigible.p2.lib</groupId>
+	<artifactId>com.sap.dirigible.p2.lib.parent</artifactId>
 	<packaging>pom</packaging>
 	<url>http://www.dirigible.io</url>
 
@@ -55,10 +54,8 @@
 	</build>
 
 	<modules>
-		
-		<module>ide.sap</module>
-		<module>ide.tomcat</module>
-		
+		<module>lib.feature</module>
+		<module>lib.p2</module>
 	</modules>
  
 </project>
