@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+//import org.jsoup.Jsoup;
+//import org.jsoup.safety.Whitelist;
 
 public class XSSRequestWrapper extends HttpServletRequestWrapper {
 
@@ -68,7 +68,9 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 			value = StringEscapeUtils.escapeHtml(value);
 			value = StringEscapeUtils.escapeJavaScript(value);
 			value = value.replaceAll("", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			value = Jsoup.clean(value, Whitelist.none());
+			
+			// TODO use something else
+//			value = Jsoup.clean(value, Whitelist.none());
 		}
 		return value;
 	}

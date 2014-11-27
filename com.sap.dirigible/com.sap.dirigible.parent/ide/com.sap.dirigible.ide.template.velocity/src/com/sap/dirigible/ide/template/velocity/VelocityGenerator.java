@@ -43,6 +43,7 @@ public class VelocityGenerator {
 			engine.init();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 
@@ -55,6 +56,7 @@ public class VelocityGenerator {
 			out.flush();
 			out.close();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			throw new VelocityGeneratorException(COULD_NOT_EVALUATE_TEMPLATE, ex);
 		} finally {
 			try {
@@ -78,12 +80,14 @@ public class VelocityGenerator {
 			writer.flush();
 			writer.close();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			throw new VelocityGeneratorException(COULD_NOT_EVALUATE_TEMPLATE,
 					ex);
 		} finally {
 			try {
 				in.close();
 			} catch (IOException e) {
+				e.printStackTrace();
 				throw new VelocityGeneratorException(COULD_NOT_EVALUATE_TEMPLATE, e);
 			}
 		}

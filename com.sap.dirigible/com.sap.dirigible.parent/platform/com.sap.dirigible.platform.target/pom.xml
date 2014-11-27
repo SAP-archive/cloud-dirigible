@@ -29,9 +29,14 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>com.sap.dirigible.platform.target</file>
+									<file>com.sap.dirigible.platform.external.target</file>
 									<type>target</type>
-									<classifier>com.sap.dirigible.platform</classifier>
+									<classifier>com.sap.dirigible.platform.external</classifier>
+								</artifact>
+								<artifact>
+									<file>com.sap.dirigible.platform.base.target</file>
+									<type>target</type>
+									<classifier>com.sap.dirigible.platform.base</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>

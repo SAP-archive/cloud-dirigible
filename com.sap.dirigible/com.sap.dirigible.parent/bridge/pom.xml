@@ -39,7 +39,7 @@
 							<groupId>com.sap.dirigible.platform</groupId>
 							<artifactId>com.sap.dirigible.platform.target</artifactId>
 							<version>1.3.39</version>
-							<classifier>com.sap.dirigible.platform</classifier>
+							<classifier>com.sap.dirigible.platform.base</classifier>
 						</artifact>
 					</target>
 				</configuration>

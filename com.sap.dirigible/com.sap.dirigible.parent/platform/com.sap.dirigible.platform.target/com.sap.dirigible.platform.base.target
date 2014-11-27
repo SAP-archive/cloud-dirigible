@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="Dirigible Runtime - latest release" sequenceNumber="245">
+<locations>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="com.sap.dirigible.external.feature.feature.group" version="1.3.39"/>
+<repository location="http://dirigible.io/p2/external/"/>
+</location>
+</locations>
+<launcherArgs>
+<vmArgs>-Dosgi.noShutdown=true -Declipse.ignoreApp=true</vmArgs>
+<programArgs>-console -consolelog</programArgs>
+</launcherArgs>
+</target>
