@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="Dirigible Runtime - latest release" sequenceNumber="252">
+<locations>
+<location path="C:\Data\GitHub\cloud-dirigible\com.sap.dirigible\com.sap.dirigible.parent\p2.external\external.p2\target\repository" type="Directory"/>
+</locations>
+<launcherArgs>
+<vmArgs>-Dosgi.noShutdown=true -Declipse.ignoreApp=true</vmArgs>
+<programArgs>-console -consolelog</programArgs>
+</launcherArgs>
+</target>

@@ -265,9 +265,15 @@
 			<layout>p2</layout>
 		</repository>
 		<repository>
-	      <id>mvnrepository</id>
-	      <url>http://mvnrepository.com/</url>
-	    </repository>
+                <id>mvnrepository</id>
+                <url>http://repo1.maven.org/maven2</url>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+                <releases>
+                    <enabled>true</enabled>
+                </releases>
+       </repository>
 	</repositories>
 
 	<issueManagement>
@@ -287,10 +293,10 @@
 		<module>p2.bridge</module> <!-- Update Site for Bridge Bundles -->
 		<module>p2.lib</module> <!-- Update Site for WAR Lib Bundles -->
 		
-		<!--
-		<module>runtime</module>
-		<module>p2</module>
-		-->
+		
+		<module>runtime</module> <!-- Runtime Projects -->
+		<module>p2.runtime</module> <!-- Update Site for Runtime Bundles -->
+		
 		<module>releng</module>
 		
 	</modules>

@@ -242,4 +242,47 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="de.matrixweb.osgi.wrapped.osgi-wrapped-rhino"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jibx.config.osgi.wrapped.org.jibx.config.osgi.wrapped.joda-time"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.mylyn.wikitext.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.mylyn.wikitext.confluence.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="com.google.guava"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>         
+
+   <plugin
+         id="org.everit.osgi.bundles.org.json"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>         
+   
+
 </feature>
