@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class InitParametersInjector implements Injector {
 	
 	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
+	public static final String SERVICES_URL = "servicesUrl"; //$NON-NLS-1$
 	public static final String ENABLE_ROLES = "enableRoles"; //$NON-NLS-1$
 	public static final String LOG_IN_SYSTEM_OUTPUT = "logInSystemOutput"; //$NON-NLS-1$
 	
@@ -34,6 +35,9 @@ public class InitParametersInjector implements Injector {
 		
 		String parameter = servletConfig.getInitParameter(RUNTIME_URL);
 		req.getSession().setAttribute(RUNTIME_URL, parameter);
+		
+		parameter = servletConfig.getInitParameter(SERVICES_URL);
+		req.getSession().setAttribute(SERVICES_URL, parameter);
 		
 		parameter = servletConfig.getInitParameter(ENABLE_ROLES);
 		req.getSession().setAttribute(ENABLE_ROLES, parameter);

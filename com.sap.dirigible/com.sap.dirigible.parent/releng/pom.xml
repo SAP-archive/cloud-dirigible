@@ -55,10 +55,15 @@
 	</build>
 
 	<modules>
-		
+
+		<!-- -->
 		<module>ide.sap</module>
 		<module>ide.tomcat</module>
 		<module>all.tomcat</module>
+		
+		<module>all.sap</module>
+		
+		
 		
 	</modules>
  

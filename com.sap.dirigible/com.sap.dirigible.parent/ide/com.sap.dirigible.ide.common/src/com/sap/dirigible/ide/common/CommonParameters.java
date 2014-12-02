@@ -43,7 +43,9 @@ public class CommonParameters {
 	public static final String SANDBOX = "/sandbox"; //$NON-NLS-1$
 
 	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
+	public static final String SERVICES_URL = "servicesUrl"; //$NON-NLS-1$
 	public static final String RUNTIME_URL_DEFAULT = "/dirigible"; //$NON-NLS-1$
+	public static final String SERVICES_URL_DEFAULT = "/services"; //$NON-NLS-1$
 	
 	public static final String ENABLE_ROLES = "enableRoles"; //$NON-NLS-1$
 	
@@ -189,6 +191,19 @@ public class CommonParameters {
 			runtimeUrl = CommonParameters.RUNTIME_URL_DEFAULT;
 		}
 		return runtimeUrl;
+	}
+	
+	public static String getServicesUrl() {
+		String runtimeUrl = CommonParameters.get(CommonParameters.RUNTIME_URL);
+		if (runtimeUrl == null) {
+			runtimeUrl = CommonParameters.RUNTIME_URL_DEFAULT;
+		}
+		String servicesUrl = CommonParameters.get(CommonParameters.SERVICES_URL);
+		if (servicesUrl == null) {
+			servicesUrl = CommonParameters.SERVICES_URL_DEFAULT;
+		}
+		
+		return runtimeUrl + servicesUrl;
 	}
 	
 	public static Boolean isRolesEnabled() {

@@ -17,6 +17,8 @@ package com.sap.dirigible.runtime.content;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.db.DatabaseUpdater;
 import com.sap.dirigible.repository.ext.db.DsvUpdater;
@@ -36,26 +38,26 @@ public class ContentPostImportUpdater {
 		return repository;
 	}
 
-	public void update() throws IOException, Exception {
+	public void update(HttpServletRequest request) throws IOException, Exception {
 		// 1. Execute the real database "create or update"
 		DatabaseUpdater databaseUpdater = new DatabaseUpdater(getRepository(), RepositoryFacade
-				.getInstance().getDataSource(), DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
+				.getInstance().getDataSource(request), DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
 		databaseUpdater.applyUpdates();
 
 		// 2. Execute the real security "create or update"
 		SecurityUpdater securityUpdater = new SecurityUpdater(getRepository(), RepositoryFacade
-				.getInstance().getDataSource(),
+				.getInstance().getDataSource(request),
 				SecurityUpdater.REGISTRY_SECURITY_CONSTRAINTS_DEFAULT);
 		securityUpdater.applyUpdates();
 
 		// 3. Execute the real import from DSV files
 		DsvUpdater dsvUpdater = new DsvUpdater(getRepository(), RepositoryFacade.getInstance()
-				.getDataSource(), DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
+				.getDataSource(request), DatabaseUpdater.REGISTRY_DATA_STRUCTURES_DEFAULT);
 		dsvUpdater.applyUpdates();
 
 		// 4. Extensions
 		ExtensionUpdater extensionUpdater = new ExtensionUpdater(getRepository(), RepositoryFacade
-				.getInstance().getDataSource(),
+				.getInstance().getDataSource(request),
 				ExtensionUpdater.REGISTRY_EXTENSION_DEFINITIONS_DEFAULT);
 		extensionUpdater.applyUpdates();
 

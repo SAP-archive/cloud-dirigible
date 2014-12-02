@@ -42,7 +42,7 @@ public class ContentExporterServlet extends BaseContentServlet {
 		// put guid in the session
 		request.getSession().setAttribute(GUID, createGUID()); //$NON-NLS-1$
 
-		byte[] zippedContent = getContentFromRepository();
+		byte[] zippedContent = getContentFromRepository(request);
 
 		sendZip(request, response, zippedContent);
 	}
@@ -91,10 +91,10 @@ public class ContentExporterServlet extends BaseContentServlet {
 	 * @param request
 	 * @return
 	 */
-	private byte[] getContentFromRepository() {
+	private byte[] getContentFromRepository(HttpServletRequest request) {
 		byte[] zippedContent = null;
 		try {
-			IRepository repository = getRepository();
+			IRepository repository = getRepository(request);
 			zippedContent = repository.exportZip(DEFAULT_PATH_FOR_EXPORT, true);
 		} catch (IOException e) {
 			logger.error(e.getMessage());

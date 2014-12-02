@@ -7,7 +7,6 @@
 	<display-name>Dirigible IDE</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
-		<welcome-file>dirigible</welcome-file>
 	</welcome-file-list>
 	
 	<servlet id="system">
@@ -48,7 +47,7 @@
 		<!-- Corresponding Runtime URL. Used for Registry Perspective, Log Service, etc. -->
 		<init-param>
 			<param-name>runtimeUrl</param-name>
-			<param-value>/dirigible</param-value>
+			<param-value>/dirigible/services</param-value>
 		</init-param>
 		
 		<!-- Enable usage of roles - Developer, Operators, etc. Default is true, false means Everyone can do anything -->
@@ -70,6 +69,23 @@
 	<servlet-mapping>
 		<servlet-name>equinoxbridgeservlet</servlet-name>
 		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- Logging Servlet -->
+	<servlet>
+		<description>Logging Servlet</description>
+		<display-name>Logging Servlet</display-name>
+		<servlet-name>LoggingServlet</servlet-name>
+		<servlet-class>com.sap.dirigible.runtime.logging.LoggingServlet</servlet-class>
+		<init-param>
+			<param-name>initLoggingDirectory</param-name>
+			<param-value>log</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoggingServlet</servlet-name>
+		<url-pattern>/logging</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Filters -->
@@ -97,7 +113,7 @@
 	</filter-mapping>
 
 
-	<!-- Resource References 
+	<!-- Resource References  
 	
 	<resource-ref>
 		<res-ref-name>jdbc/DefaultDB</res-ref-name>
@@ -106,6 +122,7 @@
 	</resource-ref>
 	
 	-->
+	
 <!-- 
 	<resource-ref>
 		<res-ref-name>PasswordStorage</res-ref-name>
@@ -116,11 +133,13 @@
 
 	<!-- Security -->
 	
+	<!-- Basic
 	<login-config>
 		<auth-method>BASIC</auth-method>
 	</login-config>
+	-->
 	
-	<!-- Remove comment when #109 is fixed
+	<!-- Remove comment when #109 is fixed -->
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>file</realm-name>
@@ -129,7 +148,7 @@
 			<form-error-page>/authentication/error.html</form-error-page>
 		</form-login-config>
 	</login-config>
-  	-->
+  	
 
 	<security-constraint>
 		<web-resource-collection>

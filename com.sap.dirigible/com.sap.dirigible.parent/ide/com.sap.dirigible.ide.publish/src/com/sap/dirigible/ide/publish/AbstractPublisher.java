@@ -259,12 +259,12 @@ public abstract class AbstractPublisher implements IPublisher {
 	}
 
 	public String getPublishedLocation(IFile file) {
-		return CommonParameters.getRuntimeUrl() + IPath.SEPARATOR + CommonParameters.REGISTRY
+		return CommonParameters.getServicesUrl() + IPath.SEPARATOR + CommonParameters.REGISTRY
 				+ IPath.SEPARATOR + getFolderType() + generatePublishedPath(file);
 	}
 	
 	public String getActivatedLocation(IFile file) {
-		return CommonParameters.getRuntimeUrl() + IPath.SEPARATOR + CommonParameters.SANDBOX
+		return CommonParameters.getServicesUrl() + IPath.SEPARATOR + CommonParameters.SANDBOX
 				+ IPath.SEPARATOR + getFolderType() + generatePublishedPath(file);
 	}
 
@@ -273,7 +273,7 @@ public abstract class AbstractPublisher implements IPublisher {
 			// no real container at runtime
 			return null;
 		}
-		return CommonParameters.getRuntimeUrl() + getPublishedContainerMapping(file)
+		return CommonParameters.getServicesUrl() + getPublishedContainerMapping(file)
 				+ generatePublishedPath(file);
 	}
 	
@@ -282,7 +282,7 @@ public abstract class AbstractPublisher implements IPublisher {
 			// no real container at runtime
 			return null;
 		}
-		return (IRepository.SEPARATOR.equals(CommonParameters.getRuntimeUrl()) ? "" : CommonParameters.getRuntimeUrl()) 
+		return (IRepository.SEPARATOR.equals(CommonParameters.getServicesUrl()) ? "" : CommonParameters.getServicesUrl()) 
 				+ getActivatedContainerMapping(file)
 				+ generatePublishedPath(file);
 	}

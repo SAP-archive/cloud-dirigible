@@ -43,7 +43,7 @@ public class ContentImporterServlet extends BaseContentServlet {
 				for (FileItem fileItem : items) {
 					logger.debug("Importing " + fileItem.getFieldName());
 					InputStream in = fileItem.getInputStream();
-					importZipAndUpdate(in);
+					importZipAndUpdate(in, request);
 					logger.debug("Content imported.");
 				}
 			} catch (FileUploadException e) {
@@ -53,7 +53,7 @@ public class ContentImporterServlet extends BaseContentServlet {
 		} else {
 			logger.debug("Importing single content...");
 			InputStream in = request.getInputStream();
-			importZipAndUpdate(in);
+			importZipAndUpdate(in, request);
 			logger.debug("Content imported.");
 
 		}

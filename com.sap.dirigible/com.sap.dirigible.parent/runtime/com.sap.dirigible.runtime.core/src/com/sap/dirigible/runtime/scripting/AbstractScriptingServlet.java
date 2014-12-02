@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
+import com.sap.dirigible.runtime.content.ContentInitializerServlet;
 import com.sap.dirigible.runtime.filter.SandboxFilter;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
@@ -51,8 +52,9 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		super.service(request, response);
 		initRepository(request);
+		new ContentInitializerServlet().initDefaultContent(request);
+		super.service(request, response);
 	}
 
 	private void initRepository(HttpServletRequest request)

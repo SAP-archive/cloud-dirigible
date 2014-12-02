@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
@@ -46,18 +47,18 @@ public class BaseContentServlet extends HttpServlet {
 		super();
 	}
 
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		logger.debug("Base Content Servlet Init"); //$NON-NLS-1$
-		initRepository();
-		try {
-			checkAndImportContent(SYSTEM_USER);
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
-		}
-		logger.debug("Base Content Servlet Init finished successfuly."); //$NON-NLS-1$
-	}
+//	@Override
+//	public void init(ServletConfig config) throws ServletException {
+//		super.init(config);
+//		logger.debug("Base Content Servlet Init"); //$NON-NLS-1$
+//		initRepository();
+//		try {
+//			checkAndImportContent(SYSTEM_USER);
+//		} catch (IOException e) {
+//			logger.error(e.getMessage(), e);
+//		}
+//		logger.debug("Base Content Servlet Init finished successfuly."); //$NON-NLS-1$
+//	}
 
 	/**
 	 * Helper method.
@@ -65,10 +66,11 @@ public class BaseContentServlet extends HttpServlet {
 	 * @return
 	 * @throws IOException
 	 */
-	private void initRepository() throws ServletException {
+	private IRepository initRepository(HttpServletRequest request) throws ServletException {
 		try {
-			final IRepository repository = RepositoryFacade.getInstance().getRepository(null);
-			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
+			IRepository repository = RepositoryFacade.getInstance().getRepository(request);
+//			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
+			return repository;
 		} catch (Exception ex) {
 			logger.error("Exception in initRepository(): " + ex.getMessage()); //$NON-NLS-1$
 			throw new ServletException(COULD_NOT_INITIALIZE_REPOSITORY, ex);
@@ -81,55 +83,55 @@ public class BaseContentServlet extends HttpServlet {
 	 * @return
 	 * @throws IOException
 	 */
-	protected IRepository getRepository() throws IOException {
-		final IRepository repository = (IRepository) getServletContext().getAttribute(
-				REPOSITORY_ATTRIBUTE);
-		if (repository == null) {
+	protected IRepository getRepository(HttpServletRequest request) throws IOException {
+//		final IRepository repository = (IRepository) getServletContext().getAttribute(
+//				REPOSITORY_ATTRIBUTE);
+//		if (repository == null) {
 			try {
-				initRepository();
+				return initRepository(request);
 			} catch (ServletException e) {
 				logger.error("Exception in getRepository(): " + e.getMessage()); //$NON-NLS-1$
 				throw new IOException(e);
 			}
-		}
-		return repository;
+//		}
+//		return repository;
 	}
 
-	/**
-	 * Check if there is any content, and deploy it into Dirigible registry.
-	 * 
-	 * @throws IOException
-	 */
-	private void checkAndImportContent(String user) throws IOException {
-		logger.debug("checkAndImporContent: Entering"); //$NON-NLS-1$
-		if (existsContentToImport()) {
-			// Clean registry from eventual old content
-			ICollection collection = getRepository().getCollection(DEFAULT_PATH_FOR_IMPORT);
-			if (collection.exists()) {
-				collection.delete();
-				collection.create();
-			}
-			// Get all files under CONTENT folder. Possibility to import
-			// multiple content files. TODO - is it necessary?
-			Set<String> paths = getServletContext().getResourcePaths(
-					IRepository.SEPARATOR + EXPORTED_PATH); //$NON-NLS-1$
-			logger.debug("resource paths:" + paths); //$NON-NLS-1$
-			for (Iterator<String> iterator = paths.iterator(); iterator.hasNext();) {
-				String pathToContent = (String) iterator.next();
-				logger.debug("Path to content: " + pathToContent); //$NON-NLS-1$
-				if (!pathToContent.endsWith(ZIP)) {
-					continue;
-				}
-				InputStream content = getServletContext().getResourceAsStream(pathToContent);
-				importZipAndUpdate(content);
-				logger.debug(" Successfully imported " + pathToContent); //$NON-NLS-1$
-			}
-		} else {
-			logger.debug(" Nothing to import. Folder" + IRepository.SEPARATOR + EXPORTED_PATH //$NON-NLS-1$
-					+ " was not found in deployable."); //$NON-NLS-1$
-
-		}
-	}
+//	/**
+//	 * Check if there is any content, and deploy it into Dirigible registry.
+//	 * 
+//	 * @throws IOException
+//	 */
+//	private void checkAndImportContent(String user, HttpServletRequest request) throws IOException {
+//		logger.debug("checkAndImporContent: Entering"); //$NON-NLS-1$
+//		if (existsContentToImport()) {
+//			// Clean registry from eventual old content
+//			ICollection collection = getRepository().getCollection(DEFAULT_PATH_FOR_IMPORT);
+//			if (collection.exists()) {
+//				collection.delete();
+//				collection.create();
+//			}
+//			// Get all files under CONTENT folder. Possibility to import
+//			// multiple content files. TODO - is it necessary?
+//			Set<String> paths = getServletContext().getResourcePaths(
+//					IRepository.SEPARATOR + EXPORTED_PATH); //$NON-NLS-1$
+//			logger.debug("resource paths:" + paths); //$NON-NLS-1$
+//			for (Iterator<String> iterator = paths.iterator(); iterator.hasNext();) {
+//				String pathToContent = (String) iterator.next();
+//				logger.debug("Path to content: " + pathToContent); //$NON-NLS-1$
+//				if (!pathToContent.endsWith(ZIP)) {
+//					continue;
+//				}
+//				InputStream content = getServletContext().getResourceAsStream(pathToContent);
+//				importZipAndUpdate(content, request);
+//				logger.debug(" Successfully imported " + pathToContent); //$NON-NLS-1$
+//			}
+//		} else {
+//			logger.debug(" Nothing to import. Folder" + IRepository.SEPARATOR + EXPORTED_PATH //$NON-NLS-1$
+//					+ " was not found in deployable."); //$NON-NLS-1$
+//
+//		}
+//	}
 
 	/**
 	 * Import input stream as a content into repository and execute db updates.
@@ -137,15 +139,19 @@ public class BaseContentServlet extends HttpServlet {
 	 * 
 	 * @param content
 	 */
-	protected void importZipAndUpdate(InputStream content) {
+	public void importZipAndUpdate(InputStream content, HttpServletRequest request) {
+		importZipAndUpdate(content, DEFAULT_PATH_FOR_IMPORT, request);
+	}
+	
+	public void importZipAndUpdate(InputStream content, String pathForImport, HttpServletRequest request) {
 		try {
 			// 1. Import content.zip into repository
-			getRepository().importZip(new ZipInputStream(content), DEFAULT_PATH_FOR_IMPORT);
+			getRepository(request).importZip(new ZipInputStream(content), pathForImport);
 
 			// 2. Post import actions
 			ContentPostImportUpdater contentPostImportUpdater = new ContentPostImportUpdater(
-					getRepository());
-			contentPostImportUpdater.update();
+					getRepository(request));
+			contentPostImportUpdater.update(request);
 
 		} catch (NamingException e) {
 			logger.error(e.getMessage());
@@ -156,14 +162,14 @@ public class BaseContentServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * Check if the path exists in current dirigible.runtime.war
-	 * 
-	 * @return
-	 */
-	private boolean existsContentToImport() {
-		Set<String> paths = getServletContext().getResourcePaths(IRepository.SEPARATOR);
-		return paths.contains(IRepository.SEPARATOR + EXPORTED_PATH);
-	}
+//	/**
+//	 * Check if the path exists in current dirigible.runtime.war
+//	 * 
+//	 * @return
+//	 */
+//	private boolean existsContentToImport() {
+//		Set<String> paths = getServletContext().getResourcePaths(IRepository.SEPARATOR);
+//		return paths.contains(IRepository.SEPARATOR + EXPORTED_PATH);
+//	}
 
 }

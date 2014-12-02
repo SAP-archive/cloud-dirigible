@@ -136,7 +136,7 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 	@Override
 	public String getDebugEndpoint(IFile file) {
 		if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
-			return CommonParameters.getRuntimeUrl()
+			return CommonParameters.getServicesUrl()
 					+ CommonParameters.JAVASCRIPT_DEBUG_CONTAINER_MAPPING
 					+ generatePublishedPath(file);
 		}

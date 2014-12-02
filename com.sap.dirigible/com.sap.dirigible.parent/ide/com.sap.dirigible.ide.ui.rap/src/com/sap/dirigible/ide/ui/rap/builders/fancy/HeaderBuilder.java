@@ -131,7 +131,7 @@ public class HeaderBuilder extends ElementBuilder {
 		Browser browser = new Browser(getParent(), SWT.NONE);
 		browser.setBounds(0, 0, 0, 0);
 
-		browser.setUrl("../ide/ping");
+		browser.setUrl("../services/ping");
 		
 		
 	}

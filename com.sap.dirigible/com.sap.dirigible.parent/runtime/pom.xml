@@ -54,7 +54,10 @@
 	</build>
 
 	<modules>
+		<module>com.sap.dirigible.runtime.content</module>
+		<module>com.sap.dirigible.runtime.ui</module>
 		<module>com.sap.dirigible.runtime.core</module>
+		<module>com.sap.dirigible.runtime.java</module>
 	</modules>
  
 </project>

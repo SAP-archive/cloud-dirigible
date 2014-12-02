@@ -6,7 +6,7 @@
            id="ContentInitializerServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
-              alias="/contentinit"
+              alias="/init"
               class="com.sap.dirigible.runtime.content.ContentInitializerServlet"
               load-on-startup="true">
         </servlet>
@@ -18,7 +18,77 @@
         <servlet
               alias="/js"
               class="com.sap.dirigible.runtime.js.JavaScriptServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="CommandServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/command"
+              class="com.sap.dirigible.runtime.command.CommandServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="TestCasesServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/test"
+              class="com.sap.dirigible.runtime.js.TestCasesServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="RegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/registry"
+              class="com.sap.dirigible.runtime.registry.RegistryServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="RegistryContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/content"
+              class="com.sap.dirigible.runtime.registry.RegistryContentServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="RepositoryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/repository"
+              class="com.sap.dirigible.runtime.registry.RepositoryServlet"
               load-on-startup="true">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WebRegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web"
+              class="com.sap.dirigible.runtime.web.WebRegistryServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="JavaScriptRegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/registry-js"
+              class="com.sap.dirigible.runtime.registry.JavaScriptRegistryServlet"
+              load-on-startup="false">
         </servlet>
      </extension>
           
