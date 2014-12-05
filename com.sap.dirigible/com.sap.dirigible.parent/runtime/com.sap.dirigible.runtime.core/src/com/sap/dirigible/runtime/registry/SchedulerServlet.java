@@ -19,8 +19,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.memory.MemoryLogCleanupTask;
@@ -34,17 +34,20 @@ import com.sap.dirigible.runtime.task.TaskManagerLong;
 import com.sap.dirigible.runtime.task.TaskManagerMedium;
 import com.sap.dirigible.runtime.task.TaskManagerShort;
 
-public class ContextLoaderListener implements ServletContextListener {
+public class SchedulerServlet extends HttpServlet {
 
-	private static final Logger logger = Logger.getLogger(ContextLoaderListener.class);
+	private static final long serialVersionUID = -3775928162856885854L;
+
+	private static final Logger logger = Logger.getLogger(SchedulerServlet.class);
 
 	private ScheduledExecutorService securitySynchronizerScheduler;
 	private ScheduledExecutorService taskManagerShortScheduler;
 	private ScheduledExecutorService taskManagerMediumScheduler;
 	private ScheduledExecutorService taskManagerLongScheduler;
-
+	
 	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
+	public void init() throws ServletException {
+		super.init();
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "contextInitialized"); //$NON-NLS-1$
 
@@ -65,6 +68,25 @@ public class ContextLoaderListener implements ServletContextListener {
 		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "contextInitialized"); //$NON-NLS-1$
 	}
+	
+	@Override
+	public void destroy() {
+		
+		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
+				+ "contextDestroyed"); //$NON-NLS-1$
+
+		securitySynchronizerScheduler.shutdownNow();
+		taskManagerShortScheduler.shutdownNow();
+		taskManagerMediumScheduler.shutdownNow();
+		taskManagerLongScheduler.shutdownNow();
+
+		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
+				+ "contextDestroyed"); //$NON-NLS-1$
+		
+		super.destroy();
+	}
+
+
 
 	private void registerRunnableTasks() {
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
@@ -98,19 +120,5 @@ public class ContextLoaderListener implements ServletContextListener {
 				+ "registerRunnableTasks"); //$NON-NLS-1$
 	}
 
-	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
-
-		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
-				+ "contextDestroyed"); //$NON-NLS-1$
-
-		securitySynchronizerScheduler.shutdownNow();
-		taskManagerShortScheduler.shutdownNow();
-		taskManagerMediumScheduler.shutdownNow();
-		taskManagerLongScheduler.shutdownNow();
-
-		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
-				+ "contextDestroyed"); //$NON-NLS-1$
-	}
 
 }

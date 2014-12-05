@@ -361,5 +361,16 @@
               load-on-startup="true">
         </servlet>
      </extension>
+     
+     <extension
+           id="SchedulerServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/scheduler"
+              class="com.sap.dirigible.runtime.registry.SchedulerServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+  
         
 </plugin>

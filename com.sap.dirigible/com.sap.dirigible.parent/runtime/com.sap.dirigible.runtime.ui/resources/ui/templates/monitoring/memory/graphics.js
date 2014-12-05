@@ -32,7 +32,7 @@ var graphicsPerURISvg = d3.select("#memory-log").append("svg")
   .append("g")
     .attr("transform", "translate(" + graphicsPerURIMargin.left + "," + graphicsPerURIMargin.top + ")");
 
-d3.tsv("memory?log", function(error, data) {
+d3.tsv("../memory?log", function(error, data) {
   graphicsPerURIColor.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
   data.forEach(function(d) {
