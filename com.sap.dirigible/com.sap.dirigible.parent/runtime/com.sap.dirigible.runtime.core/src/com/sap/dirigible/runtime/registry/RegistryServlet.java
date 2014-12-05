@@ -175,7 +175,7 @@ public class RegistryServlet extends AbstractRegistryServlet {
 		rootObject.add(JSON_FILES,
 				enumerateCollectionData(collectionPath, (ICollection) entity, deep));
 
-		writer.println(new Gson().toJsonTree(rootObject));
+		writer.println(new Gson().toJson(rootObject));
 		writer.flush();
 		data = baos.toByteArray();
 		return data;

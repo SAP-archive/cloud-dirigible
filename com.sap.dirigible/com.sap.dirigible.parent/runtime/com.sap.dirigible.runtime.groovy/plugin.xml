@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+     <extension
+           id="GroovyServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/groovy"
+              class="com.sap.dirigible.runtime.groovy.GroovyServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           id="GroovySecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/groovy-secured"
+              class="com.sap.dirigible.runtime.groovy.GroovySecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           id="GroovySandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/groovy-sandbox"
+              class="com.sap.dirigible.runtime.groovy.GroovySandboxServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+          
+</plugin>

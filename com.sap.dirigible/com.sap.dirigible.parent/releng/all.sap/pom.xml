@@ -127,6 +127,7 @@
 						</configuration>
 					</execution>
 					
+					<!-- 
 					<execution>
 						<id>copy-ui</id>
 						<phase>compile</phase>
@@ -142,6 +143,7 @@
 							</resources>
 						</configuration>
 					</execution>
+					 -->
 					<!-- 
 					<execution>
 						<id>copy-content</id>
@@ -211,7 +213,6 @@
 		
  		
 		
-<!-- 		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -219,7 +220,6 @@
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
--->
 
   		<dependency>
 			<groupId>org.slf4j</groupId>

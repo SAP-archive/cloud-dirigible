@@ -164,8 +164,8 @@
 	
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>IDE Location</web-resource-name>
-			<url-pattern>/ide/*</url-pattern>
+			<web-resource-name>Services Location</web-resource-name>
+			<url-pattern>/services/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Developer</role-name>
@@ -185,6 +185,34 @@
 	<security-role>
 		<description>Operator can perform actions on Registry and Repository</description>
 		<role-name>Operator</role-name>
+	</security-role>
+	<security-role>
+		<description>Predefined Role For Applications</description>
+		<role-name>Administrator</role-name>
+	</security-role>	
+	<security-role>
+		<description>Predefined Role For Applications</description>
+		<role-name>Manager</role-name>
+	</security-role>
+	<security-role>
+		<description>Predefined Role For Applications</description>		
+		<role-name>PowerUser</role-name>
+	</security-role>
+	<security-role>
+		<description>Predefined Role For Applications</description>
+		<role-name>User</role-name>
+	</security-role>
+	<security-role>
+		<description>Predefined Role For Applications</description>
+		<role-name>ReadWrite</role-name>
+	</security-role>
+	<security-role>
+		<description>Predefined Role For Applications</description>
+		<role-name>ReadOnly</role-name>
+	</security-role>
+	<security-role>
+		<description>Repository Service Access</description>
+		<role-name>Repository</role-name>
 	</security-role>
 
 </web-app>

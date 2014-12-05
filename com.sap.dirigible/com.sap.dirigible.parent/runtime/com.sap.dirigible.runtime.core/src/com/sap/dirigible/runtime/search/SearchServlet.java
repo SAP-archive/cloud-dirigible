@@ -114,7 +114,7 @@ public class SearchServlet extends AbstractRegistryServlet {
 			}
 		}
 
-		writer.println(new Gson().toJsonTree(rootArray));
+		writer.println(new Gson().toJson(rootArray));
 		writer.flush();
 		writer.close();
 	}

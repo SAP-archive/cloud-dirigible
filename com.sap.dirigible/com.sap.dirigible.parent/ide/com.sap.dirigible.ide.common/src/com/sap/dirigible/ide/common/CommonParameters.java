@@ -44,8 +44,8 @@ public class CommonParameters {
 
 	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
 	public static final String SERVICES_URL = "servicesUrl"; //$NON-NLS-1$
-	public static final String RUNTIME_URL_DEFAULT = "/dirigible"; //$NON-NLS-1$
-	public static final String SERVICES_URL_DEFAULT = "/services"; //$NON-NLS-1$
+	public static final String RUNTIME_URL_DEFAULT = ""; //$NON-NLS-1$
+	public static final String SERVICES_URL_DEFAULT = ""; //$NON-NLS-1$
 	
 	public static final String ENABLE_ROLES = "enableRoles"; //$NON-NLS-1$
 	

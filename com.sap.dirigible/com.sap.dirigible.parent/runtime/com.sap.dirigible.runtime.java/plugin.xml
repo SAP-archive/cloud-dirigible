@@ -8,7 +8,27 @@
         <servlet
               alias="/java"
               class="com.sap.dirigible.runtime.java.JavaServlet"
-              load-on-startup="true">
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           id="JavaSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/java-secured"
+              class="com.sap.dirigible.runtime.java.JavaSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           id="JavaSandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/java-sandbox"
+              class="com.sap.dirigible.runtime.java.JavaSandboxServlet"
+              load-on-startup="false">
         </servlet>
      </extension>
           

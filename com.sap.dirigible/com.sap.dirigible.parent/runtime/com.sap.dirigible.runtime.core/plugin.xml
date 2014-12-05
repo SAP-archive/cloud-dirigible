@@ -2,11 +2,11 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-	<extension
+	 <extension
            id="ContentInitializerServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
-              alias="/init"
+              alias="/content-init"
               class="com.sap.dirigible.runtime.content.ContentInitializerServlet"
               load-on-startup="true">
         </servlet>
@@ -23,6 +23,26 @@
      </extension>
 	 
 	 <extension
+           id="JavaScriptSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/js-secured"
+              class="com.sap.dirigible.runtime.js.JavaScriptSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="JavaScriptSandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/js-sandbox"
+              class="com.sap.dirigible.runtime.js.JavaScriptSandboxServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
            id="CommandServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
@@ -33,11 +53,41 @@
      </extension>
 	 
 	 <extension
+           id="CommandSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/command-secured"
+              class="com.sap.dirigible.runtime.command.CommandSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="CommandSandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/command-sandbox"
+              class="com.sap.dirigible.runtime.command.CommandSandboxServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
            id="TestCasesServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
               alias="/test"
               class="com.sap.dirigible.runtime.js.TestCasesServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="TestCasesSandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/test-sandbox"
+              class="com.sap.dirigible.runtime.js.TestCasesSandboxServlet"
               load-on-startup="false">
         </servlet>
      </extension>
@@ -83,6 +133,46 @@
      </extension>
 	 
 	 <extension
+           id="WebRegistrySecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web-secured"
+              class="com.sap.dirigible.runtime.web.WebRegistrySecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WebRegistrySandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web-sandbox"
+              class="com.sap.dirigible.runtime.web.WebRegistrySandboxServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WebRegistryUiContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web/content"
+              class="com.sap.dirigible.runtime.web.WebRegistryUiContentServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WebRegistryUiContentSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web/content-secured"
+              class="com.sap.dirigible.runtime.web.WebRegistryUiContentSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
            id="JavaScriptRegistryServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
@@ -91,5 +181,185 @@
               load-on-startup="false">
         </servlet>
      </extension>
-          
+	 
+	 <extension
+           id="JavaScriptRegistryUiContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/scripting/javascript"
+              class="com.sap.dirigible.runtime.registry.JavaScriptRegistryUiContentServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="CommandRegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/registry-command"
+              class="com.sap.dirigible.runtime.registry.CommandRegistryServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="CommandRegistryUiContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/scripting/command"
+              class="com.sap.dirigible.runtime.registry.CommandRegistryUiContentServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="TestCasesRegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/registry-tc"
+              class="com.sap.dirigible.runtime.registry.TestCasesRegistryServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="TestCasesRegistryUiContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/scripting/tests"
+              class="com.sap.dirigible.runtime.registry.TestCasesRegistryUiContentServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WikiRegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/wiki"
+              class="com.sap.dirigible.runtime.wiki.WikiRegistryServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WikiRegistrySecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/wiki-secured"
+              class="com.sap.dirigible.runtime.wiki.WikiRegistrySecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WikiRegistrySandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/wiki-sandbox"
+              class="com.sap.dirigible.runtime.wiki.WikiRegistrySandboxServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WikiRegistryUiContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web/wiki"
+              class="com.sap.dirigible.runtime.wiki.WikiRegistryUiContentServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="WikiRegistryUiContentSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web/wiki-secured"
+              class="com.sap.dirigible.runtime.wiki.WikiRegistryUiContentSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="BaseContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/load"
+              class="com.sap.dirigible.runtime.content.BaseContentServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="ContentExporterServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/export"
+              class="com.sap.dirigible.runtime.content.ContentExporterServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="ContentImporterServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/import"
+              class="com.sap.dirigible.runtime.content.ContentImporterServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="OperationalServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/op"
+              class="com.sap.dirigible.runtime.registry.OperationalServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="MemoryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/memory"
+              class="com.sap.dirigible.runtime.memory.MemoryServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="SearchServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/search"
+              class="com.sap.dirigible.runtime.search.SearchServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="AccessLogServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/acclog"
+              class="com.sap.dirigible.runtime.metrics.AccessLogServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="JavaScriptDebugServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/js-debug"
+              class="com.sap.dirigible.runtime.js.debug.JavaScriptDebugServlet"
+              load-on-startup="true">
+        </servlet>
+     </extension>
+        
 </plugin>

@@ -85,7 +85,7 @@ public abstract class AbstractRegistryServiceServlet extends AbstractRegistrySer
 
 			jsonRootArray.add(elementObject);
 		}
-		writer.println(new Gson().toJsonTree(jsonRootArray));
+		writer.println(new Gson().toJson(jsonRootArray));
 		writer.flush();
 		writer.close();
 	}
