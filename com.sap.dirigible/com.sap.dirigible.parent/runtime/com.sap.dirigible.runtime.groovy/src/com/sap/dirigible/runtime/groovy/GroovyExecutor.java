@@ -27,10 +27,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class GroovyExecutor extends AbstractScriptExecutor {
@@ -41,7 +39,7 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 
 	private static final String GROOVY_MODULE_NAME_CANNOT_BE_NULL = com.sap.dirigible.runtime.groovy.Messages.getString("GroovyExecutor.GROOVY_MODULE_NAME_CANNOT_BE_NULL");  //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
+	private static final Logger logger = Logger
 			.getLogger(GroovyExecutor.class.getCanonicalName());
 
 	private IRepository repository;
@@ -90,7 +88,6 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 			throw new IOException(e);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			e.printStackTrace();
 			throw new IOException(e);
 		}
 		

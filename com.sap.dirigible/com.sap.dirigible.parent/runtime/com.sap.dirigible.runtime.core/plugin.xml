@@ -371,8 +371,147 @@
               load-on-startup="true">
         </servlet>
      </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/*"
+              class="com.sap.dirigible.runtime.filter.AccessLogFilter">
+        </filter>
+     </extension>
   
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/*"
+              class="com.sap.dirigible.runtime.filter.XSSFilter">
+        </filter>
+     </extension>
   
-  
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/web-secured/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/js-secured/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/js-debug/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/js-debug/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/command-secured/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+	 <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/wiki-secured/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/web-sandbox/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/js-sandbox/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/command-sandbox/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/test-sandbox/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/wiki-sandbox/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/web/*"
+              class="com.sap.dirigible.runtime.filter.WebRegistrySecureFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/js/*"
+              class="com.sap.dirigible.runtime.filter.JavaScriptRegistrySecureFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/command/*"
+              class="com.sap.dirigible.runtime.filter.CommandRegistrySecureFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/wiki/*"
+              class="com.sap.dirigible.runtime.filter.WikiRegistrySecureFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/*"
+              class="com.sap.dirigible.runtime.filter.CorsFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/*"
+              class="com.sap.dirigible.runtime.filter.SandboxFilter">
+        </filter>
+     </extension>
         
 </plugin>

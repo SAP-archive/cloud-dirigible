@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.tools.JavaCompiler;
@@ -19,18 +20,19 @@ import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.eclipse.equinox.servletbridge.BridgeServlet;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
 import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryDiagnosticListener;
 import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryCompilationException;
+import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.repository.RepositoryFacade;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class JavaExecutor extends AbstractScriptExecutor {
 	
-	private static final Logger logger = LoggerFactory.getLogger(JavaExecutor.class);
+	private static final Logger logger = Logger.getLogger(JavaExecutor.class);
 
 	private static final String JAVA_EXTENSION = ".java";
 	private static final String CLASSPATH = "-classpath";
@@ -70,7 +72,18 @@ public class JavaExecutor extends AbstractScriptExecutor {
 			URISyntaxException {
 		List<JavaFileObject> sourceFiles = ClassFileManager.getSourceFiles(retrieveModulesByExtension(repository, JAVA_EXTENSION, rootPaths));
 
-		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+//		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		JavaCompiler compiler = null;
+		try {
+			InitialContext in = (InitialContext) System.getProperties().get(RepositoryFacade.INITIAL_CONTEXT);
+			compiler = (JavaCompiler) in.getClass().getClassLoader().loadClass("com.sun.tools.javac.api.JavacTool").newInstance();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		InMemoryDiagnosticListener diagnosticListener = new InMemoryDiagnosticListener();
 		ClassFileManager fileManager = ClassFileManager.getInstance(compiler.getStandardFileManager(diagnosticListener, null, null));
 		CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnosticListener, Arrays.asList(CLASSPATH, getJars()), null, sourceFiles);

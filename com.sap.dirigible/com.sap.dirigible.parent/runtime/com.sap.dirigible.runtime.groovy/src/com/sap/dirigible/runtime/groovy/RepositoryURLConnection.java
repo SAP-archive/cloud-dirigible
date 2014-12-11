@@ -23,11 +23,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class RepositoryURLConnection extends URLConnection {
 	
@@ -42,7 +40,7 @@ public class RepositoryURLConnection extends URLConnection {
 	
 	public static final ThreadLocal<RepositoryURLConnectionParams> PARAMS = new ThreadLocal<RepositoryURLConnectionParams>();
 	
-	private static final Logger logger = LoggerFactory.getLogger(RepositoryURLConnection.class);
+	private static final Logger logger = Logger.getLogger(RepositoryURLConnection.class);
 	
 	public static final String PROTOCOL = "file:/";
 	

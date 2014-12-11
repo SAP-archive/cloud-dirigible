@@ -31,5 +31,28 @@
               load-on-startup="false">
         </servlet>
      </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/java-secured/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/java-sandbox/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/java/*"
+              class="com.sap.dirigible.runtime.filter.JavaRegistrySecureFilter">
+        </filter>
+     </extension>
           
 </plugin>

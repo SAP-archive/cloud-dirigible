@@ -31,5 +31,28 @@
               load-on-startup="false">
         </servlet>
      </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/groovy-secured/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/groovy-sandbox/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/groovy/*"
+              class="com.sap.dirigible.runtime.filter.GroovyRegistrySecureFilter">
+        </filter>
+     </extension>
           
 </plugin>

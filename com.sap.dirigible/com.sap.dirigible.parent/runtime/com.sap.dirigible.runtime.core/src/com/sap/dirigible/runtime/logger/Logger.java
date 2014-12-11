@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Logger {
 
-	protected boolean printInSystemOutput = false;
+	protected boolean printInSystemOutput = true;
 
 	/**
 	 * Returns a {@link Logger} instance that is bound to the specified name.

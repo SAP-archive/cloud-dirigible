@@ -16,12 +16,10 @@
 package com.sap.dirigible.runtime.repository;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.apache.derby.jdbc.EmbeddedDataSource;
-import org.eclipse.equinox.servletbridge.BridgeServlet;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.RepositoryException;
@@ -49,7 +47,7 @@ public class RepositoryFacade {
 
 	private WrappedDataSource dataSource;
 	
-	private static final String INITIAL_CONTEXT = "InitialContext"; //$NON-NLS-1$
+	public static final String INITIAL_CONTEXT = "InitialContext"; //$NON-NLS-1$
 
 	private RepositoryFacade() {
 

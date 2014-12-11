@@ -22,16 +22,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptingServlet;
 
 public class GroovyServlet extends AbstractScriptingServlet {
 
 	private static final long serialVersionUID = 2580668894416114646L;
 	
-	private static final Logger logger = LoggerFactory
+	private static final Logger logger = Logger
 			.getLogger(GroovyServlet.class.getCanonicalName());
 
 	protected void doExecution(HttpServletRequest request,

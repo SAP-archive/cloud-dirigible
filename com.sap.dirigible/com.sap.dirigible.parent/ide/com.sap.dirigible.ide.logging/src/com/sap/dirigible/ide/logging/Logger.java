@@ -34,7 +34,8 @@ public class Logger {
 	public static final String LOG_IN_SYSTEM_OUTPUT = "logInSystemOutput"; //$NON-NLS-1$
 	
 	public static boolean isLogInSystemOutput() {
-		return Boolean.parseBoolean((String) RWT.getRequest().getSession().getAttribute(LOG_IN_SYSTEM_OUTPUT));
+//		return Boolean.parseBoolean((String) RWT.getRequest().getSession().getAttribute(LOG_IN_SYSTEM_OUTPUT));
+		return true;
 	}
 
 	/**
