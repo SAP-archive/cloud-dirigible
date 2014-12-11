@@ -129,7 +129,7 @@ public class Logger {
 	public void debug(String message, Throwable t) {
 		if (isDebugEnabled()) {
 			logger1.debug(message, t);
-			logger2.log(Level.INFO, message, t);
+			logger2.log(Level.FINE, message, t);
 		}
 		logInSystemOutput(message, t);
 	}

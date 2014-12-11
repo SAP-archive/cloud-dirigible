@@ -43,7 +43,7 @@ public class JavaScriptServlet extends AbstractScriptingServlet {
 		JavaScriptExecutor executor = createExecutor(request);
 		try {
 			executor.executeServiceModule(request, response, module);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
 		}

@@ -16,22 +16,24 @@
 package com.sap.dirigible.runtime.groovy;
 
 import groovy.util.GroovyScriptEngine;
+import groovy.util.ResourceConnector;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 
 import java.io.IOException;
+import java.net.URL;
 import java.net.URLConnection;
 
 import com.sap.dirigible.repository.api.IRepository;
 
-public class RepositoryResourceConnector extends GroovyScriptEngine {
+public class RepositoryResourceConnector implements ResourceConnector {
 	
 	private IRepository repository;
 	private String rootPath;
 	private String secondaryRootPath;
 	
 	public RepositoryResourceConnector(IRepository repository, String rootPath, String secondaryRootPath) throws IOException {
-		super((String) IRepository.SEPARATOR);
+//		super((String) IRepository.SEPARATOR);
 		this.repository = repository;
 		this.rootPath = rootPath;
 		this.secondaryRootPath = secondaryRootPath;
@@ -40,11 +42,21 @@ public class RepositoryResourceConnector extends GroovyScriptEngine {
 	public URLConnection getResourceConnection(String name) throws ResourceException {
 
 			try {
-				RepositoryURLConnection urlConnection = new RepositoryURLConnection(repository, rootPath, secondaryRootPath,  name);
+//				RepositoryURLConnection urlConnection = new RepositoryURLConnection(repository, rootPath, secondaryRootPath,  name);
+				RepositoryURLConnectionParams params = 
+						new RepositoryURLConnectionParams(repository, rootPath, secondaryRootPath);
+				RepositoryURLConnection.PARAMS.set(params);
+				
+				
+				
+				URL url = new URL(RepositoryURLConnection.PROTOCOL+name);
+				RepositoryURLConnection urlConnection = new RepositoryURLConnection(url);
+//				return url.openConnection();
 				urlConnection.connect();
 				return urlConnection;
 			} catch (IOException e) {
-				return super.getResourceConnection(name);
+//				return super.getResourceConnection(name);
+				throw new ResourceException("An IO exception occurred", e);
 			}
 			
 	}

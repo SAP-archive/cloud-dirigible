@@ -145,11 +145,22 @@ public class DebugView extends ViewPart implements IDebugController {
 		createVariablesTable(sashForm);
 		createBreakpointsTable(sashForm);
 
-		this.debuggerBridge = (PropertyChangeSupport) RWT.getRequest().getSession()
-				.getAttribute(CommonParameters.DIRIGIBLE_DEBUGGER_BRIDGE);
+//		this.debuggerBridge = (PropertyChangeSupport) RWT.getRequest().getSession()
+//				.getAttribute(CommonParameters.DIRIGIBLE_DEBUGGER_BRIDGE);
+		
+		this.debuggerBridge = (PropertyChangeSupport) System.getProperties().get(
+				CommonParameters.DIRIGIBLE_DEBUGGER_BRIDGE);
+		if (debuggerBridge == null) {
+			debuggerBridge = new PropertyChangeSupport(new Object());
+			System.getProperties().put(CommonParameters.DIRIGIBLE_DEBUGGER_BRIDGE, debuggerBridge);
+			logger.info("Debugger Bridge put to environment: " + debuggerBridge.hashCode()); //$NON-NLS-1$
+		}
 		if (this.debuggerBridge != null) {
 			this.debuggerBridge.addPropertyChangeListener(this);
 		}
+		
+			
+
 	}
 
 	private void createButtonsRow(final Composite holder) {

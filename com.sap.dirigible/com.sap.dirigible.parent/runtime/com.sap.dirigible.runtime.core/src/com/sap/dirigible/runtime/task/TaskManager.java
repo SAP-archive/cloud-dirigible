@@ -39,7 +39,7 @@ public abstract class TaskManager implements Runnable {
 
 		try {
 			startRunnableTasks();
-			logger.info("All tasks were performed successfylly: " //$NON-NLS-1$
+			logger.debug("All tasks were performed successfylly: " //$NON-NLS-1$
 					+ runnableTasks.size());
 		} catch (Exception e) {
 			logger.error("Task Manager error", e);

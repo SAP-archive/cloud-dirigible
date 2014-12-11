@@ -67,7 +67,7 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 		RepositoryResourceConnector repositoryResourceConnector = 
 				new RepositoryResourceConnector(this.repository, this.rootPath, this.secondaryRootPath);
 		
-		GroovyScriptEngine groovyScriptEngine = new GroovyScriptEngine(repositoryResourceConnector); 
+		GroovyScriptEngine groovyScriptEngine = new GroovyScriptEngine(repositoryResourceConnector);
 		
         Binding binding = new Binding();
         

@@ -41,6 +41,7 @@ public class DebugBridgeUtils {
 		if (debuggerBridge == null) {
 			logger.error("DebuggerBridge not present");
 		}
+		
 		logger.debug("exiting JavaScriptDebugServlet.lookupDebuggerBridge()");
 		return debuggerBridge;
 	}

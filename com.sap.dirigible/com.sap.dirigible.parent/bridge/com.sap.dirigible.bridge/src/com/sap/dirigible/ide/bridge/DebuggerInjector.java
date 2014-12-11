@@ -27,6 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+
+// DISABLED - OSGI plugins get it from the System properties directly
+
 public class DebuggerInjector implements Injector {
 	
 	public static final String DIRIGIBLE_DEBUGGER_BRIDGE = "dirigible.debugger.bridge"; //$NON-NLS-1$
@@ -39,30 +43,30 @@ public class DebuggerInjector implements Injector {
 	@Override
 	public void inject(ServletConfig servletConfig, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		PropertyChangeSupport sessionDebuggerBridge = (PropertyChangeSupport) req.getSession().getAttribute(DIRIGIBLE_DEBUGGER_BRIDGE);
-		if (sessionDebuggerBridge == null) {
-			PropertyChangeSupport debuggerBridge = lookupDebuggerBridge();
-			if (debuggerBridge == null) {
-				debuggerBridge = new PropertyChangeSupport(new Object());
-				System.getProperties().put(DIRIGIBLE_DEBUGGER_BRIDGE, debuggerBridge);
-				logger.info("Debugger Bridge put to environment: " + debuggerBridge.hashCode()); //$NON-NLS-1$
-			}
-			try {
-				req.getSession().setAttribute(DIRIGIBLE_DEBUGGER_BRIDGE, debuggerBridge);
-			} catch (Exception e) {
-				logger.error(e.getMessage(), e);
-			}
-		}
+//		PropertyChangeSupport sessionDebuggerBridge = (PropertyChangeSupport) req.getSession().getAttribute(DIRIGIBLE_DEBUGGER_BRIDGE);
+//		if (sessionDebuggerBridge == null) {
+//			PropertyChangeSupport debuggerBridge = lookupDebuggerBridge();
+//			if (debuggerBridge == null) {
+//				debuggerBridge = new PropertyChangeSupport(new Object());
+//				System.getProperties().put(DIRIGIBLE_DEBUGGER_BRIDGE, debuggerBridge);
+//				logger.info("Debugger Bridge put to environment: " + debuggerBridge.hashCode()); //$NON-NLS-1$
+//			}
+//			try {
+//				req.getSession().setAttribute(DIRIGIBLE_DEBUGGER_BRIDGE, debuggerBridge);
+//			} catch (Exception e) {
+//				logger.error(e.getMessage(), e);
+//			}
+//		}
 	}
 	
-	/**
-	 * Retrieve the DebuggerBridge(PropertyChangeSupport) from the target server environment
-	 * 
-	 * @return
-	 * @throws NamingException
-	 */
-	private PropertyChangeSupport lookupDebuggerBridge() {
-		return (PropertyChangeSupport) System.getProperties().get(DIRIGIBLE_DEBUGGER_BRIDGE);
-	}
+//	/**
+//	 * Retrieve the DebuggerBridge(PropertyChangeSupport) from the target server environment
+//	 * 
+//	 * @return
+//	 * @throws NamingException
+//	 */
+//	private PropertyChangeSupport lookupDebuggerBridge() {
+//		return (PropertyChangeSupport) System.getProperties().get(DIRIGIBLE_DEBUGGER_BRIDGE);
+//	}
 
 }

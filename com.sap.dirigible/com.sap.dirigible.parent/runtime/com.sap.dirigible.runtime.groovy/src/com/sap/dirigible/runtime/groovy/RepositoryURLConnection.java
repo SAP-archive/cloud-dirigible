@@ -31,32 +31,32 @@ import com.sap.dirigible.repository.api.IResource;
 
 public class RepositoryURLConnection extends URLConnection {
 	
+	
+
 	private static final String GROOVY_EXTENSION = ".groovy";
-	private IRepository repository;
-	private String rootPath;
-	private String secondaryRootPath;
+	
 	private byte[] content;
 	private long  dateInMilliseconds;
 	private String name;
 	private String original;
 	
+	public static final ThreadLocal<RepositoryURLConnectionParams> PARAMS = new ThreadLocal<RepositoryURLConnectionParams>();
+	
 	private static final Logger logger = LoggerFactory.getLogger(RepositoryURLConnection.class);
 	
-	protected RepositoryURLConnection(IRepository repository, String rootPath, String secondaryRootPath, String name) {
-		super(null);
-		this.repository = repository;
-		this.rootPath = rootPath;
-		this.secondaryRootPath = secondaryRootPath;
-		this.name = name;
-		this.original = name;
-	}
+	public static final String PROTOCOL = "file:/";
 	
+	public RepositoryURLConnection(URL url) {
+		super(url);
+	}
 	/**
 	 * The method makes connection with the repository in order to retrieve the requested resource.
 	 */
 	@Override
 	public void connect() throws IOException {
 			//project1.module1 should be project1/module1 in order to retrieve it from the repository
+		
+			name = getURL().toString().substring(PROTOCOL.length());
 		
 			if (name.endsWith(".groovy")){
 				int idx = name.lastIndexOf(".");
@@ -106,17 +106,18 @@ public class RepositoryURLConnection extends URLConnection {
 	 * @throws IOException 
 	 */
 	private IResource retrieveResource(String name) throws IOException {
-		String repositoryPath = this.rootPath + IRepository.SEPARATOR + name;
+		RepositoryURLConnectionParams params = PARAMS.get();
+		String repositoryPath = params.getRootPath() + IRepository.SEPARATOR + name;
 		if (!repositoryPath.endsWith(GROOVY_EXTENSION)) {
 			repositoryPath += GROOVY_EXTENSION;
 		}
-		IResource resource = this.repository.getResource(repositoryPath);
+		IResource resource = params.getRepository().getResource(repositoryPath);
 		if (!resource.exists()) {
-			repositoryPath = this.secondaryRootPath + IRepository.SEPARATOR + name;
+			repositoryPath = params.getSecondaryRootPath() + IRepository.SEPARATOR + name;
 			if (!repositoryPath.endsWith(GROOVY_EXTENSION)) {
 				repositoryPath += GROOVY_EXTENSION;
 			}
-			resource = this.repository.getResource(repositoryPath);
+			resource = params.getRepository().getResource(repositoryPath);
 			if (!resource.exists()) {
 				logger.error("There is no resource at the specified Service path: " + repositoryPath);
 			}
@@ -124,21 +125,21 @@ public class RepositoryURLConnection extends URLConnection {
 		return resource;
 	}
 	
-	@Override
-	public URL getURL() {
-		try {
-			// TODO NOT WORKING ANYWAY with the latest version ... :(
-			return new URL("http://" + original);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	@Override
-	public boolean getUseCaches() {
-		return false;
-	}
+//	@Override
+//	public URL getURL() {
+//		try {
+//			// TODO NOT WORKING ANYWAY with the latest version ... :(
+//			return new URL("http://" + original);
+//		} catch (MalformedURLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+//	
+//	@Override
+//	public boolean getUseCaches() {
+//		return false;
+//	}
 	
 }  
