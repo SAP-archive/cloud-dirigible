@@ -52,6 +52,5 @@ Export-Package: com.sap.dirigible.runtime.command,
  com.sap.dirigible.runtime.scripting,
  com.sap.dirigible.runtime.search,
  com.sap.dirigible.runtime.task,
- com.sap.dirigible.runtime.web,
- com.sap.dirigible.runtime.wiki
+ com.sap.dirigible.runtime.web
 Bundle-ActivationPolicy: lazy

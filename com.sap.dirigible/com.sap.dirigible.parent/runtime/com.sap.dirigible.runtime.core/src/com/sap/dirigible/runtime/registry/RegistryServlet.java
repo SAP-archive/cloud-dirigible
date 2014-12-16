@@ -142,6 +142,7 @@ public class RegistryServlet extends AbstractRegistryServlet {
 				}
 			}
 			sendData(out, data);
+			setContentLengthHeader(entity, data.length, request, response);
 		} catch (final IllegalArgumentException ex) {
 			exceptionHandler(response, repositoryPath, HttpServletResponse.SC_BAD_REQUEST,
 					ex.getMessage());
@@ -186,7 +187,6 @@ public class RegistryServlet extends AbstractRegistryServlet {
 		byte[] data = new byte[] {};
 		if (!setCacheHeaders(entity, request, response)) {
 			data = readResourceData((IResource) entity);
-			setContentLengthHeader(entity, data.length, request, response);
 		}
 		return data;
 	}

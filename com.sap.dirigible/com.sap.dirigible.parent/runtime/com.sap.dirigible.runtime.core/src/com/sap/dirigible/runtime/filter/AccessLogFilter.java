@@ -17,6 +17,7 @@ package com.sap.dirigible.runtime.filter;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -64,7 +65,7 @@ public class AccessLogFilter implements Filter {
 				try {
 					accessLogRecord.setResponseStatus(((HttpServletResponse) response).getStatus());
 					accessLogRecord
-							.setResponseTime((int) (System.currentTimeMillis() - accessLogRecord
+							.setResponseTime((int) (GregorianCalendar.getInstance().getTime().getTime() - accessLogRecord
 									.getTimestamp().getTime()));
 
 					AccessLogRecordDAO.insert(accessLogRecord);

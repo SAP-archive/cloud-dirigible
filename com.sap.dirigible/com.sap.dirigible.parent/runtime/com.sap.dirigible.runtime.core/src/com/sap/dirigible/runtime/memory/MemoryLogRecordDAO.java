@@ -81,7 +81,7 @@ public class MemoryLogRecordDAO {
 				pstmt.setLong(++i, Runtime.getRuntime().freeMemory());
 				pstmt.setLong(++i, Runtime.getRuntime().totalMemory());
 				pstmt.setLong(++i, Runtime.getRuntime().maxMemory());
-				pstmt.setTimestamp(++i, new Timestamp(System.currentTimeMillis()));
+				pstmt.setTimestamp(++i, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
 
 				pstmt.executeUpdate();
 

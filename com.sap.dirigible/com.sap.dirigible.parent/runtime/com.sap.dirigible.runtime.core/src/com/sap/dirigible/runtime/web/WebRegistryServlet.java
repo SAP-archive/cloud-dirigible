@@ -106,6 +106,7 @@ public class WebRegistryServlet extends RegistryServlet {
 				// end with footer
 				outputStream.write(footer.getContent());
 			}
+			outputStream.flush();
 			return outputStream.toByteArray();
 		}
 		return rawContent;

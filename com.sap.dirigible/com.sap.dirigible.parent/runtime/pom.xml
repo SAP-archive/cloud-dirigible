@@ -57,6 +57,7 @@
 		<module>com.sap.dirigible.runtime.content</module>
 		<module>com.sap.dirigible.runtime.ui</module>
 		<module>com.sap.dirigible.runtime.core</module>
+		<module>com.sap.dirigible.runtime.wiki</module>
 		<module>com.sap.dirigible.runtime.java</module>
 		<module>com.sap.dirigible.runtime.groovy</module>
 	</modules>

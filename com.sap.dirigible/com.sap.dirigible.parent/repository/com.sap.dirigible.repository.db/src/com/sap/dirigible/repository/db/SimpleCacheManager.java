@@ -16,6 +16,7 @@
 package com.sap.dirigible.repository.db;
 
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -39,7 +40,7 @@ public class SimpleCacheManager {
     public void put(String cacheKey, Object value) {
     	if (!isDisabled() && value != null && (cache.get(cacheKey) == null)) {
     		logger.debug("put: " + cacheKey + " value: " + value);
-	    	ExpirationWrapper wrapper = new ExpirationWrapper(value, System.currentTimeMillis());
+	    	ExpirationWrapper wrapper = new ExpirationWrapper(value, GregorianCalendar.getInstance().getTime().getTime());
 	        cache.put(cacheKey, wrapper);
     	}
     }
@@ -55,7 +56,7 @@ public class SimpleCacheManager {
     public Object get(String cacheKey) {
     	ExpirationWrapper wrapper = cache.get(cacheKey);
     	if (wrapper != null) {
-	    	if ((System.currentTimeMillis() - wrapper.getCreated()) < MAX_EXPIRATION_TIME) {
+	    	if ((GregorianCalendar.getInstance().getTime().getTime() - wrapper.getCreated()) < MAX_EXPIRATION_TIME) {
 	    		logger.debug("cache used for: " + cacheKey);
 	    		return wrapper.value;
 	    	} else {

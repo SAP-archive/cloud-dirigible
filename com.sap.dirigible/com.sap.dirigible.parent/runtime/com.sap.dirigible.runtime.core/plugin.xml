@@ -233,56 +233,6 @@
      </extension>
 	 
 	 <extension
-           id="WikiRegistryServlet"
-           point="org.eclipse.equinox.http.registry.servlets">
-        <servlet
-              alias="/wiki"
-              class="com.sap.dirigible.runtime.wiki.WikiRegistryServlet"
-              load-on-startup="false">
-        </servlet>
-     </extension>
-	 
-	 <extension
-           id="WikiRegistrySecuredServlet"
-           point="org.eclipse.equinox.http.registry.servlets">
-        <servlet
-              alias="/wiki-secured"
-              class="com.sap.dirigible.runtime.wiki.WikiRegistrySecuredServlet"
-              load-on-startup="false">
-        </servlet>
-     </extension>
-	 
-	 <extension
-           id="WikiRegistrySandboxServlet"
-           point="org.eclipse.equinox.http.registry.servlets">
-        <servlet
-              alias="/wiki-sandbox"
-              class="com.sap.dirigible.runtime.wiki.WikiRegistrySandboxServlet"
-              load-on-startup="false">
-        </servlet>
-     </extension>
-	 
-	 <extension
-           id="WikiRegistryUiContentServlet"
-           point="org.eclipse.equinox.http.registry.servlets">
-        <servlet
-              alias="/web/wiki"
-              class="com.sap.dirigible.runtime.wiki.WikiRegistryUiContentServlet"
-              load-on-startup="false">
-        </servlet>
-     </extension>
-	 
-	 <extension
-           id="WikiRegistryUiContentSecuredServlet"
-           point="org.eclipse.equinox.http.registry.servlets">
-        <servlet
-              alias="/web/wiki-secured"
-              class="com.sap.dirigible.runtime.wiki.WikiRegistryUiContentSecuredServlet"
-              load-on-startup="false">
-        </servlet>
-     </extension>
-	 
-	 <extension
            id="BaseContentServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
@@ -375,7 +325,7 @@
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/*"
+              alias="/"
               class="com.sap.dirigible.runtime.filter.AccessLogFilter">
         </filter>
      </extension>
@@ -383,7 +333,7 @@
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/*"
+              alias="/"
               class="com.sap.dirigible.runtime.filter.XSSFilter">
         </filter>
      </extension>
@@ -391,85 +341,73 @@
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/web-secured/*"
+              alias="/web-secured"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/js-secured/*"
+              alias="/js-secured"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/js-debug/*"
+              alias="/js-debug"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/js-debug/*"
+              alias="/js-debug"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/command-secured/*"
+              alias="/command-secured"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
-	 <extension
+	 
+     <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/wiki-secured/*"
+              alias="/web-sandbox"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/web-sandbox/*"
+              alias="/js-sandbox"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/js-sandbox/*"
+              alias="/command-sandbox"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/command-sandbox/*"
+              alias="/test-sandbox"
               class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
         </filter>
      </extension>
-     <extension
-           point="org.eclipse.equinox.http.registry.filters">
-        <filter
-              alias="/test-sandbox/*"
-              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
-        </filter>
-     </extension>
-     <extension
-           point="org.eclipse.equinox.http.registry.filters">
-        <filter
-              alias="/wiki-sandbox/*"
-              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
-        </filter>
-     </extension>
+    
      
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/web/*"
+              alias="/web"
               class="com.sap.dirigible.runtime.filter.WebRegistrySecureFilter">
         </filter>
      </extension>
@@ -477,7 +415,7 @@
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/js/*"
+              alias="/js"
               class="com.sap.dirigible.runtime.filter.JavaScriptRegistrySecureFilter">
         </filter>
      </extension>
@@ -485,7 +423,7 @@
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/command/*"
+              alias="/command"
               class="com.sap.dirigible.runtime.filter.CommandRegistrySecureFilter">
         </filter>
      </extension>
@@ -493,15 +431,7 @@
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/wiki/*"
-              class="com.sap.dirigible.runtime.filter.WikiRegistrySecureFilter">
-        </filter>
-     </extension>
-     
-     <extension
-           point="org.eclipse.equinox.http.registry.filters">
-        <filter
-              alias="/*"
+              alias="/"
               class="com.sap.dirigible.runtime.filter.CorsFilter">
         </filter>
      </extension>
@@ -509,7 +439,7 @@
      <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
-              alias="/*"
+              alias="/"
               class="com.sap.dirigible.runtime.filter.SandboxFilter">
         </filter>
      </extension>

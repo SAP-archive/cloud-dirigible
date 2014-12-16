@@ -30,6 +30,7 @@ import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Struct;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
@@ -50,7 +51,7 @@ public class WrappedConnection implements Connection {
 	public WrappedConnection(Connection originalConnection, WrappedDataSource dataSource) {
 		super();
 		this.originalConnection = originalConnection;
-		this.timeAcquired = System.currentTimeMillis();
+		this.timeAcquired = GregorianCalendar.getInstance().getTime().getTime();
 		this.dataSource = dataSource;
 	}
 
@@ -60,7 +61,7 @@ public class WrappedConnection implements Connection {
 	}
 
 	public long getTimeUsed() {
-		long timeUsed = System.currentTimeMillis() - timeAcquired;
+		long timeUsed = GregorianCalendar.getInstance().getTime().getTime() - timeAcquired;
 		logger.debug("called - getTimeUsed(): " + timeUsed);
 		return timeUsed;
 	}

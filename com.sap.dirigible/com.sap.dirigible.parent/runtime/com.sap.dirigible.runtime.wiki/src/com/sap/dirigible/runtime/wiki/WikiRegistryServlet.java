@@ -51,7 +51,7 @@ public class WikiRegistryServlet extends WebRegistryServlet {
 
 	private static final String CONFLUENCE_EXTENSION = ".wiki"; //$NON-NLS-1$
 	private static final String BATCH_EXTENSION = ".wikis"; //$NON-NLS-1$
-	private static final int WIKI_CACHE_LIMIT = 10000; // ~ 100MB for cache of the wikis 
+	private static final int WIKI_CACHE_LIMIT = 10000; // ~ 100MB for cache of the wikis
 	
 	// caches
 	private static final Map<String, Date> resourceToModification = Collections.synchronizedMap(new HashMap<String, Date>());
@@ -94,18 +94,11 @@ public class WikiRegistryServlet extends WebRegistryServlet {
 		String existingWiki = resourceToWiki.get(entity.getPath());
 		if (lastModification == null
 				|| existingWiki == null
-				|| lastModification.before(entity.getInformation().getModifiedAt())) {
-//			StringWriter writer = new StringWriter();
-//			HtmlDocumentBuilder builder = new HtmlDocumentBuilder(writer);
-//			builder.setEmitAsDocument(false);
-//			MarkupParser markupParser = new MarkupParser();
-//			markupParser.setBuilder(builder);		
-//			markupParser.setMarkupLanguage(new ConfluenceLanguage());
-//			markupParser.parse(new String(rawContent));
-			
+				|| !lastModification.after(entity.getInformation().getModifiedAt())) {
+
 			WikiUtils wikiUtils = new WikiUtils();
-			String htmlContent = wikiUtils.toHtml(new String(rawContent));
-			result = htmlContent.getBytes();
+			String htmlContent = wikiUtils.toHtml(new String(rawContent, "UTF8"));
+			result = htmlContent.getBytes("UTF8");
 			
 			resourceToModification.put(entity.getPath(), entity.getInformation().getModifiedAt());
 			resourceToWiki.put(entity.getPath(), htmlContent);

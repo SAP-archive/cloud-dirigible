@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,9 +108,9 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement.setInt(3, type);
 			preparedStatement.setString(4, contentType);
 			preparedStatement.setString(5, createdBy);
-			preparedStatement.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+			preparedStatement.setTimestamp(6, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
 			preparedStatement.setString(7, modifiedBy);
-			preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+			preparedStatement.setTimestamp(8, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBBaseException(e);
@@ -333,7 +334,7 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement = getRepository().getDbUtils()
 					.getPreparedStatement(connection, script);
 			preparedStatement.setString(1, getRepository().getUser());
-			preparedStatement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+			preparedStatement.setTimestamp(2, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
 			preparedStatement.setString(3, resource.getPath());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {

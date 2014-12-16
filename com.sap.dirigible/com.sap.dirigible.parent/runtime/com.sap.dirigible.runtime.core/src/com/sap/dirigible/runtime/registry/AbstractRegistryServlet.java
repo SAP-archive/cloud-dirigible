@@ -56,8 +56,9 @@ public abstract class AbstractRegistryServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		super.service(request, response);
 		initRepository(request);
+		super.service(request, response);
+		
 	}
 
 	private void initRepository(HttpServletRequest request) throws ServletException {

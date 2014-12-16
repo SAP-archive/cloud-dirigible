@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 
 import javax.naming.NamingException;
@@ -137,7 +138,7 @@ public class ConfigStorageUtils extends AbstractStorageUtils {
 			int i = 0;
 			pstmt.setString(++i, path);
 			pstmt.setBinaryStream(++i, new ByteArrayInputStream(data), data.length);
-			pstmt.setTimestamp(++i, new Timestamp(System.currentTimeMillis()));
+			pstmt.setTimestamp(++i, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
 
 			pstmt.executeUpdate();
 
@@ -158,7 +159,7 @@ public class ConfigStorageUtils extends AbstractStorageUtils {
 			int i = 0;
 			pstmt.setString(++i, path);
 			pstmt.setBinaryStream(++i, new ByteArrayInputStream(data), data.length);
-			pstmt.setTimestamp(++i, new Timestamp(System.currentTimeMillis()));
+			pstmt.setTimestamp(++i, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
 
 			pstmt.executeUpdate();
 
