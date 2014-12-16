@@ -44,7 +44,7 @@ public class TestCasesServlet extends JavaScriptServlet {
 	}
 
 	@Override
-	protected JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
+	public JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
 		JavaScriptExecutor executor = new JavaScriptExecutor(getRepository(request),
 				getScriptingRegistryPath(request), super.getScriptingRegistryPath(request),
 				REGISTRY_SCRIPTING_DEPLOY_PATH, REGISTRY_TESTS_DEPLOY_PATH);

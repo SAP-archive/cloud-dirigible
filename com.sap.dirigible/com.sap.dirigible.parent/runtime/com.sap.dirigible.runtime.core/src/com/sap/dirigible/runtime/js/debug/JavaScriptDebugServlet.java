@@ -34,7 +34,7 @@ public class JavaScriptDebugServlet extends JavaScriptServlet {
 	private static final Logger logger = Logger.getLogger(JavaScriptDebugServlet.class);
 
 	@Override
-	protected JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
+	public JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
 
 		logger.debug("entering JavaScriptDebugServlet.createExecutor()");
 

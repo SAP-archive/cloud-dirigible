@@ -60,6 +60,7 @@
 		<module>com.sap.dirigible.runtime.wiki</module>
 		<module>com.sap.dirigible.runtime.java</module>
 		<module>com.sap.dirigible.runtime.groovy</module>
+		<module>com.sap.dirigible.runtime.flow</module>
 	</modules>
  
 </project>

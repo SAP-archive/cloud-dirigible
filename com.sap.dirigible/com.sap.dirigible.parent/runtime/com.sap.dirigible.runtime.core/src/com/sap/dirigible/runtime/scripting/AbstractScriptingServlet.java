@@ -41,6 +41,9 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 	public static final String REGISTRY_SCRIPTING_DEPLOY_PATH = IRepositoryPaths.REGISTRY_DEPLOY_PATH
 			+ ICommonConstants.SEPARATOR + ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES; //$NON-NLS-1$
 	
+	public static final String REGISTRY_INTEGRATION_DEPLOY_PATH = IRepositoryPaths.REGISTRY_DEPLOY_PATH
+			+ ICommonConstants.SEPARATOR + ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES; //$NON-NLS-1$
+	
 	public static String getSandboxScripting(HttpServletRequest request) {
 		return IRepositoryPaths.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR 
 				+ RepositoryFacade.getUser(request) + ICommonConstants.SEPARATOR

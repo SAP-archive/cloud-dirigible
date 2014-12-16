@@ -18,6 +18,7 @@ package com.sap.dirigible.runtime.command;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,7 +62,7 @@ public class CommandExecutor extends AbstractScriptExecutor {
 	
 	@Override
 	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
-			Object input, String module) throws IOException {
+			Object input, String module, Map<Object, Object> executionContext) throws IOException {
 
 		logger.debug("entering: executeServiceModule()"); //$NON-NLS-1$
 		logger.debug("module=" + module); //$NON-NLS-1$

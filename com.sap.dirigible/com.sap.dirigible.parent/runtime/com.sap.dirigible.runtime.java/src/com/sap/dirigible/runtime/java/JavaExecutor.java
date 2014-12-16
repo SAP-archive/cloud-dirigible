@@ -54,8 +54,8 @@ public class JavaExecutor extends AbstractScriptExecutor {
 	}
 
 	@Override
-	protected Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
-			Object input, String module) throws InMemoryCompilationException {
+	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
+			Object input, String module, Map<Object, Object> executionContext) throws InMemoryCompilationException {
 		try {
 			registerDefaultVariables(request, response, input, null, repository, null);
 			ClassFileManager fileManager = compile();

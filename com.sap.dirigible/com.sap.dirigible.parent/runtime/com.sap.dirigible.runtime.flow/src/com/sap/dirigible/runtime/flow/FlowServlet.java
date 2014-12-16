@@ -13,9 +13,8 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.runtime.command;
+package com.sap.dirigible.runtime.flow;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,13 +27,13 @@ import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptingServlet;
 
 /**
- * Servlet for Command (Shell) scripts execution
+ * Servlet for JavaScript scripts execution
  */
-public class CommandServlet extends AbstractScriptingServlet {
+public class FlowServlet extends AbstractScriptingServlet {
 
 	private static final long serialVersionUID = -9115022531455267478L;
 
-	private static final Logger logger = Logger.getLogger(CommandServlet.class
+	private static final Logger logger = Logger.getLogger(FlowServlet.class
 			.getCanonicalName());
 
 	protected void doExecution(HttpServletRequest request, HttpServletResponse response)
@@ -42,20 +41,20 @@ public class CommandServlet extends AbstractScriptingServlet {
 
 		String module = request.getPathInfo();
 
-		CommandExecutor executor = createExecutor(request);
-		Map<Object, Object> executionContext = new HashMap<Object, Object>();
+		FlowExecutor executor = createExecutor(request);
 		try {
+			Map<Object, Object> executionContext = new HashMap<Object, Object>();
 			executor.executeServiceModule(request, response, module, executionContext);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
 		}
 
 	}
 
-	public CommandExecutor createExecutor(HttpServletRequest request) throws IOException {
-		CommandExecutor executor = new CommandExecutor(getRepository(request),
-				getScriptingRegistryPath(request), REGISTRY_SCRIPTING_DEPLOY_PATH);
+	protected FlowExecutor createExecutor(HttpServletRequest request) throws IOException {
+		FlowExecutor executor = new FlowExecutor(getRepository(request),
+				getScriptingRegistryPath(request), REGISTRY_INTEGRATION_DEPLOY_PATH);
 		return executor;
 	}
 

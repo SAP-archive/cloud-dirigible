@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+     <extension
+           id="FlowRegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/flow"
+              class="com.sap.dirigible.runtime.flow.FlowServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="FlowRegistrySecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/flow-secured"
+              class="com.sap.dirigible.runtime.flow.FlowSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="FlowRegistrySandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/flow-sandbox"
+              class="com.sap.dirigible.runtime.flow.FlowSandboxServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="FlowRegistryUiContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web/flow"
+              class="com.sap.dirigible.runtime.flow.FlowRegistryUiContentServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="FlowRegistryUiContentSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/flow/flow-secured"
+              class="com.sap.dirigible.runtime.flow.FlowRegistryUiContentSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/flow-secured"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     
+      <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/flow-sandbox"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/flow"
+              class="com.sap.dirigible.runtime.flow.FlowRegistrySecureFilter">
+        </filter>
+     </extension>
+          
+</plugin>

@@ -57,12 +57,12 @@ public abstract class AbstractScriptExecutor {
 	private static final Logger logger = Logger.getLogger(AbstractScriptExecutor.class);
 
 	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
-			String module) throws IOException {
-		return executeServiceModule(request, response, null, module);
+			String module, Map<Object, Object> executionContext) throws IOException {
+		return executeServiceModule(request, response, null, module, executionContext);
 	}
 
 	protected abstract Object executeServiceModule(HttpServletRequest request,
-			HttpServletResponse response, Object input, String module) throws IOException;
+			HttpServletResponse response, Object input, String module, Map<Object, Object> executionContext) throws IOException;
 
 	protected abstract void registerDefaultVariable(Object scope, String name, Object value);
 

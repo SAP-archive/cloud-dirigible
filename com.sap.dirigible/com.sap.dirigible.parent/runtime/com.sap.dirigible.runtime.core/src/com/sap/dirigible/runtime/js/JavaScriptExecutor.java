@@ -60,7 +60,7 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 
 	@Override
 	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
-			Object input, String module) throws IOException {
+			Object input, String module, Map<Object, Object> executionContext) throws IOException {
 
 		logger.debug("entering: executeServiceModule()"); //$NON-NLS-1$
 		logger.debug("module=" + module); //$NON-NLS-1$
@@ -86,7 +86,8 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 
 			require.install(topLevelScope);
 
-			Map<Object, Object> executionContext = new HashMap<Object, Object>();
+//			Map<Object, Object> executionContext = new HashMap<Object, Object>();
+			
 			registerDefaultVariables(request, response, input, executionContext, repository,
 					topLevelScope);
 

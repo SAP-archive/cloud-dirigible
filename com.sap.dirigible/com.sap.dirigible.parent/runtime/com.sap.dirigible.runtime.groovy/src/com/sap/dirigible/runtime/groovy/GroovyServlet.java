@@ -17,6 +17,8 @@ package com.sap.dirigible.runtime.groovy;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,15 +40,16 @@ public class GroovyServlet extends AbstractScriptingServlet {
 		String module = request.getPathInfo();
 
 		GroovyExecutor executor = createExecutor(request);
+		Map<Object, Object> executionContext = new HashMap<Object, Object>();
 		try {
-			executor.executeServiceModule(request, response, module);
+			executor.executeServiceModule(request, response, module, executionContext);
 		} catch (FileNotFoundException e) {
 			logger.error(e.getMessage(), e);
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 	}
 
-	protected GroovyExecutor createExecutor(HttpServletRequest request)
+	public GroovyExecutor createExecutor(HttpServletRequest request)
 			throws IOException {
 		
 		GroovyExecutor executor = new GroovyExecutor(getRepository(request),

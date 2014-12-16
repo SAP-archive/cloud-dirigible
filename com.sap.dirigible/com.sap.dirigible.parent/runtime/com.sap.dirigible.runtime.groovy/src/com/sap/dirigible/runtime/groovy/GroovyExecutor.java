@@ -55,7 +55,7 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 
 	@Override
 	public Object executeServiceModule(HttpServletRequest request,
-			HttpServletResponse response, Object input, String module)
+			HttpServletResponse response, Object input, String module, Map<Object, Object> executionContext)
 			throws IOException {
 
 			if (module == null) {
@@ -75,7 +75,6 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 			name = name.replace(SLASH, DOT);
 			name = name.substring(1);
 			
-			Map<Object, Object> executionContext = new HashMap<Object, Object>();
 			registerDefaultVariables(request, response, input, executionContext, repository, binding);
 			
 //			groovyScriptEngine.getGroovyClassLoader().clearCache();

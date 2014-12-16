@@ -15,8 +15,9 @@
 
 package com.sap.dirigible.runtime.js;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -41,16 +42,17 @@ public class JavaScriptServlet extends AbstractScriptingServlet {
 		String module = request.getPathInfo();
 
 		JavaScriptExecutor executor = createExecutor(request);
+		Map<Object, Object> executionContext = new HashMap<Object, Object>();
 		try {
-			executor.executeServiceModule(request, response, module);
+			executor.executeServiceModule(request, response, module, executionContext);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
 	}
 
-	protected JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
+	public JavaScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
 		JavaScriptExecutor executor = new JavaScriptExecutor(getRepository(request),
 				getScriptingRegistryPath(request), REGISTRY_SCRIPTING_DEPLOY_PATH);
 		return executor;
