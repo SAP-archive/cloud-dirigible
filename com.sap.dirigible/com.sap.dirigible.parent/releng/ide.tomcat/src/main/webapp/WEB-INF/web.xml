@@ -51,6 +51,11 @@
 			<param-value>/dirigible/services</param-value>
 		</init-param>
 		
+		<init-param>
+			<param-name>servicesUrl</param-name>
+			<param-value>/services</param-value>
+		</init-param>
+		
 		<!-- Enable usage of roles - Developer, Operators, etc. Default is true, false means Everyone can do anything -->
 		<init-param>
 			<param-name>enableRoles</param-name>

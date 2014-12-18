@@ -39,15 +39,15 @@ public class InitParametersInjector implements Injector {
 		
 		parameter = servletConfig.getInitParameter(SERVICES_URL);
 		req.getSession().setAttribute(SERVICES_URL, parameter);
-		System.getProperties().put(RUNTIME_URL, parameter);
+		System.getProperties().put(SERVICES_URL, parameter);
 		
 		parameter = servletConfig.getInitParameter(ENABLE_ROLES);
 		req.getSession().setAttribute(ENABLE_ROLES, parameter);
-		System.getProperties().put(RUNTIME_URL, parameter);
+		System.getProperties().put(ENABLE_ROLES, parameter);
 		
 		parameter = servletConfig.getInitParameter(LOG_IN_SYSTEM_OUTPUT);
 		req.getSession().setAttribute(LOG_IN_SYSTEM_OUTPUT, parameter);
-		System.getProperties().put(RUNTIME_URL, parameter);
+		System.getProperties().put(LOG_IN_SYSTEM_OUTPUT, parameter);
 		
 	}
 

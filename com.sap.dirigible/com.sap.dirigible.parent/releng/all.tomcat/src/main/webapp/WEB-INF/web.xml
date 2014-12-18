@@ -50,6 +50,11 @@
 			<param-value>/dirigible/services</param-value>
 		</init-param>
 		
+		<init-param>
+			<param-name>servicesUrl</param-name>
+			<param-value>/services</param-value>
+		</init-param>
+		
 		<!-- Enable usage of roles - Developer, Operators, etc. Default is true, false means Everyone can do anything -->
 		<init-param>
 			<param-name>enableRoles</param-name>
@@ -133,13 +138,13 @@
 
 	<!-- Security -->
 	
-	<!-- Basic
+	<!-- Basic -->
 	<login-config>
 		<auth-method>BASIC</auth-method>
 	</login-config>
-	-->
 	
-	<!-- Remove comment when #109 is fixed -->
+	
+	<!-- Remove comment when #109 is fixed 
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>file</realm-name>
@@ -148,7 +153,7 @@
 			<form-error-page>/authentication/error.html</form-error-page>
 		</form-login-config>
 	</login-config>
-  	
+  	-->
 
 	<security-constraint>
 		<web-resource-collection>
