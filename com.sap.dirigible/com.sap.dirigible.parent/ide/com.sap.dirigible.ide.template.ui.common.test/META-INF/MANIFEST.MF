@@ -4,7 +4,7 @@ Bundle-Name: Dirigible IDE Tepmplate- Test
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: SAP
 Build-Jdk: 1.6.0_33
-Bundle-Version: 1.3.39
+Bundle-Version: 2.0.141200
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.ide.template.ui.common.test
 Fragment-Host: com.sap.dirigible.ide.template.ui.common

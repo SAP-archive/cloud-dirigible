@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Security Artifacts Publish
 Bundle-SymbolicName: com.sap.dirigible.ide.security.publish;singleton:=true
-Bundle-Version: 1.3.39
+Bundle-Version: 2.0.141200
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.sap.dirigible.ide.repository,
