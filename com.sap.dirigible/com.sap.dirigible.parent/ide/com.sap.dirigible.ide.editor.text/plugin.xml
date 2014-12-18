@@ -21,14 +21,6 @@
       </editor>
    </extension>
    <extension
-         point="org.eclipse.ui.editors.documentProviders">
-      <provider
-            class="com.sap.dirigible.ide.editor.text.DefaultDocumentProvider"
-            inputTypes="com.sap.dirigible.ide.editor.text.input.ContentEditorInput"
-            id="com.sap.dirigible.ide.editor.text.DefaultDocumentProvider">
-      </provider>
-   </extension>
-   <extension
          point="org.eclipse.ui.commands">
       <command
             defaultHandler="com.sap.dirigible.ide.editor.text.command.TextEditorHandler"
