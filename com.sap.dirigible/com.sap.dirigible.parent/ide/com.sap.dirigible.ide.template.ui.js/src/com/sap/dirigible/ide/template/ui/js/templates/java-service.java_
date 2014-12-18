@@ -1,0 +1,14 @@
+#set( $packageName = $projectName.replace("/", ".") )
+package ${packageName};
+
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ${fileNameNoExtension} {
+
+    public void service(HttpServletRequest request, HttpServletResponse response, Map<String, Object> scope) throws Exception {
+        response.getWriter().println("Hello World!");
+        response.setContentType("text/html");
+    }
+}

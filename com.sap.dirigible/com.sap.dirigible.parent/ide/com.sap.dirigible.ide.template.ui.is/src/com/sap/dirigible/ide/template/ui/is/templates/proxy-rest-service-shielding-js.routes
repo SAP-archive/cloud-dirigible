@@ -1,0 +1,6 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route id="${routeId}">
+        <from uri="servlet:///${endpointAddress}" />
+	    <to uri="${originalEndpoint}?bridgeEndpoint=true"/>
+	</route>
+</routes>

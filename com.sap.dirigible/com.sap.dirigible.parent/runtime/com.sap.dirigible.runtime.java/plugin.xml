@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+     <extension
+           id="JavaServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/java"
+              class="com.sap.dirigible.runtime.java.JavaServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           id="JavaSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/java-secured"
+              class="com.sap.dirigible.runtime.java.JavaSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           id="JavaSandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/java-sandbox"
+              class="com.sap.dirigible.runtime.java.JavaSandboxServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/java-secured/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/java-sandbox/*"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/java/*"
+              class="com.sap.dirigible.runtime.filter.JavaRegistrySecureFilter">
+        </filter>
+     </extension>
+          
+</plugin>

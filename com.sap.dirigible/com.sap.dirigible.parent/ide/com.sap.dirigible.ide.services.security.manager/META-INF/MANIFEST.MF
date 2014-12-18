@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Security Manager
+Bundle-SymbolicName: com.sap.dirigible.ide.services.security.manager; singleton:=true
+Bundle-Version: 1.3.39
+Bundle-Vendor: SAP
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.rap.ui,
+ com.sap.dirigible.ide.logging
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.sap.dirigible.ide.datasource,
+ com.sap.dirigible.ide.repository,
+ com.sap.dirigible.repository.api,
+ com.sap.dirigible.repository.ext.security,
+ javax.servlet,
+ javax.servlet.http

@@ -30,12 +30,6 @@
 		</license>
 	</licenses>
 
-	<modules>
-		<module>com.sap.dirigible.ide</module>
-		<module>com.sap.dirigible.runtime</module>
-		<module>com.sap.dirigible.dist</module>
-	</modules>
-
 	<url>http://www.dirigible.io</url>
 	<organization>
 		<name>SAP AG</name>
@@ -60,6 +54,17 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-versions-plugin</artifactId>
 			</plugin>
+			
+			
+		   <!--  <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <version>2.18</version>
+		        <configuration>
+		          <skipTests>true</skipTests>
+		        </configuration>
+		    </plugin> -->
+		    
 
 			<!--  attach sources 
 			<plugin>
@@ -259,9 +264,42 @@
 			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
 			<layout>p2</layout>
 		</repository>
+		<repository>
+                <id>mvnrepository</id>
+                <url>http://repo1.maven.org/maven2</url>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+                <releases>
+                    <enabled>true</enabled>
+                </releases>
+       </repository>
 	</repositories>
 
 	<issueManagement>
 		<url>https://github.com/SAP/dirigible/issues</url>
 	</issueManagement>
+	
+	
+	
+	<modules>
+		<module>p2.external</module> <!-- Update Site for External Bundles -->
+		<module>platform</module> <!-- Target Platform Definition -->
+		<module>repository</module> <!-- Artifact Repository Projects -->
+		<module>p2.repository</module> <!-- Update Site for Repository Bundles -->
+		<module>ide</module> <!-- IDE Projects -->
+		<module>p2.ide</module> <!-- Update Site for IDE Bundles -->
+		<module>bridge</module> <!-- Bridge Projects -->
+		<module>p2.bridge</module> <!-- Update Site for Bridge Bundles -->
+		<module>p2.lib</module> <!-- Update Site for WAR Lib Bundles -->
+		
+		
+		<module>runtime</module> <!-- Runtime Projects -->
+		<module>p2.runtime</module> <!-- Update Site for Runtime Bundles -->
+		
+		<module>releng</module>
+		
+	</modules>
+	
+	
 </project>

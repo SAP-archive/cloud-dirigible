@@ -1,6 +1,0 @@
-<routes xmlns="http://camel.apache.org/schema/spring">
-    <route id="${routeId}">
-        <from uri="direct:${routeId}"/>
-        <to uri="http://localhost:8001/dirigible-services/js/${projectName}/${fileNameNoExtension}"/>
-    </route>
-</routes>

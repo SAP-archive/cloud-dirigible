@@ -1,0 +1,18 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route id="${routeId}">
+        <from uri="servlet:///${endpointAddress}" />
+	    <choice>
+	        <when>
+				<header>${parameterName}</header>
+				<transform>
+					<simple>Hello \$\{header.${parameterName}\} how are you?</simple>
+				</transform>
+			</when>
+			<otherwise>
+				<transform>
+					<constant>Add a name parameter to uri, eg ?${parameterName}=foo</constant>
+				</transform>
+			</otherwise>
+		</choice>
+	</route>
+</routes>

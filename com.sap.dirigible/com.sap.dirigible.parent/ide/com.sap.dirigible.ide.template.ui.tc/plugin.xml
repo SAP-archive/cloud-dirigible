@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.tc.command.TestCaseCommandHandler"
+               icon="icons/wizard_test-case.png"
+               label="Test Case"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.sap.dirigible.ide.workspace.ui.view.Menu.new?after=separator.custom">
+         <command
+               commandId="com.sap.dirigible.ide.template.ui.tc.command.TestCaseCommandHandler"
+               icon="icons/wizard_test-case.png"
+               label="Test Case"
+               style="push">
+         </command>
+      </menuContribution>
+      
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.sap.dirigible.ide.template.ui.tc.command.TestCaseCommandHandler"
+            id="com.sap.dirigible.ide.template.ui.tc.command.TestCaseCommandHandler"
+            name="Test Case">
+      </command>
+   </extension>
+   <extension
+         point="com.sap.dirigible.ide.template.type">
+      <template
+            category="TestCases"
+            image="/icons/rest_service.png"
+            location="/com/sap/dirigible/ide/template/ui/tc/templates/rest-service.js"
+            text="Test RESTful Service">
+      </template>
+   </extension>
+   <extension
+       point="com.sap.dirigible.ide.workspace.ui.new.menu">
+       <newMenuItem
+            text="Test Case"
+            toolTip="Test Case"
+            order="4"
+            imageBundle="com.sap.dirigible.ide.template.ui.tc"
+            imagePrefix="/icons/"
+            imageName="wizard_test-case.png"
+            defaultHandler="com.sap.dirigible.ide.template.ui.tc.command.TestCaseCommandHandler">
+        </newMenuItem>
+ 	</extension>
+</plugin>

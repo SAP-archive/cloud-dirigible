@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Database"
+            id="com.sap.dirigible.ide.db.viewer">
+      </category>
+      <view
+            name="Database Browser"
+            icon="icons/icon-schema.png"
+            category="com.sap.dirigible.ide.db.viewer"
+            class="com.sap.dirigible.ide.db.viewer.views.DatabaseViewer"
+            id="com.sap.dirigible.ide.db.viewer.views.DatabaseViewer">
+      </view>
+      <view
+            category="com.sap.dirigible.ide.db.viewer"
+            class="com.sap.dirigible.ide.db.viewer.views.SQLConsole"
+            icon="icons/icon-sql-console.png"
+            id="com.sap.dirigible.ide.db.viewer.views.SQLConsole"
+            name="SQL Console"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.sap.dirigible.ide.db.viewer.perspective.DatabasePerspective"
+            icon="icons/icon-schema.png"
+            id="database"
+            name="Database">
+      </perspective>
+   </extension>
+   <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="com.sap.dirigible.ide.db.viewer.editor.DbTableMetadataEditor"
+           icon="icons/icon-table.png"
+           id="com.sap.dirigible.ide.db.viewer.editor.DbTableMetadataEditor"
+           name="DbEditor">
+     </editor>
+  </extension>
+	
+	 <extension
+         point="org.eclipse.rap.ui.serviceHandler">
+      <serviceHandler
+            class="com.sap.dirigible.ide.db.data.DataExportServiceHandler"
+            id="com.sap.dirigible.ide.db.data.DataExportServiceHandler">
+      </serviceHandler>
+   </extension>
+   
+   <extension
+      point = "org.eclipse.ui.preferencePages">
+       <page id="com.sap.dirigible.ide.db.preferences.DatabasePreferencePage"
+	    	class="com.sap.dirigible.ide.db.preferences.DatabasePreferencePage" name="Database">
+       </page>
+       <page id="com.sap.dirigible.ide.db.preferences.DatabaseAttributesPreferencePage"
+	    	class="com.sap.dirigible.ide.db.preferences.DatabaseAttributesPreferencePage" name="Attributes" 
+	    	category="com.sap.dirigible.ide.db.preferences.DatabasePreferencePage">
+       </page>
+       <page id="com.sap.dirigible.ide.db.preferences.DatabaseDriverPreferencePage"
+	    	class="com.sap.dirigible.ide.db.preferences.DatabaseDriverPreferencePage" name="Driver" 
+	    	category="com.sap.dirigible.ide.db.preferences.DatabasePreferencePage">
+       </page>
+   </extension>
+</plugin>
