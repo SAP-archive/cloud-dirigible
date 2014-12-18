@@ -22,24 +22,24 @@ fileApp.config(function($routeProvider) {
     }).when('/scripting/javascript', {
       controller: 'JavaScriptCtrl',
       templateUrl: 'templates/scripting/javascript/javascript.html'
-    }).when('/scripting/groovy', {
-      controller: 'GroovyCtrl',
-      templateUrl: 'templates/scripting/groovy/groovy.html'
-    }).when('/scripting/java', {
-      controller: 'JavaCtrl',
-      templateUrl: 'templates/scripting/java/java.html'
+//    }).when('/scripting/groovy', {
+//      controller: 'GroovyCtrl',
+//      templateUrl: 'templates/scripting/groovy/groovy.html'
+//    }).when('/scripting/java', {
+//      controller: 'JavaCtrl',
+//      templateUrl: 'templates/scripting/java/java.html'
     }).when('/scripting/command', {
       controller: 'CommandCtrl',
       templateUrl: 'templates/scripting/command/command.html'
     }).when('/scripting/tests', {
       controller: 'TestsCtrl',
       templateUrl: 'templates/scripting/tests/tests.html'
-    }).when('/scripting/ruby', {
-      controller: 'RubyCtrl',
-      templateUrl: 'templates/scripting/ruby/ruby.html'
-    }).when('/routes', {
-      controller: 'RoutesCtrl',
-      templateUrl: 'templates/routes/routes.html'
+//    }).when('/scripting/ruby', {
+//      controller: 'RubyCtrl',
+//      templateUrl: 'templates/scripting/ruby/ruby.html'
+//    }).when('/routes', {
+//      controller: 'RoutesCtrl',
+//      templateUrl: 'templates/routes/routes.html'
     }).when('/monitoring', {
       controller: 'MonitoringCtrl',
       templateUrl: 'templates/monitoring/monitoring.html'
@@ -95,6 +95,12 @@ menuControllers.controller('UserCtrl', ['$scope', '$http',
 menuControllers.controller('HomeCtrl', ['$scope',
   function($scope) {
     $scope.homeData = [{
+      image: 'images/ide.png',
+      path: '../index.html',
+      title: 'IDE',
+      description: "Development Toolkit",
+      newTab: true
+    }, {
       image: "images/content.png",
       path: "#/content",
       title: "Repository",
@@ -110,26 +116,26 @@ menuControllers.controller('HomeCtrl', ['$scope',
       title: "Wiki",
       description: "Browse Applications Documentation"
     }, {
-      image: "images/routes.png",
-      path: "#/routes",
-      title: "Routes",
-      description: "Integration Services Endpoints"
-    }, {
+//      image: "images/routes.png",
+//      path: "#/routes",
+//      title: "Routes",
+//      description: "Integration Services Endpoints"
+//    }, {
       image: "images/java-script.png",
       path: "#/scripting/javascript",
       title: "JavaScript",
       description: "JavaScript Services Endpoints"
     }, {
-      image: "images/java-groovy.png",
-      path: "#/scripting/groovy",
-      title: "Groovy",
-      description: "Groovy Services Endpoints"
-    }, {
-      image: "images/java.png",
-      path: "#/scripting/java",
-      title: "Java",
-      description: "Java Services Endpoints"
-    }, {
+//      image: "images/java-groovy.png",
+//      path: "#/scripting/groovy",
+//      title: "Groovy",
+//      description: "Groovy Services Endpoints"
+//    }, {
+//      image: "images/java.png",
+//      path: "#/scripting/java",
+//      title: "Java",
+//      description: "Java Services Endpoints"
+//    }, {
       image: "images/command.png",
       path: "#/scripting/command",
       title: "Command",
