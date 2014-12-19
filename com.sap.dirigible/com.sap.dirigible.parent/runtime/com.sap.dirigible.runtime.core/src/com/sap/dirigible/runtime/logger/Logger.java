@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Logger {
 
-	protected boolean printInSystemOutput = true;
+	protected boolean printInSystemOutput = false;
 
 	/**
 	 * Returns a {@link Logger} instance that is bound to the specified name.
@@ -70,10 +70,8 @@ public class Logger {
 	 * that caused the logging.
 	 */
 	public void error(String message, Throwable t) {
-		if (isErrorEnabled()) {
-			logger1.error(message, t);
-			logger2.log(Level.SEVERE, message, t);
-		}
+		logger1.error(message, t);
+		logger2.log(Level.SEVERE, message, t);
 		logInSystemOutput(message, t);
 	}
 
@@ -153,17 +151,6 @@ public class Logger {
 		logInSystemOutput(message, t);
 	}
 
-	
-	/**
-	 * Is the logger instance enabled for the ERROR level?
-	 * 
-	 * @return True if this Logger is enabled for the ERROR level, false
-	 *         otherwise.
-	 */
-	public boolean isErrorEnabled() {
-		return logger1.isErrorEnabled() || logger2.isLoggable(Level.SEVERE);
-	}
-
 	/**
 	 * Is the logger instance enabled for the DEBUG level?
 	 * 
@@ -171,7 +158,7 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isDebugEnabled() {
-		return logger1.isDebugEnabled() || logger2.isLoggable(Level.INFO);
+		return logger1.isDebugEnabled() || logger2.isLoggable(Level.FINEST);
 	}
 
 	/**

@@ -16,8 +16,6 @@
 package com.sap.dirigible.runtime.flow;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +25,6 @@ import com.google.gson.Gson;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.command.CommandExecutor;
 import com.sap.dirigible.runtime.command.CommandServlet;
-import com.sap.dirigible.runtime.java.JavaExecutor;
-import com.sap.dirigible.runtime.java.JavaServlet;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.js.JavaScriptServlet;
 import com.sap.dirigible.runtime.logger.Logger;
@@ -68,28 +64,45 @@ public class FlowExecutor extends AbstractScriptExecutor {
 		
 		Gson gson = new Gson();
 		
+		/* 
+		 * {
+		 *   "name":"MyFlow1",
+		 *   "properties":
+		 *     {
+		 *       "myKey2":"myValue2",
+		 *       "myKey1":"myValue1"
+		 *     },
+		 *   "steps": 
+		 *   [
+		 *     {"id":"1","type":"javascript","module":"/project1/service1.js"},
+		 *     {"id":"2","type":"javascript","module":"/project1/service2.js"}
+		 *   ]
+		 * }
+		 */
 		FlowMetadata flowMetadata = gson.fromJson(flowSource, FlowMetadata.class);
 		
 		Object inputOutput = null;
 		
+		executionContext.putAll(flowMetadata.getProperties());
+		
 		// TODO make extension point
-		for (FlowStep flowStep : flowMetadata.getFlowSteps()) {
+		for (FlowStep flowStep : flowMetadata.getSteps()) {
 			try {
 				if (FlowStep.FLOW_STEP_TYPE_JAVASCRIPT.equalsIgnoreCase(flowStep.getType())) {
 					JavaScriptServlet javaScriptServlet = new JavaScriptServlet();
 					JavaScriptExecutor javaScriptExecutor = javaScriptServlet.createExecutor(request);
-					inputOutput = javaScriptExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
-				} else if (FlowStep.FLOW_STEP_TYPE_JAVA.equalsIgnoreCase(flowStep.getType())) {
-					JavaServlet javaServlet = new JavaServlet();
-					JavaExecutor javaExecutor = javaServlet.createExecutor(request);
-					inputOutput = javaExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
+					inputOutput = javaScriptExecutor.executeServiceModule(request, response, inputOutput, flowStep.getModule(), executionContext);
+//				} else if (FlowStep.FLOW_STEP_TYPE_JAVA.equalsIgnoreCase(flowStep.getType())) {
+//					JavaServlet javaServlet = new JavaServlet();
+//					JavaExecutor javaExecutor = javaServlet.createExecutor(request);
+//					inputOutput = javaExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
 				} else if (FlowStep.FLOW_STEP_TYPE_COMMAND.equalsIgnoreCase(flowStep.getType())) {
 					CommandServlet commandServlet = new CommandServlet();
 					CommandExecutor commandExecutor = commandServlet.createExecutor(request);
-					inputOutput = commandExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
+					inputOutput = commandExecutor.executeServiceModule(request, response, inputOutput, flowStep.getModule(), executionContext);
 				} else { // groovy etc...
-					throw new IllegalArgumentException(String.format("Unknown execution type [%s] of step %s", 
-							flowStep.getType(), flowStep.getId()));
+					throw new IllegalArgumentException(String.format("Unknown execution type [%s] of step %s in flow %s at %s", 
+							flowStep.getType(), flowStep.getId(), flowMetadata.getName(), module));
 				}
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);

@@ -45,7 +45,7 @@ public class SecuritySynchronizer implements Runnable {
 
 		try {
 			refreshSecuredLocations();
-			logger.info("Refresh of secured locations successful for: " //$NON-NLS-1$
+			logger.debug("Refresh of secured locations successful for: " //$NON-NLS-1$
 					+ securedLocations.size());
 		} catch (Exception e) {
 			logger.error(REFRESHING_OF_SECURED_LOCATIONS_FAILED, e);

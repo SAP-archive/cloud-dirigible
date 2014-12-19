@@ -61,12 +61,14 @@ public class ContentInitializerServlet extends HttpServlet {
 		
 		ContentImporterServlet contentImporterServlet = new ContentImporterServlet();
 		try {
+			// TODO better check for content init done 
 			IResource resource = contentImporterServlet.getRepository(request).getResource("/db/dirigible/default.content");
 			if (!resource.exists()) {
 				logger.info("Initializing default content..."); //$NON-NLS-1$
 				contentImporterServlet.importZipAndUpdate(this.getClass().getResourceAsStream("/content.zip"), PATH_REGISTY_ROOT_TARGET, request);
 				logger.info("Default content initialized."); //$NON-NLS-1$
 			}
+			//--
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}

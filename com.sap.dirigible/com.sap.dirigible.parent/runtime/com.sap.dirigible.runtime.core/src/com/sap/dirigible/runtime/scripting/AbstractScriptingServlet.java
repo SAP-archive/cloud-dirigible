@@ -60,12 +60,14 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 		super.service(request, response);
 	}
 
-	private void initRepository(HttpServletRequest request)
+	private IRepository initRepository(HttpServletRequest request)
 			throws ServletException {
 		try {
 			final IRepository repository = RepositoryFacade.getInstance()
 					.getRepository(request);
-			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
+			request.getSession().setAttribute(REPOSITORY_ATTRIBUTE, repository);
+			return repository;
+//			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
 		} catch (Exception ex) {
 			throw new ServletException(COULD_NOT_INITIALIZE_REPOSITORY, ex);
 		}
@@ -116,13 +118,14 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 
 	protected IRepository getRepository(HttpServletRequest req)
 			throws IOException {
-		IRepository repository = (IRepository) getServletContext()
-				.getAttribute(REPOSITORY_ATTRIBUTE);
+//		IRepository repository = (IRepository) getServletContext()
+//				.getAttribute(REPOSITORY_ATTRIBUTE);
+		IRepository repository = (IRepository) req.getSession().getAttribute(REPOSITORY_ATTRIBUTE);
 		if (repository == null) {
 			try {
-				initRepository(req);
-				repository = (IRepository) getServletContext().getAttribute(
-						REPOSITORY_ATTRIBUTE);
+				repository = initRepository(req);
+//				repository = (IRepository) getServletContext().getAttribute(
+//						REPOSITORY_ATTRIBUTE);
 			} catch (ServletException e) {
 				throw new IOException(e);
 			}
