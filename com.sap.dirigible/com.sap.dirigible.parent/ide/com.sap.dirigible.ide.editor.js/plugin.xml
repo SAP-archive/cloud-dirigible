@@ -5,7 +5,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="com.sap.dirigible.ide.editor.js.JavaScriptEditor"
-            extensions="js,xml,xsl,sql,html,odata,json,jslib,routes,ws,wsdl,table,view,entity,menu,txt"
+            extensions="js,xml,xsl,sql,html,odata,json,jslib,routes,ws,wsdl,table,view,entity,menu,txt,flow,job"
             icon="icons/editor-icon.png"
             id="com.sap.dirigible.ide.editor.SourceCodeEditor"
             name="Source Editor">

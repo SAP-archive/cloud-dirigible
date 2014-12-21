@@ -44,6 +44,8 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 	public static final URL TYPE_ODATA_ICON_URL = getIconURL("icon-odata.png"); //$NON-NLS-1$
 	public static final URL TYPE_ENTITY_ICON_URL = getIconURL("icon-entity.png"); //$NON-NLS-1$
 	public static final URL TYPE_ROUTES_ICON_URL = getIconURL("icon-routes.png"); //$NON-NLS-1$
+	public static final URL TYPE_FLOW_ICON_URL = getIconURL("icon-flow.png"); //$NON-NLS-1$
+	public static final URL TYPE_JOB_ICON_URL = getIconURL("icon-job.png"); //$NON-NLS-1$
 	public static final URL TYPE_WS_ICON_URL = getIconURL("icon-ws.png"); //$NON-NLS-1$
 	public static final URL TYPE_MENU_ICON_URL = getIconURL("icon-menu.png"); //$NON-NLS-1$
 	public static final URL TYPE_TABLE_ICON_URL = getIconURL("icon-table.png"); //$NON-NLS-1$
@@ -114,6 +116,12 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 		}
 		if (resourceName.endsWith("routes")) { //$NON-NLS-1$
 			return createImage(TYPE_ROUTES_ICON_URL);
+		}
+		if (resourceName.endsWith("flow")) { //$NON-NLS-1$
+			return createImage(TYPE_FLOW_ICON_URL);
+		}
+		if (resourceName.endsWith("job")) { //$NON-NLS-1$
+			return createImage(TYPE_JOB_ICON_URL);
 		}
 		if (resourceName.endsWith("ws")) { //$NON-NLS-1$
 			return createImage(TYPE_WS_ICON_URL);

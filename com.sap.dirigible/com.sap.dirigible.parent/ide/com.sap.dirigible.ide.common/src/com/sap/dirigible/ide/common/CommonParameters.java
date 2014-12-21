@@ -30,6 +30,7 @@ public class CommonParameters {
 
 	public static final String SEPARATOR = "/"; //$NON-NLS-1$
 	public static final String DEBUG_SEPARATOR = ":"; //$NON-NLS-1$
+	public static final String DOT = "."; //$NON-NLS-1$
 
 	
 	public static String getWorkspace() {
@@ -76,6 +77,13 @@ public class CommonParameters {
 	public static String getScriptingContentSandbox() {
 		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SCRIPTING_CONTENT_FOLDER;
 	}
+	
+	public static final String INTEGRATION_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES;
+	public static final String INTEGRATION_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
+			+ INTEGRATION_CONTENT_FOLDER;
+	public static String getIntegrationContentSandbox() {
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + INTEGRATION_CONTENT_FOLDER;
+	}
 
 	public static final String SECURITY_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS;
 	public static final String SECURITY_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
@@ -112,6 +120,8 @@ public class CommonParameters {
 	public static final String COMMAND_CONTAINER_MAPPING = "/command"; //$NON-NLS-1$
 	public static final String TEST_CASES_CONTAINER_MAPPING = "/test"; //$NON-NLS-1$
 	public static final String WIKI_CONTENT_CONTAINER_MAPPING = "/wiki"; //$NON-NLS-1$
+	public static final String FLOW_CONTAINER_MAPPING = "/flow"; //$NON-NLS-1$
+	public static final String JOB_CONTAINER_MAPPING = "/job"; //$NON-NLS-1$
 
 	public static final String WEB_CONTENT_SANDBOX_MAPPING = "/web-sandbox"; //$NON-NLS-1$
 	public static final String JAVASCRIPT_SANDBOX_MAPPING = "/js-sandbox"; //$NON-NLS-1$
@@ -121,12 +131,16 @@ public class CommonParameters {
 	public static final String COMMAND_SANDBOX_MAPPING = "/command-sandbox"; //$NON-NLS-1$
 	public static final String TEST_CASES_SANDBOX_MAPPING = "/test-sandbox"; //$NON-NLS-1$
 	public static final String WIKI_CONTENT_SANDBOX_MAPPING = "/wiki-sandbox"; //$NON-NLS-1$
+	public static final String FLOW_SANDBOX_MAPPING = "/flow-sandbox"; //$NON-NLS-1$
+	public static final String JOB_SANDBOX_MAPPING = "/job-sandbox"; //$NON-NLS-1$
 
 	public static final String JAVASCRIPT_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.JAVASCRIPT; //$NON-NLS-1$
 	public static final String RUBY_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.RUBY; //$NON-NLS-1$
 	public static final String GROOVY_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.GROOVY; //$NON-NLS-1$
 	public static final String JAVA_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.JAVA; //$NON-NLS-1$
 	public static final String COMMAND_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.COMMAND; //$NON-NLS-1$
+	public static final String FLOW_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.FLOW; //$NON-NLS-1$
+	public static final String JOB_SERVICE_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.JOB; //$NON-NLS-1$
 	
 	
 	public static final String EXTENSION_POINT_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.EXTENSION_POINT; //$NON-NLS-1$

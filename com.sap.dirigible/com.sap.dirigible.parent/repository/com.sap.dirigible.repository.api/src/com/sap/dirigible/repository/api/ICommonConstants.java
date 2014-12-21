@@ -32,6 +32,8 @@ public interface ICommonConstants {
 		public static final String EXTENSION_POINT = ".extensionpoint"; //$NON-NLS-1$
 		public static final String EXTENSION = ".extension"; //$NON-NLS-1$
 		public static final String SECURITY = ".access"; //$NON-NLS-1$
+		public static final String FLOW = ".flow"; //$NON-NLS-1$
+		public static final String JOB = ".job"; //$NON-NLS-1$
 	}
 	
 	public interface ARTIFACT_TYPE {

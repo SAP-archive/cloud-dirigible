@@ -28,8 +28,6 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 
-	private static final String DOT = "."; //$NON-NLS-1$
-
 	public ScriptsPublisher() {
 		super();
 	}
@@ -68,14 +66,14 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 	@Override
 	public boolean recognizedFile(IFile file) {
 		if (checkFolderType(file)) {
-			if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())
+			if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())
 					|| CommonParameters.RUBY_SERVICE_EXTENSION
-							.equals(DOT + file.getFileExtension())
-					|| CommonParameters.GROOVY_SERVICE_EXTENSION.equals(DOT
+							.equals(CommonParameters.DOT + file.getFileExtension())
+					|| CommonParameters.GROOVY_SERVICE_EXTENSION.equals(CommonParameters.DOT
 							+ file.getFileExtension())
-					|| CommonParameters.JAVA_SERVICE_EXTENSION.equals(DOT
+					|| CommonParameters.JAVA_SERVICE_EXTENSION.equals(CommonParameters.DOT
 							+ file.getFileExtension())
-					|| CommonParameters.COMMAND_SERVICE_EXTENSION.equals(DOT
+					|| CommonParameters.COMMAND_SERVICE_EXTENSION.equals(CommonParameters.DOT
 							+ file.getFileExtension())) {
 				return true;
 			}
@@ -85,19 +83,19 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 
 	@Override
 	public String getPublishedContainerMapping(IFile file) {
-		if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.JAVASCRIPT_CONTAINER_MAPPING;
 		}
-		if (CommonParameters.RUBY_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.RUBY_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.RUBY_CONTAINER_MAPPING;
 		}
-		if (CommonParameters.GROOVY_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.GROOVY_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.GROOVY_CONTAINER_MAPPING;
 		}
-		if (CommonParameters.JAVA_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.JAVA_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.JAVA_CONTAINER_MAPPING;
 		}
-		if (CommonParameters.COMMAND_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.COMMAND_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.COMMAND_CONTAINER_MAPPING;
 		}
 		return null;
@@ -105,19 +103,19 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 
 	@Override
 	public String getActivatedContainerMapping(IFile file) {
-		if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.JAVASCRIPT_SANDBOX_MAPPING;
 		}
-		if (CommonParameters.RUBY_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.RUBY_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.RUBY_SANDBOX_MAPPING;
 		}
-		if (CommonParameters.GROOVY_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.GROOVY_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.GROOVY_SANDBOX_MAPPING;
 		}
-		if (CommonParameters.JAVA_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.JAVA_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.JAVA_SANDBOX_MAPPING;
 		}
-		if (CommonParameters.COMMAND_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.COMMAND_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.COMMAND_SANDBOX_MAPPING;
 		}
 		return null;
@@ -135,7 +133,7 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 
 	@Override
 	public String getDebugEndpoint(IFile file) {
-		if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(DOT + file.getFileExtension())) {
+		if (CommonParameters.JAVASCRIPT_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
 			return CommonParameters.getServicesUrl()
 					+ CommonParameters.JAVASCRIPT_DEBUG_CONTAINER_MAPPING
 					+ generatePublishedPath(file);
