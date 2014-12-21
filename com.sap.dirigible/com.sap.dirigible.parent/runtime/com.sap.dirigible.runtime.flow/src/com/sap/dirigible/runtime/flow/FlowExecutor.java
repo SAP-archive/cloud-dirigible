@@ -36,6 +36,8 @@ public class FlowExecutor extends AbstractScriptExecutor {
 
 	private IRepository repository;
 	private String[] rootPaths;
+	
+	private Gson gson = new Gson();
 
 	public FlowExecutor(IRepository repository, String... rootPaths) {
 		super();
@@ -62,31 +64,27 @@ public class FlowExecutor extends AbstractScriptExecutor {
 		String result = null; 
 		String flowSource = new String(retrieveModule(repository, module, "", rootPaths).getContent());
 		
-		Gson gson = new Gson();
-		
-		/* 
-		 * {
-		 *   "name":"MyFlow1",
-		 *   "properties":
-		 *     {
-		 *       "myKey2":"myValue2",
-		 *       "myKey1":"myValue1"
-		 *     },
-		 *   "steps": 
-		 *   [
-		 *     {"id":"1","type":"javascript","module":"/project1/service1.js"},
-		 *     {"id":"2","type":"javascript","module":"/project1/service2.js"}
-		 *   ]
-		 * }
-		 */
-		FlowMetadata flowMetadata = gson.fromJson(flowSource, FlowMetadata.class);
+		Flow flow = gson.fromJson(flowSource, Flow.class);
 		
 		Object inputOutput = null;
 		
-		executionContext.putAll(flowMetadata.getProperties());
+		inputOutput = processFlow(request, response, module, executionContext,
+				flow, inputOutput);
+
+		result = (inputOutput != null) ? inputOutput.toString() : "";
+		
+		logger.debug("exiting: executeServiceModule()");
+		return result;
+	}
+
+	private Object processFlow(HttpServletRequest request,
+			HttpServletResponse response, String module,
+			Map<Object, Object> executionContext, Flow flow, Object inputOutput)
+			throws IOException {
+		executionContext.putAll(flow.getProperties());
 		
 		// TODO make extension point
-		for (FlowStep flowStep : flowMetadata.getSteps()) {
+		for (FlowStep flowStep : flow.getSteps()) {
 			try {
 				if (FlowStep.FLOW_STEP_TYPE_JAVASCRIPT.equalsIgnoreCase(flowStep.getType())) {
 					JavaScriptServlet javaScriptServlet = new JavaScriptServlet();
@@ -100,20 +98,28 @@ public class FlowExecutor extends AbstractScriptExecutor {
 					CommandServlet commandServlet = new CommandServlet();
 					CommandExecutor commandExecutor = commandServlet.createExecutor(request);
 					inputOutput = commandExecutor.executeServiceModule(request, response, inputOutput, flowStep.getModule(), executionContext);
+				} else if (FlowStep.FLOW_STEP_TYPE_CONDITION.equalsIgnoreCase(flowStep.getType())) {
+					
+					FlowCase[] cases = flowStep.getCases();
+					for (FlowCase flowCase : cases) {
+						Object value = executionContext.get(flowCase.getKey());
+						if (value != null
+								&& value.equals(flowCase.getValue())) {
+							processFlow(request, response, module, executionContext, flowCase.getFlow(), inputOutput);
+							break;
+						}
+					}
+					
 				} else { // groovy etc...
 					throw new IllegalArgumentException(String.format("Unknown execution type [%s] of step %s in flow %s at %s", 
-							flowStep.getType(), flowStep.getId(), flowMetadata.getName(), module));
+							flowStep.getType(), flowStep.getName(), flow.getName(), module));
 				}
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 			}
 		}
-
-		result = (inputOutput != null) ? inputOutput.toString() : "";
-		
-		logger.debug("exiting: executeServiceModule()");
-		return result;
+		return inputOutput;
 	}
 
 	@Override
