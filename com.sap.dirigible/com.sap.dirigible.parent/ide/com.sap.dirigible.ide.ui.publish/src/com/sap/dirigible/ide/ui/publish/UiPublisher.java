@@ -37,9 +37,9 @@ public class UiPublisher extends AbstractPublisher implements IPublisher {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(
 					project,
-					CommonParameters.WEB_CONTENT_REGISTRY_PUBLISH_LOCATION);
+					ICommonConstants.WEB_CONTENT_REGISTRY_PUBLISH_LOCATION);
 			final IFolder sourceFolder = getSourceFolder(project,
-					CommonParameters.WEB_CONTENT_FOLDER);
+					ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT);
 			copyAllFromTo(sourceFolder, targetContainer);
 		} catch (Exception ex) {
 			throw new PublishException(ex.getMessage(), ex);
@@ -53,7 +53,7 @@ public class UiPublisher extends AbstractPublisher implements IPublisher {
 					project,
 					getSandboxLocation());
 			final IFolder sourceFolder = getSourceFolder(project,
-					CommonParameters.WEB_CONTENT_FOLDER);
+					ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT);
 			copyAllFromTo(sourceFolder, targetContainer);
 		} catch (Exception ex) {
 			throw new PublishException(ex.getMessage(), ex);

@@ -37,9 +37,9 @@ public class WikiPublisher extends AbstractPublisher implements IPublisher {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(
 					project,
-					CommonParameters.WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION);
+					ICommonConstants.WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION);
 			final IFolder sourceFolder = getSourceFolder(project,
-					CommonParameters.WIKI_CONTENT_FOLDER);
+					ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT);
 			copyAllFromTo(sourceFolder, targetContainer);
 		} catch (Exception ex) {
 			throw new PublishException(ex.getMessage(), ex);
@@ -53,7 +53,7 @@ public class WikiPublisher extends AbstractPublisher implements IPublisher {
 					project,
 					CommonParameters.getWikiContentSandbox());
 			final IFolder sourceFolder = getSourceFolder(project,
-					CommonParameters.WIKI_CONTENT_FOLDER);
+					ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT);
 			copyAllFromTo(sourceFolder, targetContainer);
 		} catch (Exception ex) {
 			throw new PublishException(ex.getMessage(), ex);

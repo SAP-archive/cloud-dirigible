@@ -187,9 +187,9 @@ public abstract class GenerationModel {
 				if (i == 1) {
 					continue;
 				}
-				result.append(location.segment(i) + CommonParameters.SEPARATOR);
+				result.append(location.segment(i) + ICommonConstants.SEPARATOR);
 			}
-			result.delete(result.length() - CommonParameters.SEPARATOR.length(), result.length());
+			result.delete(result.length() - ICommonConstants.SEPARATOR.length(), result.length());
 		} else {
 			result.append(location.segment(0));
 		}

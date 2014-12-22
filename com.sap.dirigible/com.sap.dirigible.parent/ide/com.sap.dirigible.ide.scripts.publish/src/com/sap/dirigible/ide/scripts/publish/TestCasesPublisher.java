@@ -37,9 +37,9 @@ public class TestCasesPublisher extends AbstractPublisher implements IPublisher 
 	public void publish(IProject project) throws PublishException {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(
-					project, CommonParameters.TESTS_REGISTRY_PUBLISH_LOCATION);
+					project, ICommonConstants.TESTS_REGISTRY_PUBLISH_LOCATION);
 			final IFolder sourceFolder = getSourceFolder(project,
-					CommonParameters.TESTS_CONTENT_FOLDER);
+					ICommonConstants.ARTIFACT_TYPE.TEST_CASES);
 			copyAllFromTo(sourceFolder, targetContainer);
 		} catch (Exception ex) {
 			throw new PublishException(ex.getMessage(), ex);
@@ -52,7 +52,7 @@ public class TestCasesPublisher extends AbstractPublisher implements IPublisher 
 			final ICollection targetContainer = getTargetProjectContainer(
 					project, CommonParameters.getTestingContentSandbox());
 			final IFolder sourceFolder = getSourceFolder(project,
-					CommonParameters.TESTS_CONTENT_FOLDER);
+					ICommonConstants.ARTIFACT_TYPE.TEST_CASES);
 			copyAllFromTo(sourceFolder, targetContainer);
 		} catch (Exception ex) {
 			throw new PublishException(ex.getMessage(), ex);

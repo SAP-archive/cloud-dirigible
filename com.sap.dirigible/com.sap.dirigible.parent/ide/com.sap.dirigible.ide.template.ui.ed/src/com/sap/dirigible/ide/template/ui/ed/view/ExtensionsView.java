@@ -42,6 +42,7 @@ import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.template.ui.ed.wizard.Messages;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.ide.workspace.ui.commands.OpenHandler;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.ext.extensions.ExtensionDefinition;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
 import com.sap.dirigible.repository.ext.extensions.ExtensionPointDefinition;
@@ -78,13 +79,13 @@ public class ExtensionsView extends ViewPart {
 					if (firstElement instanceof ExtensionPointDefinition) {
 						ExtensionPointDefinition extensionPoint = (ExtensionPointDefinition) firstElement;
 						openEditor(CommonUtils.formatToIDEPath(
-								CommonParameters.EXTENSION_CONTENT_FOLDER,
+								ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS,
 								extensionPoint.getLocation())
 								+ CommonParameters.EXTENSION_POINT_EXTENSION);
 					} else if (firstElement instanceof ExtensionDefinition) {
 						ExtensionDefinition extension = (ExtensionDefinition) firstElement;
 						openEditor(CommonUtils.formatToIDEPath(
-								CommonParameters.EXTENSION_CONTENT_FOLDER, extension.getLocation())
+								ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS, extension.getLocation())
 								+ CommonParameters.EXTENSION_EXTENSION);
 					}
 				}

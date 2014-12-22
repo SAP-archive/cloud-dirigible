@@ -26,7 +26,7 @@ import java.util.zip.ZipInputStream;
  */
 public interface IRepository {
 
-	public static final String SEPARATOR = "/"; //$NON-NLS-1$
+	public static final String SEPARATOR = ICommonConstants.SEPARATOR; //$NON-NLS-1$
 
 	/**
 	 * Returns an instance of <code>ICollection</code> which represents the root

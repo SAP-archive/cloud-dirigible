@@ -15,8 +15,8 @@ Build-Jdk: 1.6.0_33
 Bundle-Version: 2.0.141200
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.repository.ext;singleton:=true
-Require-Bundle: org.apache.lucene.analysis;bundle-version="3.5.0",
- org.apache.lucene.core;bundle-version="3.5.0",
+Require-Bundle: org.apache.lucene.analysis,
+ org.apache.lucene.core,
  com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,
  org.apache.commons.io

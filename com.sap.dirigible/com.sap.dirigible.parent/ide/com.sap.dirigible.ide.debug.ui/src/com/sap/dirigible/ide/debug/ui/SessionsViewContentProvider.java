@@ -23,6 +23,7 @@ import org.eclipse.jface.viewers.Viewer;
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class SessionsViewContentProvider implements ITreeContentProvider {
 	private static final long serialVersionUID = -7946214629624017357L;
@@ -47,11 +48,11 @@ public class SessionsViewContentProvider implements ITreeContentProvider {
 			StringBuilder label = new StringBuilder();
 			label
 				.append(debugModel.getUserId())
-				.append(CommonParameters.DEBUG_SEPARATOR)
+				.append(ICommonConstants.DEBUG_SEPARATOR)
 				.append(i+1)
-				.append(CommonParameters.DEBUG_SEPARATOR)
+				.append(ICommonConstants.DEBUG_SEPARATOR)
 				.append(debugModel.getExecutionId())
-				.append(CommonParameters.DEBUG_SEPARATOR);
+				.append(ICommonConstants.DEBUG_SEPARATOR);
 			elements[i++] = label.toString(); 
 		}
 		

@@ -24,24 +24,13 @@ import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public class CommonParameters {
 
-	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
-	public static final String DIRIGIBLE_PRODUCT_NAME = "Dirigible"; //$NON-NLS-1$
-	public static final String DIRIGIBLE_PRODUCT_VERSION = "2.0.141200-beta"; //$NON-NLS-1$
-
-	public static final String SEPARATOR = "/"; //$NON-NLS-1$
-	public static final String DEBUG_SEPARATOR = ":"; //$NON-NLS-1$
-	public static final String DOT = "."; //$NON-NLS-1$
-
 	
 	public static String getWorkspace() {
-		return IRepositoryPaths.DB_DIRIGIBLE_USERS + getUserName() + SEPARATOR + IRepositoryPaths.WORKSPACE_FOLDER_NAME;
+		return IRepositoryPaths.DB_DIRIGIBLE_USERS + getUserName() + ICommonConstants.SEPARATOR + IRepositoryPaths.WORKSPACE_FOLDER_NAME;
 	}
 
 	public static final String DB_DIRIGIBLE_CONFIGURATIONS = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ ICommonConstants.ARTIFACT_TYPE.CONFIGURATION_SETTINGS; //$NON-NLS-1$
-
-	public static final String REGISTRY = "/registry"; //$NON-NLS-1$
-	public static final String SANDBOX = "/sandbox"; //$NON-NLS-1$
 
 	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
 	public static final String SERVICES_URL = "servicesUrl"; //$NON-NLS-1$
@@ -49,68 +38,41 @@ public class CommonParameters {
 	public static final String SERVICES_URL_DEFAULT = ""; //$NON-NLS-1$
 	
 	public static final String ENABLE_ROLES = "enableRoles"; //$NON-NLS-1$
-	
 	public static final String LOGGER_FACTORY = "loggerFactory"; //$NON-NLS-1$
 
-	public static final String WEB_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
-	public static final String WEB_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
-			+ WEB_CONTENT_FOLDER;
-
 	public static String getWebContentSandbox() {
-		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + ICommonConstants.SEPARATOR
 				+ ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
 	}
 
-	public static final String WIKI_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
-	public static final String WIKI_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
-			+ WIKI_CONTENT_FOLDER;
-
 	public static String getWikiContentSandbox() {
-		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + ICommonConstants.SEPARATOR
 				+ ICommonConstants.ARTIFACT_TYPE.WIKI_CONTENT;
 	}
 
-	public static final String SCRIPTING_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
-	public static final String SCRIPTING_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
-			+ SCRIPTING_CONTENT_FOLDER;
-
 	public static String getScriptingContentSandbox() {
-		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SCRIPTING_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + ICommonConstants.SEPARATOR + ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
 	}
 	
-	public static final String INTEGRATION_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES;
-	public static final String INTEGRATION_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
-			+ INTEGRATION_CONTENT_FOLDER;
 	public static String getIntegrationContentSandbox() {
-		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + INTEGRATION_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + ICommonConstants.SEPARATOR + ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES;
 	}
-
-	public static final String SECURITY_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS;
-	public static final String SECURITY_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
-			+ SECURITY_CONTENT_FOLDER;
 
 	public static String getSecuritContentSandbox() {
-		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + SECURITY_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + ICommonConstants.SEPARATOR + ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS;
 	}
-
-	public static final String TESTS_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.TEST_CASES;
-	public static final String TESTS_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
-			+ TESTS_CONTENT_FOLDER;
 
 	public static String getTestingContentSandbox() {
-		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + TESTS_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + ICommonConstants.SEPARATOR + ICommonConstants.ARTIFACT_TYPE.TEST_CASES;
 	}
 
-	public static final String EXTENSION_CONTENT_FOLDER = ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS;
-	public static final String EXTENSION_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
-			+ EXTENSION_CONTENT_FOLDER;
-
 	public static String getExtensionContentSandbox() {
-		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + SEPARATOR + EXTENSION_CONTENT_FOLDER;
+		return IRepositoryPaths.DB_DIRIGIBLE_SANDBOX + getUserName() + ICommonConstants.SEPARATOR + ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS;
 	}
 
 	// github url
 	public static final String GIT_REPOSITORY_URL = "https://github.com/SAP/cloud-dirigible-samples.git";
+	
 	public static final String WEB_CONTENT_CONTAINER_MAPPING = "/web"; //$NON-NLS-1$
 	public static final String JAVASCRIPT_CONTAINER_MAPPING = "/js"; //$NON-NLS-1$
 	public static final String JAVASCRIPT_DEBUG_CONTAINER_MAPPING = "/js-debug"; //$NON-NLS-1$
@@ -146,6 +108,7 @@ public class CommonParameters {
 	public static final String EXTENSION_POINT_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.EXTENSION_POINT; //$NON-NLS-1$
 	public static final String EXTENSION_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.EXTENSION; //$NON-NLS-1$
 	public static final String SECURITY_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.SECURITY; //$NON-NLS-1$
+	
 	public static final String GUEST_USER = "guest"; //$NON-NLS-1$
 
 	public static final String CONTENT_EXPORT = "/content-export/"; //$NON-NLS-1$

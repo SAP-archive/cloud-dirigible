@@ -25,10 +25,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.ext.db.AbstractDataUpdater;
@@ -39,7 +43,9 @@ public class SecurityUpdater extends AbstractDataUpdater {
 	private static final String NODE_ROLES = "roles";
 	private static final String NODE_LOCATION = "location";
 	public static final String EXTENSION_ACCESS = ".access"; //$NON-NLS-1$
-	public static final String REGISTRY_SECURITY_CONSTRAINTS_DEFAULT = "/db/dirigible/registry/public/SecurityConstraints"; //$NON-NLS-1$
+	public static final String REGISTRY_SECURITY_CONSTRAINTS_DEFAULT = ICommonConstants.SECURITY_REGISTRY_PUBLISH_LOCATION;
+	
+	private static final Logger logger = LoggerFactory.getLogger(SecurityUpdater.class);
 
 	private IRepository repository;
 	private DataSource dataSource;
@@ -79,9 +85,11 @@ public class SecurityUpdater extends AbstractDataUpdater {
 				}
 			}
 		} catch (SQLException e) {
-			throw new Exception(e);
+			logger.error(e.getMessage(), e);
+//			throw new Exception(e);
 		} catch (IOException e) {
-			throw new Exception(e);
+			logger.error(e.getMessage(), e);
+//			throw new Exception(e);
 		}
 	}
 
@@ -164,6 +172,7 @@ public class SecurityUpdater extends AbstractDataUpdater {
 		}
 	}
 
+	@Override
 	public void applyUpdates() throws IOException, Exception {
 		List<String> knownFiles = new ArrayList<String>();
 		ICollection srcContainer = this.repository.getCollection(this.location);

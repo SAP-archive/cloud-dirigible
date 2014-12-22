@@ -35,6 +35,7 @@ import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 
@@ -259,12 +260,12 @@ public abstract class AbstractPublisher implements IPublisher {
 	}
 
 	public String getPublishedLocation(IFile file) {
-		return CommonParameters.getServicesUrl() + IPath.SEPARATOR + CommonParameters.REGISTRY
+		return CommonParameters.getServicesUrl() + IPath.SEPARATOR + ICommonConstants.REGISTRY
 				+ IPath.SEPARATOR + getFolderType() + generatePublishedPath(file);
 	}
 	
 	public String getActivatedLocation(IFile file) {
-		return CommonParameters.getServicesUrl() + IPath.SEPARATOR + CommonParameters.SANDBOX
+		return CommonParameters.getServicesUrl() + IPath.SEPARATOR + ICommonConstants.SANDBOX
 				+ IPath.SEPARATOR + getFolderType() + generatePublishedPath(file);
 	}
 

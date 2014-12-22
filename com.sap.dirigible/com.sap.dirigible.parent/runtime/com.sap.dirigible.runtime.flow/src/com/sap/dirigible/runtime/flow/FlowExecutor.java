@@ -22,13 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.runtime.command.CommandExecutor;
-import com.sap.dirigible.runtime.command.CommandServlet;
-import com.sap.dirigible.runtime.js.JavaScriptExecutor;
-import com.sap.dirigible.runtime.js.JavaScriptServlet;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
+import com.sap.dirigible.runtime.utils.EngineUtils;
 
 public class FlowExecutor extends AbstractScriptExecutor {
 	
@@ -86,34 +84,8 @@ public class FlowExecutor extends AbstractScriptExecutor {
 		// TODO make extension point
 		for (FlowStep flowStep : flow.getSteps()) {
 			try {
-				if (FlowStep.FLOW_STEP_TYPE_JAVASCRIPT.equalsIgnoreCase(flowStep.getType())) {
-					JavaScriptServlet javaScriptServlet = new JavaScriptServlet();
-					JavaScriptExecutor javaScriptExecutor = javaScriptServlet.createExecutor(request);
-					inputOutput = javaScriptExecutor.executeServiceModule(request, response, inputOutput, flowStep.getModule(), executionContext);
-//				} else if (FlowStep.FLOW_STEP_TYPE_JAVA.equalsIgnoreCase(flowStep.getType())) {
-//					JavaServlet javaServlet = new JavaServlet();
-//					JavaExecutor javaExecutor = javaServlet.createExecutor(request);
-//					inputOutput = javaExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
-				} else if (FlowStep.FLOW_STEP_TYPE_COMMAND.equalsIgnoreCase(flowStep.getType())) {
-					CommandServlet commandServlet = new CommandServlet();
-					CommandExecutor commandExecutor = commandServlet.createExecutor(request);
-					inputOutput = commandExecutor.executeServiceModule(request, response, inputOutput, flowStep.getModule(), executionContext);
-				} else if (FlowStep.FLOW_STEP_TYPE_CONDITION.equalsIgnoreCase(flowStep.getType())) {
-					
-					FlowCase[] cases = flowStep.getCases();
-					for (FlowCase flowCase : cases) {
-						Object value = executionContext.get(flowCase.getKey());
-						if (value != null
-								&& value.equals(flowCase.getValue())) {
-							processFlow(request, response, module, executionContext, flowCase.getFlow(), inputOutput);
-							break;
-						}
-					}
-					
-				} else { // groovy etc...
-					throw new IllegalArgumentException(String.format("Unknown execution type [%s] of step %s in flow %s at %s", 
-							flowStep.getType(), flowStep.getName(), flow.getName(), module));
-				}
+				inputOutput = executeByEngineType(request, response, module,
+						executionContext, flow, inputOutput, flowStep);
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
@@ -121,6 +93,43 @@ public class FlowExecutor extends AbstractScriptExecutor {
 		}
 		return inputOutput;
 	}
+
+	private Object executeByEngineType(HttpServletRequest request,
+			HttpServletResponse response, String module,
+			Map<Object, Object> executionContext, Flow flow,
+			Object inputOutput, FlowStep flowStep) throws IOException {
+		if (ICommonConstants.ENGINE_TYPE.JAVASCRIPT.equalsIgnoreCase(flowStep.getType())) {
+			inputOutput = EngineUtils.executeJavascript(request, response,
+					executionContext, inputOutput, flowStep.getModule());
+//				} else if (ICommonConstants.ENGINE_TYPE.JAVA.equalsIgnoreCase(flowStep.getType())) {
+//					inputOutput = EngineUtils.executeJava(request, response,
+//						executionContext, inputOutput, flowStep);
+		} else if (ICommonConstants.ENGINE_TYPE.COMMAND.equalsIgnoreCase(flowStep.getType())) {
+			inputOutput = EngineUtils.executeCommand(request, response, executionContext,
+					inputOutput, flowStep.getModule());
+		} else if (ICommonConstants.ENGINE_TYPE.CONDITION.equalsIgnoreCase(flowStep.getType())) {
+			
+			FlowCase[] cases = flowStep.getCases();
+			for (FlowCase flowCase : cases) {
+				Object value = executionContext.get(flowCase.getKey());
+				if (value != null
+						&& value.equals(flowCase.getValue())) {
+					processFlow(request, response, module, executionContext, flowCase.getFlow(), inputOutput);
+					break;
+				}
+			}
+			
+		} else if (ICommonConstants.ENGINE_TYPE.FLOW.equalsIgnoreCase(flowStep.getType())) {
+			inputOutput = EngineUtils.executeFlow(request, response, executionContext,
+					inputOutput, flowStep.getModule());
+		} else { // groovy etc...
+			throw new IllegalArgumentException(String.format("Unknown execution type [%s] of step %s in flow %s at %s", 
+					flowStep.getType(), flowStep.getName(), flow.getName(), module));
+		}
+		return inputOutput;
+	}
+
+	
 
 	@Override
 	protected void registerDefaultVariable(Object scope, String name,

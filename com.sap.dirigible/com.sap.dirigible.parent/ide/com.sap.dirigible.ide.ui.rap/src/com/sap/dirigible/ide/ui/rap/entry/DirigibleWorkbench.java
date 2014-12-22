@@ -26,6 +26,7 @@ import org.eclipse.ui.PlatformUI;
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.io.ProxyUtils;
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class DirigibleWorkbench implements EntryPoint {
 
@@ -39,7 +40,7 @@ public class DirigibleWorkbench implements EntryPoint {
 		ExitConfirmation service = RWT.getClient().getService(
 				ExitConfirmation.class);
 		service.setMessage(ARE_YOU_SURE_YOU_WANT_TO_QUIT
-				+ CommonParameters.DIRIGIBLE_PRODUCT_NAME); // TODO: I18N
+				+ ICommonConstants.DIRIGIBLE_PRODUCT_NAME); // TODO: I18N
 		
 		try {
 			ProxyUtils.setProxySettings();

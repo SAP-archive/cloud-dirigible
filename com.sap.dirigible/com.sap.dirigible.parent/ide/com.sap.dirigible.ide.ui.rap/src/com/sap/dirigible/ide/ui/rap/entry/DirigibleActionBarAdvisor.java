@@ -48,6 +48,7 @@ import org.osgi.framework.Constants;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class DirigibleActionBarAdvisor extends ActionBarAdvisor {
 
@@ -240,9 +241,9 @@ public class DirigibleActionBarAdvisor extends ActionBarAdvisor {
 		Dictionary<?, ?> headers = bundle.getHeaders();
 		Object version = headers.get(Constants.BUNDLE_VERSION);
 		MessageDialog.openInformation(shell,
-				CommonParameters.DIRIGIBLE_PRODUCT_NAME + WORKBENCH,
-				CommonParameters.DIRIGIBLE_PRODUCT_NAME + " " //$NON-NLS-1$
-						+ CommonParameters.DIRIGIBLE_PRODUCT_VERSION + "\n" //$NON-NLS-1$
+				ICommonConstants.DIRIGIBLE_PRODUCT_NAME + WORKBENCH,
+				ICommonConstants.DIRIGIBLE_PRODUCT_NAME + " " //$NON-NLS-1$
+						+ ICommonConstants.DIRIGIBLE_PRODUCT_VERSION + "\n" //$NON-NLS-1$
 						+ RUNNING_ON_RAP_VERSION + version);
 
 	}

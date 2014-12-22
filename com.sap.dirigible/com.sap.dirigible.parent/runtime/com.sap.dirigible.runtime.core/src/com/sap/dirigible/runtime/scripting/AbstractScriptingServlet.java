@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
-import com.sap.dirigible.runtime.content.ContentInitializerServlet;
 import com.sap.dirigible.runtime.filter.SandboxFilter;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
@@ -56,7 +55,7 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		initRepository(request);
-		new ContentInitializerServlet().initDefaultContent(request);
+//		new ContentInitializerServlet().initDefaultContent(request);
 		super.service(request, response);
 	}
 
@@ -65,7 +64,9 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 		try {
 			final IRepository repository = RepositoryFacade.getInstance()
 					.getRepository(request);
-			request.getSession().setAttribute(REPOSITORY_ATTRIBUTE, repository);
+			if (request != null) {
+				request.getSession().setAttribute(REPOSITORY_ATTRIBUTE, repository);
+			}
 			return repository;
 //			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
 		} catch (Exception ex) {
@@ -77,7 +78,8 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException;
 
 	protected String getScriptingRegistryPath(HttpServletRequest request) {
-		if ((request.getAttribute(SandboxFilter.SANDBOX_CONTEXT) != null
+		if (request != null 
+			&& (request.getAttribute(SandboxFilter.SANDBOX_CONTEXT) != null
 				&& (Boolean) request.getAttribute(SandboxFilter.SANDBOX_CONTEXT)
 				|| (request.getAttribute(SandboxFilter.DEBUG_CONTEXT) != null
 				&& (Boolean) request.getAttribute(SandboxFilter.DEBUG_CONTEXT)))) {
@@ -118,15 +120,15 @@ public abstract class AbstractScriptingServlet extends HttpServlet {
 
 	protected IRepository getRepository(HttpServletRequest req)
 			throws IOException {
-//		IRepository repository = (IRepository) getServletContext()
-//				.getAttribute(REPOSITORY_ATTRIBUTE);
-		IRepository repository = (IRepository) req.getSession().getAttribute(REPOSITORY_ATTRIBUTE);
+		IRepository repository = null; 
+		if (req != null) {
+			repository = (IRepository) req.getSession().getAttribute(REPOSITORY_ATTRIBUTE);
+		}
 		if (repository == null) {
 			try {
 				repository = initRepository(req);
-//				repository = (IRepository) getServletContext().getAttribute(
-//						REPOSITORY_ATTRIBUTE);
-			} catch (ServletException e) {
+			} catch (Exception e) {
+				log(e.getMessage(), e);
 				throw new IOException(e);
 			}
 		}

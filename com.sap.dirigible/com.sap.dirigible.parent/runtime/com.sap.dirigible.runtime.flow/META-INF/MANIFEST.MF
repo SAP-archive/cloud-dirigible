@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Dirigible - Runtime Wiki
+Bundle-Name: Dirigible - Runtime Flow
 Bundle-SymbolicName: com.sap.dirigible.runtime.flow;singleton:=true
 Bundle-Version: 2.0.141200
 Bundle-Vendor: SAP
@@ -11,7 +11,8 @@ Require-Bundle: com.sap.dirigible.repository.api,
  org.eclipse.equinox.http.servlet,
  org.eclipse.core.runtime,
  com.sap.dirigible.runtime.core,
- com.google.gson
+ com.google.gson,
+ org.apache.servicemix.bundles.quartz
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet,
  javax.servlet.annotation,
@@ -20,4 +21,5 @@ Import-Package: javax.servlet,
  javax.servlet.resources,
  org.slf4j
 Bundle-ActivationPolicy: lazy
-Export-Package: com.sap.dirigible.runtime.wiki
+Export-Package: com.sap.dirigible.runtime.flow,
+ com.sap.dirigible.runtime.job

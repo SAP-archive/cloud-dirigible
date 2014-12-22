@@ -11,10 +11,11 @@ Require-Bundle:
  com.sap.rap.ui.shared,
  com.sap.dirigible.ide.logging,
  com.sap.org.eclipse.ui.ide,
- org.eclipse.rap.ui;bundle-version="1.4.2",
+ org.eclipse.rap.ui,
  com.sap.dirigible.ide.editor.text,
  com.sap.dirigible.ide.debug.model,
- com.sap.dirigible.ide.common
+ com.sap.dirigible.ide.common,
+ com.sap.dirigible.repository.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: com.sap.dirigible.ide.editor.js

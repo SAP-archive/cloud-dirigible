@@ -102,8 +102,8 @@ public class IntegrationPublisher extends AbstractPublisher implements
 	@Override
 	public boolean recognizedFile(IFile file) {
 		if (checkFolderType(file)) {
-			if (CommonParameters.FLOW_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())
-					|| CommonParameters.JOB_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
+			if (CommonParameters.FLOW_SERVICE_EXTENSION.equals(ICommonConstants.DOT + file.getFileExtension())
+					|| CommonParameters.JOB_SERVICE_EXTENSION.equals(ICommonConstants.DOT + file.getFileExtension())) {
 				return true;
 			}
 		}
@@ -112,10 +112,10 @@ public class IntegrationPublisher extends AbstractPublisher implements
 
 	@Override
 	public String getPublishedContainerMapping(IFile file) {
-		if (CommonParameters.FLOW_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
+		if (CommonParameters.FLOW_SERVICE_EXTENSION.equals(ICommonConstants.DOT + file.getFileExtension())) {
 			return CommonParameters.FLOW_CONTAINER_MAPPING;
 		}
-		if (CommonParameters.JOB_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
+		if (CommonParameters.JOB_SERVICE_EXTENSION.equals(ICommonConstants.DOT + file.getFileExtension())) {
 			return CommonParameters.JOB_CONTAINER_MAPPING;
 		}
 		return null;
@@ -123,10 +123,10 @@ public class IntegrationPublisher extends AbstractPublisher implements
 	
 	@Override
 	public String getActivatedContainerMapping(IFile file) {
-		if (CommonParameters.FLOW_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
+		if (CommonParameters.FLOW_SERVICE_EXTENSION.equals(ICommonConstants.DOT + file.getFileExtension())) {
 			return CommonParameters.FLOW_SANDBOX_MAPPING;
 		}
-		if (CommonParameters.JOB_SERVICE_EXTENSION.equals(CommonParameters.DOT + file.getFileExtension())) {
+		if (CommonParameters.JOB_SERVICE_EXTENSION.equals(ICommonConstants.DOT + file.getFileExtension())) {
 			return CommonParameters.JOB_SANDBOX_MAPPING;
 		}
 		return null;

@@ -52,7 +52,7 @@ public class FlowServlet extends AbstractScriptingServlet {
 
 	}
 
-	protected FlowExecutor createExecutor(HttpServletRequest request) throws IOException {
+	public FlowExecutor createExecutor(HttpServletRequest request) throws IOException {
 		FlowExecutor executor = new FlowExecutor(getRepository(request),
 				getScriptingRegistryPath(request), REGISTRY_INTEGRATION_DEPLOY_PATH);
 		return executor;

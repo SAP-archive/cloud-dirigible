@@ -38,7 +38,6 @@ Import-Package: javax.mail,
  org.eclipse.equinox.servletbridge,
  org.slf4j
 Export-Package: com.sap.dirigible.runtime.command,
- com.sap.dirigible.runtime.content,
  com.sap.dirigible.runtime.filter,
  com.sap.dirigible.runtime.js,
  com.sap.dirigible.runtime.js.debug,

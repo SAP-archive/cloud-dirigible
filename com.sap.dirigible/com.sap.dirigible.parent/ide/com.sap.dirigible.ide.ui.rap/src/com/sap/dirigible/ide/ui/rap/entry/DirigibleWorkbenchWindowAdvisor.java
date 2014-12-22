@@ -28,6 +28,7 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class DirigibleWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
@@ -48,7 +49,7 @@ public class DirigibleWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setShowCoolBar(true);
 		configurer.setShowPerspectiveBar(false);
 		configurer
-				.setTitle(CommonParameters.DIRIGIBLE_PRODUCT_NAME + WORKBENCH); // TODO:
+				.setTitle(ICommonConstants.DIRIGIBLE_PRODUCT_NAME + WORKBENCH); // TODO:
 																				// I18N
 		configurer.setShellStyle(SWT.TITLE | SWT.MAX | SWT.RESIZE);
 		configurer.setShowProgressIndicator(true);

@@ -61,6 +61,7 @@ import com.sap.dirigible.ide.editor.js.JavaScriptEditor;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.ide.workspace.ui.commands.OpenHandler;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.ext.debug.BreakpointMetadata;
 import com.sap.dirigible.repository.ext.debug.BreakpointsMetadata;
 import com.sap.dirigible.repository.ext.debug.DebugConstants;
@@ -266,7 +267,7 @@ public class DebugView extends ViewPart implements IDebugController {
 							.getSelection();
 					String sessionInfo = (String) structuredSelection.getFirstElement();
 					StringTokenizer tokenizer = new StringTokenizer(sessionInfo,
-							CommonParameters.DEBUG_SEPARATOR);
+							ICommonConstants.DEBUG_SEPARATOR);
 					String userId = tokenizer.nextToken();
 					String sessionId = tokenizer.nextToken();
 					String executionId = tokenizer.nextToken();
@@ -334,7 +335,7 @@ public class DebugView extends ViewPart implements IDebugController {
 					BreakpointMetadata breakpointMetadata = (BreakpointMetadata) structuredSelection
 							.getFirstElement();
 					openEditor(CommonUtils.formatToIDEPath(
-							CommonParameters.SCRIPTING_CONTENT_FOLDER,
+							ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES,
 							breakpointMetadata.getFullPath()), breakpointMetadata.getRow());
 				}
 			}

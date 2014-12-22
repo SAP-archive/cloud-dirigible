@@ -25,6 +25,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sap.dirigible.repository.api.ICollection;
@@ -38,6 +41,8 @@ public class DsvUpdater extends AbstractDataUpdater {
 
 	private static final String EXTENSION_TABLE = ".table";
 	private static final String EXTENSION_DSV = ".dsv";
+	
+	private static final Logger logger = LoggerFactory.getLogger(DsvUpdater.class);
 
 	private IRepository repository;
 	private DataSource dataSource;
@@ -98,9 +103,11 @@ public class DsvUpdater extends AbstractDataUpdater {
 				}
 			}
 		} catch (SQLException e) {
-			throw new Exception(e);
+			logger.error(e.getMessage(), e);
+//			throw new Exception(e);
 		} catch (IOException e) {
-			throw new Exception(e);
+			logger.error(e.getMessage(), e);
+//			throw new Exception(e);
 		}
 	}
 

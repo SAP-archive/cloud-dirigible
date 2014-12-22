@@ -30,6 +30,7 @@ import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 @SuppressWarnings("unused")
 public class EditorWidget extends Composite {
@@ -77,7 +78,7 @@ public class EditorWidget extends Composite {
 					if (debugModel != null) {
 						String filePath = debugModel.getCurrentLineBreak().getFullPath();
 						String path = CommonUtils.formatToRuntimePath(
-								CommonParameters.SCRIPTING_CONTENT_FOLDER, filePath);
+								ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES, filePath);
 						int[] breakpoints = debugModel.getBreakpointsMetadata()
 								.getBreakpoints(path);
 

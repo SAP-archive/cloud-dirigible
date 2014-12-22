@@ -10,15 +10,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
-import com.google.gson.JsonArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.ext.db.AbstractDataUpdater;
-import com.sap.dirigible.repository.ext.security.SecurityException;
-import com.sap.dirigible.repository.ext.security.SecurityManager;
 
 public class ExtensionUpdater extends AbstractDataUpdater {
 	
@@ -27,8 +28,10 @@ public class ExtensionUpdater extends AbstractDataUpdater {
 	private static final String NODE_EXTENSION = "extension";
 	public static final String EXTENSION_EXTENSION = ".extension"; //$NON-NLS-1$
 	public static final String EXTENSION_EXTENSION_POINT = ".extensionpoint"; //$NON-NLS-1$
-	public static final String REGISTRY_EXTENSION_DEFINITIONS_DEFAULT = "/db/dirigible/registry/public/ExtensionDefinitions"; //$NON-NLS-1$
+	public static final String REGISTRY_EXTENSION_DEFINITIONS_DEFAULT = ICommonConstants.EXTENSION_REGISTRY_PUBLISH_LOCATION;
 
+	private static final Logger logger = LoggerFactory.getLogger(ExtensionUpdater.class);
+	
 	private IRepository repository;
 	private DataSource dataSource;
 	private String location;
@@ -68,9 +71,11 @@ public class ExtensionUpdater extends AbstractDataUpdater {
 				}
 			}
 		} catch (SQLException e) {
-			throw new Exception(e);
+			logger.error(e.getMessage(), e);
+//			throw new Exception(e);
 		} catch (IOException e) {
-			throw new Exception(e);
+			logger.error(e.getMessage(), e);
+//			throw new Exception(e);
 		}
 	}
 

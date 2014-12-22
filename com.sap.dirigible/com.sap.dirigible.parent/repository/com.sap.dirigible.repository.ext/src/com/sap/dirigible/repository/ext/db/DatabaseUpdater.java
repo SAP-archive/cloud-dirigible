@@ -37,6 +37,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.db.DBSupportedTypesMap;
@@ -79,7 +80,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 
 	public static final String EXTENSION_TABLE = ".table"; //$NON-NLS-1$
 	public static final String EXTENSION_VIEW = ".view"; //$NON-NLS-1$
-	public static final String REGISTRY_DATA_STRUCTURES_DEFAULT = "/db/dirigible/registry/public/DataStructures"; //$NON-NLS-1$
+	public static final String REGISTRY_DATA_STRUCTURES_DEFAULT = ICommonConstants.DATA_CONTENT_REGISTRY_PUBLISH_LOCATION;
 
 	private IRepository repository;
 	private DataSource dataSource;
@@ -123,10 +124,10 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-			throw new Exception(e);
+//			throw new Exception(e);
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
-			throw new Exception(e);
+//			throw new Exception(e);
 		}
 	}
 	

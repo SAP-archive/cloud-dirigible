@@ -15,16 +15,17 @@
 
 package com.sap.dirigible.ide.common;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public class CommonUtils {
 
 	public static String formatToIDEPath(String folder, String runtimePath) {
 		StringBuilder path = new StringBuilder(runtimePath);
-		int metaFolderIndex = runtimePath.indexOf(CommonParameters.SEPARATOR,
-				runtimePath.indexOf(CommonParameters.SEPARATOR) + 1);
+		int metaFolderIndex = runtimePath.indexOf(ICommonConstants.SEPARATOR,
+				runtimePath.indexOf(ICommonConstants.SEPARATOR) + 1);
 		if (metaFolderIndex != -1) {
-			path.insert(metaFolderIndex, CommonParameters.SEPARATOR + folder);
+			path.insert(metaFolderIndex, ICommonConstants.SEPARATOR + folder);
 		}
 		return path.toString();
 	}
@@ -32,11 +33,11 @@ public class CommonUtils {
 	public static String formatToRuntimePath(String folder, String idePath) {
 		StringBuilder path = new StringBuilder(idePath);
 		int indexOfWorkspace = path.indexOf(IRepositoryPaths.WORKSPACE_FOLDER_NAME);
-		int indexOfSlash = path.indexOf(CommonParameters.SEPARATOR, indexOfWorkspace);
-		path.replace(0, indexOfSlash, CommonParameters.EMPTY_STRING);
+		int indexOfSlash = path.indexOf(ICommonConstants.SEPARATOR, indexOfWorkspace);
+		path.replace(0, indexOfSlash, ICommonConstants.EMPTY_STRING);
 		int indexOfFolder = path.indexOf(folder);
 		path.replace(indexOfFolder, indexOfFolder + folder.length() + 1,
-				CommonParameters.EMPTY_STRING);
+				ICommonConstants.EMPTY_STRING);
 		return path.toString();
 	}
 	
