@@ -3,7 +3,7 @@
 <plugin>
 
      <extension
-           id="FlowRegistryServlet"
+           id="FlowServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
               alias="/flow"
@@ -13,7 +13,7 @@
      </extension>
 	 
 	 <extension
-           id="FlowRegistrySecuredServlet"
+           id="FlowSecuredServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
               alias="/flow-secured"
@@ -23,7 +23,7 @@
      </extension>
 	 
 	 <extension
-           id="FlowRegistrySandboxServlet"
+           id="FlowSandboxServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
               alias="/flow-sandbox"
@@ -75,5 +75,101 @@
               class="com.sap.dirigible.runtime.flow.FlowRegistrySecureFilter">
         </filter>
      </extension>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+     <extension
+           id="JobSyncServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/job"
+              class="com.sap.dirigible.runtime.job.JobSyncServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="JobSyncSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/job-secured"
+              class="com.sap.dirigible.runtime.job.JobSyncSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="JobSyncSandboxServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/job-sandbox"
+              class="com.sap.dirigible.runtime.job.JobSyncSandboxServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="JobRegistryUiContentServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/web/job"
+              class="com.sap.dirigible.runtime.job.JobRegistryUiContentServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+	 
+	 <extension
+           id="JobRegistryUiContentSecuredServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/job/job-secured"
+              class="com.sap.dirigible.runtime.job.JobRegistryUiContentSecuredServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/job-secured"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     
+      <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/job-sandbox"
+              class="com.sap.dirigible.runtime.filter.RegistrySecureRolesFilter">
+        </filter>
+     </extension>
+     
+     <extension
+           point="org.eclipse.equinox.http.registry.filters">
+        <filter
+              alias="/job"
+              class="com.sap.dirigible.runtime.job.JobRegistrySecureFilter">
+        </filter>
+     </extension>
+
+          
           
 </plugin>

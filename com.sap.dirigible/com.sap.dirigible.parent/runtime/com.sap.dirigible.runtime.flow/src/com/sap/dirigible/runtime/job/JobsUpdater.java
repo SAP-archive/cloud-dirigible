@@ -36,7 +36,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
@@ -45,12 +44,6 @@ import com.sap.dirigible.repository.ext.db.AbstractDataUpdater;
 
 public class JobsUpdater extends AbstractDataUpdater {
 
-	static final String NODE_NAME = "name";
-	static final String NODE_DESCRIPTION = "description";
-	static final String NODE_EXPRESSION = "expression";
-	static final String NODE_TYPE = "type";
-	static final String NODE_MODULE = "module";
-	
 	public static final String EXTENSION_JOB = ".job"; //$NON-NLS-1$
 	
 	public static final String REGISTRY_INTEGRATION_DEFAULT = ICommonConstants.INTEGRATION_REGISTRY_PUBLISH_LOCATION;
@@ -116,21 +109,27 @@ public class JobsUpdater extends AbstractDataUpdater {
 	private void executeJobUpdate(Connection connection,
 			String jobDefinition, HttpServletRequest request)
 			throws SQLException, IOException, JobsException {
-		JsonObject jobDefinitionArray = parseJob(jobDefinition);
 		
-		String jobName = jobDefinitionArray.get(NODE_NAME).getAsString(); //$NON-NLS-1$
-		String jobDescription = jobDefinitionArray.get(NODE_DESCRIPTION).getAsString(); //$NON-NLS-1$
-		String jobExpression = jobDefinitionArray.get(NODE_EXPRESSION).getAsString(); //$NON-NLS-1$
-		String jobType = jobDefinitionArray.get(NODE_TYPE).getAsString(); //$NON-NLS-1$
-		String jobModule = jobDefinitionArray.get(NODE_MODULE).getAsString(); //$NON-NLS-1$
+		IRepository repository = this.repository;
+		IResource resource = repository.getResource(this.location
+				+ jobDefinition);
+		String content = new String(resource.getContent());
+		
+		JsonObject jobDefinitionObject = JobParser.parseJob(content);
+		
+		String jobName = jobDefinitionObject.get(JobParser.NODE_NAME).getAsString(); //$NON-NLS-1$
+		String jobDescription = jobDefinitionObject.get(JobParser.NODE_DESCRIPTION).getAsString(); //$NON-NLS-1$
+		String jobExpression = jobDefinitionObject.get(JobParser.NODE_EXPRESSION).getAsString(); //$NON-NLS-1$
+		String jobType = jobDefinitionObject.get(JobParser.NODE_TYPE).getAsString(); //$NON-NLS-1$
+		String jobModule = jobDefinitionObject.get(JobParser.NODE_MODULE).getAsString(); //$NON-NLS-1$
 		
 		logger.debug(String.format("Creating quartz job name: %s, description: %s, expression: %s, type: %s, module: %s ...", 
 				jobName, jobDescription, jobExpression, jobType, jobModule)); //$NON-NLS-1$
 		
 		JobDetail jobDetail = new JobDetail(jobName, null, CronJob.class);
-		jobDetail.getJobDataMap().put(NODE_NAME, jobDescription);
-		jobDetail.getJobDataMap().put(NODE_TYPE, jobType);
-		jobDetail.getJobDataMap().put(NODE_MODULE, jobModule);
+		jobDetail.getJobDataMap().put(JobParser.NODE_NAME, jobDescription);
+		jobDetail.getJobDataMap().put(JobParser.NODE_TYPE, jobType);
+		jobDetail.getJobDataMap().put(JobParser.NODE_MODULE, jobModule);
 
 		try {
 			CronTrigger trigger = new CronTrigger(jobName, null, jobExpression);
@@ -141,27 +140,6 @@ public class JobsUpdater extends AbstractDataUpdater {
 			throw new JobsException(e);
 		}
 		
-	}
-
-	private JsonObject parseJob(String jobDefinition) throws IOException {
-		// {
-		// "name":"MyJob",
-		// "description":"MyJob Description",
-		// "expression":"0/20 * * * * ?",
-		// "type":"javascript",
-		// "module":"/${projectName}/service1.js"
-		// }
-
-		IRepository repository = this.repository;
-		IResource resource = repository.getResource(this.location
-				+ jobDefinition);
-		String content = new String(resource.getContent());
-		JsonParser parser = new JsonParser();
-		JsonObject jobDefinitionObject = (JsonObject) parser.parse(content);
-
-		// TODO validate the parsed content has the right structure
-
-		return jobDefinitionObject;
 	}
 
 	public void enumerateKnownFiles(ICollection collection,

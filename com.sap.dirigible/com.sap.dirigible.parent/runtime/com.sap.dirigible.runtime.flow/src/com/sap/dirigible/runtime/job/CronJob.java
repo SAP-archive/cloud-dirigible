@@ -26,8 +26,8 @@ public class CronJob implements Job {
 		logger.debug("Starting Job...");
 		String instName = context.getJobDetail().getName();
 		JobDataMap dataMap = context.getJobDetail().getJobDataMap();
-		String jobType = dataMap.getString(JobsUpdater.NODE_TYPE);
-		String jobModule = dataMap.getString(JobsUpdater.NODE_MODULE);
+		String jobType = dataMap.getString(JobParser.NODE_TYPE);
+		String jobModule = dataMap.getString(JobParser.NODE_MODULE);
 		logger.debug(String.format("Job processing name: %s, type: %s, module: %s ...", instName, jobType, jobModule));
 		Map<Object, Object> executionContext = new HashMap<Object, Object>();
 		Object inputOutput = null;
@@ -40,7 +40,7 @@ public class CronJob implements Job {
 	}
 	
 	
-	private Object executeByEngineType(HttpServletRequest request,
+	public static Object executeByEngineType(HttpServletRequest request,
 			HttpServletResponse response, String module,
 			Map<Object, Object> executionContext, String jobName,
 			Object inputOutput, String type) throws IOException {
