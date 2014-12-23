@@ -59,64 +59,64 @@ public class DBSupportedTypesMap {
 	public static String getTypeName(int type) {
 		String typeName = null;
 		switch (type) {
-		case -5:
+		case java.sql.Types.BIGINT:
 			typeName = BIGINT;
 			break;
-		case -2:
+		case java.sql.Types.BINARY:
 			typeName = BINARY;
 			break;
-		case -7:
+		case java.sql.Types.BIT:
 			typeName = BIT;
 			break;
-		case 2004:
+		case java.sql.Types.BLOB:
 			typeName = BLOB;
 			break;
-		case 16:
+		case java.sql.Types.BOOLEAN:
 			typeName = BOOLEAN;
 			break;
-		case 1:
+		case java.sql.Types.CHAR:
 			typeName = CHAR;
 			break;
-		case 2005:
+		case java.sql.Types.CLOB:
 			typeName = CLOB;
 			break;
-		case 91:
+		case java.sql.Types.DATE:
 			typeName = DATE;
 			break;
-		case 3:
+		case java.sql.Types.DECIMAL:
 			typeName = DECIMAL;
 			break;
-		case 8:
+		case java.sql.Types.DOUBLE:
 			typeName = DOUBLE;
 			break;
-		case 6:
+		case java.sql.Types.FLOAT:
 			typeName = FLOAT;
 			break;
-		case 4:
+		case java.sql.Types.INTEGER:
 			typeName = INTEGER;
 			break;
-		case 2:
+		case java.sql.Types.NUMERIC:
 			typeName = NUMERIC;
 			break;
-		case -9:
+		case java.sql.Types.NVARCHAR:
 			typeName = NVARCHAR;
 			break;
-		case 5:
+		case java.sql.Types.SMALLINT:
 			typeName = SMALLINT;
 			break;
-		case 92:
+		case java.sql.Types.TIME:
 			typeName = TIME;
 			break;
-		case 93:
+		case java.sql.Types.TIMESTAMP:
 			typeName = TIMESTAMP;
 			break;
-		case -6:
+		case java.sql.Types.TINYINT:
 			typeName = TINYINT;
 			break;
-		case 7:
+		case java.sql.Types.REAL:
 			typeName = REAL;
 			break;
-		case 12:
+		case java.sql.Types.VARCHAR:
 			typeName = VARCHAR;
 			break;
 		default:

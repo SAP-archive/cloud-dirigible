@@ -22,8 +22,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.StringTokenizer;
 
-import javax.sql.DataSource;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -47,7 +45,6 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.editor.js.EditorMode;
 import com.sap.dirigible.ide.editor.js.EditorWidget;
 import com.sap.dirigible.ide.logging.Logger;
@@ -253,10 +250,6 @@ public class SQLConsole extends ViewPart {
 	}
 
 	public Connection getConnection() throws Exception {
-//		DataSource dataSource = DataSourceFacade.getInstance().getDataSource();
-//		Connection connection = dataSource.getConnection();
-//		return connection;
-		
 		return DatabaseViewer.getConnectionFromSelectedDatasource();
 	}
 
@@ -270,11 +263,7 @@ public class SQLConsole extends ViewPart {
 			String columnLabel = resultSetMetaData.getColumnLabel(i);
 			String columnLabelPrint = null;
 			int columnType = resultSetMetaData.getColumnType(i);
-			if (columnType == -2 /* BINARY */
-					|| columnType == -7 /* BIT */
-					|| columnType == 2004 /* BLOB */
-					|| columnType == 2005 /* CLOB */
-			) {
+			if (isBinaryType(columnType)) {
 				columnLabelPrint = prepareStringForSize(columnLabel, BINARY.length(), SPACE);
 			} else {
 				columnLabelPrint = prepareStringForSize(columnLabel,
@@ -293,21 +282,13 @@ public class SQLConsole extends ViewPart {
 			for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
 				String data = null;
 				int columnType = resultSetMetaData.getColumnType(i);
-				if (columnType == -2 /* BINARY */
-						|| columnType == -7 /* BIT */
-						|| columnType == 2004 /* BLOB */
-						|| columnType == 2005 /* CLOB */
-				) {
+				if (isBinaryType(columnType)) {
 					data = BINARY;
 				} else {
 					data = resultSet.getString(i);
 				}
 				String dataPrint = null;
-				if (columnType == -2 /* BINARY */
-						|| columnType == -7 /* BIT */
-						|| columnType == 2004 /* BLOB */
-						|| columnType == 2005 /* CLOB */
-				) {
+				if (isBinaryType(columnType)) {
 					dataPrint = prepareStringForSize(data, BINARY.length(), ' ');
 				} else {
 					dataPrint = prepareStringForSize(data,
@@ -323,6 +304,15 @@ public class SQLConsole extends ViewPart {
 		}
 
 		outputArea.setText(buff.toString());
+	}
+
+	private boolean isBinaryType(int columnType) {
+		for (int c : CommonParameters.BINARY_TYPES) {
+			if (columnType == c) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private String prepareStringForSize(String columnLabel, int columnDisplaySize, char c) {

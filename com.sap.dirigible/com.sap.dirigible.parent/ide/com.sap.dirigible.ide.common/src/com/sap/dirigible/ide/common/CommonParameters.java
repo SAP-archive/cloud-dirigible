@@ -241,4 +241,23 @@ public class CommonParameters {
 	
 	public static final String CONF_PATH_GENERIC_VIEWS = "/ide/generic/views";
 
+	public static final int[] BINARY_TYPES = new int[]{
+			java.sql.Types.ARRAY,
+			java.sql.Types.BINARY,
+			java.sql.Types.BIT,
+			java.sql.Types.BIT,
+			java.sql.Types.BLOB,
+			java.sql.Types.CLOB,
+			java.sql.Types.DATALINK,
+			java.sql.Types.DISTINCT,
+			java.sql.Types.JAVA_OBJECT,
+			java.sql.Types.LONGVARBINARY,
+			java.sql.Types.NCLOB,
+			java.sql.Types.NULL,
+			java.sql.Types.OTHER,
+			java.sql.Types.REF,
+			java.sql.Types.SQLXML,
+			java.sql.Types.STRUCT,
+			java.sql.Types.VARBINARY
+	};
 }
