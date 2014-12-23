@@ -15,11 +15,15 @@
 
 package com.sap.dirigible.runtime.flow;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.registry.AbstractRegistryServiceServlet;
 
 public class FlowRegistryServlet extends AbstractRegistryServiceServlet {
 
     private static final long serialVersionUID = -8255379751142002763L;
+    
+    public static final String INTEGRATION_FOLDER = ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES + IRepository.SEPARATOR;
 
     @Override
     protected String getServletMapping() {
@@ -35,5 +39,9 @@ public class FlowRegistryServlet extends AbstractRegistryServiceServlet {
     protected String getRequestProcessingFailedMessage() {
         return "Flow execution failed.";
     }
+    
+    protected String getServicesFolder() {
+		return INTEGRATION_FOLDER;
+	}
 
 }

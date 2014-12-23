@@ -25,10 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
-import org.w3c.dom.html.HTMLUListElement;
 
 import com.sap.dirigible.repository.api.ICollection;
-import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.command.Piper;
 import com.sap.dirigible.repository.ext.command.ProcessUtils;

@@ -28,8 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
+import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 /**

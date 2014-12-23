@@ -17,7 +17,6 @@ package com.sap.dirigible.runtime.content;
 
 import java.io.IOException;
 
-import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

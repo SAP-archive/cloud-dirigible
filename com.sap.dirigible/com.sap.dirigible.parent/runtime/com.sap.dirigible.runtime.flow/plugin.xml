@@ -36,7 +36,7 @@
            id="FlowRegistryUiContentServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
-              alias="/web/flow"
+              alias="/flow/flow"
               class="com.sap.dirigible.runtime.flow.FlowRegistryUiContentServlet"
               load-on-startup="false">
         </servlet>
@@ -81,21 +81,6 @@
           
           
           
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
      <extension
            id="JobSyncServlet"
            point="org.eclipse.equinox.http.registry.servlets">
@@ -130,7 +115,7 @@
            id="JobRegistryUiContentServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
-              alias="/web/job"
+              alias="/flow/job"
               class="com.sap.dirigible.runtime.job.JobRegistryUiContentServlet"
               load-on-startup="false">
         </servlet>
@@ -140,7 +125,7 @@
            id="JobRegistryUiContentSecuredServlet"
            point="org.eclipse.equinox.http.registry.servlets">
         <servlet
-              alias="/job/job-secured"
+              alias="/flow/job-secured"
               class="com.sap.dirigible.runtime.job.JobRegistryUiContentSecuredServlet"
               load-on-startup="false">
         </servlet>

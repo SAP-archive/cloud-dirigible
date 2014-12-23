@@ -40,6 +40,12 @@ fileApp.config(function($routeProvider) {
 //    }).when('/routes', {
 //      controller: 'RoutesCtrl',
 //      templateUrl: 'templates/routes/routes.html'
+    }).when('/integration/flow', {
+      controller: 'FlowCtrl',
+      templateUrl: 'templates/integration/flows/flows.html'
+    }).when('/integration/job', {
+      controller: 'JobCtrl',
+      templateUrl: 'templates/integration/jobs/jobs.html'
     }).when('/monitoring', {
       controller: 'MonitoringCtrl',
       templateUrl: 'templates/monitoring/monitoring.html'
@@ -145,6 +151,16 @@ menuControllers.controller('HomeCtrl', ['$scope',
       path: "#/scripting/tests",
       title: "Tests",
       description: "Test Cases Endpoints"
+    }, {
+      image: "images/flows.png",
+      path: "#/integration/flow",
+      title: "Flows",
+      description: "Flow Integration Services"
+    }, {
+      image: "images/jobs.png",
+      path: "#/integration/job",
+      title: "Jobs",
+      description: "Job Integration Services"
     }, {
       image: "images/monitor.png",
       path: "#/monitoring",

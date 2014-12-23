@@ -132,6 +132,14 @@ defaultControllers.controller('RoutesCtrl', function($scope, $resource) {
   $scope.restService = $resource('../routes');
 });
 
+defaultControllers.controller('FlowCtrl', function($scope, $resource) {
+  $scope.restService = $resource('../flow/flow');
+});
+
+defaultControllers.controller('JobCtrl', function($scope, $resource) {
+  $scope.restService = $resource('../flow/job');
+});
+
 defaultControllers.controller('MonitoringAccessCtrl', function($scope, $resource) {
 	$resource('../acclog').query({}, function(data) {
 		$scope.logs = data;

@@ -39,7 +39,13 @@
     }]
 }, {
     "name": "Integration",
-    "link": "#/routes/"
+    "subMenu": [{
+        "name": "Flows",
+        "link": "#/integration/flow"
+    }, {
+        "name": "Jobs",
+        "link": "#/integration/job"
+    }]
 }, {
     "name": "Monitoring",
     "subMenu": [{

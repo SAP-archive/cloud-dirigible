@@ -10,7 +10,6 @@ import com.sap.dirigible.runtime.command.CommandExecutor;
 import com.sap.dirigible.runtime.command.CommandServlet;
 import com.sap.dirigible.runtime.flow.FlowExecutor;
 import com.sap.dirigible.runtime.flow.FlowServlet;
-import com.sap.dirigible.runtime.flow.FlowStep;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.js.JavaScriptServlet;
 

@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.runtime.job;
 
+import com.sap.dirigible.runtime.flow.FlowRegistryServlet;
 import com.sap.dirigible.runtime.registry.AbstractRegistryServiceServlet;
 
 public class JobRegistryServlet extends AbstractRegistryServiceServlet {
@@ -35,5 +36,9 @@ public class JobRegistryServlet extends AbstractRegistryServiceServlet {
     protected String getRequestProcessingFailedMessage() {
         return "Job execution failed.";
     }
+    
+    protected String getServicesFolder() {
+		return FlowRegistryServlet.INTEGRATION_FOLDER;
+	}
 
 }

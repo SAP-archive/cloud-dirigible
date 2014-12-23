@@ -17,7 +17,6 @@ package com.sap.dirigible.runtime.js;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
