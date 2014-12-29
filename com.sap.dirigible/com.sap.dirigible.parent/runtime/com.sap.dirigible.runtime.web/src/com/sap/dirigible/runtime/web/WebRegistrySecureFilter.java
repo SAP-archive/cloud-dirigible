@@ -13,7 +13,9 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.runtime.filter;
+package com.sap.dirigible.runtime.web;
+
+import com.sap.dirigible.runtime.filter.AbstractRegistrySecureFilter;
 
 public class WebRegistrySecureFilter extends AbstractRegistrySecureFilter {
 

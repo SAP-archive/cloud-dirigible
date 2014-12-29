@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sap.dirigible.runtime.registry.PathUtils;
-import com.sap.dirigible.runtime.registry.SecuritySynchronizer;
+import com.sap.dirigible.runtime.security.SecuritySynchronizer;
 
 public abstract class AbstractRegistrySecureFilter implements Filter {
 

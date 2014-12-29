@@ -38,21 +38,47 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-   
-   <!--      
+
    <plugin
-         id="com.sap.dirigible.runtime.java"
+         id="com.sap.dirigible.runtime.security"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
-         id="com.sap.dirigible.runtime.groovy"
+         id="com.sap.dirigible.runtime.scheduler"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-   -->
-   
+
+   <plugin
+         id="com.sap.dirigible.runtime.metrics"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sap.dirigible.runtime.web"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sap.dirigible.runtime.init"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sap.dirigible.runtime.flow"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

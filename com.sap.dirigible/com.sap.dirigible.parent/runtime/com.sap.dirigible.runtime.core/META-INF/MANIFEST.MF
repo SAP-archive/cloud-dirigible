@@ -44,12 +44,9 @@ Export-Package: com.sap.dirigible.runtime.command,
  com.sap.dirigible.runtime.logger,
  com.sap.dirigible.runtime.logging,
  com.sap.dirigible.runtime.mail,
- com.sap.dirigible.runtime.memory,
- com.sap.dirigible.runtime.metrics,
  com.sap.dirigible.runtime.registry,
  com.sap.dirigible.runtime.repository,
  com.sap.dirigible.runtime.scripting,
  com.sap.dirigible.runtime.search,
- com.sap.dirigible.runtime.task,
- com.sap.dirigible.runtime.web
+ com.sap.dirigible.runtime.task
 Bundle-ActivationPolicy: lazy

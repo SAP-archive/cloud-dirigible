@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.runtime.registry;
+package com.sap.dirigible.runtime.security;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +25,7 @@ import javax.sql.DataSource;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.security.SecurityManager;
 import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.registry.Messages;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class SecuritySynchronizer implements Runnable {

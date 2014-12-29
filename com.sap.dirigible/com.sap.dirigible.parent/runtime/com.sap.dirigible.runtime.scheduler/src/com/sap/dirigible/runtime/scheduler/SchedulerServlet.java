@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.runtime.registry;
+package com.sap.dirigible.runtime.scheduler;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -30,6 +30,7 @@ import com.sap.dirigible.runtime.metrics.AccessLogLocationsSynchronizer;
 import com.sap.dirigible.runtime.repository.RepositoryHistoryCleanupTask;
 import com.sap.dirigible.runtime.search.RebuildSearchIndexTask;
 import com.sap.dirigible.runtime.search.UpdateSearchIndexTask;
+import com.sap.dirigible.runtime.security.SecuritySynchronizer;
 import com.sap.dirigible.runtime.task.TaskManagerLong;
 import com.sap.dirigible.runtime.task.TaskManagerMedium;
 import com.sap.dirigible.runtime.task.TaskManagerShort;

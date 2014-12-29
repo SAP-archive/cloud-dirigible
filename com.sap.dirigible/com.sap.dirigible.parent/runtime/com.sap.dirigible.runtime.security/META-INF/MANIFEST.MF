@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Dirigible - Runtime Wiki
-Bundle-SymbolicName: com.sap.dirigible.runtime.wiki;singleton:=true
+Bundle-Name: Dirigible - Runtime Security
+Bundle-SymbolicName: com.sap.dirigible.runtime.security;singleton:=true
 Bundle-Version: 2.0.141200
 Bundle-Vendor: SAP
 Require-Bundle: com.sap.dirigible.repository.api,
@@ -11,8 +11,7 @@ Require-Bundle: com.sap.dirigible.repository.api,
  org.eclipse.equinox.http.servlet,
  org.eclipse.core.runtime,
  com.sap.dirigible.runtime.core,
- com.sap.dirigible.runtime.web,
- com.sap.dirigible.runtime.security
+ com.google.gson
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet,
  javax.servlet.annotation,
@@ -21,4 +20,6 @@ Import-Package: javax.servlet,
  javax.servlet.resources,
  org.slf4j
 Bundle-ActivationPolicy: lazy
-Export-Package: com.sap.dirigible.runtime.wiki
+Export-Package: com.sap.dirigible.runtime.filter,
+ com.sap.dirigible.runtime.security
+
