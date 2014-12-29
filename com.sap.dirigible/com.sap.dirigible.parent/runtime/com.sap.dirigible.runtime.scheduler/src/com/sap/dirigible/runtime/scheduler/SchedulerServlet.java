@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import com.sap.dirigible.runtime.job.JobsSynchronizer;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.memory.MemoryLogCleanupTask;
 import com.sap.dirigible.runtime.memory.MemoryLogTask;
@@ -42,6 +43,7 @@ public class SchedulerServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(SchedulerServlet.class);
 
 	private ScheduledExecutorService securitySynchronizerScheduler;
+	private ScheduledExecutorService jobsSynchronizerScheduler;
 	private ScheduledExecutorService taskManagerShortScheduler;
 	private ScheduledExecutorService taskManagerMediumScheduler;
 	private ScheduledExecutorService taskManagerLongScheduler;
@@ -54,6 +56,9 @@ public class SchedulerServlet extends HttpServlet {
 
 		securitySynchronizerScheduler = Executors.newSingleThreadScheduledExecutor();
 		securitySynchronizerScheduler.scheduleAtFixedRate(new SecuritySynchronizer(), 1, 1, TimeUnit.MINUTES);
+		
+		jobsSynchronizerScheduler = Executors.newSingleThreadScheduledExecutor();
+		jobsSynchronizerScheduler.scheduleAtFixedRate(new JobsSynchronizer(), 1, 1, TimeUnit.MINUTES);
 
 		taskManagerShortScheduler = Executors.newSingleThreadScheduledExecutor();
 		taskManagerShortScheduler.scheduleAtFixedRate(TaskManagerShort.getInstance(),10, 10, TimeUnit.SECONDS);
