@@ -157,7 +157,19 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 		if (resourceName.endsWith("groovy")) { //$NON-NLS-1$
 			return createImage(TYPE_GROOVY_ICON_URL);
 		}
-		if (resourceName.endsWith("wiki")) { //$NON-NLS-1$
+		if (resourceName.endsWith("wiki") //$NON-NLS-1$
+				|| resourceName.endsWith("confluence") //$NON-NLS-1$
+				|| resourceName.endsWith("md") //$NON-NLS-1$
+				|| resourceName.endsWith("markdown") //$NON-NLS-1$
+				|| resourceName.endsWith("mdown") //$NON-NLS-1$
+				|| resourceName.endsWith("mkdn") //$NON-NLS-1$
+				|| resourceName.endsWith("mdwn") //$NON-NLS-1$
+				|| resourceName.endsWith("mkd") //$NON-NLS-1$
+//				|| resourceName.endsWith("mediawiki") //$NON-NLS-1$
+				|| resourceName.endsWith("textile") //$NON-NLS-1$
+				|| resourceName.endsWith("tracwiki") //$NON-NLS-1$
+				|| resourceName.endsWith("twiki") //$NON-NLS-1$
+				) { 
 			return createImage(TYPE_WIKI_ICON_URL);
 		}
 		if (resourceName.endsWith("wikis")) { //$NON-NLS-1$

@@ -29,6 +29,7 @@ import javax.sql.DataSource;
 
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
+import org.quartz.ObjectAlreadyExistsException;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
@@ -159,6 +160,8 @@ public class JobsUpdater extends AbstractDataUpdater {
 		try {
 			CronTrigger trigger = new CronTrigger(jobName, null, jobExpression);
 			this.scheduler.scheduleJob(jobDetail, trigger);
+			activeJobs.add(resourcePath);
+		} catch (ObjectAlreadyExistsException e) {
 			activeJobs.add(resourcePath);
 		} catch (ParseException e) {
 			throw new JobsException(e);

@@ -271,6 +271,41 @@
          unpack="false"/>
          
    <plugin
+         id="org.eclipse.mylyn.wikitext.markdown.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.mylyn.wikitext.mediawiki.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.mylyn.wikitext.textile.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.mylyn.wikitext.tracwiki.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.mylyn.wikitext.twiki.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
          id="com.google.guava"
          download-size="0"
          install-size="0"
@@ -304,5 +339,13 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+         
+  <plugin
+         id="org.eclipse.equinox.event"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 
 </feature>

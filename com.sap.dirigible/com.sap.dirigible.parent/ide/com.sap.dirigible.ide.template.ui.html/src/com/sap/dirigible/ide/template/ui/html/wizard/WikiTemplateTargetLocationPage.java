@@ -68,10 +68,26 @@ public class WikiTemplateTargetLocationPage extends TemplateTargetLocationPage {
 	protected GenerationModel getModel() {
 		return model;
 	}
+	
+	@Override
+	protected boolean isForcedFileName() {
+		return true;
+	}
 
 	@Override
 	protected String getDefaultFileName() {
-		return "wiki_page.wiki"; //$NON-NLS-1$
+		String templateLocation = model.getTemplateLocation();
+		String defaultName = null;
+		if (templateLocation.endsWith("wiki")) {
+			defaultName = "wiki_page.wiki"; //$NON-NLS-1$
+		} else if (templateLocation.endsWith("confluence")) {
+			defaultName = "wiki_page.confluence"; //$NON-NLS-1$
+		} else if (templateLocation.endsWith("md")) {
+			defaultName = "wiki_page.md"; //$NON-NLS-1$
+		} else if (templateLocation.endsWith("textile")) {
+			defaultName = "wiki_page.textile"; //$NON-NLS-1$
+		}
+		return defaultName;
 	}
 
 	@Override

@@ -23,7 +23,11 @@ Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  org.everit.osgi.bundles.org.json,
  org.eclipse.equinox.http.registry,
  org.eclipse.equinox.http.servlet,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.mylyn.wikitext.markdown.core,
+ org.eclipse.mylyn.wikitext.textile.core,
+ org.eclipse.mylyn.wikitext.tracwiki.core,
+ org.eclipse.mylyn.wikitext.twiki.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,

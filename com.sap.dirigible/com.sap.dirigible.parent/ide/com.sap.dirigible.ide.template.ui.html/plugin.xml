@@ -196,6 +196,24 @@
             location="/com/sap/dirigible/ide/template/ui/html/templates/wiki-notation-guide.wiki"
             text="Wiki Notation Guide">
       </template>
+      <template
+            category="WikiContent"
+            image="/icons/wiki-notation-guide.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/confluence-notation-guide.confluence"
+            text="Confluence Notation Guide">
+      </template>
+      <template
+            category="WikiContent"
+            image="/icons/wiki-notation-guide.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/markdown-notation-guide.md"
+            text="Markdown Notation Guide">
+      </template>
+      <template
+            category="WikiContent"
+            image="/icons/wiki-notation-guide.png"
+            location="/com/sap/dirigible/ide/template/ui/html/templates/textile-notation-guide.textile"
+            text="Textile Notation Guide">
+      </template>
    </extension>
    
    <extension

@@ -24,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.sap.dirigible.runtime.logger.Logger;
 
@@ -57,6 +58,10 @@ public class SandboxFilter implements Filter {
 			req.setAttribute(DEBUG_CONTEXT, true);
 			logger.trace("setAttribute(DEBUG_CONTEXT, true)");
 		}
+		
+		HttpServletResponse resp = (HttpServletResponse) response;
+		resp.setHeader("cache-control", "private, max-age=0, no-cache");
+		
 		chain.doFilter(request, response);
 	}
 

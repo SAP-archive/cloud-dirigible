@@ -241,6 +241,17 @@ public class ContentTypeHelper {
 		TEXT_CONTENT_TYPES.put("vcf", "text/x-vcard"); //$NON-NLS-1$ //$NON-NLS-2$
 		TEXT_CONTENT_TYPES.put("wiki", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
 		TEXT_CONTENT_TYPES.put("wikis", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("md", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("markdown", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("mdown", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("mkdn", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("markdown", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("mkd", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("mdwn", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("textile", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("confluence", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("tracwiki", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
+		TEXT_CONTENT_TYPES.put("twiki", "text/html"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		CONTENT_TYPES.putAll(BINARY_CONTENT_TYPES);
 		CONTENT_TYPES.putAll(TEXT_CONTENT_TYPES);
