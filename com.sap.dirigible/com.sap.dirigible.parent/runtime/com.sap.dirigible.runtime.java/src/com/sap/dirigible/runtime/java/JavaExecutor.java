@@ -18,14 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileObject;
-import javax.tools.ToolProvider;
-
-import org.eclipse.equinox.servletbridge.BridgeServlet;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
-import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryDiagnosticListener;
 import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryCompilationException;
+import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryDiagnosticListener;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
@@ -34,8 +31,10 @@ public class JavaExecutor extends AbstractScriptExecutor {
 	
 	private static final Logger logger = Logger.getLogger(JavaExecutor.class);
 
-	private static final String JAVA_EXTENSION = ".java";
-	private static final String CLASSPATH = "-classpath";
+	private static final String JAVA_EXTENSION = ".java"; //$NON-NLS-1$
+	private static final String CLASSPATH = "-classpath"; //$NON-NLS-1$
+	
+	public static final String JAVA_TOOLS_COMPILER = "JAVA_TOOLS_COMPILER"; //$NON-NLS-1$
 
 	private IRepository repository;
 	private String[] rootPaths;
@@ -58,7 +57,7 @@ public class JavaExecutor extends AbstractScriptExecutor {
 			Object input, String module, Map<Object, Object> executionContext) throws InMemoryCompilationException {
 		try {
 			registerDefaultVariables(request, response, input, null, repository, null);
-			ClassFileManager fileManager = compile();
+			ClassFileManager fileManager = compile(request);
 			return execute(request, response, module, fileManager);
 		} catch (Throwable t) {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -68,22 +67,17 @@ public class JavaExecutor extends AbstractScriptExecutor {
 		}
 	}
 
-	private ClassFileManager compile() throws IOException, ClassNotFoundException,
+	private ClassFileManager compile(HttpServletRequest request) throws IOException, ClassNotFoundException,
 			URISyntaxException {
 		List<JavaFileObject> sourceFiles = ClassFileManager.getSourceFiles(retrieveModulesByExtension(repository, JAVA_EXTENSION, rootPaths));
 
 //		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		JavaCompiler compiler = null;
-		try {
-			InitialContext in = (InitialContext) System.getProperties().get(RepositoryFacade.INITIAL_CONTEXT);
-			compiler = (JavaCompiler) in.getClass().getClassLoader().loadClass("com.sun.tools.javac.api.JavacTool").newInstance();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		JavaCompiler compiler = (JavaCompiler) request.getSession().getAttribute(JAVA_TOOLS_COMPILER);
+		
+		if (compiler == null) {
+			throw new IOException("Java support is enabled only in deployed mode");
 		}
+		
 		InMemoryDiagnosticListener diagnosticListener = new InMemoryDiagnosticListener();
 		ClassFileManager fileManager = ClassFileManager.getInstance(compiler.getStandardFileManager(diagnosticListener, null, null));
 		CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnosticListener, Arrays.asList(CLASSPATH, getJars()), null, sourceFiles);
