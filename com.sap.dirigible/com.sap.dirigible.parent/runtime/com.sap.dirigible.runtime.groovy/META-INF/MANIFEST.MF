@@ -21,8 +21,11 @@ Require-Bundle: com.sap.dirigible.repository.api,
  org.eclipse.equinox.http.servlet,
  org.eclipse.core.runtime,
  com.sap.dirigible.runtime.core,
- groovy;bundle-version="2.3.8",
- com.sap.dirigible.runtime.security
+ groovy,
+ com.sap.dirigible.runtime.security,
+ org.eclipse.equinox.util,
+ org.eclipse.equinox.ds,
+ org.eclipse.osgi.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,
@@ -40,3 +43,5 @@ Export-Package: com.sap.dirigible.runtime.filter,
  com.sap.dirigible.runtime.groovy,
  com.sap.dirigible.runtime.registry
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGi-INF/groovy-protocol.xml
+

@@ -21,7 +21,6 @@ import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,8 +61,12 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 				throw new IOException(GROOVY_MODULE_NAME_CANNOT_BE_NULL);
 			}
 		
-		RepositoryResourceConnector repositoryResourceConnector = 
-				new RepositoryResourceConnector(this.repository, this.rootPath, this.secondaryRootPath);
+		RepositoryURLConnectionParams params = 
+				new RepositoryURLConnectionParams(repository, rootPath, secondaryRootPath);
+		RepositoryURLConnection.PARAMS.set(params);
+		
+		RepositoryResourceConnector repositoryResourceConnector =
+				new RepositoryResourceConnector();
 		
 		GroovyScriptEngine groovyScriptEngine = new GroovyScriptEngine(repositoryResourceConnector);
 		
@@ -77,7 +80,6 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 			
 			registerDefaultVariables(request, response, input, executionContext, repository, binding);
 			
-//			groovyScriptEngine.getGroovyClassLoader().clearCache();
 			groovyScriptEngine.run(name, binding);
 		} catch (ResourceException e) {
 			logger.error(e.getMessage(), e);
@@ -85,7 +87,7 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 		} catch (ScriptException e) {
 			logger.error(e.getMessage(), e);
 			throw new IOException(e);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			logger.error(e.getMessage(), e);
 			throw new IOException(e);
 		}

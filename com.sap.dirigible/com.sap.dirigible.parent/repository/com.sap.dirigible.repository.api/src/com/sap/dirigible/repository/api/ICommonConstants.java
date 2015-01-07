@@ -57,6 +57,7 @@ public interface ICommonConstants {
 	public interface ENGINE_TYPE {
 		public static final String JAVASCRIPT = "javascript"; //$NON-NLS-1$
 		public static final String JAVA = "java"; //$NON-NLS-1$
+		public static final String GROOVY = "groovy"; //$NON-NLS-1$
 		public static final String COMMAND = "command"; //$NON-NLS-1$
 		public static final String CONDITION = "condition"; //$NON-NLS-1$
 		public static final String FLOW = "flow"; //$NON-NLS-1$

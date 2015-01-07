@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileObject;
+import javax.tools.ToolProvider;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
@@ -42,7 +43,10 @@ public class JavaExecutor extends AbstractScriptExecutor {
 	private File libDirectory;
 
 	public JavaExecutor(IRepository repository, String... rootPaths) {
-		this(repository, null, rootPaths);
+//		this(repository, null, rootPaths);
+		this(repository, 
+				new File("C:\\Data\\GitHub\\cloud-dirigible\\com.sap.dirigible\\com.sap.dirigible.parent\\releng\\all.tomcat\\target\\dirigible-all-tomcat-2.0.141200\\WEB-INF\\plugins"), 
+				rootPaths);
 	}
 	
 	public JavaExecutor(IRepository repository, File libDirectory, String... rootPaths) {
@@ -71,12 +75,12 @@ public class JavaExecutor extends AbstractScriptExecutor {
 			URISyntaxException {
 		List<JavaFileObject> sourceFiles = ClassFileManager.getSourceFiles(retrieveModulesByExtension(repository, JAVA_EXTENSION, rootPaths));
 
-//		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		JavaCompiler compiler = (JavaCompiler) request.getSession().getAttribute(JAVA_TOOLS_COMPILER);
-		
-		if (compiler == null) {
-			throw new IOException("Java support is enabled only in deployed mode");
-		}
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+//		JavaCompiler compiler = (JavaCompiler) request.getSession().getAttribute(JAVA_TOOLS_COMPILER);
+//		
+//		if (compiler == null) {
+//			throw new IOException("Java support is enabled only in deployed mode");
+//		}
 		
 		InMemoryDiagnosticListener diagnosticListener = new InMemoryDiagnosticListener();
 		ClassFileManager fileManager = ClassFileManager.getInstance(compiler.getStandardFileManager(diagnosticListener, null, null));

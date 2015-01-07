@@ -10,6 +10,8 @@ import com.sap.dirigible.runtime.command.CommandExecutor;
 import com.sap.dirigible.runtime.command.CommandServlet;
 import com.sap.dirigible.runtime.flow.FlowExecutor;
 import com.sap.dirigible.runtime.flow.FlowServlet;
+import com.sap.dirigible.runtime.groovy.GroovyExecutor;
+import com.sap.dirigible.runtime.groovy.GroovyServlet;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.js.JavaScriptServlet;
 
@@ -41,6 +43,16 @@ public class EngineUtils {
 		inputOutput = javaScriptExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
 		return inputOutput;
 	}
+	
+	public static Object executeGroovy(HttpServletRequest request,
+			HttpServletResponse response, Map<Object, Object> executionContext,
+			Object inputOutput, String module) throws IOException {
+		GroovyServlet groovyServlet = new GroovyServlet();
+		GroovyExecutor groovyExecutor = groovyServlet.createExecutor(request);
+		inputOutput = groovyExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
+		return inputOutput;
+	}
+
 	
 //	public static Object executeJava(HttpServletRequest request,
 //			HttpServletResponse response, Map<Object, Object> executionContext,

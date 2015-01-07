@@ -107,6 +107,9 @@ public class FlowExecutor extends AbstractScriptExecutor {
 		} else if (ICommonConstants.ENGINE_TYPE.COMMAND.equalsIgnoreCase(flowStep.getType())) {
 			inputOutput = EngineUtils.executeCommand(request, response, executionContext,
 					inputOutput, flowStep.getModule());
+		} else if (ICommonConstants.ENGINE_TYPE.GROOVY.equalsIgnoreCase(flowStep.getType())) {
+			inputOutput = EngineUtils.executeGroovy(request, response, executionContext,
+					inputOutput, flowStep.getModule());
 		} else if (ICommonConstants.ENGINE_TYPE.CONDITION.equalsIgnoreCase(flowStep.getType())) {
 			
 			FlowCase[] cases = flowStep.getCases();

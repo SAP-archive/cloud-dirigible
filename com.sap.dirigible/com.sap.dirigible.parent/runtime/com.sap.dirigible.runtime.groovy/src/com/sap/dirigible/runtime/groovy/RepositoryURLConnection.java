@@ -19,7 +19,6 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -36,13 +35,12 @@ public class RepositoryURLConnection extends URLConnection {
 	private byte[] content;
 	private long  dateInMilliseconds;
 	private String name;
-	private String original;
 	
 	public static final ThreadLocal<RepositoryURLConnectionParams> PARAMS = new ThreadLocal<RepositoryURLConnectionParams>();
 	
 	private static final Logger logger = Logger.getLogger(RepositoryURLConnection.class);
 	
-	public static final String PROTOCOL = "file:/";
+	public static final String PROTOCOL = "groovy:";
 	
 	public RepositoryURLConnection(URL url) {
 		super(url);
@@ -55,13 +53,12 @@ public class RepositoryURLConnection extends URLConnection {
 			//project1.module1 should be project1/module1 in order to retrieve it from the repository
 		
 			name = getURL().toString().substring(PROTOCOL.length());
-		
+			
 			if (name.endsWith(".groovy")){
 				int idx = name.lastIndexOf(".");
 				name = name.substring(0,idx);
 				name = name.replace("$",IRepository.SEPARATOR);
 				name = name.replace(".", IRepository.SEPARATOR);
-				original = name;
 				name += ".groovy";
 				
 				
@@ -69,8 +66,6 @@ public class RepositoryURLConnection extends URLConnection {
 			else{
 				name = name.replace("$",IRepository.SEPARATOR);
 				name = name.replace(".", IRepository.SEPARATOR);
-				original = name;
-				
 			}	
 			
 			IResource resource = retrieveResource(name);
@@ -116,28 +111,8 @@ public class RepositoryURLConnection extends URLConnection {
 				repositoryPath += GROOVY_EXTENSION;
 			}
 			resource = params.getRepository().getResource(repositoryPath);
-			if (!resource.exists()) {
-				logger.error("There is no resource at the specified Service path: " + repositoryPath);
-			}
 		}
 		return resource;
 	}
-	
-//	@Override
-//	public URL getURL() {
-//		try {
-//			// TODO NOT WORKING ANYWAY with the latest version ... :(
-//			return new URL("http://" + original);
-//		} catch (MalformedURLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-//	
-//	@Override
-//	public boolean getUseCaches() {
-//		return false;
-//	}
 	
 }  
