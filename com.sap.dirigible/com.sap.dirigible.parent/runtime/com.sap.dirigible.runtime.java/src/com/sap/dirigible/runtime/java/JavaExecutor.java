@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.tools.JavaCompiler;
@@ -25,7 +24,6 @@ import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
 import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryCompilationException;
 import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryDiagnosticListener;
 import com.sap.dirigible.runtime.logger.Logger;
-import com.sap.dirigible.runtime.repository.RepositoryFacade;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class JavaExecutor extends AbstractScriptExecutor {
@@ -41,19 +39,15 @@ public class JavaExecutor extends AbstractScriptExecutor {
 	private String[] rootPaths;
 	private Map<String, Object> defaultVariables;
 	private File libDirectory;
-
-	public JavaExecutor(IRepository repository, String... rootPaths) {
-//		this(repository, null, rootPaths);
-		this(repository, 
-				new File("C:\\Data\\GitHub\\cloud-dirigible\\com.sap.dirigible\\com.sap.dirigible.parent\\releng\\all.tomcat\\target\\dirigible-all-tomcat-2.0.141200\\WEB-INF\\plugins"), 
-				rootPaths);
-	}
 	
-	public JavaExecutor(IRepository repository, File libDirectory, String... rootPaths) {
+	private String classpath;
+
+	public JavaExecutor(IRepository repository, File libDirectory, String classpath, String... rootPaths) {
 		this.repository = repository;
 		this.rootPaths = rootPaths;
 		this.defaultVariables = new HashMap<String, Object>();
 		this.libDirectory = libDirectory;
+		this.classpath = classpath;
 	}
 
 	@Override
@@ -76,15 +70,10 @@ public class JavaExecutor extends AbstractScriptExecutor {
 		List<JavaFileObject> sourceFiles = ClassFileManager.getSourceFiles(retrieveModulesByExtension(repository, JAVA_EXTENSION, rootPaths));
 
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-//		JavaCompiler compiler = (JavaCompiler) request.getSession().getAttribute(JAVA_TOOLS_COMPILER);
-//		
-//		if (compiler == null) {
-//			throw new IOException("Java support is enabled only in deployed mode");
-//		}
 		
 		InMemoryDiagnosticListener diagnosticListener = new InMemoryDiagnosticListener();
 		ClassFileManager fileManager = ClassFileManager.getInstance(compiler.getStandardFileManager(diagnosticListener, null, null));
-		CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnosticListener, Arrays.asList(CLASSPATH, getJars()), null, sourceFiles);
+		CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnosticListener, Arrays.asList(CLASSPATH, getClasspath()), null, sourceFiles);
 
 		Boolean compilationTaskResult = compilationTask.call();
 
@@ -93,15 +82,9 @@ public class JavaExecutor extends AbstractScriptExecutor {
 		}
 		return fileManager;
 	}
-
-	private String getJars() throws IOException, URISyntaxException {
-		String jars = null;
-		if (this.libDirectory != null) {
-			jars = ClassFileManager.getJars(this.libDirectory);
-		} else {
-			jars = ClassFileManager.getJars();
-		}
-		return jars;
+	
+	public String getClasspath() {
+		return classpath;
 	}
 
 	private Object execute(HttpServletRequest request, HttpServletResponse response, String module,

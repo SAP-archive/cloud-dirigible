@@ -2,8 +2,6 @@ package com.sap.dirigible.runtime.java.dynamic.compilation;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.security.SecureClassLoader;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,7 +19,6 @@ import javax.tools.JavaFileObject.Kind;
 import javax.tools.StandardJavaFileManager;
 
 import com.sap.dirigible.repository.api.IEntityInformation;
-import com.sap.dirigible.runtime.java.JavaExecutor;
 import com.sap.dirigible.runtime.scripting.Module;
 
 public class ClassFileManager extends ForwardingJavaFileManager<JavaFileManager> {
@@ -29,6 +26,7 @@ public class ClassFileManager extends ForwardingJavaFileManager<JavaFileManager>
 	private static final String DOT = ".";
 	private static final String SLASH = "/";
 	private static final String PATH_SEPARATOR = "path.separator";
+	private static final String separator = System.getProperty(PATH_SEPARATOR);
 	
 	private static ClassFileManager instance;
 	private static final Map<String, JavaFileObject> lastKnownSourceFiles = Collections.synchronizedMap(new HashMap<String, JavaFileObject>());
@@ -53,18 +51,34 @@ public class ClassFileManager extends ForwardingJavaFileManager<JavaFileManager>
 		return fqn.toString().replace(SLASH, DOT);
 	}
 	
-	public static String getJars() throws URISyntaxException, IOException {
-		URL url = JavaExecutor.class.getProtectionDomain().getCodeSource().getLocation();
-		File libDirectory = new File(url.toURI()).getParentFile();
-		return getJars(libDirectory);
-	}
+//	public static String getJars() throws URISyntaxException, IOException {
+//		URL url = JavaExecutor.class.getProtectionDomain().getCodeSource().getLocation();
+//		File libDirectory = new File(url.toURI()).getParentFile();
+//		return getJars(libDirectory);
+//	}
 
 	public static String getJars(File libDirectory) throws IOException {
-		String separator = System.getProperty(PATH_SEPARATOR);
+		
 		StringBuilder jars = new StringBuilder();
+		
+		if (libDirectory == null) {
+			throw new IOException("Lib directory is null");
+		}
+		
+		if (!libDirectory.exists()) {
+			throw new IOException(String.format("File %s does not exist", libDirectory.getCanonicalFile()));
+		}
 
 		for (File jar : libDirectory.listFiles()) {
-			jars.append(jar.getCanonicalPath() + separator);
+			String jarPath = jar.getCanonicalPath();
+			if (jar.isFile()) {
+				if (!jarPath.contains(".source_")
+						&& jarPath.endsWith(".jar")) { // exclude source bundles
+					jars.append(jarPath + separator);
+				}
+			} else {
+				jars.append(getJars(jar));
+			}
 		}
 		return jars.toString();
 	}
