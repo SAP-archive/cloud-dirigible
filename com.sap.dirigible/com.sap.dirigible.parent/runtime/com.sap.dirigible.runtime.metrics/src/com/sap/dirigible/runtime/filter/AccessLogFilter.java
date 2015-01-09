@@ -85,12 +85,12 @@ public class AccessLogFilter implements Filter {
 				return true;
 			}
 		}
-		logger.trace("Access Log Not Enabled: " + location);
+		logger.debug("Access Log Not Enabled: " + location);
 		return false;
 	}
 
 	private String getAccessLogPattern(String location) throws ServletException {
-		logger.trace("entering getAccessLogPattern: " + location);
+		logger.debug("entering getAccessLogPattern: " + location);
 		for (String accessLogLocation : AccessLogLocationsSynchronizer.getAccessLogLocations()) {
 			if (location.startsWith(accessLogLocation)) {
 				logger.debug("Access Log for Location: " + location + " by pattern: "
@@ -98,7 +98,7 @@ public class AccessLogFilter implements Filter {
 				return accessLogLocation;
 			}
 		}
-		logger.trace("exiting getAccessLogPattern: " + location);
+		logger.debug("exiting getAccessLogPattern: " + location);
 		return null;
 	}
 

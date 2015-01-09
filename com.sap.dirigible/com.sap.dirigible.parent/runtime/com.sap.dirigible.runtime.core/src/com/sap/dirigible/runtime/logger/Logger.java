@@ -146,7 +146,7 @@ public class Logger {
 	public void trace(String message, Throwable t) {
 		if (isTraceEnabled()) {
 			logger1.trace(message, t);
-			logger2.log(Level.INFO, message, t);
+			logger2.log(Level.FINE, message, t);
 		}
 		logInSystemOutput(message, t);
 	}
@@ -158,7 +158,7 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isDebugEnabled() {
-		return logger1.isDebugEnabled() || logger2.isLoggable(Level.FINEST);
+		return logger1.isDebugEnabled() || logger2.isLoggable(Level.FINE);
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isTraceEnabled() {
-		return logger1.isTraceEnabled() || logger2.isLoggable(Level.INFO);
+		return logger1.isTraceEnabled() || logger2.isLoggable(Level.FINE);
 	}
 
 	private void logInSystemOutput(String message, Throwable t) {

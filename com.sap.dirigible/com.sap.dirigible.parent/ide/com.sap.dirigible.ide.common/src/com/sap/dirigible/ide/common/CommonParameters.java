@@ -172,8 +172,9 @@ public class CommonParameters {
 	
 	public static String getServicesUrl() {
 		String runtimeUrl = CommonParameters.get(CommonParameters.RUNTIME_URL);
-		if (runtimeUrl == null) {
-			runtimeUrl = CommonParameters.RUNTIME_URL_DEFAULT;
+		if (runtimeUrl == null
+				|| "".equals(runtimeUrl)) {
+			runtimeUrl = RWT.getRequest().getContextPath();
 		}
 		String servicesUrl = CommonParameters.get(CommonParameters.SERVICES_URL);
 		if (servicesUrl == null) {
