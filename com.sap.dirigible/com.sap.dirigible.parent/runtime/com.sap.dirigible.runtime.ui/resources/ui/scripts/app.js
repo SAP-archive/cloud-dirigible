@@ -22,12 +22,12 @@ fileApp.config(function($routeProvider) {
     }).when('/scripting/javascript', {
       controller: 'JavaScriptCtrl',
       templateUrl: 'templates/scripting/javascript/javascript.html'
-//    }).when('/scripting/groovy', {
-//      controller: 'GroovyCtrl',
-//      templateUrl: 'templates/scripting/groovy/groovy.html'
-//    }).when('/scripting/java', {
-//      controller: 'JavaCtrl',
-//      templateUrl: 'templates/scripting/java/java.html'
+    }).when('/scripting/groovy', {
+      controller: 'GroovyCtrl',
+      templateUrl: 'templates/scripting/groovy/groovy.html'
+    }).when('/scripting/java', {
+      controller: 'JavaCtrl',
+      templateUrl: 'templates/scripting/java/java.html'
     }).when('/scripting/command', {
       controller: 'CommandCtrl',
       templateUrl: 'templates/scripting/command/command.html'
@@ -132,16 +132,16 @@ menuControllers.controller('HomeCtrl', ['$scope',
       title: "JavaScript",
       description: "JavaScript Services Endpoints"
     }, {
-//      image: "images/java-groovy.png",
-//      path: "#/scripting/groovy",
-//      title: "Groovy",
-//      description: "Groovy Services Endpoints"
-//    }, {
-//      image: "images/java.png",
-//      path: "#/scripting/java",
-//      title: "Java",
-//      description: "Java Services Endpoints"
-//    }, {
+      image: "images/java-groovy.png",
+      path: "#/scripting/groovy",
+      title: "Groovy",
+      description: "Groovy Services Endpoints"
+    }, {
+      image: "images/java.png",
+      path: "#/scripting/java",
+      title: "Java",
+      description: "Java Services Endpoints"
+    }, {
       image: "images/command.png",
       path: "#/scripting/command",
       title: "Command",

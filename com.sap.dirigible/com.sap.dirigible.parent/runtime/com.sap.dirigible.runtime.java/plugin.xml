@@ -33,6 +33,16 @@
      </extension>
      
      <extension
+           id="JavaRegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/scripting/java"
+              class="com.sap.dirigible.runtime.registry.JavaRegistryServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
               alias="/java-secured/*"

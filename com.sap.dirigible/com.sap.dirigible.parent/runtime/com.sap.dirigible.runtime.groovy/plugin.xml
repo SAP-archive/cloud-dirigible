@@ -33,6 +33,17 @@
      </extension>
      
      <extension
+           id="GroovyRegistryServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/scripting/groovy"
+              class="com.sap.dirigible.runtime.registry.GroovyRegistryServlet"
+              load-on-startup="false">
+        </servlet>
+     </extension>
+     
+     
+     <extension
            point="org.eclipse.equinox.http.registry.filters">
         <filter
               alias="/groovy-secured/*"
