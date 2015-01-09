@@ -19,6 +19,11 @@ import java.beans.PropertyChangeSupport;
 
 import javax.naming.NamingException;
 
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
+import com.sap.dirigible.runtime.RuntimeActivator;
 import com.sap.dirigible.runtime.logger.Logger;
 
 public class DebugBridgeUtils {
@@ -34,10 +39,13 @@ public class DebugBridgeUtils {
 	 * @return
 	 * @throws NamingException
 	 */
-	public static PropertyChangeSupport lookupDebuggerBridge() {
+	public static IDebugProtocol lookupDebuggerBridge() {
 		logger.debug("entering JavaScriptDebugServlet.lookupDebuggerBridge()");
-		PropertyChangeSupport debuggerBridge = (PropertyChangeSupport) System.getProperties().get(
-				DIRIGIBLE_DEBUGGER_BRIDGE);
+//		PropertyChangeSupport debuggerBridge = (PropertyChangeSupport) System.getProperties().get(
+//				DIRIGIBLE_DEBUGGER_BRIDGE);
+		BundleContext context = RuntimeActivator.getContext();
+		ServiceReference<IDebugProtocol> sr = context.getServiceReference(IDebugProtocol.class);
+		IDebugProtocol debuggerBridge = context.getService(sr);
 		if (debuggerBridge == null) {
 			logger.error("DebuggerBridge not present");
 		}
@@ -46,7 +54,7 @@ public class DebugBridgeUtils {
 		return debuggerBridge;
 	}
 
-	public static void send(PropertyChangeSupport debuggerBridge, String commandId,
+	public static void send(IDebugProtocol debuggerBridge, String commandId,
 			String clientId, String commandBody) {
 		logger.debug("DebugBridgUtils send() commandId: " + commandId + ", clientId: " + clientId
 				+ ", body: " + commandBody);

@@ -27,7 +27,10 @@ Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  org.eclipse.mylyn.wikitext.markdown.core,
  org.eclipse.mylyn.wikitext.textile.core,
  org.eclipse.mylyn.wikitext.tracwiki.core,
- org.eclipse.mylyn.wikitext.twiki.core
+ org.eclipse.mylyn.wikitext.twiki.core,
+ org.eclipse.equinox.util,
+ org.eclipse.equinox.ds,
+ org.eclipse.osgi.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,
@@ -54,3 +57,5 @@ Export-Package: com.sap.dirigible.runtime.command,
  com.sap.dirigible.runtime.search,
  com.sap.dirigible.runtime.task
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGi-INF/debug-protocol.xml
+Bundle-Activator: com.sap.dirigible.runtime.RuntimeActivator

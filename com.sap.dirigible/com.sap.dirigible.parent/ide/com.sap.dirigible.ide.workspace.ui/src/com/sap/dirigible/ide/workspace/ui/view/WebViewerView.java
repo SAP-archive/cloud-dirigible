@@ -16,6 +16,7 @@
 package com.sap.dirigible.ide.workspace.ui.view;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,6 +32,7 @@ import org.eclipse.rap.rwt.client.service.UrlLauncher;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Image;
@@ -38,6 +40,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.ISelectionListener;
@@ -58,6 +61,8 @@ import com.sap.dirigible.ide.publish.PublishManager;
 import com.sap.dirigible.ide.ui.widget.extbrowser.ExtendedBrowser;
 
 public class WebViewerView extends ViewPart {
+
+	public static String ID = "com.sap.dirigible.ide.workspace.ui.view.WebViewerView";
 
 	private static final String PUBLIC = Messages.WebViewerView_PUBLIC;
 
@@ -186,6 +191,7 @@ public class WebViewerView extends ViewPart {
 	public void refresh() {
 		browser.setUrl(pageUrlText.getText());
 		browser.refresh();
+		firePropertyChange(0);
 	}
 
 	private void createUrlAddressField(Composite parent) {
@@ -320,6 +326,7 @@ public class WebViewerView extends ViewPart {
 			pageUrlText.setText(url);
 			browser.setUrl(url);
 			browser.refresh();
+			firePropertyChange(0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

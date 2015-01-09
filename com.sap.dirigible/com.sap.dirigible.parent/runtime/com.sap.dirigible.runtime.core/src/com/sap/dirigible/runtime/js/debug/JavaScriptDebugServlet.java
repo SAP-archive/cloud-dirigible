@@ -15,11 +15,11 @@
 
 package com.sap.dirigible.runtime.js.debug;
 
-import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.js.JavaScriptServlet;
 import com.sap.dirigible.runtime.logger.Logger;
@@ -38,7 +38,7 @@ public class JavaScriptDebugServlet extends JavaScriptServlet {
 
 		logger.debug("entering JavaScriptDebugServlet.createExecutor()");
 
-		PropertyChangeSupport debuggerBridge = DebugBridgeUtils.lookupDebuggerBridge();
+		IDebugProtocol debuggerBridge = DebugBridgeUtils.lookupDebuggerBridge();
 
 		String rootPath = getScriptingRegistryPath(request);
 		logger.debug("rootPath=" + rootPath);

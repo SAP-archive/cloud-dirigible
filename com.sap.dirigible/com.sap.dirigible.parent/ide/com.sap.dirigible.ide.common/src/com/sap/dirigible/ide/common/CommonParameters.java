@@ -206,7 +206,13 @@ public class CommonParameters {
 	}
 
 	public static String getUserName() {
-		String user = RWT.getRequest().getRemoteUser();
+		String user = null;
+		try {
+			user = RWT.getRequest().getRemoteUser();
+
+		} catch (Throwable t) {
+			user = GUEST_USER;
+		}
 		if (user == null) {
 			user = GUEST_USER;
 		}

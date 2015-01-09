@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import com.sap.dirigible.repository.ext.debug.DebugConstants;
 import com.sap.dirigible.repository.ext.debug.DebugSessionMetadata;
 import com.sap.dirigible.repository.ext.debug.DebugSessionsMetadata;
+import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 import com.sap.dirigible.runtime.task.TaskManagerShort;
@@ -40,7 +41,7 @@ public class DebugGlobalManager implements HttpSessionListener, PropertyChangeLi
 	private static Map<String, DebuggerActionManager> debuggerActionManagers = Collections
 			.synchronizedMap(new HashMap<String, DebuggerActionManager>());
 
-	private PropertyChangeSupport debuggerBridge;
+	private IDebugProtocol debuggerBridge;
 
 	public DebugGlobalManager() {
 		logger.debug("entering DebugHttpSessionListener.constructor");

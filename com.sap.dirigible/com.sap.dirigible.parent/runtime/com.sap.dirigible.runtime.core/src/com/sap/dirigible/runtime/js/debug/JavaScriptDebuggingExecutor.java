@@ -24,6 +24,7 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ErrorReporter;
 
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.logger.Logger;
 
@@ -38,10 +39,10 @@ public class JavaScriptDebuggingExecutor extends JavaScriptExecutor {
 		super(repository, rootPath, secondaryRootPath);
 	}
 
-	private PropertyChangeSupport debuggerBridge;
+	private IDebugProtocol debuggerBridge;
 
 	public JavaScriptDebuggingExecutor(IRepository repository, String rootPath,
-			String secondaryRootPath, PropertyChangeSupport debuggerBridge) {
+			String secondaryRootPath, IDebugProtocol debuggerBridge) {
 		super(repository, rootPath, secondaryRootPath);
 		this.debuggerBridge = debuggerBridge;
 	}

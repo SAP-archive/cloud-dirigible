@@ -24,12 +24,14 @@ import org.mozilla.javascript.debug.DebugFrame;
 import org.mozilla.javascript.debug.DebuggableScript;
 import org.mozilla.javascript.debug.Debugger;
 
+import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
+
 public class JavaScriptDebugger implements Debugger {
 
 	private JavaScriptDebugFrame debugFrame = null;
 
-	public JavaScriptDebugger(PropertyChangeSupport debuggerBridge, HttpServletRequest request) {
-		this.debugFrame = new JavaScriptDebugFrame(debuggerBridge, request, this);
+	public JavaScriptDebugger(IDebugProtocol debuggerProtocol, HttpServletRequest request) {
+		this.debugFrame = new JavaScriptDebugFrame(debuggerProtocol, request, this);
 	}
 
 	public DebugFrame getFrame(Context context, DebuggableScript fnOrScript) {

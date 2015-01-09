@@ -40,6 +40,7 @@ import com.sap.dirigible.repository.ext.debug.BreakpointMetadata;
 import com.sap.dirigible.repository.ext.debug.BreakpointsMetadata;
 import com.sap.dirigible.repository.ext.debug.DebugConstants;
 import com.sap.dirigible.repository.ext.debug.DebugSessionMetadata;
+import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
 import com.sap.dirigible.repository.ext.debug.VariableValue;
 import com.sap.dirigible.repository.ext.debug.VariableValuesMetadata;
 import com.sap.dirigible.runtime.js.debug.IDebugCommands.DebugCommand;
@@ -64,10 +65,10 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 	private int stepOverLineNumber = 0;
 	private int previousLineNumber = 0;
 	private boolean stepOverFinished = true;
-	private PropertyChangeSupport debuggerBridge;
+	private IDebugProtocol debuggerProtocol;
 	private VariableValuesMetadata variableValuesMetadata;
 
-	public JavaScriptDebugFrame(PropertyChangeSupport debuggerBridge, HttpServletRequest request,
+	public JavaScriptDebugFrame(IDebugProtocol debuggerProtocol, HttpServletRequest request,
 			JavaScriptDebugger javaScriptDebugger) {
 		// get the instance of debugger action manager from the session
 
@@ -85,8 +86,8 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		this.debuggerActionCommander.setDebugFrame(this);
 		this.debuggerActionCommander.setDebugger(javaScriptDebugger);
 
-		this.debuggerBridge = debuggerBridge;
-		this.debuggerBridge.addPropertyChangeListener(this);
+		this.debuggerProtocol = debuggerProtocol;
+		this.debuggerProtocol.addPropertyChangeListener(this);
 
 		this.scriptStack = new Stack<DebuggableScript>();
 		this.activationStack = new Stack<Scriptable>();
@@ -131,7 +132,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		scriptStack.pop();
 		activationStack.pop();
 		if (scriptStack.isEmpty()) {
-			this.debuggerBridge.removePropertyChangeListener(this);
+			this.debuggerProtocol.removePropertyChangeListener(this);
 			this.debuggerActionCommander.clean();
 			DebuggerActionCommander commander = getDebuggerActionCommander();
 			DebugSessionMetadata metadata = new DebugSessionMetadata(commander.getSessionId(),
@@ -357,7 +358,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 
 	public void send(String commandId, String commandBody) {
 		logDebug("JavaScriptDebugFrame send() command: " + commandId + ", body: " + commandBody);
-		DebugBridgeUtils.send(this.debuggerBridge, commandId, getDebuggerActionCommander()
+		DebugBridgeUtils.send(this.debuggerProtocol, commandId, getDebuggerActionCommander()
 				.getExecutionId(), commandBody);
 	}
 
