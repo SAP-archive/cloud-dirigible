@@ -1,6 +1,0 @@
-<routes xmlns="http://camel.apache.org/schema/spring">
-    <route id="${routeId}">
-        <from uri="timer://${routeId}?period=10000&amp;repeatCount=10&amp;fixedRate=true" />
-        <to uri="${endpointAddress}"/>
-    </route>
-</routes>

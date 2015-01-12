@@ -133,7 +133,9 @@ public class JobsUpdater extends AbstractDataUpdater {
 				if ((jobDetail.getJobDataMap().get(JobParser.NODE_TYPE) != null 
 						&& jobDetail.getJobDataMap().get(JobParser.NODE_TYPE).equals(jobType))
 					&& (jobDetail.getJobDataMap().get(JobParser.NODE_MODULE) != null 
-							&& jobDetail.getJobDataMap().get(JobParser.NODE_MODULE).equals(jobModule))) {
+							&& jobDetail.getJobDataMap().get(JobParser.NODE_MODULE).equals(jobModule))
+					&& (jobDetail.getJobDataMap().get(JobParser.NODE_EXPRESSION) != null 
+							&& jobDetail.getJobDataMap().get(JobParser.NODE_EXPRESSION).equals(jobExpression))) {
 					logger.debug(String.format("Job name: %s, description: %s, expression: %s, type: %s, module: %s already exists.", 
 							jobName, jobDescription, jobExpression, jobType, jobModule)); //$NON-NLS-1$
 					return;
@@ -156,6 +158,7 @@ public class JobsUpdater extends AbstractDataUpdater {
 		jobDetail.getJobDataMap().put(JobParser.NODE_DESCRIPTION, jobDescription);
 		jobDetail.getJobDataMap().put(JobParser.NODE_TYPE, jobType);
 		jobDetail.getJobDataMap().put(JobParser.NODE_MODULE, jobModule);
+		jobDetail.getJobDataMap().put(JobParser.NODE_EXPRESSION, jobExpression);
 
 		try {
 			CronTrigger trigger = new CronTrigger(jobName, null, jobExpression);

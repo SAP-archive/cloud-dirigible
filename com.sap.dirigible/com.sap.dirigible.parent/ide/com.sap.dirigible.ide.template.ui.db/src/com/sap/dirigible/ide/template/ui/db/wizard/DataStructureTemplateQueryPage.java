@@ -60,11 +60,11 @@ public class DataStructureTemplateQueryPage extends FocusableWizardPage {
 		setControl(composite);
 		composite.setLayout(new GridLayout(2, false));
 
-		createRouteIdField(composite);
+		createIdField(composite);
 		checkPageStatus();
 	}
 	
-	private void createRouteIdField(Composite parent) {
+	private void createIdField(Composite parent) {
 		final Label label = new Label(parent, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 		label.setText(QUERY);

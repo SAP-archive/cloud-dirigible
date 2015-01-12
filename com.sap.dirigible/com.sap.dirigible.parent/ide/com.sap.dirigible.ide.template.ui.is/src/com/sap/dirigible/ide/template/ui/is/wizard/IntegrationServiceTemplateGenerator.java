@@ -40,9 +40,9 @@ public class IntegrationServiceTemplateGenerator extends TemplateGenerator {
 	@Override
 	protected Map<String, Object> prepareParameters() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("routeId", model.getRouteId()); //$NON-NLS-1$
+		parameters.put("id", model.getId()); //$NON-NLS-1$
 		parameters.put("endpointAddress", model.getEndpointAddress()); //$NON-NLS-1$
-		parameters.put("parameterName", model.getParameterName()); //$NON-NLS-1$
+//		parameters.put("parameterName", model.getParameterName()); //$NON-NLS-1$
 		parameters.put("projectName", model.getProjectName()); //$NON-NLS-1$
 		String fileNameNoExtension = model.getFileNameNoExtension();
 		parameters.put("fileNameNoExtension", fileNameNoExtension); //$NON-NLS-1$
@@ -53,7 +53,7 @@ public class IntegrationServiceTemplateGenerator extends TemplateGenerator {
 			fileNameNoExtensionTitle = new String(chars);
 		}
 		parameters.put("fileNameNoExtensionTitle", fileNameNoExtensionTitle); //$NON-NLS-1$
-		parameters.put("originalEndpoint", model.getOriginalEndpoint()); //$NON-NLS-1$
+//		parameters.put("originalEndpoint", model.getOriginalEndpoint()); //$NON-NLS-1$
 		return parameters;
 	}
 
@@ -91,42 +91,25 @@ public class IntegrationServiceTemplateGenerator extends TemplateGenerator {
 				.append("/" + ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES) //$NON-NLS-1$
 				.toString();
 
-		if ("/com/sap/dirigible/ide/template/ui/is/templates/proxy-rest-service-with-xslt-transformation.routes" //$NON-NLS-1$
+		if ("/com/sap/dirigible/ide/template/ui/is/templates/shielding-js.flow" //$NON-NLS-1$
 				.equals(model.getTemplate().getLocation())) {
-			copyFile(
-					model.getFileNameNoExtension() + "_in.xsl", //$NON-NLS-1$
-					"/com/sap/dirigible/ide/template/ui/is/templates/empty.xsl", //$NON-NLS-1$
-					IntegrationServiceTemplateGenerator.class);
-			copyFile(
-					model.getFileNameNoExtension() + "_out.xsl", //$NON-NLS-1$
-					"/com/sap/dirigible/ide/template/ui/is/templates/empty.xsl", //$NON-NLS-1$
-					IntegrationServiceTemplateGenerator.class);
-		}
-		if ("/com/sap/dirigible/ide/template/ui/is/templates/web-service-provider-with-javascript-implementation.routes" //$NON-NLS-1$
-				.equals(model.getTemplate().getLocation())) {
+
 			generateFile(
-					"/com/sap/dirigible/ide/template/ui/is/templates/web-service-provider-with-javascript-implementation.ws", //$NON-NLS-1$
-					model.getTargetLocation(), model.getFileNameNoExtension()
-							+ ".ws"); //$NON-NLS-1$
-			generateFile(
-					"/com/sap/dirigible/ide/template/ui/is/templates/web-service-provider-with-javascript-implementation.wsdl", //$NON-NLS-1$
-					model.getTargetLocation(), model.getFileNameNoExtension()
-							+ ".wsdl"); //$NON-NLS-1$
-			generateFile(
-					"/com/sap/dirigible/ide/template/ui/is/templates/web-service-provider-with-javascript-implementation.js", //$NON-NLS-1$
+					"/com/sap/dirigible/ide/template/ui/is/templates/javascript-sync.js", //$NON-NLS-1$
 					targetLocationPathJavaScriptServices,
-					model.getFileNameNoExtension()
+					model.getEndpointAddress()
 							+ CommonParameters.JAVASCRIPT_SERVICE_EXTENSION);
 		}
+		
+		if ("/com/sap/dirigible/ide/template/ui/is/templates/trigger-to-javascript.job" //$NON-NLS-1$
+				.equals(model.getTemplate().getLocation())) {
 
-//		if ("/com/sap/dirigible/ide/template/ui/is/templates/scheduled-job-trigger-js.routes" //$NON-NLS-1$
-//				.equals(model.getTemplate().getLocation())) {
-//			generateFile(
-//					"/com/sap/dirigible/ide/template/ui/is/templates/scheduled-job-trigger-js.js", //$NON-NLS-1$
-//					targetLocationPathJavaScriptServices,
-//					model.getFileNameNoExtension()
-//							+ CommonParameters.JAVASCRIPT_SERVICE_EXTENSION);
-//		}
+			generateFile(
+					"/com/sap/dirigible/ide/template/ui/is/templates/javascript-async.js", //$NON-NLS-1$
+					targetLocationPathJavaScriptServices,
+					model.getEndpointAddress()
+							+ CommonParameters.JAVASCRIPT_SERVICE_EXTENSION);
+		}
 
 	}
 

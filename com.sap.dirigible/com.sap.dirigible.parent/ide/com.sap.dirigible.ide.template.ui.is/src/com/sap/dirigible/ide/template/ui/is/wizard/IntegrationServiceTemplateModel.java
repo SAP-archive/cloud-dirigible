@@ -26,17 +26,17 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 public class IntegrationServiceTemplateModel extends GenerationModel {
 
 	private static final String TARGET_LOCATION_IS_NOT_ALLOWED = Messages.IntegrationServiceTemplateModel_TARGET_LOCATION_IS_NOT_ALLOWED;
-	private String routeId;
+	private String id;
 	private String endpointAddress;
 	private String parameterName;
 	private String originalEndpoint;
 
-	public String getRouteId() {
-		return routeId;
+	public String getId() {
+		return id;
 	}
 
-	public void setRouteId(String routeId) {
-		this.routeId = routeId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getEndpointAddress() {
@@ -87,7 +87,7 @@ public class IntegrationServiceTemplateModel extends GenerationModel {
 			}
 			IPath location = new Path(getTargetLocation())
 					.append(getFileName());
-			// TODO - more precise test for the location ../WebContent/...
+			// TODO - more precise test for the location ../IntegrationServices/...
 			if (location.toString().indexOf(
 					ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES) == -1) {
 				return ValidationStatus

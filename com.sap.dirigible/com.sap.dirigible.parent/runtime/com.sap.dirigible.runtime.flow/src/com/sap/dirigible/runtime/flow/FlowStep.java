@@ -8,6 +8,8 @@ public class FlowStep extends FlowBase {
 	private String module;
 	
 	private FlowCase[] cases;
+	
+	private String message;
 
 	public String getType() {
 		return type;
@@ -31,5 +33,13 @@ public class FlowStep extends FlowBase {
 	
 	public void setCases(FlowCase[] cases) {
 		this.cases = cases;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

@@ -76,7 +76,7 @@ public class DebugModelFacade {
 	public static DebugModel getActiveDebugModel() {
 		DebugModel debugModel = (DebugModel) RWT.getRequest().getSession().getAttribute(ACTIVE_DEBUG_SESSION);
 		if (debugModel == null) {
-			logger.warn("Getting active DebugModel from session failed");
+			logger.debug("Getting active DebugModel from session failed");
 		}
 		return debugModel;
 	}

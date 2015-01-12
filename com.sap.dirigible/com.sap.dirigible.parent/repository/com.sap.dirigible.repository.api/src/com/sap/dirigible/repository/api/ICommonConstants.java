@@ -61,6 +61,7 @@ public interface ICommonConstants {
 		public static final String COMMAND = "command"; //$NON-NLS-1$
 		public static final String CONDITION = "condition"; //$NON-NLS-1$
 		public static final String FLOW = "flow"; //$NON-NLS-1$
+		public static final String OUTPUT = "output"; //$NON-NLS-1$
 	}
 
 	public static final String DATA_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC

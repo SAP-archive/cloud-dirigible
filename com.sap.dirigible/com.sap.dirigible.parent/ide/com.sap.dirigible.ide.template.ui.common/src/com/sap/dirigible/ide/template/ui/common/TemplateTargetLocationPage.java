@@ -208,7 +208,8 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 				|| EMPTY_STRING.equals(fileNameText.getText())) {
 			fileNameText.setText(getDefaultFileName());
 		} else {
-			if (isForcedFileName()) {
+			if (isForcedFileName()
+					&& getModel().getFileName() == null) {
 				fileNameText.setText(getDefaultFileName());
 			}
 		}

@@ -28,11 +28,11 @@ import java.util.Map;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
-import com.sap.dirigible.ide.logging.Logger;
+//import com.sap.dirigible.ide.logging.Logger;
 
 public class VelocityGenerator {
 	
-	private static final Logger logger = Logger.getLogger(VelocityGenerator.class);
+//	private static final Logger logger = Logger.getLogger(VelocityGenerator.class);
 
 	private static final String COULD_NOT_EVALUATE_TEMPLATE = Messages.getString("VelocityGenerator.COULD_NOT_EVALUATE_TEMPLATE"); //$NON-NLS-1$
 	private VelocityEngine engine;
@@ -42,7 +42,7 @@ public class VelocityGenerator {
 		try {
 			engine.init();
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
+//			logger.error(e.getMessage(), e);
 			e.printStackTrace();
 		}
 	}

@@ -685,6 +685,12 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 	}
 
 	private void refreshSessionsView() {
+		if (sessionsTreeViewer == null
+				|| sessionsTreeViewer.getTree() == null
+				|| sessionsTreeViewer.getTree().isDisposed()) {
+			return;
+		}
+		
 		final Display display = PlatformUI.createDisplay();
 		final ServerPushSession pushSession = new ServerPushSession();
 		Runnable backGroundRunnable = new Runnable() {

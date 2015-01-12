@@ -52,12 +52,12 @@ public class IntegrationServiceTemplateServiceParametersPage extends FocusableWi
 
 	private Composite composite;
 
-	private Text routeIdText;
+	private Text idText;
 	private Text endpointAddressText;
-	private Label parameterNameLabel;
-	private Text parameterNameText;
-	private Label originalEndpointLabel;
-	private Text originalEndpointText;
+//	private Label parameterNameLabel;
+//	private Text parameterNameText;
+//	private Label originalEndpointLabel;
+//	private Text originalEndpointText;
 
 	protected IntegrationServiceTemplateServiceParametersPage(
 			IntegrationServiceTemplateModel model) {
@@ -73,38 +73,38 @@ public class IntegrationServiceTemplateServiceParametersPage extends FocusableWi
 		setControl(composite);
 		composite.setLayout(new GridLayout(2, false));
 
-		createRouteIdField(composite);
+		createIdField(composite);
 		createEndpointNameField(composite);
-		createParameterNameField(composite);
-		createOriginalEndpointField(composite);
+//		createParameterNameField(composite);
+//		createOriginalEndpointField(composite);
 		checkPageStatus();
 	}
 
-	private void createRouteIdField(Composite parent) {
+	private void createIdField(Composite parent) {
 		final Label label = new Label(parent, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 		label.setText(ROUTE_IDENTIFIER);
 
-		routeIdText = new Text(parent, SWT.BORDER);
-		routeIdText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+		idText = new Text(parent, SWT.BORDER);
+		idText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false));
-		routeIdText.addModifyListener(new ModifyListener() {
+		idText.addModifyListener(new ModifyListener() {
 
 			private static final long serialVersionUID = -6899815752954102238L;
 
 			@Override
 			public void modifyText(ModifyEvent event) {
-				if (routeIdText.getText() == null
-						|| "".equals(routeIdText.getText())) { //$NON-NLS-1$
+				if (idText.getText() == null
+						|| "".equals(idText.getText())) { //$NON-NLS-1$
 					setErrorMessage(INPUT_THE_ROUTE_IDENTIFIER);
 				} else {
 					setErrorMessage(null);
-					model.setRouteId(routeIdText.getText());
+					model.setId(idText.getText());
 				}
 				checkPageStatus();
 			}
 		});
-		setFocusable(routeIdText);
+		setFocusable(idText);
 	}
 
 	private void createEndpointNameField(Composite parent) {
@@ -133,62 +133,62 @@ public class IntegrationServiceTemplateServiceParametersPage extends FocusableWi
 		});
 	}
 
-	private void createParameterNameField(Composite parent) {
-		parameterNameLabel = new Label(parent, SWT.NONE);
-		parameterNameLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER,
-				false, false));
-		parameterNameLabel.setText(CONDITION_PARAMETER_NAME);
-
-		parameterNameText = new Text(parent, SWT.BORDER);
-		parameterNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER,
-				true, false));
-		parameterNameText.addModifyListener(new ModifyListener() {
-
-			private static final long serialVersionUID = -3477560761099570898L;
-
-			@Override
-			public void modifyText(ModifyEvent event) {
-				if (parameterNameText.getText() == null
-						|| "".equals(parameterNameText.getText())) { //$NON-NLS-1$
-					setErrorMessage(INPUT_THE_CONDITION_PARAMETER_NAME);
-				} else {
-					setErrorMessage(null);
-					model.setParameterName(parameterNameText.getText());
-				}
-				checkPageStatus();
-			}
-		});
-	}
-
-	private void createOriginalEndpointField(Composite parent) {
-		originalEndpointLabel = new Label(parent, SWT.NONE);
-		originalEndpointLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER,
-				false, false));
-		originalEndpointLabel.setText(ORIGINAL_ENDPOINT_ADDRESS);
-
-		originalEndpointText = new Text(parent, SWT.BORDER);
-		originalEndpointText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER,
-				true, false));
-		originalEndpointText.addModifyListener(new ModifyListener() {
-
-			private static final long serialVersionUID = -4627422058319183501L;
-
-			@Override
-			public void modifyText(ModifyEvent event) {
-				if (originalEndpointText.getText() == null
-						|| "".equals(originalEndpointText.getText())) { //$NON-NLS-1$
-					setErrorMessage(INPUT_THE_CONDITION_PARAMETER_NAME);
-				} else {
-					setErrorMessage(null);
-					model.setOriginalEndpoint(originalEndpointText.getText());
-				}
-				checkPageStatus();
-			}
-		});
-	}
+//	private void createParameterNameField(Composite parent) {
+//		parameterNameLabel = new Label(parent, SWT.NONE);
+//		parameterNameLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER,
+//				false, false));
+//		parameterNameLabel.setText(CONDITION_PARAMETER_NAME);
+//
+//		parameterNameText = new Text(parent, SWT.BORDER);
+//		parameterNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER,
+//				true, false));
+//		parameterNameText.addModifyListener(new ModifyListener() {
+//
+//			private static final long serialVersionUID = -3477560761099570898L;
+//
+//			@Override
+//			public void modifyText(ModifyEvent event) {
+//				if (parameterNameText.getText() == null
+//						|| "".equals(parameterNameText.getText())) { //$NON-NLS-1$
+//					setErrorMessage(INPUT_THE_CONDITION_PARAMETER_NAME);
+//				} else {
+//					setErrorMessage(null);
+//					model.setParameterName(parameterNameText.getText());
+//				}
+//				checkPageStatus();
+//			}
+//		});
+//	}
+//
+//	private void createOriginalEndpointField(Composite parent) {
+//		originalEndpointLabel = new Label(parent, SWT.NONE);
+//		originalEndpointLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER,
+//				false, false));
+//		originalEndpointLabel.setText(ORIGINAL_ENDPOINT_ADDRESS);
+//
+//		originalEndpointText = new Text(parent, SWT.BORDER);
+//		originalEndpointText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER,
+//				true, false));
+//		originalEndpointText.addModifyListener(new ModifyListener() {
+//
+//			private static final long serialVersionUID = -4627422058319183501L;
+//
+//			@Override
+//			public void modifyText(ModifyEvent event) {
+//				if (originalEndpointText.getText() == null
+//						|| "".equals(originalEndpointText.getText())) { //$NON-NLS-1$
+//					setErrorMessage(INPUT_THE_CONDITION_PARAMETER_NAME);
+//				} else {
+//					setErrorMessage(null);
+//					model.setOriginalEndpoint(originalEndpointText.getText());
+//				}
+//				checkPageStatus();
+//			}
+//		});
+//	}
 
 	private void checkPageStatus() {
-		if (model.getRouteId() == null || "".equals(model.getRouteId())) { //$NON-NLS-1$
+		if (model.getId() == null || "".equals(model.getId())) { //$NON-NLS-1$
 			setPageComplete(false);
 			return;
 		}
@@ -197,21 +197,21 @@ public class IntegrationServiceTemplateServiceParametersPage extends FocusableWi
 			setPageComplete(false);
 			return;
 		}
-		if (model.getTemplate().getValidParameters().contains("parameterName")) { //$NON-NLS-1$
-			if (model.getParameterName() == null
-					|| "".equals(model.getParameterName())) { //$NON-NLS-1$
-				setPageComplete(false);
-				return;
-			}
-		}
-		if (model.getTemplate().getValidParameters()
-				.contains("originalEndpoint")) { //$NON-NLS-1$
-			if (model.getOriginalEndpoint() == null
-					|| "".equals(model.getOriginalEndpoint())) { //$NON-NLS-1$
-				setPageComplete(false);
-				return;
-			}
-		}
+//		if (model.getTemplate().getValidParameters().contains("parameterName")) { //$NON-NLS-1$
+//			if (model.getParameterName() == null
+//					|| "".equals(model.getParameterName())) { //$NON-NLS-1$
+//				setPageComplete(false);
+//				return;
+//			}
+//		}
+//		if (model.getTemplate().getValidParameters()
+//				.contains("originalEndpoint")) { //$NON-NLS-1$
+//			if (model.getOriginalEndpoint() == null
+//					|| "".equals(model.getOriginalEndpoint())) { //$NON-NLS-1$
+//				setPageComplete(false);
+//				return;
+//			}
+//		}
 
 		setPageComplete(true);
 	}
@@ -219,17 +219,17 @@ public class IntegrationServiceTemplateServiceParametersPage extends FocusableWi
 	@Override
 	public void setVisible(boolean visible) {
 
-		if (visible && model.getTemplate() != null) {
-			parameterNameLabel.setEnabled(model.getTemplate()
-					.getValidParameters().contains("parameterName")); //$NON-NLS-1$
-			parameterNameText.setEnabled(model.getTemplate()
-					.getValidParameters().contains("parameterName")); //$NON-NLS-1$
-			originalEndpointLabel.setEnabled(model.getTemplate()
-					.getValidParameters().contains("originalEndpoint")); //$NON-NLS-1$
-			originalEndpointText.setEnabled(model.getTemplate()
-					.getValidParameters().contains("originalEndpoint")); //$NON-NLS-1$
-			// composite.layout();
-		}
+//		if (visible && model.getTemplate() != null) {
+//			parameterNameLabel.setEnabled(model.getTemplate()
+//					.getValidParameters().contains("parameterName")); //$NON-NLS-1$
+//			parameterNameText.setEnabled(model.getTemplate()
+//					.getValidParameters().contains("parameterName")); //$NON-NLS-1$
+//			originalEndpointLabel.setEnabled(model.getTemplate()
+//					.getValidParameters().contains("originalEndpoint")); //$NON-NLS-1$
+//			originalEndpointText.setEnabled(model.getTemplate()
+//					.getValidParameters().contains("originalEndpoint")); //$NON-NLS-1$
+//			// composite.layout();
+//		}
 		super.setVisible(visible);
 	}
 

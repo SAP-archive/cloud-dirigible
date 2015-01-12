@@ -73,7 +73,17 @@ public class IntegrationServiceTemplateTargetLocationPage extends
 
 	@Override
 	protected String getDefaultFileName() {
-		return "route_name.routes"; //$NON-NLS-1$
+		if (model.getTemplate().getLocation().endsWith(".flow")) {
+			return "flow_name.flow"; //$NON-NLS-1$
+		} else if (model.getTemplate().getLocation().endsWith(".job")) {
+			return "job_name.job"; //$NON-NLS-1$
+		} 
+		return "flow_name.flow"; //$NON-NLS-1$
+	}
+	
+	@Override
+	protected boolean isForcedFileName() {
+		return true;
 	}
 
 	@Override

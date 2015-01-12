@@ -34,103 +34,45 @@
    
    <extension
          point="com.sap.dirigible.ide.template.type">
+
+
       <template
             category="IntegrationServices"
-            image="/icons/content-based-routing-header.png"
-            location="/com/sap/dirigible/ide/template/ui/is/templates/content-based-routing-header.routes"
-            text="Content Based Routing by Header Parameter">
+            image="/icons/routing.png"
+            location="/com/sap/dirigible/ide/template/ui/is/templates/routing-js.flow"
+            text="Routing by Parameter">
          <parameter
-               value="routeId">
+               value="id">
+         </parameter>
+      </template>
+
+      <template
+            category="IntegrationServices"
+            image="/icons/shielding.png"
+            location="/com/sap/dirigible/ide/template/ui/is/templates/shielding-js.flow"
+            text="Shielding a JavaScript Service">
+         <parameter
+               value="id">
          </parameter>
          <parameter
                value="endpointAddress">
          </parameter>
-         <parameter
-               value="parameterName">
-         </parameter>
       </template>
-      <!--
+
       <template
             category="IntegrationServices"
-            image="/icons/proxy-rest-service-with-xslt-transformation.png"
-            location="/com/sap/dirigible/ide/template/ui/is/templates/proxy-rest-service-with-xslt-transformation.routes"
-            text="Proxy REST Service with XSLT Transformation">
-         <parameter
-               value="routeId">
-         </parameter>
-         <parameter
-               value="endpointAddress">
-         </parameter>
-         <parameter
-               value="originalEndpoint">
-         </parameter>
-         <parameter
-               value="projectName">
-         </parameter>
-         <parameter
-               value="fileName">
-         </parameter>
-      </template>
-      -->
-      <template
-            category="IntegrationServices"
-            image="/icons/proxy-rest-service-shielding-js.png"
-            location="/com/sap/dirigible/ide/template/ui/is/templates/proxy-rest-service-shielding-js.routes"
-            text="Proxy REST Service Shielding a JavaScript Service">
-         <parameter
-               value="routeId">
-         </parameter>
-         <parameter
-               value="endpointAddress">
-         </parameter>
-         <parameter
-               value="originalEndpoint">
-         </parameter>
-         <parameter
-               value="projectName">
-         </parameter>
-         <parameter
-               value="fileName">
-         </parameter>
-      </template>
-      <!--
-      <template
-            category="IntegrationServices"
-            image="/icons/web-service-provider-with-javascript-implementation.png"
-            location="/com/sap/dirigible/ide/template/ui/is/templates/web-service-provider-with-javascript-implementation.routes"
-            text="Web Service Provider with JavaScript Implementation">
-         <parameter
-               value="routeId">
-         </parameter>
-         <parameter
-               value="endpointAddress">
-         </parameter>
-         <parameter
-               value="projectName">
-         </parameter>
-         <parameter
-               value="fileName">
-         </parameter>
-      </template>
-      -->
-      <template
-            category="IntegrationServices"
-            image="/icons/scheduled-job-trigger-js.png"
-            location="/com/sap/dirigible/ide/template/ui/is/templates/scheduled-job-trigger-js.routes"
+            image="/icons/job.png"
+            location="/com/sap/dirigible/ide/template/ui/is/templates/trigger-to-javascript.job"
             text="Scheduled Job Triggering a JavaScript Service">
          <parameter
-               value="routeId">
+               value="id">
          </parameter>
          <parameter
                value="endpointAddress">
          </parameter>
-         <parameter
-               value="projectName">
-         </parameter>
-         <parameter
-               value="fileName">
-         </parameter>
       </template>
+         
+      
    </extension>
    
    <extension

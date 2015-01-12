@@ -115,8 +115,16 @@ public class FlowExecutor extends AbstractScriptExecutor {
 			FlowCase[] cases = flowStep.getCases();
 			for (FlowCase flowCase : cases) {
 				Object value = executionContext.get(flowCase.getKey());
-				if (value != null
-						&& value.equals(flowCase.getValue())) {
+				if (value == null
+						&& request != null) {
+					value = request.getParameter(flowCase.getKey());
+				}
+				if ((value != null
+						&& value.equals(flowCase.getValue()))
+						||
+						(flowCase.getValue() !=null
+						&& flowCase.getValue().equalsIgnoreCase("null")
+						&& value == null)) {
 					processFlow(request, response, module, executionContext, flowCase.getFlow(), inputOutput);
 					break;
 				}
@@ -125,6 +133,12 @@ public class FlowExecutor extends AbstractScriptExecutor {
 		} else if (ICommonConstants.ENGINE_TYPE.FLOW.equalsIgnoreCase(flowStep.getType())) {
 			inputOutput = EngineUtils.executeFlow(request, response, executionContext,
 					inputOutput, flowStep.getModule());
+		} else if (ICommonConstants.ENGINE_TYPE.OUTPUT.equalsIgnoreCase(flowStep.getType())) {
+			if (response != null) {
+				response.getWriter().print(flowStep.getMessage());
+			} else {
+				System.out.println(flowStep.getMessage());
+			}
 		} else { // groovy etc...
 			throw new IllegalArgumentException(String.format("Unknown execution type [%s] of step %s in flow %s at %s", 
 					flowStep.getType(), flowStep.getName(), flow.getName(), module));
