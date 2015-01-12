@@ -1,6 +1,5 @@
 package com.sap.dirigible.runtime.java.executors;
 
-import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +10,9 @@ import com.sap.dirigible.runtime.java.JavaExecutor;
 
 public class JavaExecutorStub extends JavaExecutor {
 
-	public JavaExecutorStub(IRepository repository, File libDirectory,
+	public JavaExecutorStub(IRepository repository,
 			String classpath, String... rootPaths) {
-		super(repository, libDirectory, classpath, rootPaths);
+		super(repository, classpath, rootPaths);
 	}
 
 	@Override

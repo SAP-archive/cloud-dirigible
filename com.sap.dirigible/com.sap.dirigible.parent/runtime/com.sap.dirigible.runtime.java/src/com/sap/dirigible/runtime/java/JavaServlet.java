@@ -3,7 +3,6 @@ package com.sap.dirigible.runtime.java;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,17 +66,13 @@ public class JavaServlet extends AbstractScriptingServlet {
 	
 	private String getClasspath() throws IOException {
 		if (this.classpath == null) {
-//			if (this.libDirectory != null) {
-				this.classpath = ClassFileManager.getJars(this.libDirectory);
-//			} else {
-//				this.classpath = ClassFileManager.getJars();
-//			}
+			this.classpath = ClassFileManager.getJars(this.libDirectory);
 		}
 		return this.classpath;
 	}
 
 	public JavaExecutor createExecutor(HttpServletRequest request) throws IOException {
-		JavaExecutor executor = new JavaExecutor(getRepository(request), this.libDirectory, getClasspath(),
+		JavaExecutor executor = new JavaExecutor(getRepository(request), getClasspath(),
 				getScriptingRegistryPath(request), REGISTRY_SCRIPTING_DEPLOY_PATH);
 		return executor;
 	}

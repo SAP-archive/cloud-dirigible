@@ -14,7 +14,8 @@ Require-Bundle: com.sap.dirigible.repository.api,
  com.google.gson,
  org.apache.servicemix.bundles.quartz,
  com.sap.dirigible.runtime.security,
- com.sap.dirigible.runtime.groovy;bundle-version="2.0.141200"
+ com.sap.dirigible.runtime.groovy,
+ com.sap.dirigible.runtime.java
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet,
  javax.servlet.annotation,

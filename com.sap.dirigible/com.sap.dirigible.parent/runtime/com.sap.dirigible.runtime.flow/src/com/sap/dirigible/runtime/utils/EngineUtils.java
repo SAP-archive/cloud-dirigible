@@ -10,8 +10,11 @@ import com.sap.dirigible.runtime.command.CommandExecutor;
 import com.sap.dirigible.runtime.command.CommandServlet;
 import com.sap.dirigible.runtime.flow.FlowExecutor;
 import com.sap.dirigible.runtime.flow.FlowServlet;
+import com.sap.dirigible.runtime.flow.FlowStep;
 import com.sap.dirigible.runtime.groovy.GroovyExecutor;
 import com.sap.dirigible.runtime.groovy.GroovyServlet;
+import com.sap.dirigible.runtime.java.JavaExecutor;
+import com.sap.dirigible.runtime.java.JavaServlet;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.js.JavaScriptServlet;
 
@@ -54,13 +57,13 @@ public class EngineUtils {
 	}
 
 	
-//	public static Object executeJava(HttpServletRequest request,
-//			HttpServletResponse response, Map<Object, Object> executionContext,
-//			Object inputOutput, FlowStep flowStep) throws IOException {
-//		JavaServlet javaServlet = new JavaServlet();
-//		JavaExecutor javaExecutor = javaServlet.createExecutor(request);
-//		inputOutput = javaExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
-//		return inputOutput;
-//	}
+	public static Object executeJava(HttpServletRequest request,
+			HttpServletResponse response, Map<Object, Object> executionContext,
+			Object inputOutput, String module) throws IOException {
+		JavaServlet javaServlet = new JavaServlet();
+		JavaExecutor javaExecutor = javaServlet.createExecutor(request);
+		inputOutput = javaExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
+		return inputOutput;
+	}
 
 }

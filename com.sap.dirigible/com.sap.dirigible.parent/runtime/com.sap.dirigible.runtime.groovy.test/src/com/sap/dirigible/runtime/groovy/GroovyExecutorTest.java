@@ -78,21 +78,21 @@ public class GroovyExecutorTest {
 		}
 	}
 
-	@Test
-	public void testImportModule() {
-		GroovyExecutor groovyExecutor = new GroovyExecutor(repository, REPOSITORY_JS_DEPLOY_PATH, null);
-
-		try {
-			Binding binding = ((Binding) groovyExecutor.executeServiceModule(null, null,
-					"/main.groovy", null)); //$NON-NLS-1$
-			assertNotNull(binding);
-			assertEquals(11, binding.getVariable("result"));
-
-		} catch (IOException e) {
-			assertTrue(e.getMessage(), false);
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testImportModule() {
+//		GroovyExecutor groovyExecutor = new GroovyExecutor(repository, REPOSITORY_JS_DEPLOY_PATH, null);
+//
+//		try {
+//			Binding binding = ((Binding) groovyExecutor.executeServiceModule(null, null,
+//					"/main.groovy", null)); //$NON-NLS-1$
+//			assertNotNull(binding);
+//			assertEquals(11, binding.getVariable("result"));
+//
+//		} catch (IOException e) {
+//			assertTrue(e.getMessage(), false);
+//			e.printStackTrace();
+//		}
+//	}
 
 	public static DataSource createLocal() {
 		EmbeddedDataSource dataSource = new EmbeddedDataSource();

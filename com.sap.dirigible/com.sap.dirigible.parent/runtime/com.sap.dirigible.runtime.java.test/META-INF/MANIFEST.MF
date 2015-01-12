@@ -24,11 +24,10 @@ Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  org.everit.osgi.bundles.org.json,
  org.eclipse.equinox.http.registry,
  org.eclipse.equinox.http.servlet,
+ com.sap.dirigible.runtime.core,
  org.eclipse.core.runtime,
- com.sap.dirigible.runtime.java,
  org.junit,
- org.hamcrest,
- com.sap.dirigible.runtime.core
+ org.hamcrest
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,

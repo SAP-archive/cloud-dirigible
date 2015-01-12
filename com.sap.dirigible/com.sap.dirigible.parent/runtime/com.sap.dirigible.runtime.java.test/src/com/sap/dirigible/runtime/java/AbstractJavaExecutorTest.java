@@ -1,6 +1,7 @@
 package com.sap.dirigible.runtime.java;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,6 +17,7 @@ import org.junit.Before;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
 import com.sap.dirigible.runtime.java.executors.JavaExecutorStub;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
@@ -46,7 +48,13 @@ public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResor
 	}
 
 	protected AbstractScriptExecutor createExecutor() {
-		return new JavaExecutorStub(getRepository(), getLibDirectory(), "", getRootPaths());
+		try {
+			return new JavaExecutorStub(getRepository(), ClassFileManager.getJars(getLibDirectory()), getRootPaths());
+		} catch (IOException e) {
+			System.setErr(printStream);
+			fail(e.getMessage());
+		}
+		return null;
 	}
 
 	protected IRepository getRepository() {

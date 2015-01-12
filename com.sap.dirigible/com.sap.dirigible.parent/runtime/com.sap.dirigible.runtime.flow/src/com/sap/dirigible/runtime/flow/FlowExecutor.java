@@ -30,6 +30,10 @@ import com.sap.dirigible.runtime.utils.EngineUtils;
 
 public class FlowExecutor extends AbstractScriptExecutor {
 	
+	private static final String CONDITION_PARAMETER_ANY = "any";
+
+	private static final String CONDITION_PARAMETER_NULL = "null";
+
 	private static final Logger logger = Logger.getLogger(FlowExecutor.class);
 
 	private IRepository repository;
@@ -101,9 +105,9 @@ public class FlowExecutor extends AbstractScriptExecutor {
 		if (ICommonConstants.ENGINE_TYPE.JAVASCRIPT.equalsIgnoreCase(flowStep.getType())) {
 			inputOutput = EngineUtils.executeJavascript(request, response,
 					executionContext, inputOutput, flowStep.getModule());
-//				} else if (ICommonConstants.ENGINE_TYPE.JAVA.equalsIgnoreCase(flowStep.getType())) {
-//					inputOutput = EngineUtils.executeJava(request, response,
-//						executionContext, inputOutput, flowStep);
+		} else if (ICommonConstants.ENGINE_TYPE.JAVA.equalsIgnoreCase(flowStep.getType())) {
+			inputOutput = EngineUtils.executeJava(request, response,
+				executionContext, inputOutput, flowStep.getModule());
 		} else if (ICommonConstants.ENGINE_TYPE.COMMAND.equalsIgnoreCase(flowStep.getType())) {
 			inputOutput = EngineUtils.executeCommand(request, response, executionContext,
 					inputOutput, flowStep.getModule());
@@ -117,14 +121,23 @@ public class FlowExecutor extends AbstractScriptExecutor {
 				Object value = executionContext.get(flowCase.getKey());
 				if (value == null
 						&& request != null) {
+					// the value is not present in the context - try via request
 					value = request.getParameter(flowCase.getKey());
 				}
-				if ((value != null
+				if ((
+						// the value is present and it is equal to the parameter
+						value != null
 						&& value.equals(flowCase.getValue()))
 						||
-						(flowCase.getValue() !=null
-						&& flowCase.getValue().equalsIgnoreCase("null")
-						&& value == null)) {
+						// the value is NOT present, but the parameter is "null"
+						(flowCase.getValue() != null
+						&& flowCase.getValue().equalsIgnoreCase(CONDITION_PARAMETER_NULL)
+						&& value == null)
+						||
+						// the value is present and the parameter is "any"
+						(flowCase.getValue() != null
+						&& flowCase.getValue().equalsIgnoreCase(CONDITION_PARAMETER_ANY)
+						&& value != null)) {
 					processFlow(request, response, module, executionContext, flowCase.getFlow(), inputOutput);
 					break;
 				}

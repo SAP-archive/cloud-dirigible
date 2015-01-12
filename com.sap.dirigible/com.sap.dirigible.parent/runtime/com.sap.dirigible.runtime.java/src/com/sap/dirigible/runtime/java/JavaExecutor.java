@@ -38,15 +38,13 @@ public class JavaExecutor extends AbstractScriptExecutor {
 	private IRepository repository;
 	private String[] rootPaths;
 	private Map<String, Object> defaultVariables;
-	private File libDirectory;
 	
 	private String classpath;
 
-	public JavaExecutor(IRepository repository, File libDirectory, String classpath, String... rootPaths) {
+	public JavaExecutor(IRepository repository, String classpath, String... rootPaths) {
 		this.repository = repository;
 		this.rootPaths = rootPaths;
 		this.defaultVariables = new HashMap<String, Object>();
-		this.libDirectory = libDirectory;
 		this.classpath = classpath;
 	}
 
