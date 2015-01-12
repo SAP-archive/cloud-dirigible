@@ -12,8 +12,8 @@ import com.sap.dirigible.runtime.java.JavaExecutor;
 public class JavaExecutorStub extends JavaExecutor {
 
 	public JavaExecutorStub(IRepository repository, File libDirectory,
-			String... rootPaths) {
-		super(repository, libDirectory, rootPaths);
+			String classpath, String... rootPaths) {
+		super(repository, libDirectory, classpath, rootPaths);
 	}
 
 	@Override

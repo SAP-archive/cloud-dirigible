@@ -68,7 +68,7 @@ public class GroovyExecutorTest {
 
 		try {
 			Binding binding = ((Binding) groovyExecutor.executeServiceModule(null, null,
-					"/hello1.groovy")); //$NON-NLS-1$
+					"/hello1.groovy", null)); //$NON-NLS-1$
 			assertNotNull(binding);
 			assertEquals(5, binding.getVariable("result"));
 
@@ -84,7 +84,7 @@ public class GroovyExecutorTest {
 
 		try {
 			Binding binding = ((Binding) groovyExecutor.executeServiceModule(null, null,
-					"/main.groovy")); //$NON-NLS-1$
+					"/main.groovy", null)); //$NON-NLS-1$
 			assertNotNull(binding);
 			assertEquals(11, binding.getVariable("result"));
 

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
-Bundle-Name: Dirigible IDE Tepmplate- Test
+Bundle-Name: Dirigible IDE Tepmplate - Test
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: SAP
 Build-Jdk: 1.6.0_33

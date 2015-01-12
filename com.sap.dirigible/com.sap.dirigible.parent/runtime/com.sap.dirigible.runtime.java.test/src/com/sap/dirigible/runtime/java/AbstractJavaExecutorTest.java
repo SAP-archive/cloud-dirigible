@@ -46,7 +46,7 @@ public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResor
 	}
 
 	protected AbstractScriptExecutor createExecutor() {
-		return new JavaExecutorStub(getRepository(), getLibDirectory(), getRootPaths());
+		return new JavaExecutorStub(getRepository(), getLibDirectory(), "", getRootPaths());
 	}
 
 	protected IRepository getRepository() {
@@ -100,7 +100,7 @@ public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResor
 	}
 	
 	protected Object execute(String module) throws IOException {
-		return executor.executeServiceModule(null, null, module);
+		return executor.executeServiceModule(null, null, module, null);
 	}
 	
 	protected void createResource(String path, File source) throws IOException {

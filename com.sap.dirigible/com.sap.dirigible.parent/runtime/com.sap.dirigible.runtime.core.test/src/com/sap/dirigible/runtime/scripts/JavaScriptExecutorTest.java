@@ -72,7 +72,7 @@ public class JavaScriptExecutorTest {
 		// TODO mock request and response
 		try {
 			Object object = executor.executeServiceModule(null, null,
-					"/testSum.js"); //$NON-NLS-1$
+					"/testSum.js", null); //$NON-NLS-1$
 			assertNotNull(object);
 			assertTrue(((Double) object) == 4);
 
@@ -89,7 +89,7 @@ public class JavaScriptExecutorTest {
 		// TODO mock request and response
 		try {
 			Object object = executor.executeServiceModule(null, null,
-					"/testSumSandbox.js"); //$NON-NLS-1$
+					"/testSumSandbox.js", null); //$NON-NLS-1$
 			assertNotNull(object);
 			assertTrue(((Double) object) == 4);
 
@@ -106,7 +106,7 @@ public class JavaScriptExecutorTest {
 		// TODO mock request and response
 		try {
 			Object object = executor.executeServiceModule(null, null,
-					"/testExports.js"); //$NON-NLS-1$
+					"/testExports.js", null); //$NON-NLS-1$
 			assertNotNull(object);
 			assertTrue(((Double) object) == 11);
 
@@ -123,7 +123,7 @@ public class JavaScriptExecutorTest {
 		// TODO mock request and response
 		try {
 			Object object = executor.executeServiceModule(null, null,
-					"/testDefaultObjects.js"); //$NON-NLS-1$
+					"/testDefaultObjects.js", null); //$NON-NLS-1$
 			assertNotNull(object);
 			assertTrue(((Boolean) object));
 

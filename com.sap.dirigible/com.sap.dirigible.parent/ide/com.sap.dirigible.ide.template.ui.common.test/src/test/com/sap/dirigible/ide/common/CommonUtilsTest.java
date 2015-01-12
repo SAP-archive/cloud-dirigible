@@ -19,13 +19,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.CommonUtils;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class CommonUtilsTest {
 
-	private static final String SEPARATOR = CommonParameters.SEPARATOR;
-	private static final String FOLDER = CommonParameters.SCRIPTING_CONTENT_FOLDER;
+	private static final String SEPARATOR = ICommonConstants.SEPARATOR;
+	private static final String FOLDER = ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
 	private static final String PROJECT = "project";
 	private static final String SUB_FOLDER = "subFolder";
 	private static final String FILE_NAME = "file.js";

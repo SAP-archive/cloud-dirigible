@@ -1,7 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Dirigible IDE - Runtime Core
+Bundle-Name: Dirigible IDE - Runtime Java Test
 Bundle-SymbolicName: com.sap.dirigible.runtime.java.test;singleton:=true
+Fragment-Host: com.sap.dirigible.runtime.java
 Bundle-Version: 2.0.141200
 Bundle-Vendor: SAP
 Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
@@ -23,7 +24,11 @@ Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  org.everit.osgi.bundles.org.json,
  org.eclipse.equinox.http.registry,
  org.eclipse.equinox.http.servlet,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ com.sap.dirigible.runtime.java,
+ org.junit,
+ org.hamcrest,
+ com.sap.dirigible.runtime.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,
