@@ -48,7 +48,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPropertyListener;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -129,6 +131,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 	@Override
 	public void init(IViewSite site) throws PartInitException {
 		super.init(site);
+		registerPreviewListener(this);
 	}
 
 	@Override
@@ -159,8 +162,34 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 		} else {
 			this.debugProtocol.addPropertyChangeListener(this);
 		}
-		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(WebViewerView.ID).addPropertyListener(this);
+ 
+//		registerPreviewListener(this);
+			
 	}
+	
+	
+	
+	private static boolean previewListenerRegistered = false;
+		
+	private void registerPreviewListener(final DebugView debugView) {
+		
+		if (!previewListenerRegistered) {
+			IWorkbenchPage workbenchPage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			if (workbenchPage != null) {
+				IViewPart viewPart = workbenchPage.findView(WebViewerView.ID);
+				if (viewPart == null) {
+					try {
+						viewPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(WebViewerView.ID);
+					} catch (PartInitException e) {
+						logError(e.getMessage(), e);
+						return;
+					}
+				}
+				viewPart.addPropertyListener(debugView);
+				previewListenerRegistered = true;
+			}
+		}
+	};
 
 	private DebugModel refreshMetaData() {
 		sessionsTreeViewer.refresh(true);
