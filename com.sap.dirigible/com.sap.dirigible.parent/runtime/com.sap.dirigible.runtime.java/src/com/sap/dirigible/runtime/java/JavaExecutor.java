@@ -71,6 +71,9 @@ public class JavaExecutor extends AbstractScriptExecutor {
 
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		
+		if(compiler == null) {
+			throw new InMemoryCompilationException("Use JDK instead of JRE");
+		}
 		InMemoryDiagnosticListener diagnosticListener = new InMemoryDiagnosticListener();
 		ClassFileManager fileManager = ClassFileManager.getInstance(compiler.getStandardFileManager(diagnosticListener, null, null));
 		CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnosticListener, Arrays.asList(CLASSPATH, getClasspath()), null, sourceFiles);

@@ -9,7 +9,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>com.sap.dirigible.runtime.java</artifactId>
+	<artifactId>com.sap.dirigible.runtime.java.test</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
 </project>
