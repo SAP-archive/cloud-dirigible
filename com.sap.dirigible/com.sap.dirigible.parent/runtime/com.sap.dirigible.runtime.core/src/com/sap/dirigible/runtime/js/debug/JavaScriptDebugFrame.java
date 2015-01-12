@@ -65,10 +65,10 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 	private int stepOverLineNumber = 0;
 	private int previousLineNumber = 0;
 	private boolean stepOverFinished = true;
-	private IDebugProtocol debuggerProtocol;
+	private IDebugProtocol debugProtocol;
 	private VariableValuesMetadata variableValuesMetadata;
 
-	public JavaScriptDebugFrame(IDebugProtocol debuggerProtocol, HttpServletRequest request,
+	public JavaScriptDebugFrame(IDebugProtocol debugProtocol, HttpServletRequest request,
 			JavaScriptDebugger javaScriptDebugger) {
 		// get the instance of debugger action manager from the session
 
@@ -86,8 +86,8 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		this.debuggerActionCommander.setDebugFrame(this);
 		this.debuggerActionCommander.setDebugger(javaScriptDebugger);
 
-		this.debuggerProtocol = debuggerProtocol;
-		this.debuggerProtocol.addPropertyChangeListener(this);
+		this.debugProtocol = debugProtocol;
+		this.debugProtocol.addPropertyChangeListener(this);
 
 		this.scriptStack = new Stack<DebuggableScript>();
 		this.activationStack = new Stack<Scriptable>();
@@ -132,7 +132,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		scriptStack.pop();
 		activationStack.pop();
 		if (scriptStack.isEmpty()) {
-			this.debuggerProtocol.removePropertyChangeListener(this);
+			this.debugProtocol.removePropertyChangeListener(this);
 			this.debuggerActionCommander.clean();
 			DebuggerActionCommander commander = getDebuggerActionCommander();
 			DebugSessionMetadata metadata = new DebugSessionMetadata(commander.getSessionId(),
@@ -358,7 +358,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 
 	public void send(String commandId, String commandBody) {
 		logDebug("JavaScriptDebugFrame send() command: " + commandId + ", body: " + commandBody);
-		DebugBridgeUtils.send(this.debuggerProtocol, commandId, getDebuggerActionCommander()
+		DebugProtocolUtils.send(this.debugProtocol, commandId, getDebuggerActionCommander()
 				.getExecutionId(), commandBody);
 	}
 

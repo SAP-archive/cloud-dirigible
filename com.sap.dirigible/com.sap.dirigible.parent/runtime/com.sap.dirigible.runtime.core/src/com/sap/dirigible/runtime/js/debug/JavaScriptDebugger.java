@@ -15,8 +15,6 @@
 
 package com.sap.dirigible.runtime.js.debug;
 
-import java.beans.PropertyChangeSupport;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.mozilla.javascript.Context;
@@ -30,8 +28,8 @@ public class JavaScriptDebugger implements Debugger {
 
 	private JavaScriptDebugFrame debugFrame = null;
 
-	public JavaScriptDebugger(IDebugProtocol debuggerProtocol, HttpServletRequest request) {
-		this.debugFrame = new JavaScriptDebugFrame(debuggerProtocol, request, this);
+	public JavaScriptDebugger(IDebugProtocol debugProtocol, HttpServletRequest request) {
+		this.debugFrame = new JavaScriptDebugFrame(debugProtocol, request, this);
 	}
 
 	public DebugFrame getFrame(Context context, DebuggableScript fnOrScript) {

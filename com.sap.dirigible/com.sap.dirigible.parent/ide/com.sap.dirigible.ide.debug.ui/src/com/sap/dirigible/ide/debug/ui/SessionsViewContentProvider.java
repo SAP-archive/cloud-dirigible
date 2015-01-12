@@ -20,7 +20,6 @@ import java.util.Iterator;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.repository.api.ICommonConstants;

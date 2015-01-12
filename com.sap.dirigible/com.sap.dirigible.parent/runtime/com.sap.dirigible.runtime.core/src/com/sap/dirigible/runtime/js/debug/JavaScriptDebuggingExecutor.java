@@ -15,8 +15,6 @@
 
 package com.sap.dirigible.runtime.js.debug;
 
-import java.beans.PropertyChangeSupport;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,12 +37,12 @@ public class JavaScriptDebuggingExecutor extends JavaScriptExecutor {
 		super(repository, rootPath, secondaryRootPath);
 	}
 
-	private IDebugProtocol debuggerBridge;
+	private IDebugProtocol debugProtocol;
 
 	public JavaScriptDebuggingExecutor(IRepository repository, String rootPath,
-			String secondaryRootPath, IDebugProtocol debuggerBridge) {
+			String secondaryRootPath, IDebugProtocol debugProtocol) {
 		super(repository, rootPath, secondaryRootPath);
-		this.debuggerBridge = debuggerBridge;
+		this.debugProtocol = debugProtocol;
 	}
 
 	protected void beforeExecution(HttpServletRequest request, HttpServletResponse response,
@@ -54,7 +52,7 @@ public class JavaScriptDebuggingExecutor extends JavaScriptExecutor {
 		context.setErrorReporter(reporter);
 
 		logger.debug("creating JavaScriptDebugger");
-		JavaScriptDebugger debugger = new JavaScriptDebugger(debuggerBridge, request);
+		JavaScriptDebugger debugger = new JavaScriptDebugger(debugProtocol, request);
 		context.setDebugger(debugger, JAVA_SCRIPT_DEBUGGER);
 		logger.debug("created JavaScriptDebugger");
 

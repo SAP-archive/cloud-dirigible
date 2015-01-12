@@ -38,12 +38,12 @@ public class JavaScriptDebugServlet extends JavaScriptServlet {
 
 		logger.debug("entering JavaScriptDebugServlet.createExecutor()");
 
-		IDebugProtocol debuggerBridge = DebugBridgeUtils.lookupDebuggerBridge();
+		IDebugProtocol debugProtocol = DebugProtocolUtils.lookupDebugProtocol();
 
 		String rootPath = getScriptingRegistryPath(request);
 		logger.debug("rootPath=" + rootPath);
 		JavaScriptDebuggingExecutor executor = new JavaScriptDebuggingExecutor(
-				getRepository(request), rootPath, REGISTRY_SCRIPTING_DEPLOY_PATH, debuggerBridge);
+				getRepository(request), rootPath, REGISTRY_SCRIPTING_DEPLOY_PATH, debugProtocol);
 
 		logger.debug("exiting JavaScriptDebugServlet.createExecutor()");
 

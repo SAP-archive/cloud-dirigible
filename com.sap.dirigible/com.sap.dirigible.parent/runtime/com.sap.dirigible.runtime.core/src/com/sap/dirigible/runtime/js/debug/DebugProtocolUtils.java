@@ -15,8 +15,6 @@
 
 package com.sap.dirigible.runtime.js.debug;
 
-import java.beans.PropertyChangeSupport;
-
 import javax.naming.NamingException;
 
 import org.osgi.framework.BundleContext;
@@ -26,39 +24,35 @@ import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
 import com.sap.dirigible.runtime.RuntimeActivator;
 import com.sap.dirigible.runtime.logger.Logger;
 
-public class DebugBridgeUtils {
+public class DebugProtocolUtils {
 
-	public static final String DIRIGIBLE_DEBUGGER_BRIDGE = "dirigible.debugger.bridge"; //$NON-NLS-1$
-
-	private static final Logger logger = Logger.getLogger(DebugBridgeUtils.class);
+	private static final Logger logger = Logger.getLogger(DebugProtocolUtils.class);
 
 	/**
-	 * Retrieve the DebuggerBridge(PropertyChangeSupport) from the target server
+	 * Retrieve the DebugProtocol(PropertyChangeSupport) from the target server
 	 * environment
 	 * 
 	 * @return
 	 * @throws NamingException
 	 */
-	public static IDebugProtocol lookupDebuggerBridge() {
-		logger.debug("entering JavaScriptDebugServlet.lookupDebuggerBridge()");
-//		PropertyChangeSupport debuggerBridge = (PropertyChangeSupport) System.getProperties().get(
-//				DIRIGIBLE_DEBUGGER_BRIDGE);
+	public static IDebugProtocol lookupDebugProtocol() {
+		logger.debug("entering JavaScriptDebugServlet.lookupDebugProtocol()");
 		BundleContext context = RuntimeActivator.getContext();
 		ServiceReference<IDebugProtocol> sr = context.getServiceReference(IDebugProtocol.class);
-		IDebugProtocol debuggerBridge = context.getService(sr);
-		if (debuggerBridge == null) {
-			logger.error("DebuggerBridge not present");
+		IDebugProtocol debugProtocol = context.getService(sr);
+		if (debugProtocol == null) {
+			logger.error("DebugProtocol not present");
 		}
 		
 		logger.debug("exiting JavaScriptDebugServlet.lookupDebuggerBridge()");
-		return debuggerBridge;
+		return debugProtocol;
 	}
 
-	public static void send(IDebugProtocol debuggerBridge, String commandId,
+	public static void send(IDebugProtocol debugProtocol, String commandId,
 			String clientId, String commandBody) {
 		logger.debug("DebugBridgUtils send() commandId: " + commandId + ", clientId: " + clientId
 				+ ", body: " + commandBody);
-		debuggerBridge.firePropertyChange(commandId, clientId, commandBody);
+		debugProtocol.firePropertyChange(commandId, clientId, commandBody);
 	}
 
 }

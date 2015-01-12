@@ -17,7 +17,6 @@ package com.sap.dirigible.runtime.js.debug;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class DebugGlobalManager implements HttpSessionListener, PropertyChangeLi
 	private static Map<String, DebuggerActionManager> debuggerActionManagers = Collections
 			.synchronizedMap(new HashMap<String, DebuggerActionManager>());
 
-	private IDebugProtocol debuggerBridge;
+	private IDebugProtocol debugProtocol;
 
 	public DebugGlobalManager() {
 		logger.debug("entering DebugHttpSessionListener.constructor");
@@ -68,10 +67,10 @@ public class DebugGlobalManager implements HttpSessionListener, PropertyChangeLi
 
 		@Override
 		public void start() {
-			if (debuggerBridge == null) {
-				debuggerBridge = DebugBridgeUtils.lookupDebuggerBridge();
-				if (debuggerBridge != null) {
-					debuggerBridge.addPropertyChangeListener(debugGlobalManager);
+			if (debugProtocol == null) {
+				debugProtocol = DebugProtocolUtils.lookupDebugProtocol();
+				if (debugProtocol != null) {
+					debugProtocol.addPropertyChangeListener(debugGlobalManager);
 					TaskManagerShort.getInstance().unregisterRunnableTask(this);
 					logger.info("DebugGlobalManager has been register to DebuggerBridge");
 				}
@@ -135,7 +134,7 @@ public class DebugGlobalManager implements HttpSessionListener, PropertyChangeLi
 
 	public void send(String commandId, String commandBody) {
 		logger.debug("JavaScriptDebugFrame send() command: " + commandId + ", body: " + commandBody);
-		DebugBridgeUtils.send(debuggerBridge, commandId, "debug.global.manager", commandBody);
+		DebugProtocolUtils.send(debugProtocol, commandId, "debug.global.manager", commandBody);
 	}
 
 }
