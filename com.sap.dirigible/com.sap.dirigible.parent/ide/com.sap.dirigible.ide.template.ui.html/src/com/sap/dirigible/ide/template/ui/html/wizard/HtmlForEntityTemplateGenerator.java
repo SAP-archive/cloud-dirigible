@@ -26,6 +26,8 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class HtmlForEntityTemplateGenerator extends TemplateGenerator {
 
+	private static final String REST_SERVICE_ROOT_JS = "/dirigible/services/js"; //$NON-NLS-1$
+
 	private static final String LOG_TAG = "HTML_FOR_ENTITY_GENERATOR"; //$NON-NLS-1$
 
 	private HtmlForEntityTemplateModel model;
@@ -65,7 +67,7 @@ public class HtmlForEntityTemplateGenerator extends TemplateGenerator {
 				+ ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES, ""); //$NON-NLS-1$
 		result = result.replaceAll(source.getFileExtension(), ""); //$NON-NLS-1$
 		result += "js"; //$NON-NLS-1$
-		return "/dirigible/js" + result; //$NON-NLS-1$
+		return REST_SERVICE_ROOT_JS + result;
 	}
 
 	@Override
