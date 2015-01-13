@@ -1,4 +1,6 @@
-h1(#id). An HTML first-level heading
+h1. ${pageTitle}
+
+h1. (#id). An HTML first-level heading
 
 h2. An HTML second-level heading
 

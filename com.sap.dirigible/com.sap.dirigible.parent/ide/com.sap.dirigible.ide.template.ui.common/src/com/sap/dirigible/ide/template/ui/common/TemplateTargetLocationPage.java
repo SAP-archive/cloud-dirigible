@@ -209,7 +209,8 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 			fileNameText.setText(getDefaultFileName());
 		} else {
 			if (isForcedFileName()
-					&& getModel().getFileName() == null) {
+//					&& getModel().getFileName() == null
+					) {
 				fileNameText.setText(getDefaultFileName());
 			}
 		}
@@ -221,10 +222,11 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 
 	private void preselectFileNameText() {
 		fileNameText.setFocus();
-		if (getDefaultFileName() != null && getDefaultFileName().length() > 0) {
-			int lastIndexOf = getDefaultFileName().indexOf("."); //$NON-NLS-1$
+		String defaultName = getDefaultFileName();
+		if (defaultName != null && defaultName.length() > 0) {
+			int lastIndexOf = defaultName.indexOf("."); //$NON-NLS-1$
 			if (lastIndexOf == -1) {
-				lastIndexOf = getDefaultFileName().length();
+				lastIndexOf = defaultName.length();
 			}
 			fileNameText.setSelection(0, lastIndexOf);
 		}

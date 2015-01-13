@@ -78,14 +78,16 @@ public class WikiTemplateTargetLocationPage extends TemplateTargetLocationPage {
 	protected String getDefaultFileName() {
 		String templateLocation = model.getTemplateLocation();
 		String defaultName = null;
-		if (templateLocation.endsWith("wiki")) {
-			defaultName = "wiki_page.wiki"; //$NON-NLS-1$
-		} else if (templateLocation.endsWith("confluence")) {
+		if (templateLocation.endsWith("confluence")) {
 			defaultName = "wiki_page.confluence"; //$NON-NLS-1$
 		} else if (templateLocation.endsWith("md")) {
 			defaultName = "wiki_page.md"; //$NON-NLS-1$
 		} else if (templateLocation.endsWith("textile")) {
 			defaultName = "wiki_page.textile"; //$NON-NLS-1$
+		} else if (templateLocation.endsWith("tracwiki")) {
+			defaultName = "wiki_page.tracwiki"; //$NON-NLS-1$
+		} else if (templateLocation.endsWith("twiki")) {
+			defaultName = "wiki_page.twiki"; //$NON-NLS-1$
 		}
 		return defaultName;
 	}

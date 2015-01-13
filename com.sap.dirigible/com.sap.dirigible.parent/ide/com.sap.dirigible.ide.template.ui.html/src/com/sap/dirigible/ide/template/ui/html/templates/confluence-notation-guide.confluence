@@ -1,3 +1,5 @@
+h1. ${pageTitle}
+
 Text formatting
 *bold* bold
 _italic_ italic
