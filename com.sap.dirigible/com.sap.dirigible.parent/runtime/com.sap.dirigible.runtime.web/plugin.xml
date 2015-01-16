@@ -64,7 +64,7 @@
            point="org.eclipse.equinox.http.registry.filters">
         <filter
               alias="/web"
-              class="com.sap.dirigible.runtime.filter.WebRegistrySecureFilter">
+              class="com.sap.dirigible.runtime.web.WebRegistrySecureFilter">
         </filter>
      </extension>
      
