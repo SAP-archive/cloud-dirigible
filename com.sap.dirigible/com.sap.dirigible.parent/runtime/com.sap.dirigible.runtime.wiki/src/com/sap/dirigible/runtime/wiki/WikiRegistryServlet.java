@@ -36,7 +36,6 @@ import com.sap.dirigible.runtime.filter.SandboxFilter;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.registry.PathUtils;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
-import com.sap.dirigible.runtime.scripting.WikiUtils;
 import com.sap.dirigible.runtime.web.WebRegistryServlet;
 
 public class WikiRegistryServlet extends WebRegistryServlet {

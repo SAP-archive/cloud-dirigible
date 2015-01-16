@@ -20,7 +20,7 @@ public class JavaExecutorStub extends JavaExecutor {
 			HttpServletResponse response, Object input,
 			Map<Object, Object> executionContext, IRepository repository,
 			Object scope) {
-		// Do nothing
+		// Do nothing in addition
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.scripting;
+package com.sap.dirigible.runtime.wiki;
 
 import java.io.StringWriter;
 

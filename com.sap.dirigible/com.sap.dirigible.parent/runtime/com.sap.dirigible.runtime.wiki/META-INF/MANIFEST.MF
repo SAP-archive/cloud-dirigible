@@ -12,7 +12,13 @@ Require-Bundle: com.sap.dirigible.repository.api,
  org.eclipse.core.runtime,
  com.sap.dirigible.runtime.core,
  com.sap.dirigible.runtime.web,
- com.sap.dirigible.runtime.security
+ com.sap.dirigible.runtime.security,
+ org.eclipse.mylyn.wikitext.confluence.core,
+ org.eclipse.mylyn.wikitext.core,
+ org.eclipse.mylyn.wikitext.markdown.core,
+ org.eclipse.mylyn.wikitext.textile.core,
+ org.eclipse.mylyn.wikitext.tracwiki.core,
+ org.eclipse.mylyn.wikitext.twiki.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet,
  javax.servlet.annotation,
@@ -22,3 +28,4 @@ Import-Package: javax.servlet,
  org.slf4j
 Bundle-ActivationPolicy: lazy
 Export-Package: com.sap.dirigible.runtime.wiki
+Service-Component: OSGi-INF/wiki-service.xml
