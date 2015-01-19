@@ -170,7 +170,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 	
 	
 	
-	private static boolean previewListenerRegistered = false;
+	private boolean previewListenerRegistered = false;
 		
 	private void registerPreviewListener(final DebugView debugView) {
 		
