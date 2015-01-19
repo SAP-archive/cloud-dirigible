@@ -151,25 +151,54 @@
 		</form-login-config>
 	</login-config>
   	-->
-
+	
+	<!-- Registry Services -->
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>General Area</web-resource-name>
-			<url-pattern>/*</url-pattern>
+			<web-resource-name>Registry Services</web-resource-name>
+			<url-pattern>/services/registry/DataStructures/*</url-pattern>
+			<url-pattern>/services/registry/IntegrationServices/*</url-pattern>
+			<url-pattern>/services/registry/ScriptingServices/*</url-pattern>
+			<url-pattern>/services/registry/WebContent/*</url-pattern>
+			<url-pattern>/services/content/DataStructures/*</url-pattern>
+			<url-pattern>/services/content/IntegrationServices/*</url-pattern>
+			<url-pattern>/services/content/ScriptingServices/*</url-pattern>
+			<url-pattern>/services/content/WebContent/*</url-pattern>
+			<url-pattern>/services/web-secured/*</url-pattern>
+			<url-pattern>/services/web/content-secured/*</url-pattern>
+			<url-pattern>/services/js-secured/*</url-pattern>
+			<url-pattern>/services/rb-secured/*</url-pattern>
+			<url-pattern>/services/groovy-secured/*</url-pattern>
+			<url-pattern>/services/wiki-secured/*</url-pattern>
+			<url-pattern>/services/web/wiki-secured/*</url-pattern>
+			<url-pattern>/services/ui/index.html</url-pattern>
+			<url-pattern>/services/js-sandbox/*</url-pattern>
+			<url-pattern>/services/groovy-sandbox/*</url-pattern>
+			<url-pattern>/services/web-sandbox/*</url-pattern>
+			<url-pattern>/services/wiki-sandbox/*</url-pattern>
+			<url-pattern>/services/acclog/*</url-pattern>
+			<url-pattern>/services/memory</url-pattern>
+			<url-pattern>/services/js-debug/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Everyone</role-name>
+			<role-name>Administrator</role-name>
+			<role-name>Manager</role-name>
+			<role-name>PowerUser</role-name>
+			<role-name>User</role-name>
+			<role-name>ReadWrite</role-name>
+			<role-name>ReadOnly</role-name>
 		</auth-constraint>
 	</security-constraint>
 	
+	<!-- Repository Service -->
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>Services Location</web-resource-name>
-			<url-pattern>/services/*</url-pattern>
+			<web-resource-name>Repository Service</web-resource-name>
+			<url-pattern>/services/repository/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>Developer</role-name>
-			<role-name>Operator</role-name>
+			<role-name>Repository</role-name>
 		</auth-constraint>
 	</security-constraint>
 	

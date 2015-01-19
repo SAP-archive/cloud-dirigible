@@ -129,20 +129,11 @@
 	</login-config>
   	-->
 
+	<!-- IDE Services -->
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>General Area</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>Everyone</role-name>
-		</auth-constraint>
-	</security-constraint>
-	
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>IDE Location</web-resource-name>
-			<url-pattern>/ide/*</url-pattern>
+			<web-resource-name>IDE Services</web-resource-name>
+			<url-pattern>/services/index.html</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Developer</role-name>
