@@ -75,7 +75,8 @@ public class EditorWidget extends Composite {
 				if (javaScriptEditor) {
 					DebugModel debugModel = DebugModelFacade.getActiveDebugModel();
 
-					if (debugModel != null) {
+					if (debugModel != null
+							&& debugModel.getCurrentLineBreak() != null) {
 						String filePath = debugModel.getCurrentLineBreak().getFullPath();
 						String path = CommonUtils.formatToRuntimePath(
 								ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES, filePath);

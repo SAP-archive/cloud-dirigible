@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IViewPart;
@@ -192,11 +193,17 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 	};
 
 	private DebugModel refreshMetaData() {
-		sessionsTreeViewer.refresh(true);
+		refreshAllViews();
 		DebugModel debugModel = DebugModelFacade.getActiveDebugModel();
 		refresh(debugModel);
 		return debugModel;
 	}
+	
+	
+	Button stepIntoButton;
+	Button stepOverButton;
+	Button continueButton;
+	Button skipAllBreakpointsButton;
 
 	private void createButtonsRow(final Composite holder) {
 		Button refreshButton = createButton(holder, REFRESH, DIRIGIBLE_REFRESH_ICON_URL);
@@ -210,7 +217,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 
 		});
 
-		Button stepIntoButton = createButton(holder, STEP_INTO, DIRIGIBLE_STEP_INTO_ICON_URL);
+		stepIntoButton = createButton(holder, STEP_INTO, DIRIGIBLE_STEP_INTO_ICON_URL);
 		stepIntoButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = -2027392635482495783L;
 
@@ -224,7 +231,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 
 		});
 
-		Button stepOverButton = createButton(holder, STEP_OVER, DIRIGIBLE_STEP_OVER_ICON_URL);
+		stepOverButton = createButton(holder, STEP_OVER, DIRIGIBLE_STEP_OVER_ICON_URL);
 		stepOverButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 6512558201116618008L;
 
@@ -238,7 +245,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 
 		});
 
-		Button continueButton = createButton(holder, CONTINUE, DIRIGIBLE_CONTINUE_ICON_URL);
+		continueButton = createButton(holder, CONTINUE, DIRIGIBLE_CONTINUE_ICON_URL);
 		continueButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = -478646368834480614L;
 
@@ -252,7 +259,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 
 		});
 
-		Button skipAllBreakpointsButton = createButton(holder, SKIP_BREAKPOINTS,
+		skipAllBreakpointsButton = createButton(holder, SKIP_BREAKPOINTS,
 				DIRIGIBLE_TERMINATE_ICON_URL);
 		skipAllBreakpointsButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 5141833336402908961L;
@@ -266,6 +273,8 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 			}
 
 		});
+		
+		enableDebugButtons(false);
 	}
 
 	private Button createButton(Composite holder, String toolTipText, URL imageUrl) {
@@ -299,20 +308,27 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 					IStructuredSelection structuredSelection = (IStructuredSelection) event
 							.getSelection();
 					String sessionInfo = (String) structuredSelection.getFirstElement();
-					StringTokenizer tokenizer = new StringTokenizer(sessionInfo,
-							ICommonConstants.DEBUG_SEPARATOR);
-					String userId = tokenizer.nextToken();
-					String sessionId = tokenizer.nextToken();
-					String executionId = tokenizer.nextToken();
-					DebugModel debugModel = DebugModelFacade.getInstance().getDebugModel(
-							executionId);
-					DebugModelFacade.setActiveDebugModel(debugModel);
-					refresh(debugModel);
-					waitForMetadata(debugModel);
+					selectedSessionTreeItem(sessionInfo);
 				}
-
 			}
 		});
+	}
+	
+	private void selectedSessionTreeItem(String sessionInfo) {
+		StringTokenizer tokenizer = new StringTokenizer(sessionInfo,
+				ICommonConstants.DEBUG_SEPARATOR);
+		String userId = tokenizer.nextToken();
+		String sessionId = tokenizer.nextToken();
+		String executionId = tokenizer.nextToken();
+		selectedDebugSession(executionId);
+	}
+	
+	private void selectedDebugSession(String executionId) {
+		DebugModel debugModel = DebugModelFacade.getInstance().getDebugModel(
+				executionId);
+		DebugModelFacade.setActiveDebugModel(debugModel);
+		refresh(debugModel);
+		waitForMetadata(debugModel);
 	}
 
 	private void createVariablesTable(final Composite holder) {
@@ -379,6 +395,21 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 		breakpointsTreeViewer.refresh(true);
 		variablesTreeViewer.refresh(true);
 		sessionsTreeViewer.refresh(true);
+		if (sessionsTreeViewer.getSelection().isEmpty()
+				&& !DebugModelFacade.getDebugModels().isEmpty()) {
+			TreeItem treeItem = sessionsTreeViewer.getTree().getTopItem();
+			sessionsTreeViewer.getTree().setSelection(treeItem);
+			selectedSessionTreeItem(treeItem.getText());
+		}
+		
+		enableDebugButtons(!sessionsTreeViewer.getSelection().isEmpty());
+	}
+
+	private void enableDebugButtons(boolean enabled) {
+		stepIntoButton.setEnabled(enabled);
+		stepOverButton.setEnabled(enabled);
+		continueButton.setEnabled(enabled);
+		skipAllBreakpointsButton.setEnabled(enabled);
 	}
 
 	private void waitForMetadata(final DebugModel debugModel) {
@@ -424,7 +455,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 					@Override
 					public void run() {
 						refreshMetaData();
-						refreshAllViews();
+//						refreshAllViews();
 
 						if (openEditor) {
 							openEditor(debugModel.getCurrentLineBreak().getFullPath(), debugModel.getCurrentLineBreak().getRow());
@@ -620,12 +651,15 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 		IPath location = new Path(path);
 		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
-		IFile file = root.getFile(location);
-		IEditorPart sourceCodeEditor = OpenHandler.open(file, row);
-		if (sourceCodeEditor != null && sourceCodeEditor instanceof JavaScriptEditor) {
-			((JavaScriptEditor) sourceCodeEditor).setDebugRow(row);
+		if (root.exists(location)) {
+			IFile file = root.getFile(location);
+			IEditorPart sourceCodeEditor = OpenHandler.open(file, row);
+			if (sourceCodeEditor != null && sourceCodeEditor instanceof JavaScriptEditor) {
+				((JavaScriptEditor) sourceCodeEditor).setDebugRow(row);
+			}
+			return sourceCodeEditor;
 		}
-		return sourceCodeEditor;
+		return null;
 	}
 
 	@Override
@@ -636,8 +670,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 			String commandBody = new Gson().toJson(breakpoint);
 			final String commandId = DebugConstants.DEBUG_SET_BREAKPOINT;
 			sendCommand(commandId, debugModel.getExecutionId(), commandBody);
-		} else {
-			// TODO
+			waitForMetadata(debugModel);
 		}
 	}
 
@@ -649,8 +682,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 			String commandBody = new Gson().toJson(breakpoint);
 			final String commandId = DebugConstants.DEBUG_CLEAR_BREAKPOINT;
 			sendCommand(commandId, debugModel.getExecutionId(), commandBody);
-		} else {
-			// TODO
+			waitForMetadata(debugModel);
 		}
 	}
 
@@ -717,7 +749,7 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 				display.asyncExec(new Runnable() {
 					@Override
 					public void run() {
-						sessionsTreeViewer.refresh(true);
+						refreshAllViews();
 						pushSession.stop();
 					}
 				});

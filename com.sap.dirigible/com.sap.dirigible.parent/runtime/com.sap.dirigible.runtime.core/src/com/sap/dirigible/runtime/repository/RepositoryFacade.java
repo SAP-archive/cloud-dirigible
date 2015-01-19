@@ -47,6 +47,8 @@ public class RepositoryFacade {
 
 	private WrappedDataSource dataSource;
 	
+	public static final String GUEST = "guest"; //$NON-NLS-1$
+	
 	public static final String INITIAL_CONTEXT = "InitialContext"; //$NON-NLS-1$
 
 	private RepositoryFacade() {
@@ -170,7 +172,7 @@ public class RepositoryFacade {
 	}
 
 	public static String getUser(HttpServletRequest request) {
-		String user = "guest"; // shared one //$NON-NLS-1$
+		String user = GUEST; // shared one
 		try {
 			if ((request != null) && (request.getUserPrincipal() != null)) {
 				user = request.getUserPrincipal().getName();

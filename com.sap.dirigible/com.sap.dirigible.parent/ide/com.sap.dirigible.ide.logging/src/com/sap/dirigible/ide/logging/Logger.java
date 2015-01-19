@@ -35,7 +35,7 @@ public class Logger {
 	
 	public static boolean isLogInSystemOutput() {
 //		return Boolean.parseBoolean((String) RWT.getRequest().getSession().getAttribute(LOG_IN_SYSTEM_OUTPUT));
-		return true;
+		return false;
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class Logger {
 	public void debug(String message, Throwable t) {
 		if (isDebugEnabled()) {
 			logger1.debug(message, t);
-			logger2.log(Level.INFO, message, t);
+			logger2.log(Level.FINE, message, t);
 		}
 		logInSystemOutput(message, t);
 	}
@@ -155,7 +155,7 @@ public class Logger {
 	public void trace(String message, Throwable t) {
 		if (isTraceEnabled()) {
 			logger1.trace(message, t);
-			logger2.log(Level.INFO, message, t);
+			logger2.log(Level.FINEST, message, t);
 		}
 		logInSystemOutput(message, t);
 	}
@@ -178,7 +178,7 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isDebugEnabled() {
-		return logger1.isDebugEnabled() || logger2.isLoggable(Level.INFO);
+		return logger1.isDebugEnabled() || logger2.isLoggable(Level.FINE);
 	}
 
 	/**
@@ -208,7 +208,7 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isTraceEnabled() {
-		return logger1.isTraceEnabled() || logger2.isLoggable(Level.INFO);
+		return logger1.isTraceEnabled() || logger2.isLoggable(Level.FINEST);
 	}
 
 	private static void logInSystemOutput(String message, Throwable t) {

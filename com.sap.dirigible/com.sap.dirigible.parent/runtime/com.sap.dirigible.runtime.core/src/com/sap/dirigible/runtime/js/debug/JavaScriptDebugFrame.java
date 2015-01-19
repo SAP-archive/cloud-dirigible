@@ -17,7 +17,6 @@ package com.sap.dirigible.runtime.js.debug;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,6 +44,7 @@ import com.sap.dirigible.repository.ext.debug.VariableValue;
 import com.sap.dirigible.repository.ext.debug.VariableValuesMetadata;
 import com.sap.dirigible.runtime.js.debug.IDebugCommands.DebugCommand;
 import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener {
 	private static final String NULL = "null";
@@ -79,6 +79,9 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		// create a new instance of commander per frame
 		String executionId = UUID.randomUUID().toString();
 		String userId = request.getRemoteUser();
+		if (userId == null) {
+			userId = RepositoryFacade.GUEST;
+		}
 		this.debuggerActionCommander = new DebuggerActionCommander(this.debuggerActionManager,
 				executionId, userId);
 
@@ -137,10 +140,34 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 			DebuggerActionCommander commander = getDebuggerActionCommander();
 			DebugSessionMetadata metadata = new DebugSessionMetadata(commander.getSessionId(),
 					commander.getExecutionId(), commander.getUserId());
-			String json = new Gson().toJson(metadata);
-			send(DebugConstants.VIEW_FINISH, json);
+			
+			// clear variables for the UI
+			clearVariables();
+//			// clear breakpoints for the UI
+//			clearBreakpoints();
+			// remove the session
+			finishDebugSession(metadata);
 		}
 		logDebug("exiting JavaScriptDebugFrame.onExit()");
+	}
+
+	private void finishDebugSession(DebugSessionMetadata metadata) {
+		String json = new Gson().toJson(metadata);
+		send(DebugConstants.VIEW_FINISH, json);
+	}
+
+	private void clearVariables() {
+		if (variableValuesMetadata != null) {
+			variableValuesMetadata.getVariableValueList().clear();
+			sendVariableValuesMetadata();
+		}
+	}
+	
+	private void clearBreakpoints() {
+		if (debuggerActionManager.getBreakpoints() != null) {
+			debuggerActionManager.getBreakpoints().clear();
+			sendBreakpointsMetadata();
+		}
 	}
 
 	@Override
@@ -326,7 +353,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 				String path = commandBody;
 				debuggerActionCommander.clearAllBreakpoints(path);
 				sendBreakpointsMetadata();
-			}
+			} 
 		}
 	}
 
@@ -335,7 +362,7 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 			Gson gson = new Gson();
 			String variableValuesJson = gson.toJson(variableValuesMetadata);
 			send(DebugConstants.VIEW_VARIABLE_VALUES, variableValuesJson);
-		}
+		} 
 	}
 
 	private void sendOnBreakLineChange(String path, Integer row) {

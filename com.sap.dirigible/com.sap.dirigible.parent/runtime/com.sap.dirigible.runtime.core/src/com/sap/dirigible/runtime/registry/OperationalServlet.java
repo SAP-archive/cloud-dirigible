@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sap.dirigible.runtime.repository.RepositoryFacade;
+
 public class OperationalServlet extends HttpServlet {
 
 	private static final String LOGGED_OUT = "logged out"; //$NON-NLS-1$
@@ -36,7 +38,7 @@ public class OperationalServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (req.getParameter(PARAMETER_USER) != null) {
-			String userName = "Guest"; //$NON-NLS-1$
+			String userName = RepositoryFacade.GUEST; //$NON-NLS-1$
 			if (req.getUserPrincipal() != null) {
 				userName = req.getUserPrincipal().getName();
 			}
