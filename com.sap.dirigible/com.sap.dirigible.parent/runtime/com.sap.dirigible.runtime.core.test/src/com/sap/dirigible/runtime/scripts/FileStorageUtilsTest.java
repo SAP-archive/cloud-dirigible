@@ -11,8 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.sap.dirigible.runtime.scripting.AbstractStorageUtils;
-import com.sap.dirigible.runtime.scripting.FileStorageUtils;
-import com.sap.dirigible.runtime.scripting.FileStorageUtils.FileStorageFile;
+import com.sap.dirigible.runtime.scripting.utils.FileStorageUtils;
+import com.sap.dirigible.runtime.scripting.utils.FileStorageUtils.FileStorageFile;
 import com.sap.dirigible.runtime.utils.DataSourceUtils;
 
 public class FileStorageUtilsTest {

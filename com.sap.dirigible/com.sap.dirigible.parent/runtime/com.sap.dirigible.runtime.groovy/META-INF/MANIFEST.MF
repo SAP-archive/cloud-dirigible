@@ -43,5 +43,5 @@ Export-Package: com.sap.dirigible.runtime.filter,
  com.sap.dirigible.runtime.groovy,
  com.sap.dirigible.runtime.registry
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGi-INF/groovy-protocol.xml
+Service-Component: OSGi-INF/groovy-protocol.xml, OSGi-INF/groovy-executor.xml
 

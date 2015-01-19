@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.scripting;
+package com.sap.dirigible.runtime.scripting.utils;
 
 import org.json.JSONObject;
 import org.json.XML;

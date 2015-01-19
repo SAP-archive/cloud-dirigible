@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.sap.dirigible.runtime.scripting.AbstractStorageUtils;
-import com.sap.dirigible.runtime.scripting.ConfigStorageUtils;
+import com.sap.dirigible.runtime.scripting.utils.ConfigStorageUtils;
 import com.sap.dirigible.runtime.utils.DataSourceUtils;
 
 public class ConfigStorageUtilsTest {

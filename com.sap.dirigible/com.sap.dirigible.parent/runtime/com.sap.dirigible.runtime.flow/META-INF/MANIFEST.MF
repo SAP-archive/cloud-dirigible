@@ -13,9 +13,7 @@ Require-Bundle: com.sap.dirigible.repository.api,
  com.sap.dirigible.runtime.core,
  com.google.gson,
  org.apache.servicemix.bundles.quartz,
- com.sap.dirigible.runtime.security,
- com.sap.dirigible.runtime.groovy,
- com.sap.dirigible.runtime.java
+ com.sap.dirigible.runtime.security
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet,
  javax.servlet.annotation,
@@ -26,3 +24,5 @@ Import-Package: javax.servlet,
 Bundle-ActivationPolicy: lazy
 Export-Package: com.sap.dirigible.runtime.flow,
  com.sap.dirigible.runtime.job
+Bundle-Activator: com.sap.dirigible.runtime.flow.FlowsActivator
+Service-Component: OSGi-INF/flow-executor.xml

@@ -19,12 +19,12 @@ import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
 import com.sap.dirigible.runtime.java.executors.JavaExecutorStub;
-import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
+import com.sap.dirigible.runtime.scripting.IScriptExecutor;
 
 public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResorces {
 
 	private IRepository repository;
-	private AbstractScriptExecutor executor;
+	private IScriptExecutor executor;
 	
 	private PrintStream backupOut;
 	private PrintStream backupErr;
@@ -47,7 +47,7 @@ public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResor
 		System.setErr(printStream);
 	}
 
-	protected AbstractScriptExecutor createExecutor() {
+	protected IScriptExecutor createExecutor() {
 		try {
 			return new JavaExecutorStub(getRepository(), ClassFileManager.getJars(getLibDirectory()), getRootPaths());
 		} catch (IOException e) {

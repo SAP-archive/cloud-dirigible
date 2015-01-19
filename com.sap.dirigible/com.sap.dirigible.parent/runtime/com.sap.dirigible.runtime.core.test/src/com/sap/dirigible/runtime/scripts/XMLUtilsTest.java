@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.sap.dirigible.runtime.scripting.XMLUtils;
+import com.sap.dirigible.runtime.scripting.utils.XMLUtils;
 
 public class XMLUtilsTest {
 

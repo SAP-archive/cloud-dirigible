@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.scripting;
+package com.sap.dirigible.runtime.scripting.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 
 import com.sap.dirigible.repository.db.dao.DBMapper;
 import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.scripting.AbstractStorageUtils;
 
 public class ConfigStorageUtils extends AbstractStorageUtils {
 

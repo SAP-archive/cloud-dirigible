@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.scripting;
+package com.sap.dirigible.runtime.scripting.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

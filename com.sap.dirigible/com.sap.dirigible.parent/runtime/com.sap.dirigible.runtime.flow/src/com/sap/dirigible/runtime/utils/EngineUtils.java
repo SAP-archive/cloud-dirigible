@@ -1,69 +1,53 @@
 package com.sap.dirigible.runtime.utils;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import com.sap.dirigible.runtime.command.CommandExecutor;
-import com.sap.dirigible.runtime.command.CommandServlet;
-import com.sap.dirigible.runtime.flow.FlowExecutor;
-import com.sap.dirigible.runtime.flow.FlowServlet;
-import com.sap.dirigible.runtime.flow.FlowStep;
-import com.sap.dirigible.runtime.groovy.GroovyExecutor;
-import com.sap.dirigible.runtime.groovy.GroovyServlet;
-import com.sap.dirigible.runtime.java.JavaExecutor;
-import com.sap.dirigible.runtime.java.JavaServlet;
-import com.sap.dirigible.runtime.js.JavaScriptExecutor;
-import com.sap.dirigible.runtime.js.JavaScriptServlet;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceReference;
+
+import com.sap.dirigible.runtime.flow.FlowsActivator;
+import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.scripting.IScriptExecutor;
+import com.sap.dirigible.runtime.scripting.IScriptExecutorProvider;
 
 public class EngineUtils {
 	
-	public static Object executeFlow(HttpServletRequest request,
-			HttpServletResponse response, Map<Object, Object> executionContext,
-			Object inputOutput, String module) throws IOException {
-		FlowServlet flowServlet = new FlowServlet();
-		FlowExecutor flowExecutor = flowServlet.createExecutor(request);
-		inputOutput = flowExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
-		return inputOutput;
-	}
-
-	public static Object executeCommand(HttpServletRequest request,
-			HttpServletResponse response, Map<Object, Object> executionContext,
-			Object inputOutput, String module) throws IOException {
-		CommandServlet commandServlet = new CommandServlet();
-		CommandExecutor commandExecutor = commandServlet.createExecutor(request);
-		inputOutput = commandExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
-		return inputOutput;
-	}
-
-	public static Object executeJavascript(HttpServletRequest request,
-			HttpServletResponse response, Map<Object, Object> executionContext,
-			Object inputOutput, String module) throws IOException {
-		JavaScriptServlet javaScriptServlet = new JavaScriptServlet();
-		JavaScriptExecutor javaScriptExecutor = javaScriptServlet.createExecutor(request);
-		inputOutput = javaScriptExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
-		return inputOutput;
+	private static final Logger logger = Logger.getLogger(EngineUtils.class);
+	
+	private static Map<String, IScriptExecutorProvider> scriptExecutorProviders = Collections.synchronizedMap(new HashMap<String, IScriptExecutorProvider>());
+	
+	static {
+		// register script executor providers
+		try {
+			BundleContext context = FlowsActivator.getContext();
+			Collection<ServiceReference<IScriptExecutorProvider>> serviceReferences = context.getServiceReferences(IScriptExecutorProvider.class, null);
+			for (Iterator<ServiceReference<IScriptExecutorProvider>> iterator = serviceReferences.iterator(); iterator.hasNext();) {
+				ServiceReference<IScriptExecutorProvider> serviceReference = iterator.next();
+				IScriptExecutorProvider scriptExecutorProvider = context.getService(serviceReference);
+				scriptExecutorProviders.put(scriptExecutorProvider.getType(), scriptExecutorProvider);
+			}
+		} catch (InvalidSyntaxException e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 	
-	public static Object executeGroovy(HttpServletRequest request,
-			HttpServletResponse response, Map<Object, Object> executionContext,
-			Object inputOutput, String module) throws IOException {
-		GroovyServlet groovyServlet = new GroovyServlet();
-		GroovyExecutor groovyExecutor = groovyServlet.createExecutor(request);
-		inputOutput = groovyExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
-		return inputOutput;
+	public static Set<String> getTypes() {
+		return scriptExecutorProviders.keySet();
 	}
-
 	
-	public static Object executeJava(HttpServletRequest request,
-			HttpServletResponse response, Map<Object, Object> executionContext,
-			Object inputOutput, String module) throws IOException {
-		JavaServlet javaServlet = new JavaServlet();
-		JavaExecutor javaExecutor = javaServlet.createExecutor(request);
-		inputOutput = javaExecutor.executeServiceModule(request, response, inputOutput, module, executionContext);
-		return inputOutput;
+	public static IScriptExecutor createExecutor(String type, HttpServletRequest request) throws IOException {
+		IScriptExecutorProvider scriptExecutorProvider = scriptExecutorProviders.get(type);
+		IScriptExecutor scriptExecutor = scriptExecutorProvider.createExecutor(request);
+		return scriptExecutor;
 	}
 
 }

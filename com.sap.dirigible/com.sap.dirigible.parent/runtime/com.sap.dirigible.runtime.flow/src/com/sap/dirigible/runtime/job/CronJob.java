@@ -3,6 +3,7 @@ package com.sap.dirigible.runtime.job;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.quartz.JobExecutionException;
 
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.scripting.IScriptExecutor;
 import com.sap.dirigible.runtime.utils.EngineUtils;
 
 public class CronJob implements Job {
@@ -43,23 +45,17 @@ public class CronJob implements Job {
 	public static Object executeByEngineType(HttpServletRequest request,
 			HttpServletResponse response, String module,
 			Map<Object, Object> executionContext, String jobName,
-			Object inputOutput, String type) throws IOException {
-		if (ICommonConstants.ENGINE_TYPE.JAVASCRIPT.equalsIgnoreCase(type)) {
-			inputOutput = EngineUtils.executeJavascript(request, response,
-					executionContext, inputOutput, module);
-//				} else if (ICommonConstants.ENGINE_TYPE.JAVA.equalsIgnoreCase(flowStep.getType())) {
-//					inputOutput = EngineUtils.executeJava(request, response,
-//						executionContext, inputOutput, flowStep);
-		} else if (ICommonConstants.ENGINE_TYPE.COMMAND.equalsIgnoreCase(type)) {
-			inputOutput = EngineUtils.executeCommand(request, response, executionContext,
-					inputOutput, module);
-		} else if (ICommonConstants.ENGINE_TYPE.FLOW.equalsIgnoreCase(type)) {
-			inputOutput = EngineUtils.executeFlow(request, response, executionContext,
-					inputOutput, module);
-		} else { // groovy etc...
-			throw new IllegalArgumentException(String.format("Unknown execution type [%s] of %s at %s", 
-					type, jobName, module));
+			Object inputOutput, String scriptType) throws IOException {
+		
+		Set<String> types = EngineUtils.getTypes();
+		for (String type : types) {
+			if (type != null
+					&& type.equalsIgnoreCase(scriptType)) {
+				IScriptExecutor scriptExecutor = EngineUtils.createExecutor(type, request);
+				scriptExecutor.executeServiceModule(request, response, module, executionContext);
+			}
 		}
+		
 		return inputOutput;
 	}
 

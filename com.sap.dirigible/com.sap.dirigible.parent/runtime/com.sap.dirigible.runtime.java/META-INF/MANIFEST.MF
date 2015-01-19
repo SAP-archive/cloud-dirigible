@@ -40,3 +40,4 @@ Export-Package: com.sap.dirigible.runtime.filter,
  com.sap.dirigible.runtime.java.dynamic.compilation,
  com.sap.dirigible.runtime.registry
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGi-INF/java-executor.xml

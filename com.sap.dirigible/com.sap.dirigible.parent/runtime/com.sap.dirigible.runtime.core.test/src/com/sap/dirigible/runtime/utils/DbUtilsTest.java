@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sap.dirigible.runtime.scripting.DbUtils;
+import com.sap.dirigible.runtime.scripting.utils.DbUtils;
 
 public class DbUtilsTest {
 

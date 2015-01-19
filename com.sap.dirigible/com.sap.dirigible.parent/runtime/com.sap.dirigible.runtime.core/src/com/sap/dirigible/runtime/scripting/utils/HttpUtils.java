@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.runtime.scripting;
+package com.sap.dirigible.runtime.scripting.utils;
 
 import java.io.IOException;
 

@@ -17,6 +17,7 @@ package com.sap.dirigible.runtime.flow;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,7 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
+import com.sap.dirigible.runtime.scripting.IScriptExecutor;
 import com.sap.dirigible.runtime.utils.EngineUtils;
 
 public class FlowExecutor extends AbstractScriptExecutor {
@@ -102,19 +104,10 @@ public class FlowExecutor extends AbstractScriptExecutor {
 			HttpServletResponse response, String module,
 			Map<Object, Object> executionContext, Flow flow,
 			Object inputOutput, FlowStep flowStep) throws IOException {
-		if (ICommonConstants.ENGINE_TYPE.JAVASCRIPT.equalsIgnoreCase(flowStep.getType())) {
-			inputOutput = EngineUtils.executeJavascript(request, response,
-					executionContext, inputOutput, flowStep.getModule());
-		} else if (ICommonConstants.ENGINE_TYPE.JAVA.equalsIgnoreCase(flowStep.getType())) {
-			inputOutput = EngineUtils.executeJava(request, response,
-				executionContext, inputOutput, flowStep.getModule());
-		} else if (ICommonConstants.ENGINE_TYPE.COMMAND.equalsIgnoreCase(flowStep.getType())) {
-			inputOutput = EngineUtils.executeCommand(request, response, executionContext,
-					inputOutput, flowStep.getModule());
-		} else if (ICommonConstants.ENGINE_TYPE.GROOVY.equalsIgnoreCase(flowStep.getType())) {
-			inputOutput = EngineUtils.executeGroovy(request, response, executionContext,
-					inputOutput, flowStep.getModule());
-		} else if (ICommonConstants.ENGINE_TYPE.CONDITION.equalsIgnoreCase(flowStep.getType())) {
+		
+		
+		// CONDITION
+		if (ICommonConstants.ENGINE_TYPE.CONDITION.equalsIgnoreCase(flowStep.getType())) {
 			
 			FlowCase[] cases = flowStep.getCases();
 			for (FlowCase flowCase : cases) {
@@ -143,23 +136,28 @@ public class FlowExecutor extends AbstractScriptExecutor {
 				}
 			}
 			
-		} else if (ICommonConstants.ENGINE_TYPE.FLOW.equalsIgnoreCase(flowStep.getType())) {
-			inputOutput = EngineUtils.executeFlow(request, response, executionContext,
-					inputOutput, flowStep.getModule());
+		// OUTPUT
 		} else if (ICommonConstants.ENGINE_TYPE.OUTPUT.equalsIgnoreCase(flowStep.getType())) {
 			if (response != null) {
 				response.getWriter().print(flowStep.getMessage());
 			} else {
 				System.out.println(flowStep.getMessage());
 			}
-		} else { // groovy etc...
-			throw new IllegalArgumentException(String.format("Unknown execution type [%s] of step %s in flow %s at %s", 
-					flowStep.getType(), flowStep.getName(), flow.getName(), module));
+		// ENGINE BY TYPE
+		} else {
+			Set<String> types = EngineUtils.getTypes();
+			for (String type : types) {
+				if (type != null
+						&& type.equalsIgnoreCase(flowStep.getType())) {
+					IScriptExecutor scriptExecutor = EngineUtils.createExecutor(type, request);
+					scriptExecutor.executeServiceModule(request, response, flowStep.getModule(), executionContext);
+					break;
+				}
+			}
 		}
+		
 		return inputOutput;
 	}
-
-	
 
 	@Override
 	protected void registerDefaultVariable(Object scope, String name,

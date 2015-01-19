@@ -46,14 +46,21 @@ import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
 import com.sap.dirigible.runtime.RuntimeActivator;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.mail.MailSender;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
+import com.sap.dirigible.runtime.scripting.utils.ConfigStorageUtils;
+import com.sap.dirigible.runtime.scripting.utils.DbUtils;
+import com.sap.dirigible.runtime.scripting.utils.FileStorageUtils;
+import com.sap.dirigible.runtime.scripting.utils.HttpUtils;
+import com.sap.dirigible.runtime.scripting.utils.IndexerUtils;
+import com.sap.dirigible.runtime.scripting.utils.StorageUtils;
+import com.sap.dirigible.runtime.scripting.utils.URLUtils;
+import com.sap.dirigible.runtime.scripting.utils.XMLUtils;
 
-public abstract class AbstractScriptExecutor {
+public abstract class AbstractScriptExecutor implements IScriptExecutor {
 
 	private static final String THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH = Messages
 			.getString("ScriptLoader.THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH"); //$NON-NLS-1$
@@ -63,6 +70,10 @@ public abstract class AbstractScriptExecutor {
 
 	private static final Logger logger = Logger.getLogger(AbstractScriptExecutor.class);
 
+	/* (non-Javadoc)
+	 * @see com.sap.dirigible.runtime.scripting.IScriptExecutor#executeServiceModule(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.util.Map)
+	 */
+	@Override
 	public Object executeServiceModule(HttpServletRequest request, HttpServletResponse response,
 			String module, Map<Object, Object> executionContext) throws IOException {
 		return executeServiceModule(request, response, null, module, executionContext);
@@ -74,8 +85,10 @@ public abstract class AbstractScriptExecutor {
 	protected abstract void registerDefaultVariable(Object scope, String name, Object value);
 	
 	private void registerDefaultVariableInContextAndScope(Map<Object, Object> executionContext, Object scope, String name, Object value) {
-		registerDefaultVariable(scope, name, value);
-		executionContext.put(name, value);
+		if (executionContext.get(name) == null) {
+			registerDefaultVariable(scope, name, value);
+			executionContext.put(name, value);
+		}
 	}
 
 	protected void registerDefaultVariables(HttpServletRequest request,
