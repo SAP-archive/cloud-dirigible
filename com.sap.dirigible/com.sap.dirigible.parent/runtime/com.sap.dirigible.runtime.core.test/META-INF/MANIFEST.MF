@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible IDE - Runtime Core Test
 Bundle-SymbolicName: com.sap.dirigible.runtime.core.test;singleton:=true
 Fragment-Host: com.sap.dirigible.runtime.core
-Bundle-Version: 2.0.141200
+Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  com.sap.dirigible.repository.api,
@@ -36,6 +36,6 @@ Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  org.hamcrest,
  org.slf4j.log4j,
  com.sap.dirigible.runtime.java,
- com.sap.dirigible.runtime.metrics;bundle-version="2.0.141200"
+ com.sap.dirigible.runtime.metrics;bundle-version="2.0.150121"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.derby.jdbc

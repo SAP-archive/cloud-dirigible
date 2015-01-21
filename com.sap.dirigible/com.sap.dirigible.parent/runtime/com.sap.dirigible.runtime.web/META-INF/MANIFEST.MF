@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible - Runtime Web
 Bundle-SymbolicName: com.sap.dirigible.runtime.web;singleton:=true
-Bundle-Version: 2.0.141200
+Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Require-Bundle: com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,

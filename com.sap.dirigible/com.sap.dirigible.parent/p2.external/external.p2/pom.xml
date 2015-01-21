@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.sap.dirigible.p2.external</groupId>
 		<artifactId>com.sap.dirigible.p2.external.parent</artifactId>
-		<version>2.0.141200</version>
+		<version>2.0.150121</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 

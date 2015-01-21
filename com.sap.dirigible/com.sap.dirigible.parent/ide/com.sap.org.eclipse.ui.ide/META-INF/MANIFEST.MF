@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible IDE - RAP Eclipse IDE
 Bundle-SymbolicName: com.sap.org.eclipse.ui.ide;singleton:=true
-Bundle-Version: 2.0.141200
+Bundle-Version: 2.0.150121
 Bundle-Activator: org.eclipse.ui.internal.ide.IDEWorkbenchPlugin
 Export-Package: org.eclipse.ui,
  org.eclipse.ui.actions,

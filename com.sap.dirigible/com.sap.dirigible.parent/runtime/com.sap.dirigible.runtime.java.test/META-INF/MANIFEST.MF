@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible IDE - Runtime Java Test
 Bundle-SymbolicName: com.sap.dirigible.runtime.java.test;singleton:=true
 Fragment-Host: com.sap.dirigible.runtime.java
-Bundle-Version: 2.0.141200
+Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  com.sap.dirigible.repository.api,

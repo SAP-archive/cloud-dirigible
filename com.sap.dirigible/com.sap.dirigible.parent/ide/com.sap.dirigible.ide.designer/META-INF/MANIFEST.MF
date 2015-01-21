@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible AppDesigner Integration
 Bundle-SymbolicName: com.sap.dirigible.ide.designer;singleton:=true
-Bundle-Version: 2.0.141200
+Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.rap.ui,
