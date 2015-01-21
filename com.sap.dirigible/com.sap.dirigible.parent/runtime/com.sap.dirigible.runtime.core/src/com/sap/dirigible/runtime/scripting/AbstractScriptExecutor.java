@@ -94,6 +94,12 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 	protected void registerDefaultVariables(HttpServletRequest request,
 			HttpServletResponse response, Object input, Map<Object, Object> executionContext,
 			IRepository repository, Object scope) {
+		
+		if (executionContext == null) {
+			// in case executionContext is not provided from outside
+			executionContext = new HashMap<Object, Object>();
+		}
+		
 		// put the execution context
 		registerDefaultVariable(scope, "context", executionContext); //$NON-NLS-1$
 		// put the system out
@@ -173,11 +179,13 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 		// register objects via extension
 		try {
 			BundleContext context = RuntimeActivator.getContext();
-			Collection<ServiceReference<IContextService>> serviceReferences = context.getServiceReferences(IContextService.class, null);
-			for (Iterator<ServiceReference<IContextService>> iterator = serviceReferences.iterator(); iterator.hasNext();) {
-				ServiceReference<IContextService> serviceReference = iterator.next();
-				IContextService contextService = context.getService(serviceReference);
-				registerDefaultVariableInContextAndScope(executionContext, scope, contextService.getName(), contextService.getInstance());
+			if (context != null) {
+				Collection<ServiceReference<IContextService>> serviceReferences = context.getServiceReferences(IContextService.class, null);
+				for (Iterator<ServiceReference<IContextService>> iterator = serviceReferences.iterator(); iterator.hasNext();) {
+					ServiceReference<IContextService> serviceReference = iterator.next();
+					IContextService contextService = context.getService(serviceReference);
+					registerDefaultVariableInContextAndScope(executionContext, scope, contextService.getName(), contextService.getInstance());
+				}
 			}
 		} catch (InvalidSyntaxException e) {
 			logger.error(e.getMessage(), e);

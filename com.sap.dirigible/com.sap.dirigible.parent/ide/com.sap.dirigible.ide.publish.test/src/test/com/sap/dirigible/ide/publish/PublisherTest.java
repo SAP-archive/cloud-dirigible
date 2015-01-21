@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.publish;
+package test.com.sap.dirigible.ide.publish;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;

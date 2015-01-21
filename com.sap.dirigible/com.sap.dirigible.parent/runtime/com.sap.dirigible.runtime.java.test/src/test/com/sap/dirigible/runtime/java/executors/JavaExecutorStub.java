@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.java.executors;
+package test.com.sap.dirigible.runtime.java.executors;
 
 import java.util.Map;
 

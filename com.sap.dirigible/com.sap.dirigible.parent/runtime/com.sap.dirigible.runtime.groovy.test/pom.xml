@@ -10,6 +10,6 @@
 	</parent>
 
 	<artifactId>com.sap.dirigible.runtime.groovy.test</artifactId>
-	<packaging>eclipse-plugin</packaging>
+	<packaging>eclipse-test-plugin</packaging>
 
 </project>

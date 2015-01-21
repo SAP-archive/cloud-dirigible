@@ -58,9 +58,9 @@
 		<module>com.sap.dirigible.ide.logging</module>
 		<module>com.sap.dirigible.ide.ui.rap</module>
 		<module>com.sap.dirigible.ide.workspace</module>
-		<!--
+		<!-- -->
 		<module>com.sap.dirigible.ide.workspace.test</module>
-		-->
+		
 		<module>com.sap.dirigible.ide.workspace.ui</module>
 		<module>com.sap.dirigible.ide.workspace.wizard.project</module>
 		<module>com.sap.dirigible.ide.repository</module>
@@ -80,7 +80,7 @@
 		<module>com.sap.dirigible.ide.publish.ui</module>
 		<module>com.sap.dirigible.ide.scripts.publish</module>
 		<module>com.sap.dirigible.ide.extensions.publish</module>
-		<!--
+		<!-- 
 		<module>com.sap.dirigible.ide.publish.test</module>
 		-->
 		<module>com.sap.dirigible.ide.cheatsheets</module>
@@ -88,9 +88,9 @@
 		<module>com.sap.dirigible.ide.services.security.manager</module>
 		<module>com.sap.dirigible.ide.template.velocity</module>
 		<module>com.sap.dirigible.ide.template.ui.common</module>
-		<!-- 
+		<!-- --> 
 		<module>com.sap.dirigible.ide.template.ui.common.test</module>
-		 -->
+		 
 		<module>com.sap.dirigible.ide.template.ui.db</module>
 		<module>com.sap.dirigible.ide.template.ui.js</module>
 		<module>com.sap.dirigible.ide.template.ui.html</module>

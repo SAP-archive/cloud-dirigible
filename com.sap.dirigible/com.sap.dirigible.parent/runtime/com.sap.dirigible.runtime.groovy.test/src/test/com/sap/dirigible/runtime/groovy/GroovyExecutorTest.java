@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.groovy;
+package test.com.sap.dirigible.runtime.groovy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -87,7 +87,7 @@ public abstract class AbstractPublisher implements IPublisher {
 		return project.getFolder(sourceFolderName);
 	}
 	
-	protected void copyAllFromTo(IContainer source, ICollection target) throws CoreException,
+	public void copyAllFromTo(IContainer source, ICollection target) throws CoreException,
 			IOException {
 
 		if (!source.exists()) {
@@ -129,7 +129,7 @@ public abstract class AbstractPublisher implements IPublisher {
 		}
 	}
 
-	protected String getUser() {
+	public String getUser() {
 		String user = RWT.getRequest().getRemoteUser();
 		if (user == null) {
 			user = CommonParameters.GUEST_USER;
@@ -137,7 +137,7 @@ public abstract class AbstractPublisher implements IPublisher {
 		return user;
 	}
 
-	protected void copyFolderInto(IFolder folder, ICollection target, String user)
+	public void copyFolderInto(IFolder folder, ICollection target, String user)
 			throws IOException, CoreException {
 		final ICollection targetFolder = target.getCollection(folder.getName());
 		if (!checkOverridePermissionsForFolder(folder.getName(), user, targetFolder)) {
@@ -181,7 +181,7 @@ public abstract class AbstractPublisher implements IPublisher {
 		return true;
 	}
 
-	protected void copyFileInto(IFile file, ICollection target, String user) throws IOException,
+	public void copyFileInto(IFile file, ICollection target, String user) throws IOException,
 			CoreException {
 		final com.sap.dirigible.repository.api.IResource targetResource = target.getResource(file
 				.getName());

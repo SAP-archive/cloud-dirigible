@@ -85,8 +85,6 @@ public class JavaScriptExecutor extends AbstractScriptExecutor {
 
 			require.install(topLevelScope);
 
-//			Map<Object, Object> executionContext = new HashMap<Object, Object>();
-			
 			registerDefaultVariables(request, response, input, executionContext, repository,
 					topLevelScope);
 

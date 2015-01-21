@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.java;
+package test.com.sap.dirigible.runtime.java;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -15,10 +15,11 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.junit.After;
 import org.junit.Before;
 
+import test.com.sap.dirigible.runtime.java.executors.JavaExecutorStub;
+
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
-import com.sap.dirigible.runtime.java.executors.JavaExecutorStub;
 import com.sap.dirigible.runtime.scripting.IScriptExecutor;
 
 public abstract class AbstractJavaExecutorTest implements IJavaExecutorTestResorces {

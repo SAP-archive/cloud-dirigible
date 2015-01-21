@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.java;
+package test.com.sap.dirigible.runtime.java;
 
 import static org.junit.Assert.assertEquals;
 
