@@ -50,7 +50,7 @@ Nevertheless, we highly recommend building the binaries from source in order to 
 ##### Prerequisites
 
 - [Git](http://git-scm.com/)
-- [Maven 3.0.x](http://maven.apache.org/)
+- [Maven 3.0.x](http://maven.apache.org/docs/3.0.5/release-notes.html)
 
 
 ### `--- Use Maven 3.0.x! ---` ###
