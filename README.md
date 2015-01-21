@@ -52,15 +52,19 @@ Nevertheless, we highly recommend building the binaries from source in order to 
 - [Git](http://git-scm.com/)
 - [Maven 3.0.x](http://maven.apache.org/)
 
+
+### `--- Use Maven 3.0.x! ---` ###
+
+
 ##### Steps
 
 1. Clone the [project repository](https://github.com/SAP/cloud-dirigible.git) or [download the latest release](https://github.com/SAP/dirigible/archive/master.zip).
-2. Go to the `com.sap.dirigible.parent` folder.
+2. Go to the `com.sap.dirigible/com.sap.dirigible.parent` folder.
 3. Build the project via
 
         mvn clean install
 
-The build should pass successfully. The produced WAR files `dirigible-ide\*.war` and `dirigible-runtime\*.war` are ready to be deployed.
+The build should pass successfully. The produced WAR files under sub-folder `com.sap.dirigible/com.sap.dirigible.parent/releng` are ready to be deployed. There are separated deployable artifacts (WAR files) depending on the usage type and the technical platform.
 
 ### Deploy
 
@@ -87,13 +91,13 @@ Deploy on [HANA Cloud Platform](https://account.hana.ondemand.com/) with the [Cl
 
 #### Tomcat
 
-The same WAR files can be deployed on [Tomcat](http://tomcat.apache.org/) web container. In this case the built-in Derby database is used.
+The Tomcat specific WAR files can be deployed on [Tomcat](http://tomcat.apache.org/) web container. In this case the built-in Derby database is used.
 
 More information about how to deploy on Tomcat can be found [here](http://tomcat.apache.org/tomcat-7.0-doc/appdev/deployment.html).
 
 ##### Steps
 
-1. For simplicity rename the WARs to respectively `dirigible-ide.war` and `dirigible.war`.
+1. For simplicity rename the WAR `dirigible-all-tomcat-xxx.war` to `dirigible.war`.
 2. Configure Users store:
 
         <tomcat-users>
@@ -105,8 +109,7 @@ More information about how to deploy on Tomcat can be found [here](http://tomcat
 
 4. Open a web browser and go to:
 
-        http://localhost:8080/dirigible-ide (IDE)
-        http://localhost:8080/dirigible     (Runtime)
+        http://localhost:8080/dirigible
 
 4. Login with tomcat/tomcat.
 
@@ -122,7 +125,7 @@ The IDE part can be run directly via Eclipse. This is useful when testing new fe
 ##### Steps
 
 1. Import the project as existing Maven project into your local Eclipse environment.
-2. Go to project `com.sap.dirigible.ide.target` and open the file with the same name using the Target Editor.
+2. Go to project `com.sap.dirigible/com.sap.dirigible.parent/platform/com.sap.dirigible.platform.target` and open the file `com.sap.dirigible.platform.base.target` using the Target Editor.
 3. Click on the `Set as Target Platform` link and wait until the required bundles get synchronized.
 4. Use `dirigible-local.launch` file for `Run As` configuration.
 5. Open a web browser and go to:
