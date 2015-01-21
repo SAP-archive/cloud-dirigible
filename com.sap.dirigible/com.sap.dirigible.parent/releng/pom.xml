@@ -51,6 +51,13 @@
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+          			<packagingExcludes>**/*.source_*.jar</packagingExcludes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
