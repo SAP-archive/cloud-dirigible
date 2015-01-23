@@ -104,14 +104,14 @@ More information about how to deploy on Tomcat can be found [here](http://tomcat
                 <role rolename="Developer"/>
                 <role rolename="Operator"/>
                 <role rolename="Everyone"/>
-                <user username="tomcat" password="tomcat" roles="Developer,Operator,Everyone"/>
+                <user username="dirigible" password="dirigible" roles="Developer,Operator,Everyone"/>
         </tomcat-users>
 
 4. Open a web browser and go to:
 
         http://localhost:8080/dirigible
 
-4. Login with tomcat/tomcat.
+4. Login with dirigible/dirigible.
 
 #### Eclipse
 
@@ -131,6 +131,30 @@ The IDE part can be run directly via Eclipse. This is useful when testing new fe
 5. Open a web browser and go to:
 
         http://localhost:8080/dirigible
+
+
+#### CloudFoundry
+
+##### Prerequisites
+
+- [CloudFoundry Cli](http://docs.cloudfoundry.org/devguide/installcf/install-go-cli.html)
+
+##### Steps
+
+1. Login to CloudFoundry Platform with:
+
+		cf login -a [CloudFoundry Platform Host]
+
+2. Deploy on the CloudFoundry supported Cloud Platform with:
+
+		cf push dirigible -p [path to the target directory]/dirigible-all-tomcat-xxx.war -b https://github.com/dirigible-io/java-buildpack
+
+3. Open a web browser and go to:
+
+        http://dirigible.[CloudFoundry Platform Host]/
+
+4. Login with user `dirigible` and password `dirigible` which are set by default in the custom buildpack used above.
+
 
 ## Additional Information
 
@@ -161,3 +185,12 @@ If you'd like to contribute to Dirigible, please file an [issue](https://github.
 - Forum
 [http://forum.dirigible.io](http://forum.dirigible.io)
 
+
+### Update Sites
+
+- [http://dirigible.io/p2/bridge/](http://dirigible.io/p2/bridge/)
+- [http://dirigible.io/p2/external/](http://dirigible.io/p2/external/)
+- [http://dirigible.io/p2/ide/](http://dirigible.io/p2/ide/)
+- [http://dirigible.io/p2/lib/](http://dirigible.io/p2/lib/)
+- [http://dirigible.io/p2/repository/](http://dirigible.io/p2/repository/)
+- [http://dirigible.io/p2/runtime/](http://dirigible.io/p2/runtime/)
