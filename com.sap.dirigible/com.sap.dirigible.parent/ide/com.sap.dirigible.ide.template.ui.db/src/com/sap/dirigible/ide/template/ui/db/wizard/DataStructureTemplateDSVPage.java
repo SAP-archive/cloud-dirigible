@@ -27,10 +27,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import com.sap.dirigible.ide.db.data.DataExportDialog;
-import com.sap.dirigible.ide.db.data.DataFinder;
-import com.sap.dirigible.ide.db.data.TableColumn;
-import com.sap.dirigible.ide.db.data.TableName;
+import com.sap.dirigible.ide.db.export.DataExportDialog;
+import com.sap.dirigible.ide.db.export.DataFinder;
+import com.sap.dirigible.ide.db.export.TableColumn;
+import com.sap.dirigible.ide.db.export.TableName;
 import com.sap.dirigible.repository.db.DBSupportedTypesMap;
 
 public class DataStructureTemplateDSVPage extends WizardPage {

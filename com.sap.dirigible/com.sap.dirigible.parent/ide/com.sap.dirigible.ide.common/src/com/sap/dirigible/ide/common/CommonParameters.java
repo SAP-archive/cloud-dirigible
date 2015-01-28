@@ -18,6 +18,7 @@ package com.sap.dirigible.ide.common;
 import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.client.service.ClientService;
 
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
@@ -157,8 +158,17 @@ public class CommonParameters {
 		String parameter = (String) RWT.getRequest().getSession().getAttribute(name);
 		return parameter;
 	}
+	
+	public static Object getObject(String name) {
+		Object parameter = RWT.getRequest().getSession().getAttribute(name);
+		return parameter;
+	}
 
 	public static void set(String name, String value) {
+		RWT.getRequest().getSession().setAttribute(name, value);
+	}
+	
+	public static void setObject(String name, Object value) {
 		RWT.getRequest().getSession().setAttribute(name, value);
 	}
 
@@ -169,6 +179,12 @@ public class CommonParameters {
 		}
 		return runtimeUrl;
 	}
+	
+	public static <T extends ClientService> T getService(Class<T> clazz) {
+		return RWT.getClient().getService(clazz);
+	}
+	
+	
 	
 	public static String getServicesUrl() {
 		String runtimeUrl = CommonParameters.get(CommonParameters.RUNTIME_URL);
@@ -182,6 +198,14 @@ public class CommonParameters {
 		}
 		
 		return runtimeUrl + servicesUrl;
+	}
+	
+	public static String getContextPath() {
+		return RWT.getRequest().getContextPath();
+	}
+	
+	public static HttpServletRequest getRequest() {
+		return RWT.getRequest();
 	}
 	
 	public static Boolean isRolesEnabled() {

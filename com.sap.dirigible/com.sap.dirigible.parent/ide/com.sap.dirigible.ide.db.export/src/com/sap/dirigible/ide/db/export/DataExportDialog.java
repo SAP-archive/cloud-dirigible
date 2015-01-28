@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.db.data;
+package com.sap.dirigible.ide.db.export;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

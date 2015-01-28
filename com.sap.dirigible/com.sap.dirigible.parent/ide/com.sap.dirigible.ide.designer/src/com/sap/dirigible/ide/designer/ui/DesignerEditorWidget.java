@@ -16,7 +16,6 @@
 package com.sap.dirigible.ide.designer.ui;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
@@ -25,6 +24,7 @@ import org.eclipse.swt.browser.ProgressListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
 
 @SuppressWarnings("unused")
@@ -48,7 +48,7 @@ public class DesignerEditorWidget extends Composite {
 		super.setLayout(new FillLayout());
 
 		browser = new Browser(this, SWT.NONE);
-		browser.setUrl(RWT.getRequest().getContextPath() + EDITOR_URL);
+		browser.setUrl(CommonParameters.getContextPath() + EDITOR_URL);
 		browser.addProgressListener(new ProgressListener() {
 
 			@Override

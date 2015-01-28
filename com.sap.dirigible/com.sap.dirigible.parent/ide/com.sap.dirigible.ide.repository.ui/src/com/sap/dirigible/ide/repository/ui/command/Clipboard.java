@@ -17,7 +17,7 @@ package com.sap.dirigible.ide.repository.ui.command;
 
 import java.util.ArrayList;
 
-import org.eclipse.rap.rwt.RWT;
+import com.sap.dirigible.ide.common.CommonParameters;
 
 public class Clipboard extends ArrayList<Object> {
 
@@ -28,12 +28,10 @@ public class Clipboard extends ArrayList<Object> {
 	private String command;
 
 	public static Clipboard getInstance() {
-		Clipboard clipboard = (Clipboard) RWT.getRequest().getSession()
-				.getAttribute(DIRIGIBLE_CLIPBOARD);
+		Clipboard clipboard = (Clipboard) CommonParameters.getObject(DIRIGIBLE_CLIPBOARD);
 		if (clipboard == null) {
 			clipboard = new Clipboard();
-			RWT.getRequest().getSession()
-					.setAttribute(DIRIGIBLE_CLIPBOARD, clipboard);
+			CommonParameters.setObject(DIRIGIBLE_CLIPBOARD, clipboard);
 		}
 		return clipboard;
 	}

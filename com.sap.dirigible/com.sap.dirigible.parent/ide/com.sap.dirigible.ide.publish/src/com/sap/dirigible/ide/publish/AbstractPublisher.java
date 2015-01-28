@@ -29,7 +29,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.rap.rwt.RWT;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
@@ -130,10 +129,7 @@ public abstract class AbstractPublisher implements IPublisher {
 	}
 
 	public String getUser() {
-		String user = RWT.getRequest().getRemoteUser();
-		if (user == null) {
-			user = CommonParameters.GUEST_USER;
-		}
+		String user = CommonParameters.getUserName();
 		return user;
 	}
 

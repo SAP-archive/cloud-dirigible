@@ -31,55 +31,22 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-		 
-	<!--
-	<plugin
-         id="org.apache.commons.codec"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-		
-	<plugin
-         id="org.apache.commons.lang"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-		 
-	<plugin
-         id="org.apache.commons.logging"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-		
-		
-	<plugin
-         id="org.apache.log4j"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-	
-	-->
 
-		
-	<plugin
+   <plugin
          id="org.eclipse.equinox.servletbridge"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-		 
-	<plugin
+
+   <plugin
          id="org.eclipse.osgi"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-	
-	<plugin
+
+   <plugin
          id="org.hamcrest"
          download-size="0"
          install-size="0"
@@ -92,59 +59,57 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-		 
-	<plugin
+
+   <plugin
          id="org.hamcrest.integration"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-		 
-	<plugin
+
+   <plugin
          id="org.hamcrest.library"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-		 
-	<plugin
+
+   <plugin
          id="org.hamcrest.text"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-	
-<!--	
-	<plugin
-         id="org.slf4j.log4j"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-	
--->	
-	<plugin
+
+   <plugin
          id="org.slf4j.api"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
 
-	<plugin
+   <plugin
          id="javax.activation"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-		 
-	<plugin
+
+   <plugin
          id="javax.mail"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-	
-	<plugin
+
+   <plugin
          id="javax.servlet"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-		 
+
+   <plugin
+         id="com.sap.dirigible.ide.db.export"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

@@ -11,9 +11,9 @@ Require-Bundle: org.eclipse.rap.ui,
  com.sap.dirigible.ide.common,
  com.sap.dirigible.repository.db,
  com.sap.dirigible.ide.datasource,
- com.sap.dirigible.repository.api
+ com.sap.dirigible.repository.api,
+ com.sap.dirigible.ide.db.export
 Import-Package: com.sap.dirigible.ide.common.io,
- com.sap.dirigible.ide.db.data,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.ide.ui.common.validation,
  com.sap.dirigible.ide.workspace.ui.shared,

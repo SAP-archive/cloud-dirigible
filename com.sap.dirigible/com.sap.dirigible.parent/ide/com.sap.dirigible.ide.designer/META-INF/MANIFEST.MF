@@ -13,8 +13,8 @@ Require-Bundle: org.eclipse.rap.ui,
  com.sap.rap.ui.shared,
  com.sap.dirigible.ide.logging,
  com.sap.org.eclipse.ui.ide,
- org.eclipse.rap.ui,
- com.sap.dirigible.ide.editor.text
+ com.sap.dirigible.ide.editor.text,
+ com.sap.dirigible.ide.common;bundle-version="2.0.150121"
 Export-Package: com.sap.dirigible.ide.designer.ui
 Import-Package: javax.servlet,
  javax.servlet.http,

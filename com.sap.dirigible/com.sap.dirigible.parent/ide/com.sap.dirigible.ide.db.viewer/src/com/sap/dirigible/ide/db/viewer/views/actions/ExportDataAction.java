@@ -21,8 +21,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Event;
 
-import com.sap.dirigible.ide.db.data.DataDownloadDialog;
-import com.sap.dirigible.ide.db.data.DataExportServiceHandler;
+import com.sap.dirigible.ide.db.export.DataDownloadDialog;
+import com.sap.dirigible.ide.db.export.DataExportServiceHandler;
 import com.sap.dirigible.ide.db.viewer.views.TableDefinition;
 import com.sap.dirigible.ide.db.viewer.views.TreeObject;
 

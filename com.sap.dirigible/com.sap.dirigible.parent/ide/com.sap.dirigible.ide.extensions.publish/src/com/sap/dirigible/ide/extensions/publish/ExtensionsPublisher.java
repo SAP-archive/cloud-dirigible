@@ -24,8 +24,8 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.rap.rwt.RWT;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.publish.AbstractPublisher;
@@ -60,7 +60,7 @@ public class ExtensionsPublisher extends AbstractPublisher implements IPublisher
 					DataSourceFacade.getInstance().getDataSource(),
 					REGISTYRY_PUBLISH_LOCATION);
 			extensionUpdater.enumerateKnownFiles(targetContainer, knownFiles);
-			extensionUpdater.executeUpdate(knownFiles, RWT.getRequest());
+			extensionUpdater.executeUpdate(knownFiles, CommonParameters.getRequest());
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			throw new PublishException(ex.getMessage(), ex);

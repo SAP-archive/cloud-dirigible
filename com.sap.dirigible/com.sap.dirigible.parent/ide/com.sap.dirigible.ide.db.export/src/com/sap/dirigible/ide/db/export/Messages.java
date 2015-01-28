@@ -13,12 +13,12 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.db.data;
+package com.sap.dirigible.ide.db.export;
 
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "com.sap.dirigible.ide.db.data.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "com.sap.dirigible.ide.db.export.messages"; //$NON-NLS-1$
 	public static String DataExportServiceHandler_ERROR_WHILE_EXPORTING_DSV;
 	public static String DataExportDialog_AVAILABLE_TABLES_AND_VIEWS;
 	public static String DataExportDialog_ERROR_ON_LOADING_TABLES_FROM_DATABASE_FOR_GENERATION;

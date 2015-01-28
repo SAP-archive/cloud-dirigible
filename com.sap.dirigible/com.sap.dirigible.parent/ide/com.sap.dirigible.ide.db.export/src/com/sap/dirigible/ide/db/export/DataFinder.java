@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.db.data;
+package com.sap.dirigible.ide.db.export;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.db.data.TableColumn;
+import com.sap.dirigible.ide.db.export.TableColumn;
 import com.sap.dirigible.ide.logging.Logger;
 
 public class DataFinder {

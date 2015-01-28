@@ -7,7 +7,6 @@ Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.sap.dirigible.ide.repository,
  org.eclipse.core.runtime,
- org.eclipse.rap.rwt,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.ide.datasource,
  com.sap.dirigible.ide.publish

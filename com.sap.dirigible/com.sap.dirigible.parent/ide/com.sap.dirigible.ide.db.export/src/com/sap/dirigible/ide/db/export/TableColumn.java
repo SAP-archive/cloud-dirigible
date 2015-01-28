@@ -13,18 +13,21 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.db.data;
+package com.sap.dirigible.ide.db.export;
 
-public class TableName {
+public class TableColumn {
 
 	private String name;
 
-	private String type;
+	private int type;
 
-	public TableName(String name, String type) {
+	private boolean key;
+
+	public TableColumn(String name, int type, boolean key, boolean visible) {
 		super();
 		this.name = name;
 		this.type = type;
+		this.key = key;
 	}
 
 	public String getName() {
@@ -35,12 +38,19 @@ public class TableName {
 		this.name = name;
 	}
 
-	public String getType() {
+	public boolean isKey() {
+		return key;
+	}
+
+	public void setKey(boolean key) {
+		this.key = key;
+	}
+
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
-
 }

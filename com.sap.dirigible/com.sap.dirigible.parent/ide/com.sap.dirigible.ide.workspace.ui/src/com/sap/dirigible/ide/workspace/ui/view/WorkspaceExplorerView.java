@@ -28,7 +28,6 @@ import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -97,7 +96,7 @@ public class WorkspaceExplorerView extends ViewPart implements IRefreshableView 
 
 	private void setSelectedProjectFromRequest() {
 		try {
-			String projectName = RWT.getRequest().getParameter(CommonParameters.PARAMETER_PROJECT);
+			String projectName = CommonParameters.get(CommonParameters.PARAMETER_PROJECT);
 			if (projectName != null) {
 				List<Object> selected = new ArrayList<Object>();
 				TreeItem[] treeItems = viewer.getViewer().getTree().getItems();

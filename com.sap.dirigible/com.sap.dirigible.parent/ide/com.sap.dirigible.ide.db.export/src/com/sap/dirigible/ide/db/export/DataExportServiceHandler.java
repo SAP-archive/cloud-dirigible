@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.db.data;
+package com.sap.dirigible.ide.db.export;
 
 import java.io.IOException;
 
@@ -31,7 +31,7 @@ public class DataExportServiceHandler implements ServiceHandler {
 
 	private static final String DSV_EXTENSION = ".dsv";
 	private static final String DataExportServiceHandler_ERROR_WHILE_EXPORTING_DSV = Messages.DataExportServiceHandler_ERROR_WHILE_EXPORTING_DSV;
-	static final String DataExportServiceHandler_SERVICE_HANDLER_ID = "com.sap.dirigible.ide.db.data.DataExportServiceHandler";
+	static final String DataExportServiceHandler_SERVICE_HANDLER_ID = "com.sap.dirigible.ide.db.export.DataExportServiceHandler";
 
 	private static final Logger logger = Logger
 			.getLogger(DataExportServiceHandler.class);

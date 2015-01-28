@@ -22,7 +22,6 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.apache.derby.jdbc.EmbeddedDataSource;
-import org.eclipse.rap.rwt.RWT;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
@@ -70,8 +69,7 @@ public class DataSourceFacade {
 
 	private WrappedDataSource getFromSession() {
 		DataSource dataSource = null;
-		dataSource = (DataSource) RWT.getRequest().getSession()
-				.getAttribute(DATASOURCE_DEFAULT);
+		dataSource = (DataSource) CommonParameters.getObject(DATASOURCE_DEFAULT);
 		if (dataSource != null) {
 			WrappedDataSource wrappedDataSource = new WrappedDataSource(dataSource); 
 			return wrappedDataSource;

@@ -38,7 +38,6 @@ import java.util.UUID;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.rap.rwt.RWT;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
@@ -237,8 +236,8 @@ public class IntegrationPublisher extends AbstractPublisher implements
 	}
 	
 	private static PropertyChangeSupport getRuntimeBridge(PropertyChangeListener listener) {
-		PropertyChangeSupport runtimeBridge = (PropertyChangeSupport) RWT.getRequest().getSession()
-				.getAttribute(CommonParameters.DIRIGIBLE_RUNTIME_BRIDGE);
+		PropertyChangeSupport runtimeBridge = (PropertyChangeSupport) CommonParameters.getObject(
+				CommonParameters.DIRIGIBLE_RUNTIME_BRIDGE);
 		return runtimeBridge;
 	}
 

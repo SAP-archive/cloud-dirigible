@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.db.data;
+package com.sap.dirigible.ide.db.export;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;

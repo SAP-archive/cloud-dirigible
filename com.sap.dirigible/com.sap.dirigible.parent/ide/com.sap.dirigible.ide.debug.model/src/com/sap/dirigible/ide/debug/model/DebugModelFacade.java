@@ -19,8 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.rap.rwt.RWT;
-
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
 
 public class DebugModelFacade {
@@ -74,7 +73,7 @@ public class DebugModelFacade {
 	}
 	
 	public static DebugModel getActiveDebugModel() {
-		DebugModel debugModel = (DebugModel) RWT.getRequest().getSession().getAttribute(ACTIVE_DEBUG_SESSION);
+		DebugModel debugModel = (DebugModel) CommonParameters.getObject(ACTIVE_DEBUG_SESSION);
 		if (debugModel == null) {
 			logger.debug("Getting active DebugModel from session failed");
 		}
@@ -82,7 +81,7 @@ public class DebugModelFacade {
 	}
 	
 	public static void setActiveDebugModel(DebugModel debugModel) {
-		RWT.getRequest().getSession().setAttribute(ACTIVE_DEBUG_SESSION, debugModel);
+		CommonParameters.setObject(ACTIVE_DEBUG_SESSION, debugModel);
 		logger.debug("Setting DebugModel in Session with sessionId: " + debugModel.getSessionId() + ", executionId: " + debugModel.getExecutionId() + ", userId: " + debugModel.getUserId());
 	}
 	

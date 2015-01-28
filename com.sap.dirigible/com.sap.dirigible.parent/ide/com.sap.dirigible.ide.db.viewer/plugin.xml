@@ -25,12 +25,6 @@
       </view>
    </extension>
    <extension
-         point="org.eclipse.help.contexts">
-      <contexts
-            file="contexts.xml">
-      </contexts>
-   </extension>
-   <extension
          point="org.eclipse.ui.perspectives">
       <perspective
             class="com.sap.dirigible.ide.db.viewer.perspective.DatabasePerspective"
@@ -48,14 +42,6 @@
            name="DbEditor">
      </editor>
   </extension>
-	
-	 <extension
-         point="org.eclipse.rap.ui.serviceHandler">
-      <serviceHandler
-            class="com.sap.dirigible.ide.db.data.DataExportServiceHandler"
-            id="com.sap.dirigible.ide.db.data.DataExportServiceHandler">
-      </serviceHandler>
-   </extension>
    
    <extension
       point = "org.eclipse.ui.preferencePages">

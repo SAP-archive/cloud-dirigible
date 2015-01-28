@@ -16,7 +16,6 @@
 package com.sap.dirigible.ide.editor.js;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
@@ -65,7 +64,7 @@ public class EditorWidget extends Composite {
 		super.setLayout(new FillLayout());
 
 		browser = new Browser(this, SWT.NONE);
-		browser.setUrl(RWT.getRequest().getContextPath() + EDITOR_URL);
+		browser.setUrl(CommonParameters.getContextPath() + EDITOR_URL);
 		browser.addProgressListener(new ProgressListener() {
 
 			@Override

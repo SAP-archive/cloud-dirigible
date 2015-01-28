@@ -29,7 +29,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.window.Window;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
@@ -40,6 +39,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
@@ -210,7 +210,7 @@ public class SecurityManagerView extends ViewPart {
 				if (dlg.open() == Window.OK) {
 					try {
 						securityManager.secureLocation(dlg.getValue(),
-								RWT.getRequest());
+								CommonParameters.getRequest());
 						viewer.refresh();
 					} catch (SecurityException e) {
 						logger.error(SECURITY_ERROR, e);

@@ -74,6 +74,7 @@
 		<module>com.sap.dirigible.ide.editor.text</module>
 		<module>com.sap.dirigible.ide.editor.js</module>
 		<module>com.sap.dirigible.ide.db.viewer</module>
+		<module>com.sap.dirigible.ide.db.export</module>
 		<module>com.sap.dirigible.ide.db.publish</module>
 		<module>com.sap.dirigible.ide.ui.publish</module>
 		<module>com.sap.dirigible.ide.publish</module>

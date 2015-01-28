@@ -21,7 +21,7 @@ import org.eclipse.core.commands.ExecutionException;
 
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.sap.dirigible.ide.db.data.DataExportDialog;
+import com.sap.dirigible.ide.db.export.DataExportDialog;
 
 public class DataExportHandler extends AbstractHandler {
 	

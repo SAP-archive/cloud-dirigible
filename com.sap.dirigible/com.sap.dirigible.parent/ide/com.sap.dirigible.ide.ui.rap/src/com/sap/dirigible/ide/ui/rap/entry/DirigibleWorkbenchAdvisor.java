@@ -15,11 +15,12 @@
 
 package com.sap.dirigible.ide.ui.rap.entry;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+
+import com.sap.dirigible.ide.common.CommonParameters;
 
 public class DirigibleWorkbenchAdvisor extends WorkbenchAdvisor {
 
@@ -32,7 +33,7 @@ public class DirigibleWorkbenchAdvisor extends WorkbenchAdvisor {
 	}
 
 	public String getInitialWindowPerspectiveId() {
-		String activeWorkspace = RWT.getRequest().getParameter("perspective"); //$NON-NLS-1$
+		String activeWorkspace = CommonParameters.get("perspective"); //$NON-NLS-1$
 		if (activeWorkspace != null) {
 			return activeWorkspace;
 		}

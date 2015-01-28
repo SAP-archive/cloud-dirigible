@@ -19,6 +19,8 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
@@ -26,7 +28,6 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.client.service.UrlLauncher;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -53,6 +54,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishManager;
 import com.sap.dirigible.ide.ui.widget.extbrowser.ExtendedBrowser;
@@ -136,7 +138,7 @@ public class WebViewerView extends ViewPart {
 	}
 
 	private void createOpenInNewTabButton(Composite holder) {
-		final UrlLauncher launcher = RWT.getClient().getService(UrlLauncher.class);
+		final UrlLauncher launcher = CommonParameters.getService(UrlLauncher.class);
 		final Button openInNewTabButton = new Button(holder, SWT.PUSH);
 		openInNewTabButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
 		openInNewTabButton.setToolTipText(OPEN);
@@ -317,9 +319,10 @@ public class WebViewerView extends ViewPart {
 			return;
 		}
 		try {
-			String url = RWT.getRequest().getScheme() + "://" + RWT.getRequest().getServerName() //$NON-NLS-1$
+			HttpServletRequest request = CommonParameters.getRequest();
+			String url = request.getScheme() + "://" + request.getServerName() //$NON-NLS-1$
 					+ ":" //$NON-NLS-1$
-					+ RWT.getRequest().getServerPort() + text;
+					+ request.getServerPort() + text;
 			pageUrlText.setText(url);
 			browser.setUrl(url);
 			browser.refresh();
