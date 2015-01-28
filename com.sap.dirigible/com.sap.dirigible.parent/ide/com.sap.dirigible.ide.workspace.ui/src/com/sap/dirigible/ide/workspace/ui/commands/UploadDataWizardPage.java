@@ -119,7 +119,7 @@ public class UploadDataWizardPage extends FocusableWizardPage {
 
 	private void handleFileBrowseButtonPressed(SelectionEvent event) {
 		dlg = new FileDialog(getShell(), SWT.TITLE | SWT.MULTI);
-		dlg.setAutoUpload(true);
+//		dlg.setAutoUpload(true);
 		dlg.setText(Messages.UploadDataWizardPage_UPLOAD_DATA);
 		dlg.setFilterExtensions(new String[] { FILE_EXTENSION_DSV });
 		dlg.open();

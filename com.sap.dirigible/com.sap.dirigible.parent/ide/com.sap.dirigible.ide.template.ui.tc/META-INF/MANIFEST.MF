@@ -5,12 +5,15 @@ Bundle-SymbolicName: com.sap.dirigible.ide.template.ui.tc;singleton:=true
 Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.rap.ui,
- com.sap.org.eclipse.ui.ide,
+Require-Bundle: org.eclipse.ui;resolution:=optional,
+ org.eclipse.rap.ui;resolution:=optional,
+ org.eclipse.ui.ide;resolution:=optional,
+ com.sap.org.eclipse.ui.ide;resolution:=optional,
  com.sap.dirigible.ide.template.ui.common,
  com.sap.dirigible.ide.datasource,
  com.sap.dirigible.ide.common,
- com.sap.dirigible.repository.api
+ com.sap.dirigible.repository.api,
+ org.eclipse.core.runtime
 Import-Package: com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.ide.ui.common.validation,

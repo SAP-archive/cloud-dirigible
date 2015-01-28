@@ -6,16 +6,14 @@ Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.sap.dirigible.ide.repository,
- org.eclipse.core.runtime;bundle-version="3.8.0",
- org.eclipse.rap.rwt,
+ org.eclipse.core.runtime,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.ide.datasource,
- com.sap.dirigible.ide.db.viewer,
  com.sap.dirigible.repository.ext
-Import-Package: com.google.gson;version="1.6.0",
+Import-Package: com.google.gson,
  com.sap.dirigible.ide.common,
  com.sap.dirigible.ide.common.io,
- com.sap.dirigible.ide.publish;version="1.0.0",
+ com.sap.dirigible.ide.publish,
  com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,
  com.sap.dirigible.repository.ext.db,

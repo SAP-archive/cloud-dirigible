@@ -19,5 +19,6 @@ Import-Package: com.sap.dirigible.ide.common,
 Export-Package: com.sap.dirigible.ide.publish;version="1.0.0";uses:="org.eclipse.core.resources"
 Require-Bundle: com.sap.dirigible.ide.logging,
  org.apache.commons.io,
- org.eclipse.rap.ui
+ org.eclipse.ui;resolution:=optional,
+ org.eclipse.rap.ui;resolution:=optional
 Bundle-ActivationPolicy: lazy

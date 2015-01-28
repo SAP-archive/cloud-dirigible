@@ -776,13 +776,6 @@ public class IDEWorkbenchMessages extends NLS {
 	public static String CopyFilesAndFoldersOperation_confirmCopy;
 	public static String CopyFilesAndFoldersOperation_warningCopy;
 
-	public static String HtmlForEntityTemplateTablePage_AVAILABLE_FIELDS;
-
-	public static String HtmlForEntityTemplateTablePage_ERROR_ON_LOADING_TABLE_COLUMNS_FROM_DATABASE_FOR_GENERATION;
-
-	public static String HtmlForEntityTemplateTablePage_SELECT_THE_VISIBLE_FIELDS_WHICH_WILL_BE_USED_DURING_GENERATION;
-
-	public static String HtmlForEntityTemplateTablePage_SELECTION_OF_FIELDS;
 	public static String RenameResourceAction_confirm;
 	public static String RenameResourceAction_warning;
 

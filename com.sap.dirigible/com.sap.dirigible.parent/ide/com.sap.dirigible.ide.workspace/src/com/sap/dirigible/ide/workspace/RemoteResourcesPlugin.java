@@ -16,7 +16,6 @@
 package com.sap.dirigible.ide.workspace;
 
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.rap.rwt.SingletonUtil;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.workspace.impl.Workspace;
@@ -34,8 +33,6 @@ import com.sap.dirigible.ide.workspace.impl.Workspace;
 public class RemoteResourcesPlugin {
 
 	public static final String PLUGIN_ID = "com.sap.dirigible.ide.workspace"; //$NON-NLS-1$
-
-	public static final String GUEST_USER = "guest"; //$NON-NLS-1$
 
 	/**
 	 * Returns the workspace corresponding to this user session.
@@ -74,9 +71,12 @@ public class RemoteResourcesPlugin {
 	 * @return a {@link Workspace} instance.
 	 */
 	public static IWorkspace getWorkspace(String user) {
-		final Workspace result = (Workspace) SingletonUtil.getSessionInstance(Workspace.class);
-		result.initialize(user);
-		return result;
+		Workspace workspace = (Workspace) CommonParameters.getObject(Workspace.class.getCanonicalName());
+		if (workspace == null) {
+			workspace = new Workspace();
+		}
+		workspace.initialize(user);
+		return workspace;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class RemoteResourcesPlugin {
 	 * @return an {@link IWorkspace} instance.
 	 */
 	public static IWorkspace getSharedWorkspace() {
-		return getWorkspace(GUEST_USER);
+		return getWorkspace(CommonParameters.getUserName());
 	}
 
 }

@@ -51,7 +51,7 @@ public class UploadHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		FileDialog dlg = new FileDialog(HandlerUtil.getActiveShell(event), SWT.TITLE | SWT.MULTI);
-		dlg.setAutoUpload(true);
+//		dlg.setAutoUpload(true);
 		dlg.setText(UPLOAD_FILE);
 		dlg.open();
 

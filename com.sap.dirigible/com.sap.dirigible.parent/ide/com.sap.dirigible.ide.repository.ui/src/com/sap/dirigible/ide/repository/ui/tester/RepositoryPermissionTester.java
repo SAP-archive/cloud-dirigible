@@ -21,7 +21,6 @@ import org.eclipse.core.expressions.PropertyTester;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 
@@ -33,7 +32,7 @@ public class RepositoryPermissionTester extends PropertyTester {
 	@Override
 	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
 		String operation = (String) expectedValue;
-		String currentUser = RemoteResourcesPlugin.getUserName();
+		String currentUser = CommonParameters.getUserName();
 		String createdBy = null;
 		boolean allowed = false;
 

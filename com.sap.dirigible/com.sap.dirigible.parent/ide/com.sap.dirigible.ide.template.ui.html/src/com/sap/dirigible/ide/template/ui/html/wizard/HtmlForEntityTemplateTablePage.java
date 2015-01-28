@@ -39,7 +39,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -48,18 +47,15 @@ import com.sap.dirigible.ide.logging.Logger;
 
 public class HtmlForEntityTemplateTablePage extends WizardPage {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2145208425464294046L;
 
-	private static final String AVAILABLE_FIELDS = IDEWorkbenchMessages.HtmlForEntityTemplateTablePage_AVAILABLE_FIELDS;
+	private static final String AVAILABLE_FIELDS = "Available Fields";
 
-	private static final String ERROR_ON_LOADING_TABLE_COLUMNS_FROM_DATABASE_FOR_GENERATION = IDEWorkbenchMessages.HtmlForEntityTemplateTablePage_ERROR_ON_LOADING_TABLE_COLUMNS_FROM_DATABASE_FOR_GENERATION;
+	private static final String ERROR_ON_LOADING_TABLE_COLUMNS_FROM_DATABASE_FOR_GENERATION = "Error on Loading Table Columns from Database for Generation";
 
-	private static final String SELECT_THE_VISIBLE_FIELDS_WHICH_WILL_BE_USED_DURING_GENERATION = IDEWorkbenchMessages.HtmlForEntityTemplateTablePage_SELECT_THE_VISIBLE_FIELDS_WHICH_WILL_BE_USED_DURING_GENERATION;
+	private static final String SELECT_THE_VISIBLE_FIELDS_WHICH_WILL_BE_USED_DURING_GENERATION = "Select the visible fields which will be used during generation";
 
-	private static final String SELECTION_OF_FIELDS = IDEWorkbenchMessages.HtmlForEntityTemplateTablePage_SELECTION_OF_FIELDS;
+	private static final String SELECTION_OF_FIELDS = "Selection of Fields";
 
 	private static final Logger logger = Logger
 			.getLogger(HtmlForEntityTemplateTablePage.class);
@@ -112,7 +108,7 @@ public class HtmlForEntityTemplateTablePage extends WizardPage {
 		label.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, false));
 
 		Button selectButton = new Button(upperPart, SWT.PUSH);
-		selectButton.setText(IDEWorkbenchMessages.WizardTransferPage_selectAll);
+		selectButton.setText("&Select All");
 		selectButton.setLayoutData(new GridData(SWT.END, SWT.FILL, true, true));
 		selectButton.setFont(JFaceResources.getDialogFont());
 		selectButton.addSelectionListener(new SelectionAdapter() {
@@ -127,8 +123,7 @@ public class HtmlForEntityTemplateTablePage extends WizardPage {
 		});
 
 		Button deselectButton = new Button(upperPart, SWT.PUSH);
-		deselectButton
-				.setText(IDEWorkbenchMessages.WizardTransferPage_deselectAll);
+		deselectButton.setText("&Deselect All");
 		deselectButton.setLayoutData(new GridData(SWT.END, SWT.FILL, false,
 				false));
 		deselectButton.setFont(JFaceResources.getDialogFont());

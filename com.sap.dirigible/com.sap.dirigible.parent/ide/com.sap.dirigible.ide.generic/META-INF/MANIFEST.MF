@@ -5,14 +5,16 @@ Bundle-SymbolicName: com.sap.dirigible.ide.generic;singleton:=true
 Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.rap.ui,
+Require-Bundle: org.eclipse.ui;resolution:=optional,
+ org.eclipse.rap.ui;resolution:=optional,
  com.sap.dirigible.ide.ui.widget.extbrowser,
  com.sap.dirigible.ide.common,
  com.sap.dirigible.ide.repository,
  com.sap.dirigible.ide.datasource,
  com.sap.dirigible.repository.api,
  com.sap.dirigible.ide.logging,
- com.sap.dirigible.repository.ext
+ com.sap.dirigible.repository.ext,
+ org.eclipse.core.runtime;resolution:=optional
 Export-Package: com.sap.dirigible.ide.generic.ui
 Import-Package: javax.servlet,
  javax.servlet.http

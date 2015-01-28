@@ -51,7 +51,7 @@ public class UploadProjectHandler extends AbstractWorkspaceHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		FileDialog dlg = new FileDialog(HandlerUtil.getActiveShell(event), SWT.TITLE | SWT.MULTI);
-		dlg.setAutoUpload(true);
+//		dlg.setAutoUpload(true);
 		dlg.setText(UPLOAD_PROJECT_ARCHIVE);
 		dlg.setFilterExtensions(new String[] { "*.zip" }); //$NON-NLS-1$
 		String projectPath = dlg.open();

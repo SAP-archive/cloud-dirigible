@@ -5,8 +5,11 @@ Bundle-SymbolicName: com.sap.rap.ui.shared
 Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.rap.ui,
+Require-Bundle: org.eclipse.ui;resolution:=optional,
+ org.eclipse.rap.ui;resolution:=optional,
  org.eclipse.core.resources,
- com.sap.org.eclipse.ui.ide
+ org.eclipse.ui.ide;resolution:=optional,
+ com.sap.org.eclipse.ui.ide;resolution:=optional,
+ org.eclipse.core.runtime
 Export-Package: com.sap.rap.ui.shared.editor,
  com.sap.rap.ui.shared.editor.impl
