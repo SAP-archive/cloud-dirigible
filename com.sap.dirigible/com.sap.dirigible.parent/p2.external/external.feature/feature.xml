@@ -61,6 +61,7 @@
       <import plugin="org.eclipse.core.runtime" version="3.7.0" match="compatible"/>
       <import plugin="org.eclipse.core.jobs"/>
       <import plugin="org.junit"/>
+      <import plugin="org.hamcrest" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.hamcrest.core" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.hamcrest.library" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.hamcrest.integration" version="1.1.0" match="greaterOrEqual"/>
@@ -276,14 +277,14 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+   <!--      
    <plugin
          id="org.eclipse.mylyn.wikitext.mediawiki.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+   -->    
    <plugin
          id="org.eclipse.mylyn.wikitext.textile.core"
          download-size="0"

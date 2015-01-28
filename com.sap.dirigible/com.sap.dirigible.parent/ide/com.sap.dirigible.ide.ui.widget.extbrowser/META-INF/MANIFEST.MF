@@ -5,5 +5,6 @@ Bundle-SymbolicName: com.sap.dirigible.ide.ui.widget.extbrowser
 Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Export-Package: com.sap.dirigible.ide.ui.widget.extbrowser
-Require-Bundle: org.eclipse.rap.ui
+Require-Bundle: org.eclipse.ui;resolution:=optional,
+ org.eclipse.rap.ui;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

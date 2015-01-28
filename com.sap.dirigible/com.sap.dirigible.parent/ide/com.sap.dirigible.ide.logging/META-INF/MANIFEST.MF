@@ -10,4 +10,3 @@ Import-Package: javax.servlet,
  javax.servlet.http,
  org.osgi.framework,
  org.slf4j
-Require-Bundle: org.eclipse.rap.rwt

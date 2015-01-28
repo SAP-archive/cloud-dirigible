@@ -5,9 +5,10 @@ Bundle-SymbolicName: com.sap.dirigible.ide.help;singleton:=true
 Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.rap.ui,
+Require-Bundle: org.eclipse.ui;resolution:=optional,
+ org.eclipse.rap.ui;resolution:=optional,
  com.sap.dirigible.ide.ui.widget.extbrowser,
- com.sap.dirigible.ide.common
+ org.eclipse.core.runtime;resolution:=optional
 Export-Package: com.sap.dirigible.ide.help.ui
 Import-Package: javax.servlet,
  javax.servlet.http

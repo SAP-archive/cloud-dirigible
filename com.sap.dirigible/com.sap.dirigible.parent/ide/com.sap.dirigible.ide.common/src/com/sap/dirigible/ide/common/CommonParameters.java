@@ -17,9 +17,9 @@ package com.sap.dirigible.ide.common;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.client.service.ClientService;
 
+
+import com.sap.dirigible.ide.common.dual.DualParameters;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 
@@ -33,12 +33,7 @@ public class CommonParameters {
 	public static final String DB_DIRIGIBLE_CONFIGURATIONS = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
 			+ ICommonConstants.ARTIFACT_TYPE.CONFIGURATION_SETTINGS; //$NON-NLS-1$
 
-	public static final String RUNTIME_URL = "runtimeUrl"; //$NON-NLS-1$
-	public static final String SERVICES_URL = "servicesUrl"; //$NON-NLS-1$
-	public static final String RUNTIME_URL_DEFAULT = ""; //$NON-NLS-1$
-	public static final String SERVICES_URL_DEFAULT = ""; //$NON-NLS-1$
 	
-	public static final String ENABLE_ROLES = "enableRoles"; //$NON-NLS-1$
 	public static final String LOGGER_FACTORY = "loggerFactory"; //$NON-NLS-1$
 
 	public static String getWebContentSandbox() {
@@ -110,16 +105,11 @@ public class CommonParameters {
 	public static final String EXTENSION_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.EXTENSION; //$NON-NLS-1$
 	public static final String SECURITY_EXTENSION = ICommonConstants.ARTIFACT_EXTENSION.SECURITY; //$NON-NLS-1$
 	
-	public static final String GUEST_USER = "guest"; //$NON-NLS-1$
+	
 
 	public static final String CONTENT_EXPORT = "/content-export/"; //$NON-NLS-1$
 
-	public static final String HC_LOCAL_HTTP_PORT = "HC_LOCAL_HTTP_PORT"; //$NON-NLS-1$
-	public static final String HC_APPLICATION_URL = "HC_APPLICATION_URL"; //$NON-NLS-1$
-	public static final String HC_APPLICATION = "HC_APPLICATION"; //$NON-NLS-1$
-	public static final String HC_ACCOUNT = "HC_ACCOUNT"; //$NON-NLS-1$
-	public static final String HC_REGION = "HC_REGION"; //$NON-NLS-1$
-	public static final String HC_HOST = "HC_HOST"; //$NON-NLS-1$
+	
 
 	// Workbench Parameters
 	public static final String PARAMETER_PERSPECTIVE = "perspective"; //$NON-NLS-1$
@@ -152,96 +142,7 @@ public class CommonParameters {
 	public static final String[] TABLE_TYPES = { TABLE, VIEW, ALIAS, SYNONYM, GLOBAL_TEMPORARY,
 			LOCAL_TEMPORARY, SYSTEM_TABLE };
 
-	// =====================================================================================================================================
-
-	public static String get(String name) {
-		String parameter = (String) RWT.getRequest().getSession().getAttribute(name);
-		return parameter;
-	}
 	
-	public static Object getObject(String name) {
-		Object parameter = RWT.getRequest().getSession().getAttribute(name);
-		return parameter;
-	}
-
-	public static void set(String name, String value) {
-		RWT.getRequest().getSession().setAttribute(name, value);
-	}
-	
-	public static void setObject(String name, Object value) {
-		RWT.getRequest().getSession().setAttribute(name, value);
-	}
-
-	public static String getRuntimeUrl() {
-		String runtimeUrl = CommonParameters.get(CommonParameters.RUNTIME_URL);
-		if (runtimeUrl == null) {
-			runtimeUrl = CommonParameters.RUNTIME_URL_DEFAULT;
-		}
-		return runtimeUrl;
-	}
-	
-	public static <T extends ClientService> T getService(Class<T> clazz) {
-		return RWT.getClient().getService(clazz);
-	}
-	
-	
-	
-	public static String getServicesUrl() {
-		String runtimeUrl = CommonParameters.get(CommonParameters.RUNTIME_URL);
-		if (runtimeUrl == null
-				|| "".equals(runtimeUrl)) {
-			runtimeUrl = RWT.getRequest().getContextPath();
-		}
-		String servicesUrl = CommonParameters.get(CommonParameters.SERVICES_URL);
-		if (servicesUrl == null) {
-			servicesUrl = CommonParameters.SERVICES_URL_DEFAULT;
-		}
-		
-		return runtimeUrl + servicesUrl;
-	}
-	
-	public static String getContextPath() {
-		return RWT.getRequest().getContextPath();
-	}
-	
-	public static HttpServletRequest getRequest() {
-		return RWT.getRequest();
-	}
-	
-	public static Boolean isRolesEnabled() {
-		Boolean rolesEnabled = Boolean.parseBoolean(CommonParameters.get(CommonParameters.ENABLE_ROLES));
-		return rolesEnabled;
-	}
-	
-	static {
-		HttpServletRequest req = RWT.getRequest();
-		String parameterHC_HOST = System.getProperty(HC_HOST);
-		req.getSession().setAttribute(HC_HOST, parameterHC_HOST);
-		String parameterHC_REGION = System.getProperty(HC_REGION);
-		req.getSession().setAttribute(HC_REGION, parameterHC_REGION);
-		String parameterHC_ACCOUNT = System.getProperty(HC_ACCOUNT);
-		req.getSession().setAttribute(HC_ACCOUNT, parameterHC_ACCOUNT);
-		String parameterHC_APPLICATION = System.getProperty(HC_APPLICATION);
-		req.getSession().setAttribute(HC_APPLICATION, parameterHC_APPLICATION);
-		String parameterHC_APPLICATION_URL = System.getProperty(HC_APPLICATION_URL);
-		req.getSession().setAttribute(HC_APPLICATION_URL, parameterHC_APPLICATION_URL);
-		String parameterHC_LOCAL_HTTP_PORT = System.getProperty(HC_LOCAL_HTTP_PORT);
-		req.getSession().setAttribute(HC_LOCAL_HTTP_PORT, parameterHC_LOCAL_HTTP_PORT);
-	}
-
-	public static String getUserName() {
-		String user = null;
-		try {
-			user = RWT.getRequest().getRemoteUser();
-
-		} catch (Throwable t) {
-			user = GUEST_USER;
-		}
-		if (user == null) {
-			user = GUEST_USER;
-		}
-		return user;
-	}
 
 	public static String getDatabaseProductName() {
 		return get(DATABASE_PRODUCT_NAME);
@@ -255,18 +156,7 @@ public class CommonParameters {
 		return get(DATABASE_DRIVER_NAME);
 	}
 
-	public static boolean isUserInRole(String role) {
-		if (isRolesEnabled()) {
-			return RWT.getRequest().isUserInRole(role);
-		} else {
-			return true;
-		}
-	}
 
-	public static String getSessionId() {
-		String sessionId = RWT.getRequest().getSession(true).getId();
-		return sessionId;
-	}
 
 	public static final String CONF_PATH_IDE = "/ide";
 	
@@ -291,4 +181,123 @@ public class CommonParameters {
 			java.sql.Types.STRUCT,
 			java.sql.Types.VARBINARY
 	};
+	
+	
+	
+	
+// =====================================================================================================================================
+// DUAL PARAMETERS - DEPENDING ON THE TARGET PLATFORM - RAP or RCP
+// =====================================================================================================================================
+
+		public static String get(String name) {
+//			String parameter = (String) RWT.getRequest().getSession().getAttribute(name);
+//			return parameter;
+			return DualParameters.get(name);
+		}
+		
+		public static Object getObject(String name) {
+//			Object parameter = RWT.getRequest().getSession().getAttribute(name);
+//			return parameter;
+			return DualParameters.getObject(name);
+		}
+
+		public static void set(String name, String value) {
+//			RWT.getRequest().getSession().setAttribute(name, value);
+			DualParameters.set(name, value);
+		}
+		
+		public static void setObject(String name, Object value) {
+//			RWT.getRequest().getSession().setAttribute(name, value);
+			DualParameters.setObject(name, value);
+		}
+
+		public static String getRuntimeUrl() {
+//			String runtimeUrl = CommonParameters.get(CommonParameters.RUNTIME_URL);
+//			if (runtimeUrl == null) {
+//				runtimeUrl = CommonParameters.RUNTIME_URL_DEFAULT;
+//			}
+//			return runtimeUrl;
+			return DualParameters.getRuntimeUrl();
+		}
+		
+		public static Object getService(Class clazz) {
+//			return RWT.getClient().getService(clazz);
+			return DualParameters.getService(clazz);
+		}
+		
+		
+		
+		public static String getServicesUrl() {
+//			String runtimeUrl = CommonParameters.get(CommonParameters.RUNTIME_URL);
+//			if (runtimeUrl == null
+//					|| "".equals(runtimeUrl)) {
+//				runtimeUrl = RWT.getRequest().getContextPath();
+//			}
+//			String servicesUrl = CommonParameters.get(CommonParameters.SERVICES_URL);
+//			if (servicesUrl == null) {
+//				servicesUrl = CommonParameters.SERVICES_URL_DEFAULT;
+//			}
+//			
+//			return runtimeUrl + servicesUrl;
+			
+			return DualParameters.getServicesUrl();
+		}
+		
+		public static String getContextPath() {
+//			return RWT.getRequest().getContextPath();
+			return DualParameters.getContextPath();
+		}
+		
+		public static HttpServletRequest getRequest() {
+//			return RWT.getRequest();
+			return DualParameters.getRequest();
+		}
+		
+		public static Boolean isRolesEnabled() {
+//			Boolean rolesEnabled = Boolean.parseBoolean(CommonParameters.get(CommonParameters.ENABLE_ROLES));
+//			return rolesEnabled;
+			return DualParameters.isRolesEnabled();
+		}
+		
+		
+
+		public static String getUserName() {
+//			String user = null;
+//			try {
+//				user = RWT.getRequest().getRemoteUser();
+	//
+//			} catch (Throwable t) {
+//				user = GUEST_USER;
+//			}
+//			if (user == null) {
+//				user = GUEST_USER;
+//			}
+//			return user;
+			return DualParameters.getUserName();
+		}
+	
+	public static boolean isUserInRole(String role) {
+//		if (isRolesEnabled()) {
+//			return RWT.getRequest().isUserInRole(role);
+//		} else {
+//			return true;
+//		}
+		return DualParameters.isUserInRole(role);
+	}
+
+	public static String getSessionId() {
+//		String sessionId = RWT.getRequest().getSession(true).getId();
+//		return sessionId;
+		return DualParameters.getSessionId();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

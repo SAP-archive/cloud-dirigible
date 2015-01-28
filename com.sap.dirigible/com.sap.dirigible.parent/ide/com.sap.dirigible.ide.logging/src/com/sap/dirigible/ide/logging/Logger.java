@@ -17,7 +17,6 @@ package com.sap.dirigible.ide.logging;
 
 import java.util.logging.Level;
 
-import org.eclipse.rap.rwt.RWT;
 import org.slf4j.LoggerFactory;
 
 

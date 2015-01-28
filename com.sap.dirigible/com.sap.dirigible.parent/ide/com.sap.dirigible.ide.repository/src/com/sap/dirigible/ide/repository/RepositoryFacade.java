@@ -19,8 +19,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
-import org.eclipse.rap.rwt.RWT;
-
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.RepositoryException;
@@ -41,7 +40,7 @@ public class RepositoryFacade {
 
 	public IRepository getRepository() throws RepositoryException {
 
-		HttpServletRequest request = RWT.getRequest();
+		HttpServletRequest request = CommonParameters.getRequest();
 
 		IRepository repository = getRepositoryInstance(request);
 
@@ -66,7 +65,7 @@ public class RepositoryFacade {
 	}
 
 	public String getUser(HttpServletRequest request) {
-		String user = "GUEST"; // shared one //$NON-NLS-1$
+		String user = CommonParameters.getUserName(); // shared one //$NON-NLS-1$
 		try {
 			if ((request != null) && (request.getUserPrincipal() != null)) {
 				user = request.getUserPrincipal().getName();
@@ -78,10 +77,11 @@ public class RepositoryFacade {
 	}
 
 	private IRepository getRepositoryInstance(HttpServletRequest request) {
-		if (request == null) {
-			return null;
-		}
-		return (IRepository) request.getSession().getAttribute(REPOSITORY);
+//		if (request == null) {
+//			return null;
+//		}
+		return (IRepository) CommonParameters.getObject(REPOSITORY);
+//		return (IRepository) request.getSession().getAttribute(REPOSITORY);
 	}
 
 	public void saveRepositoryInstance(HttpServletRequest request,
@@ -89,7 +89,8 @@ public class RepositoryFacade {
 		if (request == null) {
 			return;
 		}
-		request.getSession().setAttribute(REPOSITORY, repository);
+		CommonParameters.setObject(REPOSITORY, repository);
+//		request.getSession().setAttribute(REPOSITORY, repository);
 	}
 
 }

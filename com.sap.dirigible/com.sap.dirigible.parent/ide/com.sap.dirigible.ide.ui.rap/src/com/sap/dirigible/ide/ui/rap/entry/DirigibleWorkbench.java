@@ -36,7 +36,7 @@ public class DirigibleWorkbench implements EntryPoint {
 	public int createUI() {
 		final Display display = PlatformUI.createDisplay();
 		// Disabled because we do not want to show confirmation dialog.
-		ExitConfirmation service = CommonParameters.getService(
+		ExitConfirmation service = (ExitConfirmation) CommonParameters.getService(
 				ExitConfirmation.class);
 		service.setMessage(ARE_YOU_SURE_YOU_WANT_TO_QUIT
 				+ ICommonConstants.DIRIGIBLE_PRODUCT_NAME); // TODO: I18N

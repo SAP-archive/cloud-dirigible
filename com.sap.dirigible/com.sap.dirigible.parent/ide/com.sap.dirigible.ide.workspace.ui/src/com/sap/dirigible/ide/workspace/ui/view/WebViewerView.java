@@ -138,19 +138,21 @@ public class WebViewerView extends ViewPart {
 	}
 
 	private void createOpenInNewTabButton(Composite holder) {
-		final UrlLauncher launcher = CommonParameters.getService(UrlLauncher.class);
-		final Button openInNewTabButton = new Button(holder, SWT.PUSH);
-		openInNewTabButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
-		openInNewTabButton.setToolTipText(OPEN);
-		openInNewTabButton.setImage(createImage(DIRIGIBLE_OPEN_ICON_URL));
-		openInNewTabButton.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 5262335626537755624L;
-
-			public void widgetSelected(SelectionEvent e) {
-				launcher.openURL(pageUrlText.getText());
-				refresh();
-			}
-		});
+		final UrlLauncher launcher = (UrlLauncher) CommonParameters.getService(UrlLauncher.class);
+		if (launcher != null) {
+			final Button openInNewTabButton = new Button(holder, SWT.PUSH);
+			openInNewTabButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
+			openInNewTabButton.setToolTipText(OPEN);
+			openInNewTabButton.setImage(createImage(DIRIGIBLE_OPEN_ICON_URL));
+			openInNewTabButton.addSelectionListener(new SelectionAdapter() {
+				private static final long serialVersionUID = 5262335626537755624L;
+	
+				public void widgetSelected(SelectionEvent e) {
+					launcher.openURL(pageUrlText.getText());
+					refresh();
+				}
+			});
+		}
 	}
 
 	private void createSandboxToggleButton(final Composite holder) {
