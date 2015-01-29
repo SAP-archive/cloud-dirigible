@@ -59,6 +59,10 @@
 		<module>com.sap.dirigible.ide.common</module>
 		<module>com.sap.dirigible.ide.logging</module>
 		<module>com.sap.dirigible.ide.ui.rap</module>
+		
+		<module>com.sap.dirigible.ide.workspace.rap</module>
+		<module>com.sap.dirigible.ide.workspace.rcp</module>
+		
 		<module>com.sap.dirigible.ide.workspace</module>
 		<!-- -->
 		<module>com.sap.dirigible.ide.workspace.test</module>
@@ -76,7 +80,10 @@
 		<module>com.sap.dirigible.ide.editor.text</module>
 		<module>com.sap.dirigible.ide.editor.js</module>
 		<module>com.sap.dirigible.ide.db.viewer</module>
-		<module>com.sap.dirigible.ide.db.export</module>
+		<module>com.sap.dirigible.ide.db.export.rap</module>
+		<module>com.sap.dirigible.ide.db.export.rcp</module>
+		<module>com.sap.dirigible.ide.db.sqlconsole.rap</module>
+		<module>com.sap.dirigible.ide.db.sqlconsole.rcp</module>
 		<module>com.sap.dirigible.ide.db.publish</module>
 		<module>com.sap.dirigible.ide.ui.publish</module>
 		<module>com.sap.dirigible.ide.publish</module>

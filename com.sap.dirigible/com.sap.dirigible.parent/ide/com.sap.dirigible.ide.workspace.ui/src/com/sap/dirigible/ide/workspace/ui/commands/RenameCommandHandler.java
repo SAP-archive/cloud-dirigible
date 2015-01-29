@@ -29,7 +29,7 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.sap.dirigible.ide.editor.js.JavaScriptEditor;
+import com.sap.dirigible.ide.editor.text.editor.TextEditor;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.ui.wizards.rename.RenameWizard;
 
@@ -57,8 +57,12 @@ public class RenameCommandHandler extends AbstractHandler {
 			IEditorPart editorPart = editorRef.getEditor(false);
 			if (editorPart != null && editorPart.getTitle().equals(oldFileName)) {
 				// com.sap.dirigible.ide.editor.js.
-				if (editorPart instanceof JavaScriptEditor) {
-					((JavaScriptEditor) editorPart).setPartName(newFileName);
+//				if (editorPart instanceof JavaScriptEditor) {
+//					((JavaScriptEditor) editorPart).setPartName(newFileName);
+//					return;
+//				}
+				if (editorPart instanceof TextEditor) {
+					((TextEditor) editorPart).setPartName(newFileName);
 					return;
 				}
 			}

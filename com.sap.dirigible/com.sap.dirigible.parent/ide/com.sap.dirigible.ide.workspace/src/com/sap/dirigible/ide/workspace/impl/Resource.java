@@ -59,7 +59,7 @@ public abstract class Resource implements IResource {
 
 	private static final String METHOD_SET_READ_ONLY_NOT_SUPPORTED = Messages.Resource_METHOD_SET_READ_ONLY_NOT_SUPPORTED;
 
-	private static final String PERSISTANT_PROPERTIES_NOT_SUPPORTED = Messages.Resource_PERSISTANT_PROPERTIES_NOT_SUPPORTED;
+//	private static final String PERSISTANT_PROPERTIES_NOT_SUPPORTED = Messages.Resource_PERSISTANT_PROPERTIES_NOT_SUPPORTED;
 
 	private static final String METHOD_SET_LOCAL_TIME_STAMP_NOT_SUPPORTED = Messages.Resource_METHOD_SET_LOCAL_TIME_STAMP_NOT_SUPPORTED;
 
@@ -92,7 +92,7 @@ public abstract class Resource implements IResource {
 
 	protected final Workspace workspace;
 
-	protected final Map<QualifiedName, Object> sessionProperties = new HashMap<QualifiedName, Object>();
+	protected final Map<QualifiedName, String> sessionProperties = new HashMap<QualifiedName, String>();
 
 	public Resource(IPath path, Workspace workspace) {
 		if (path == null) {
@@ -420,7 +420,8 @@ public abstract class Resource implements IResource {
 	 */
 	public Map<QualifiedName, String> getPersistentProperties() throws CoreException {
 		// We do not support persistent properties
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		return sessionProperties;
 	}
 
 	/**
@@ -428,7 +429,8 @@ public abstract class Resource implements IResource {
 	 */
 	public String getPersistentProperty(QualifiedName key) throws CoreException {
 		// We do not support persistent properties
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		return sessionProperties.get(key);
 	}
 
 	/**
@@ -755,8 +757,9 @@ public abstract class Resource implements IResource {
 	 */
 	public void setPersistentProperty(QualifiedName key, String value)
 			throws CoreException {
-		throw new UnsupportedOperationException(
-				PERSISTANT_PROPERTIES_NOT_SUPPORTED);
+//		throw new UnsupportedOperationException(
+//				PERSISTANT_PROPERTIES_NOT_SUPPORTED);
+		sessionProperties.put(key, value);
 	}
 
 	/**
@@ -781,7 +784,9 @@ public abstract class Resource implements IResource {
 	 */
 	public void setSessionProperty(QualifiedName key, Object value)
 			throws CoreException {
-		sessionProperties.put(key, value);
+		if (value != null) {
+			sessionProperties.put(key, value.toString());
+		}
 	}
 
 	/**

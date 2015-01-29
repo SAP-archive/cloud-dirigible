@@ -24,11 +24,11 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
 
-import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.editor.text.editor.ContentProviderException;
+import com.sap.dirigible.ide.editor.text.editor.EditorMode;
 import com.sap.dirigible.ide.editor.text.editor.TextEditor;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.ICommonConstants;
@@ -162,8 +162,4 @@ public class JavaScriptEditor extends TextEditor {
 		}
 	}
 
-	@Override
-	public void setPartName(final String partName) {
-		super.setPartName(partName);
-	}
 }

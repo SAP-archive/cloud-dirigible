@@ -22,7 +22,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Event;
 
 import com.sap.dirigible.ide.db.export.DataDownloadDialog;
-import com.sap.dirigible.ide.db.export.DataExportServiceHandler;
+import com.sap.dirigible.ide.db.export.DataExportWrapper;
 import com.sap.dirigible.ide.db.viewer.views.TableDefinition;
 import com.sap.dirigible.ide.db.viewer.views.TreeObject;
 
@@ -56,7 +56,7 @@ public class ExportDataAction extends Action {
 				
 				DataDownloadDialog dataDownloadDialog = new DataDownloadDialog(
 						event.display.getActiveShell());
-				dataDownloadDialog.setURL(DataExportServiceHandler.getUrl(tableName));
+				dataDownloadDialog.setURL(DataExportWrapper.getUrl(tableName));
 				dataDownloadDialog.open();
 			}
 		}

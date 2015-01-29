@@ -15,14 +15,7 @@
             class="com.sap.dirigible.ide.db.viewer.views.DatabaseViewer"
             id="com.sap.dirigible.ide.db.viewer.views.DatabaseViewer">
       </view>
-      <view
-            category="com.sap.dirigible.ide.db.viewer"
-            class="com.sap.dirigible.ide.db.viewer.views.SQLConsole"
-            icon="icons/icon-sql-console.png"
-            id="com.sap.dirigible.ide.db.viewer.views.SQLConsole"
-            name="SQL Console"
-            restorable="true">
-      </view>
+      
    </extension>
    <extension
          point="org.eclipse.ui.perspectives">

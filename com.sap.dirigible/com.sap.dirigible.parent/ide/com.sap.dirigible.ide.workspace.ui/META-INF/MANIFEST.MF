@@ -24,7 +24,9 @@ Require-Bundle: org.eclipse.core.resources,
  com.sap.dirigible.repository.ext,
  com.sap.dirigible.ide.datasource,
  org.apache.commons.io,
- com.sap.dirigible.ide.db.export;resolution:=optional
+ com.sap.dirigible.ide.db.export.rcp;resolution:=optional,
+ com.sap.dirigible.ide.db.export.rap;resolution:=optional,
+ org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.workspace.ui.commands,
  com.sap.dirigible.ide.workspace.ui.perspective,
@@ -34,8 +36,7 @@ Export-Package: com.sap.dirigible.ide.workspace.ui.commands,
  com.sap.dirigible.ide.workspace.ui.wizard.file,
  com.sap.dirigible.ide.workspace.ui.wizard.folder,
  com.sap.dirigible.ide.workspace.ui.wizards.rename
-Import-Package: com.sap.dirigible.ide.editor.js,
- com.sap.dirigible.ide.editor.text.editor,
+Import-Package: com.sap.dirigible.ide.editor.text.editor,
  com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,
  javax.servlet,

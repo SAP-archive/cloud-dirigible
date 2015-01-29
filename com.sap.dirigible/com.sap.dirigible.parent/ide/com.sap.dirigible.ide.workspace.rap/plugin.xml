@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="org.eclipse.rap.ui.serviceHandler">
+      <serviceHandler
+            class="com.sap.dirigible.ide.workspace.dual.DownloadProjectServiceHandler"
+            id="com.sap.dirigible.ide.workspace.wizard.project.export.DownloadProjectServiceHandler">
+      </serviceHandler>
+   </extension>
+   
+</plugin>

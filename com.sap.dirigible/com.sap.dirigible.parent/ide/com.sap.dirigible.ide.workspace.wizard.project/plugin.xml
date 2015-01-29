@@ -205,13 +205,6 @@
             icon="icons/icon-project.png">
       </image>
    </extension>
-   <extension
-         point="org.eclipse.rap.ui.serviceHandler">
-      <serviceHandler
-            class="com.sap.dirigible.ide.workspace.wizard.project.export.DownloadProjectServiceHandler"
-            id="com.sap.dirigible.ide.workspace.wizard.project.export.DownloadProjectServiceHandler">
-      </serviceHandler>
-   </extension>
     <extension
        point="com.sap.dirigible.ide.workspace.ui.new.menu">
        <newMenuItem

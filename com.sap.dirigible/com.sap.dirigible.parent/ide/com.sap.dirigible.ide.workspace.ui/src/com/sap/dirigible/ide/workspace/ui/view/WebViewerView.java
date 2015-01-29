@@ -28,7 +28,7 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.rap.rwt.client.service.UrlLauncher;
+//import org.eclipse.rap.rwt.client.service.UrlLauncher;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -127,7 +127,7 @@ public class WebViewerView extends ViewPart {
 		holder.setLayout(new GridLayout(4, false));
 
 		createSandboxToggleButton(holder);
-		createOpenInNewTabButton(holder);
+//		createOpenInNewTabButton(holder);
 		createRefreshButton(holder);
 		createUrlAddressField(holder);
 
@@ -137,23 +137,23 @@ public class WebViewerView extends ViewPart {
 		setUrl(EMPTY_STRING);
 	}
 
-	private void createOpenInNewTabButton(Composite holder) {
-		final UrlLauncher launcher = (UrlLauncher) CommonParameters.getService(UrlLauncher.class);
-		if (launcher != null) {
-			final Button openInNewTabButton = new Button(holder, SWT.PUSH);
-			openInNewTabButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
-			openInNewTabButton.setToolTipText(OPEN);
-			openInNewTabButton.setImage(createImage(DIRIGIBLE_OPEN_ICON_URL));
-			openInNewTabButton.addSelectionListener(new SelectionAdapter() {
-				private static final long serialVersionUID = 5262335626537755624L;
-	
-				public void widgetSelected(SelectionEvent e) {
-					launcher.openURL(pageUrlText.getText());
-					refresh();
-				}
-			});
-		}
-	}
+//	private void createOpenInNewTabButton(Composite holder) {
+//		final UrlLauncher launcher = (UrlLauncher) CommonParameters.getService(UrlLauncher.class);
+//		if (launcher != null) {
+//			final Button openInNewTabButton = new Button(holder, SWT.PUSH);
+//			openInNewTabButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
+//			openInNewTabButton.setToolTipText(OPEN);
+//			openInNewTabButton.setImage(createImage(DIRIGIBLE_OPEN_ICON_URL));
+//			openInNewTabButton.addSelectionListener(new SelectionAdapter() {
+//				private static final long serialVersionUID = 5262335626537755624L;
+//	
+//				public void widgetSelected(SelectionEvent e) {
+//					launcher.openURL(pageUrlText.getText());
+//					refresh();
+//				}
+//			});
+//		}
+//	}
 
 	private void createSandboxToggleButton(final Composite holder) {
 		final Button sandboxToggleButton = new Button(holder, SWT.TOGGLE);
@@ -322,13 +322,20 @@ public class WebViewerView extends ViewPart {
 		}
 		try {
 			HttpServletRequest request = CommonParameters.getRequest();
-			String url = request.getScheme() + "://" + request.getServerName() //$NON-NLS-1$
-					+ ":" //$NON-NLS-1$
-					+ request.getServerPort() + text;
-			pageUrlText.setText(url);
-			browser.setUrl(url);
-			browser.refresh();
-			firePropertyChange(0);
+			if (request != null) {
+				String url = request.getScheme() + "://" + request.getServerName() //$NON-NLS-1$
+						+ ":" //$NON-NLS-1$
+						+ request.getServerPort() + text;
+				pageUrlText.setText(url);
+				browser.setUrl(url);
+				browser.refresh();
+				firePropertyChange(0);
+			} else {
+				pageUrlText.setText("LOCAL");
+				browser.setContent("<html><body>LOCAL</body></html>");
+//				browser.refresh();
+				firePropertyChange(0);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

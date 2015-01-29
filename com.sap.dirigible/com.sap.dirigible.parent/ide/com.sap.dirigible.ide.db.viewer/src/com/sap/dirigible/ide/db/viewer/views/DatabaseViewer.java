@@ -206,7 +206,7 @@ public class DatabaseViewer extends ViewPart implements IDbConnectionFactory {
 	}
 
 	protected void createViewTableContentAction() {
-		viewTableContentAction = new ViewTableContentAction(viewer, SQLConsole.ID);
+		viewTableContentAction = new ViewTableContentAction(viewer, "com.sap.dirigible.ide.db.viewer.views.SQLConsole"); //$NON-NLS-1$
 
 	}
 

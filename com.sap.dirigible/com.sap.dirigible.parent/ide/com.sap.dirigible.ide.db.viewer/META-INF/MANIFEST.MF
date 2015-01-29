@@ -11,8 +11,9 @@ Require-Bundle: org.eclipse.core.runtime,
  com.sap.dirigible.ide.logging,
  com.sap.dirigible.repository.db,
  com.sap.dirigible.ide.common,
- com.sap.dirigible.ide.db.export;resolution:=optional,
- com.sap.dirigible.ide.editor.js;resolution:=optional
+ com.sap.dirigible.ide.db.export.rcp;resolution:=optional,
+ com.sap.dirigible.ide.db.export.rap;resolution:=optional,
+ com.sap.dirigible.ide.editor.text
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet,
  javax.servlet.http

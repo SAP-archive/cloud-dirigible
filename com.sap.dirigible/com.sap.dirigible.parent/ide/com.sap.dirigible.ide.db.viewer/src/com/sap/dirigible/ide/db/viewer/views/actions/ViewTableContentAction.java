@@ -23,7 +23,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-import com.sap.dirigible.ide.db.viewer.views.SQLConsole;
+import com.sap.dirigible.ide.db.viewer.views.ISQLConsole;
 import com.sap.dirigible.ide.db.viewer.views.TableDefinition;
 import com.sap.dirigible.ide.db.viewer.views.TreeObject;
 
@@ -60,7 +60,7 @@ public class ViewTableContentAction extends Action {
 				TableDefinition tableDefinition = ((TreeObject) obj)
 						.getTableDefinition();
 				if (tableDefinition != null) {
-					SQLConsole view = (SQLConsole) PlatformUI.getWorkbench()
+					ISQLConsole view = (ISQLConsole) PlatformUI.getWorkbench()
 							.getActiveWorkbenchWindow().getActivePage()
 							.showView(consoleId);
 					executeSelectStatement(tableDefinition, view);
@@ -73,7 +73,7 @@ public class ViewTableContentAction extends Action {
 	}
 
 	protected void executeSelectStatement(TableDefinition tableDefinition,
-			SQLConsole view) {
+			ISQLConsole view) {
 		String name = tableDefinition.getFqn();
 		view.setQuery(SELECT_FROM + name);
 		view.executeStatement(true);

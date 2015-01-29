@@ -16,10 +16,13 @@
 package com.sap.dirigible.ide.workspace.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.net.URI;
 import java.util.Map;
 
 import org.eclipse.core.resources.IBuildConfiguration;
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IPathVariableManager;
@@ -32,6 +35,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.core.runtime.content.IContentDescription;
+import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeMatcher;
 
 import com.sap.dirigible.ide.logging.Logger;
@@ -50,9 +56,13 @@ public class Project extends Container implements IProject {
 	 * Use some persistence method.
 	 */
 	private boolean opened = true; // FIXME: false
+	private IProjectDescription description;
 
 	public Project(IPath path, Workspace workspace) {
 		super(path, workspace);
+		if (this.description == null) {
+			this.description = createDescriptor(this);
+		}
 	}
 
 	@Override
@@ -97,15 +107,166 @@ public class Project extends Container implements IProject {
 			}
 			workspace.notifyResourceChanged(new ResourceChangeEvent(this,
 					ResourceChangeEvent.POST_CHANGE));
+			
+			if (this.description == null) {
+				this.description = createDescriptor(this);
+			}
 		} finally {
 			monitor.done();
 		}
 	}
 
+	private IProjectDescription createDescriptor(final Project project) {
+		IProjectDescription projectDescription = new IProjectDescription() {
+			
+			@Override
+			public void setReferencedProjects(IProject[] projects) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setNatureIds(String[] natures) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setName(String projectName) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setLocationURI(URI location) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setLocation(IPath location) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setDynamicReferences(IProject[] projects) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setComment(String comment) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setBuildSpec(ICommand[] buildSpec) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setBuildConfigs(String[] configNames) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setBuildConfigReferences(String configName,
+					IBuildConfiguration[] references) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setActiveBuildConfig(String configName) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public ICommand newCommand() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public boolean hasNature(String natureId) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public IProject[] getReferencedProjects() {
+				// TODO Auto-generated method stub
+				return new IProject[]{};
+			}
+			
+			@Override
+			public String[] getNatureIds() {
+				// TODO Auto-generated method stub
+				return new String[]{};
+			}
+			
+			@Override
+			public String getName() {
+				// TODO Auto-generated method stub
+//				return null;
+				return project.getName();
+			}
+			
+			@Override
+			public URI getLocationURI() {
+				// TODO Auto-generated method stub
+//				return null;
+				return project.getLocationURI();
+			}
+			
+			@Override
+			public IPath getLocation() {
+				// TODO Auto-generated method stub
+//				return null;
+				return project.getLocation();
+			}
+			
+			@Override
+			public IProject[] getDynamicReferences() {
+				// TODO Auto-generated method stub
+//				return null;
+				return new IProject[]{};
+			}
+			
+			@Override
+			public String getComment() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public ICommand[] getBuildSpec() {
+				// TODO Auto-generated method stub
+//				return null;
+				return new ICommand[]{};
+			}
+			
+			@Override
+			public IBuildConfiguration[] getBuildConfigReferences(String configName) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
+		return projectDescription;
+	}
+
 	@Override
 	public void create(IProjectDescription description, IProgressMonitor monitor)
 			throws CoreException {
-		throw new UnsupportedOperationException(METHOD_NOT_SUPPORTED);
+//		throw new UnsupportedOperationException(METHOD_NOT_SUPPORTED);
+		
+		this.description = description;
+		create(monitor);
 	}
 
 	@Override
@@ -135,12 +296,55 @@ public class Project extends Container implements IProject {
 
 	@Override
 	public IContentTypeMatcher getContentTypeMatcher() throws CoreException {
+//		return new IContentTypeMatcher() {
+//			
+//			@Override
+//			public IContentDescription getDescriptionFor(Reader contents,
+//					String fileName, QualifiedName[] options) throws IOException {
+//				// TODO Auto-generated method stub
+//				return null;
+//			}
+//			
+//			@Override
+//			public IContentDescription getDescriptionFor(InputStream contents,
+//					String fileName, QualifiedName[] options) throws IOException {
+//				// TODO Auto-generated method stub
+//				return null;
+//			}
+//			
+//			@Override
+//			public IContentType[] findContentTypesFor(InputStream contents,
+//					String fileName) throws IOException {
+//				// TODO Auto-generated method stub
+//				return null;
+//			}
+//			
+//			@Override
+//			public IContentType[] findContentTypesFor(String fileName) {
+//				// TODO Auto-generated method stub
+//				return null;
+//			}
+//			
+//			@Override
+//			public IContentType findContentTypeFor(InputStream contents, String fileName)
+//					throws IOException {
+//				// TODO Auto-generated method stub
+//				return null;
+//			}
+//			
+//			@Override
+//			public IContentType findContentTypeFor(String fileName) {
+//				// TODO Auto-generated method stub
+//				return null;
+//			}
+//		};
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public IProjectDescription getDescription() throws CoreException {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		return this.description;
 	}
 
 	/**
@@ -161,12 +365,14 @@ public class Project extends Container implements IProject {
 
 	@Override
 	public IProjectNature getNature(String arg0) throws CoreException {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override
 	public IPathVariableManager getPathVariableManager() {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	/**
@@ -201,12 +407,14 @@ public class Project extends Container implements IProject {
 
 	@Override
 	public boolean hasNature(String arg0) throws CoreException {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		return false;
 	}
 
 	@Override
 	public boolean isNatureEnabled(String arg0) throws CoreException {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		return false;
 	}
 
 	/**
@@ -241,15 +449,16 @@ public class Project extends Container implements IProject {
 	}
 
 	@Override
-	public void setDescription(IProjectDescription arg0, IProgressMonitor arg1)
+	public void setDescription(IProjectDescription projectDescription, IProgressMonitor arg1)
 			throws CoreException {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		this.description = projectDescription;
 	}
 
 	@Override
-	public void setDescription(IProjectDescription arg0, int arg1,
-			IProgressMonitor arg2) throws CoreException {
-		throw new UnsupportedOperationException();
+	public void setDescription(IProjectDescription projectDescription, int arg1, IProgressMonitor arg2) throws CoreException {
+//		throw new UnsupportedOperationException();
+		this.description = projectDescription;
 	}
 
 	@Override

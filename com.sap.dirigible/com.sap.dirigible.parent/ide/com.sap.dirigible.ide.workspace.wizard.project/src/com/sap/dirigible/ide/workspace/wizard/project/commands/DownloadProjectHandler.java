@@ -24,11 +24,12 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import com.sap.dirigible.ide.workspace.dual.DownloadProjectWrapper;
 import com.sap.dirigible.ide.workspace.wizard.project.export.DownloadDialog;
-import com.sap.dirigible.ide.workspace.wizard.project.export.DownloadProjectServiceHandler;
-import com.sap.dirigible.ide.workspace.wizard.project.export.RepositoryDataStore;
 
 public class DownloadProjectHandler extends AbstractHandler {
+	
+	public static final String PROJECT_NAME_SEPARATOR = "$"; //$NON-NLS-1$
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -41,7 +42,7 @@ public class DownloadProjectHandler extends AbstractHandler {
 				IProject project = (IProject) firstElement;
 				DownloadDialog downloadDialog = new DownloadDialog(
 						HandlerUtil.getActiveShell(event));
-				downloadDialog.setURL(DownloadProjectServiceHandler
+				downloadDialog.setURL(DownloadProjectWrapper
 						.getUrl(project.getName()));
 				downloadDialog.open();
 			}
@@ -55,7 +56,7 @@ public class DownloadProjectHandler extends AbstractHandler {
 					IProject project = (IProject) element;
 					if (dot) {
 						projectNames
-								.append(RepositoryDataStore.PROJECT_NAME_SEPARATOR);
+								.append(PROJECT_NAME_SEPARATOR);
 					}
 					projectNames.append(project.getName());
 					dot = true;
@@ -63,7 +64,7 @@ public class DownloadProjectHandler extends AbstractHandler {
 			}
 			DownloadDialog downloadDialog = new DownloadDialog(
 					HandlerUtil.getActiveShell(event));
-			downloadDialog.setURL(DownloadProjectServiceHandler
+			downloadDialog.setURL(DownloadProjectWrapper
 					.getUrl(projectNames.toString()));
 			downloadDialog.open();
 		}

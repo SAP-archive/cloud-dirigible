@@ -30,7 +30,9 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.internal.registry.EditorDescriptor;
 
+import com.sap.dirigible.ide.editor.text.editor.TextEditor;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
 import com.sap.dirigible.repository.api.ICommonConstants.ARTIFACT_TYPE;
@@ -52,6 +54,9 @@ public class OpenHandler extends AbstractHandler {
 	private static final String COULD_NOT_OPEN_ONE_OR_MORE_FILES = Messages.OpenHandler_COULD_NOT_OPEN_ONE_OR_MORE_FILES;
 	
 	private static final String TEXT_EDITOR_ID = "com.sap.dirigible.ide.editor.SourceCodeEditor"; //$NON-NLS-1$
+	
+	private static final String TEXT_EDITOR_RCP_ID = "org.eclipse.jdt.ui.CompilationUnitEditor"; //$NON-NLS-1$
+	
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		boolean successful = true;
@@ -92,8 +97,9 @@ public class OpenHandler extends AbstractHandler {
 	}
 
 	private IEditorPart openEditorForResource(IFile file, int row) {
-		String editorId = EditorUtil.getEditorIdForExtension(file
-				.getFileExtension());
+//		String editorId = EditorUtil.getEditorIdForExtension(file
+//				.getFileExtension());
+		String editorId = null;
 		String contentType = ContentTypeHelper.getContentType(file
 				.getFileExtension());
 		if (editorId == null) {
@@ -139,12 +145,30 @@ public class OpenHandler extends AbstractHandler {
 		IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		try {
-			IEditorPart editorPart = page.openEditor(input, id);
+			String targetEditorId = id;
+			Object descriptor = findSourceCodeEditor(id, workbench);
+			if (descriptor == null) {
+//				descriptor = findSourceCodeEditor(TEXT_EDITOR_RCP_ID, workbench);
+//				targetEditorId = TEXT_EDITOR_RCP_ID;
+				descriptor = findSourceCodeEditor(TextEditor.ID, workbench);
+				targetEditorId = TextEditor.ID;
+			} else {
+				targetEditorId = id;
+			}
+			
+			IEditorPart editorPart = null;
+			editorPart = page.openEditor(input, targetEditorId);
 			return editorPart;
 		} catch (PartInitException e) {
 			logger.error(e.getMessage(), e);
 			return null;
 		}
+	}
+
+	private Object findSourceCodeEditor(String id,
+			IWorkbench workbench) {
+		Object descriptor = workbench.getEditorRegistry().findEditor(id);
+		return descriptor;
 	}
 
 }

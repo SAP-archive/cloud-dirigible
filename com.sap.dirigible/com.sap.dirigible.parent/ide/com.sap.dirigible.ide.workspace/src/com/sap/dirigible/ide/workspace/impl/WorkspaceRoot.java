@@ -115,7 +115,8 @@ public class WorkspaceRoot extends Container implements IWorkspaceRoot {
 			throw new IllegalArgumentException(
 					THE_PROJECT_PATH_MUST_HAVE_EXACTLY_ONE_SEGMENT);
 		}
-		return new Project(resourcePath, workspace);
+		IProject project = new Project(resourcePath, workspace);
+		return project;
 	}
 
 	/**

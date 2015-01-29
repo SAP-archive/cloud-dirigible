@@ -1,0 +1,148 @@
+!SESSION 2015-01-29 19:33:45.172 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.7.0_60
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.platform.ide
+Command-line arguments:  -product org.eclipse.platform.ide -data C:\Data\Workspace\DirigibleRCP/../runtime-EclipseApplication -dev file:C:/Data/Workspace/DirigibleRCP/.metadata/.plugins/org.eclipse.pde.core/dirigible-rcp/dev.properties -os win32 -ws win32 -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.e4.ui.workbench 4 0 2015-01-29 19:33:49.693
+!MESSAGE Unable to load resource file:/C:/Data/Workspace/runtime-EclipseApplication/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+!STACK 0
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$1DiagnosticWrappedException: org.eclipse.emf.ecore.xmi.UnresolvedReferenceException: Unresolved reference '_PovGg6e-EeSFoJiDB4fhgA'. (file:/C:/Data/Workspace/runtime-EclipseApplication/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi, 185, 188)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.handleDemandLoadException(ResourceSetImpl.java:319)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:278)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.getResource(ResourceSetImpl.java:406)
+	at org.eclipse.e4.ui.internal.workbench.ResourceHandler.getResource(ResourceHandler.java:297)
+	at org.eclipse.e4.ui.internal.workbench.ResourceHandler.loadResource(ResourceHandler.java:273)
+	at org.eclipse.e4.ui.internal.workbench.ResourceHandler.loadMostRecentModel(ResourceHandler.java:204)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.loadApplicationModel(E4Application.java:395)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.createE4Workbench(E4Application.java:238)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:581)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
+Caused by: org.eclipse.emf.ecore.xmi.UnresolvedReferenceException: Unresolved reference '_PovGg6e-EeSFoJiDB4fhgA'. (file:/C:/Data/Workspace/runtime-EclipseApplication/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi, 185, 188)
+	at org.eclipse.emf.ecore.xmi.impl.XMLHandler.handleForwardReferences(XMLHandler.java:1161)
+	at org.eclipse.emf.ecore.xmi.impl.XMLHandler.endDocument(XMLHandler.java:1235)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.endDocument(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl.parse(Unknown Source)
+	at org.eclipse.emf.ecore.xmi.impl.XMLLoadImpl.load(XMLLoadImpl.java:175)
+	at org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl.doLoad(XMLResourceImpl.java:253)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1518)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1297)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoad(ResourceSetImpl.java:259)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:274)
+	... 24 more
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:33:52.088
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@633bd33} vs {com.sap.dirigible.ide.workspace.ui.commands.CutHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:33:52.090
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@5e398c3f} vs {com.sap.dirigible.ide.workspace.ui.commands.CopyHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:33:52.093
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {com.sap.dirigible.ide.workspace.ui.commands.PasteHandler} vs {org.eclipse.ui.internal.handlers.WidgetMethodHandler@313d941a}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:33:59.299
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@633bd33} vs {com.sap.dirigible.ide.workspace.ui.commands.CutHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:33:59.307
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@5e398c3f} vs {com.sap.dirigible.ide.workspace.ui.commands.CopyHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:33:59.308
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {com.sap.dirigible.ide.workspace.ui.commands.PasteHandler} vs {org.eclipse.ui.internal.handlers.WidgetMethodHandler@313d941a}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:00.922
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@633bd33} vs {com.sap.dirigible.ide.workspace.ui.commands.CutHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:00.924
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@5e398c3f} vs {com.sap.dirigible.ide.workspace.ui.commands.CopyHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:00.927
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {com.sap.dirigible.ide.workspace.ui.commands.PasteHandler} vs {org.eclipse.ui.internal.handlers.WidgetMethodHandler@313d941a}
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-01-29 19:34:01.065
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'N:\'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+19:34:06.761 [main] WARN  c.s.d.i.datasource.DataSourceFacade - Embedded DataSource is used
+Jan 29, 2015 7:34:06 PM com.sap.dirigible.ide.logging.Logger warn
+WARNING: Embedded DataSource is used
+19:34:06.776 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - entring - getConnection()
+19:34:07.461 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - entring - addConnection()
+19:34:07.461 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - exiting - addConnection()
+19:34:07.461 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - called - setAutoCommit(boolean autoCommit)
+19:34:07.461 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - Connection acquired: 1548333851 count: 1
+19:34:07.461 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - exiting - getConnection()
+19:34:07.461 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - called - getMetaData()
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - entering - close()
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - entring - closeConnection()
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - entring - removeConnection()
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - exiting - removeConnection()
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - called - getTimeUsed(): 4
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - Connection released: 1548333851 count: 0 time used: 4ms
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - exiting - closeConnection()
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - exiting - close()
+19:34:07.465 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - entring - getConnection()
+19:34:07.467 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - entring - addConnection()
+19:34:07.467 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - exiting - addConnection()
+19:34:07.467 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - called - setAutoCommit(boolean autoCommit)
+19:34:07.467 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - Connection acquired: 806524767 count: 1
+19:34:07.467 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - exiting - getConnection()
+19:34:07.467 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - called - getMetaData()
+19:34:07.468 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - called - getMetaData()
+19:34:07.772 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - entering - close()
+19:34:07.773 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - entring - closeConnection()
+19:34:07.773 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - entring - removeConnection()
+19:34:07.773 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - exiting - removeConnection()
+19:34:07.773 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - called - getTimeUsed(): 306
+19:34:07.773 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - Connection released: 806524767 count: 0 time used: 306ms
+19:34:07.773 [main] DEBUG c.s.d.r.ext.db.WrappedDataSource - exiting - closeConnection()
+19:34:07.773 [main] DEBUG c.s.d.r.ext.db.WrappedConnection - exiting - close()
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:28.173
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@633bd33} vs {com.sap.dirigible.ide.workspace.ui.commands.CutHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:28.176
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@5e398c3f} vs {com.sap.dirigible.ide.workspace.ui.commands.CopyHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:28.177
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {com.sap.dirigible.ide.workspace.ui.commands.PasteHandler} vs {org.eclipse.ui.internal.handlers.WidgetMethodHandler@313d941a}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:47.370
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@633bd33} vs {com.sap.dirigible.ide.workspace.ui.commands.CutHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:47.372
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@5e398c3f} vs {com.sap.dirigible.ide.workspace.ui.commands.CopyHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:47.374
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {com.sap.dirigible.ide.workspace.ui.commands.PasteHandler} vs {org.eclipse.ui.internal.handlers.WidgetMethodHandler@313d941a}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:48.827
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@5e398c3f} vs {com.sap.dirigible.ide.workspace.ui.commands.CopyHandler}
+
+!ENTRY org.eclipse.ui 4 4 2015-01-29 19:34:54.455
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {org.eclipse.ui.internal.handlers.WidgetMethodHandler@5e398c3f} vs {com.sap.dirigible.ide.workspace.ui.commands.CopyHandler}

@@ -29,6 +29,8 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 
 public class TextEditor extends AbstractTextEditor {
+	
+	public static final String ID = "com.sap.dirigible.ide.editor.text.editor.TextEditor";
 
 	private static final String CANNOT_LOAD_DOCUMENT = Messages.TextEditor_CANNOT_LOAD_DOCUMENT;
 	private static final String ERROR = Messages.TextEditor_ERROR;
@@ -117,5 +119,10 @@ public class TextEditor extends AbstractTextEditor {
 	@Override
 	protected Control getEditorControl() {
 		return text;
+	}
+	
+	@Override
+	public void setPartName(String partName) {
+		super.setPartName(partName);
 	}
 }

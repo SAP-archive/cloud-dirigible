@@ -15,6 +15,8 @@
 
 package com.sap.rap.ui.shared.editor;
 
+import java.net.URI;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.part.FileEditorInput;
 
@@ -54,6 +56,17 @@ public class SourceFileEditorInput extends FileEditorInput {
 		this.row = row;
 	}
 
+	@Override
+	public IFile getFile() {
+		// TODO Auto-generated method stub
+		return super.getFile();
+	}
+	
+	@Override
+	public URI getURI() {
+		// TODO Auto-generated method stub
+		return super.getURI();
+	}
 	
 	
 }
