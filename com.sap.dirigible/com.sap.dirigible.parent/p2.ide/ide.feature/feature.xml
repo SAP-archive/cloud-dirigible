@@ -334,14 +334,28 @@
          unpack="false"/>
 
    <plugin
-         id="com.sap.dirigible.ide.db.export"
+         id="com.sap.dirigible.ide.common.rap"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.sap.dirigible.ide.common.rap"
+         id="com.sap.dirigible.ide.db.export.rap"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sap.dirigible.ide.db.sqlconsole.rap"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.sap.dirigible.ide.workspace.rap"
          download-size="0"
          install-size="0"
          version="0.0.0"
