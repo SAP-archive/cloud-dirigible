@@ -58,6 +58,7 @@ import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishManager;
 import com.sap.dirigible.ide.ui.widget.extbrowser.ExtendedBrowser;
+import com.sap.dirigible.ide.workspace.dual.DirectRenderer;
 
 public class WebViewerView extends ViewPart {
 
@@ -93,6 +94,8 @@ public class WebViewerView extends ViewPart {
 	private boolean isSandbox;
 
 	private IFile lastSelectedFile;
+	
+	private boolean isContent = false;
 
 	public static void refreshWebViewerViewIfVisible() {
 		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -191,7 +194,11 @@ public class WebViewerView extends ViewPart {
 
 	public void refresh() {
 		browser.setUrl(pageUrlText.getText());
-		browser.refresh();
+		if (!isContent) {
+			browser.refresh();
+		} else {
+			updateByContent(pageUrlText.getText());
+		}
 		firePropertyChange(0);
 	}
 
@@ -323,24 +330,34 @@ public class WebViewerView extends ViewPart {
 		try {
 			HttpServletRequest request = CommonParameters.getRequest();
 			if (request != null) {
-				String url = request.getScheme() + "://" + request.getServerName() //$NON-NLS-1$
-						+ ":" //$NON-NLS-1$
-						+ request.getServerPort() + text;
-				pageUrlText.setText(url);
-				browser.setUrl(url);
-				browser.refresh();
-				firePropertyChange(0);
+				updateByUrl(text, request);
 			} else {
-				pageUrlText.setText("LOCAL");
-				browser.setContent("<html><body>LOCAL</body></html>");
-//				browser.refresh();
-				firePropertyChange(0);
+				updateByContent(text);
 			}
+			firePropertyChange(0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	private void updateByContent(String text) {
+		pageUrlText.setText(text);
+		String content = DirectRenderer.renderContent(text);
+		browser.setContent(content);
+//				browser.refresh();
+		isContent = true;
+	}
+
+	private void updateByUrl(String text, HttpServletRequest request) {
+		String url = request.getScheme() + "://" + request.getServerName() //$NON-NLS-1$
+				+ ":" //$NON-NLS-1$
+				+ request.getServerPort() + text;
+		pageUrlText.setText(url);
+		browser.setUrl(url);
+		browser.refresh();
+		isContent = false;
 	}
 
 }

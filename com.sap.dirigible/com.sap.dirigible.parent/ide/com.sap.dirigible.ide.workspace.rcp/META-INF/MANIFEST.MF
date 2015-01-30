@@ -5,10 +5,8 @@ Bundle-SymbolicName: com.sap.dirigible.ide.workspace.rcp;singleton:=true
 Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Require-Bundle: org.eclipse.core.resources,
- com.sap.dirigible.ide.workspace.ui,
  com.sap.dirigible.ide.workspace,
  com.sap.rap.ui.shared,
- com.sap.dirigible.ide.publish,
  com.sap.dirigible.ide.repository,
  org.eclipse.ui;resolution:=optional,
  org.eclipse.rap.ui;resolution:=optional,
@@ -24,11 +22,11 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.rap.ui.views;resolution:=optional,
  com.sap.dirigible.repository.ext,
  com.sap.dirigible.ide.datasource,
- com.sap.dirigible.ide.jgit.connector,
- org.eclipse.jgit,
  org.eclipse.core.expressions,
  org.apache.commons.io,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ com.sap.dirigible.runtime.core,
+ com.sap.dirigible.runtime.init
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.workspace.dual
 Import-Package: com.sap.dirigible.ide.editor.text.editor,
@@ -36,3 +34,5 @@ Import-Package: com.sap.dirigible.ide.editor.text.editor,
  com.sap.dirigible.repository.db,
  javax.servlet,
  javax.servlet.http
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: RCPWorkspaceActivator

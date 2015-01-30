@@ -37,7 +37,6 @@ Import-Package: javax.mail,
  javax.servlet.descriptor,
  javax.servlet.http,
  javax.servlet.resources,
- org.eclipse.equinox.servletbridge,
  org.slf4j
 Export-Package: com.sap.dirigible.runtime.filter,
  com.sap.dirigible.runtime.groovy,

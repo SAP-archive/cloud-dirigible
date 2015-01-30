@@ -56,5 +56,11 @@ public class EngineUtils {
 		IScriptExecutor scriptExecutor = scriptExecutorProvider.createExecutor(request);
 		return scriptExecutor;
 	}
+	
+	public static IScriptExecutor createExecutorByAlias(String alias, HttpServletRequest request) throws IOException {
+		IScriptExecutorProvider scriptExecutorProvider = scriptExecutorProvidersByAlias.get(alias);
+		IScriptExecutor scriptExecutor = scriptExecutorProvider.createExecutor(request);
+		return scriptExecutor;
+	}
 
 }

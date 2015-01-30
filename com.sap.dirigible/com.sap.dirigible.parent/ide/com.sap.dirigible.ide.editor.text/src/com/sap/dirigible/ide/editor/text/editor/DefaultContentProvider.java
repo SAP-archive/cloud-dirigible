@@ -17,6 +17,7 @@ package com.sap.dirigible.ide.editor.text.editor;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.eclipse.core.resources.IFile;
@@ -112,11 +113,19 @@ public class DefaultContentProvider implements IContentProvider,
 	protected static final void writeFile(IFile file, byte[] content)
 			throws ContentProviderException {
 		try {
+			if (file instanceof com.sap.dirigible.ide.workspace.impl.File) {
 			file.setContents(new ByteArrayInputStream(content), false, false,
 					null);
+			} else {
+				IResource resource = getFromRepository(file);
+				resource.setContent(content);
+			}
 		} catch (CoreException ex) {
 			LOGGER.error(CANNOT_SAVE_FILE_CONTENTS, ex);
 			throw new ContentProviderException(CANNOT_SAVE_FILE_CONTENTS, ex);
+		} catch (IOException e) {
+			LOGGER.error(CANNOT_SAVE_FILE_CONTENTS, e);
+			throw new ContentProviderException(CANNOT_SAVE_FILE_CONTENTS, e);
 		}
 	}
 
