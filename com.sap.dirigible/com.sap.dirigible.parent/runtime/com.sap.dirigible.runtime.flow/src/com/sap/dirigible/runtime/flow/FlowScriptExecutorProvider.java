@@ -15,6 +15,11 @@ public class FlowScriptExecutorProvider implements
 	public String getType() {
 		return ICommonConstants.ENGINE_TYPE.FLOW;
 	}
+	
+	@Override
+	public String getAlias() {
+		return ICommonConstants.ENGINE_ALIAS.FLOW;
+	}
 
 	@Override
 	public IScriptExecutor createExecutor(HttpServletRequest request) throws IOException {

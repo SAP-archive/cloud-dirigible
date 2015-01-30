@@ -70,7 +70,7 @@ public class HtmlTemplateTargetLocationPage extends TemplateTargetLocationPage {
 	}
 
 	@Override
-	protected String getDefaultFileName() {
+	protected String getDefaultFileName(String preset) {
 		if (getModel().getFileName() == null
 				|| "".equals(getModel().getFileName())) { //$NON-NLS-1$
 			String pageName = "page_name.html"; 

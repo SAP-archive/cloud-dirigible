@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 
 import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 import com.sap.dirigible.ide.ui.common.validation.ValidationStatus;
@@ -172,11 +173,7 @@ public abstract class GenerationModel {
 	protected abstract IValidationStatus validate();
 
 	public String getFileNameNoExtension() {
-		String result = fileName;
-		if (fileName != null && fileName.indexOf('.') > 0) {
-			result = fileName.substring(0, fileName.lastIndexOf('.'));
-		}
-		return result;
+		return CommonUtils.getFileNameNoExtension(fileName);
 	}
 
 	public String getProjectName() {

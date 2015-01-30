@@ -53,7 +53,7 @@ public class OpenHandler extends AbstractHandler {
 
 	private static final String COULD_NOT_OPEN_ONE_OR_MORE_FILES = Messages.OpenHandler_COULD_NOT_OPEN_ONE_OR_MORE_FILES;
 	
-	private static final String TEXT_EDITOR_ID = "com.sap.dirigible.ide.editor.SourceCodeEditor"; //$NON-NLS-1$
+	private static final String SOURCE_CODE_EDITOR_ID = "com.sap.dirigible.ide.editor.SourceCodeEditor"; //$NON-NLS-1$
 	
 	private static final String TEXT_EDITOR_RCP_ID = "org.eclipse.jdt.ui.CompilationUnitEditor"; //$NON-NLS-1$
 	
@@ -102,17 +102,18 @@ public class OpenHandler extends AbstractHandler {
 		String editorId = null;
 		String contentType = ContentTypeHelper.getContentType(file
 				.getFileExtension());
-		if (editorId == null) {
+//		if (editorId == null) {
 			if (contentType != null && contentType.contains("text")) { //$NON-NLS-1$
-				editorId = TEXT_EDITOR_ID;
+				editorId = SOURCE_CODE_EDITOR_ID;
 			} else {
 				logger.error(BINARY_FILES_ARE_NOT_SUPPORTED);
-				MessageDialog.openError(null, OPEN_FAILURE,
-						BINARY_FILES_ARE_NOT_SUPPORTED
-								+ VIEW_THEM_VIA_REGISTRY_AFTER_ACTIVATION);
-				return null;
+//				MessageDialog.openError(null, OPEN_FAILURE,
+//						BINARY_FILES_ARE_NOT_SUPPORTED
+//								+ VIEW_THEM_VIA_REGISTRY_AFTER_ACTIVATION);
+//				return null;
+				editorId = TextEditor.ID;
 			}
-		}
+//		}
 		SourceFileEditorInput input = new SourceFileEditorInput(file);
 		
 		input.setRow(row);

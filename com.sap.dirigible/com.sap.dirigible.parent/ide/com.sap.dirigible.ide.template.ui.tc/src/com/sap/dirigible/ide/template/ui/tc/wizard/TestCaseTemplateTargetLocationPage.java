@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.tc.wizard;
 
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
@@ -70,8 +71,9 @@ public class TestCaseTemplateTargetLocationPage extends
 	}
 
 	@Override
-	protected String getDefaultFileName() {
-		return "test_case.js"; //$NON-NLS-1$
+	protected String getDefaultFileName(String preset) {
+		String defaultName = (preset == null) ? "test_case.js" : CommonUtils.getFileNameNoExtension(preset) + ".js"; //$NON-NLS-1$
+		return defaultName; 
 	}
 
 }

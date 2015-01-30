@@ -199,19 +199,19 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 
 	protected abstract void checkPageStatus();
 
-	protected abstract String getDefaultFileName();
+	protected abstract String getDefaultFileName(String preset);
 
 	@Override
 	public void setVisible(boolean visible) {
 		setPreselectedElement();
 		if (fileNameText.getText() == null
 				|| EMPTY_STRING.equals(fileNameText.getText())) {
-			fileNameText.setText(getDefaultFileName());
+			fileNameText.setText(getDefaultFileName(null));
 		} else {
 			if (isForcedFileName()
 //					&& getModel().getFileName() == null
 					) {
-				fileNameText.setText(getDefaultFileName());
+				fileNameText.setText(getDefaultFileName(fileNameText.getText()));
 			}
 		}
 
@@ -222,7 +222,7 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 
 	private void preselectFileNameText() {
 		fileNameText.setFocus();
-		String defaultName = getDefaultFileName();
+		String defaultName = getDefaultFileName(fileNameText.getText());
 		if (defaultName != null && defaultName.length() > 0) {
 			int lastIndexOf = defaultName.indexOf("."); //$NON-NLS-1$
 			if (lastIndexOf == -1) {

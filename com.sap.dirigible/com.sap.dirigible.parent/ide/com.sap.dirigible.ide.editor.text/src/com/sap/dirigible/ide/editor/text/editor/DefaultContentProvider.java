@@ -27,8 +27,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.editor.text.input.ContentEditorInput;
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.ide.repository.RepositoryFacade;
+import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
+import com.sap.dirigible.repository.api.IResource;
 
 public class DefaultContentProvider implements IContentProvider,
 		IExecutableExtension {
@@ -71,8 +77,14 @@ public class DefaultContentProvider implements IContentProvider,
 	protected static final String readFile(IFile file)
 			throws ContentProviderException {
 		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					file.getContents()));
+			BufferedReader in = null;
+			if (file instanceof com.sap.dirigible.ide.workspace.impl.File) {
+				in = new BufferedReader(new InputStreamReader(
+						file.getContents()));
+			} else {
+				IResource resource = getFromRepository(file);  
+				in = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(resource.getContent())));
+			}
 			StringBuilder builder = new StringBuilder();
 			String line = null;
 			while ((line = in.readLine()) != null) {
@@ -84,6 +96,17 @@ public class DefaultContentProvider implements IContentProvider,
 			LOGGER.error(CANNOT_READ_FILE_CONTENTS, ex);
 			throw new ContentProviderException(CANNOT_READ_FILE_CONTENTS, ex);
 		}
+	}
+
+	private static IResource getFromRepository(IFile file) {
+		IRepository repository = RepositoryFacade.getInstance().getRepository();
+		
+		String resourcePath = 
+				IRepositoryPaths.DB_DIRIGIBLE_USERS + CommonParameters.getUserName() +
+				IRepositoryPaths.SEPARATOR +
+				IRepositoryPaths.WORKSPACE_FOLDER_NAME + file.getFullPath();
+		IResource resource = repository.getResource(resourcePath);
+		return resource;
 	}
 
 	protected static final void writeFile(IFile file, byte[] content)

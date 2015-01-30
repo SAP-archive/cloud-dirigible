@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.db.wizard;
 
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
@@ -74,13 +75,13 @@ public class DataStructureTemplateTargetLocationPage extends TemplateTargetLocat
 	}
 
 	@Override
-	protected String getDefaultFileName() {
+	protected String getDefaultFileName(String preset) {
 		String templateLocation = model.getTemplateLocation();
 		String defaultName = null;
 		if (templateLocation.equals(DataStructureTemplateLocations.TABLE)) {
-			defaultName = TABLE_NAME_TABLE;
+			defaultName = (preset == null) ? TABLE_NAME_TABLE : CommonUtils.getFileNameNoExtension(preset) + ".table";
 		} else if (templateLocation.equals(DataStructureTemplateLocations.VIEW)) {
-			defaultName = VIEW_NAME_VIEW;
+			defaultName = (preset == null) ? VIEW_NAME_VIEW : CommonUtils.getFileNameNoExtension(preset) + ".view"; 
 		} else if (templateLocation.equals(DataStructureTemplateLocations.DSV)) {
 			String tableName = ((DataStructureTemplateModel) model).getTableName();
 			defaultName = tableName.toLowerCase() + DSV;

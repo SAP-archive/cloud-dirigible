@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.is.wizard;
 
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
@@ -72,13 +73,14 @@ public class IntegrationServiceTemplateTargetLocationPage extends
 	}
 
 	@Override
-	protected String getDefaultFileName() {
+	protected String getDefaultFileName(String preset) {
+		String defaultName = "flow_name.flow"; 
 		if (model.getTemplate().getLocation().endsWith(".flow")) {
-			return "flow_name.flow"; //$NON-NLS-1$
+			defaultName = (preset == null) ? "flow_name.flow" : CommonUtils.getFileNameNoExtension(preset) + ".flow";
 		} else if (model.getTemplate().getLocation().endsWith(".job")) {
-			return "job_name.job"; //$NON-NLS-1$
+			defaultName = (preset == null) ? "job_name.job" : CommonUtils.getFileNameNoExtension(preset) + ".job";
 		} 
-		return "flow_name.flow"; //$NON-NLS-1$
+		return defaultName; //$NON-NLS-1$
 	}
 	
 	@Override

@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.html.wizard;
 
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
@@ -75,19 +76,19 @@ public class WikiTemplateTargetLocationPage extends TemplateTargetLocationPage {
 	}
 
 	@Override
-	protected String getDefaultFileName() {
+	protected String getDefaultFileName(String preset) {
 		String templateLocation = model.getTemplateLocation();
 		String defaultName = null;
 		if (templateLocation.endsWith("confluence")) {
-			defaultName = "wiki_page.confluence"; //$NON-NLS-1$
+			defaultName = (preset == null) ? "wiki_page.confluence" : CommonUtils.getFileNameNoExtension(preset) + ".confluence";
 		} else if (templateLocation.endsWith("md")) {
-			defaultName = "wiki_page.md"; //$NON-NLS-1$
+			defaultName = (preset == null) ? "wiki_page.md" : CommonUtils.getFileNameNoExtension(preset) + ".md";
 		} else if (templateLocation.endsWith("textile")) {
-			defaultName = "wiki_page.textile"; //$NON-NLS-1$
+			defaultName = (preset == null) ? "wiki_page.textile" : CommonUtils.getFileNameNoExtension(preset) + ".textile";
 		} else if (templateLocation.endsWith("tracwiki")) {
-			defaultName = "wiki_page.tracwiki"; //$NON-NLS-1$
+			defaultName = (preset == null) ? "wiki_page.tracwiki" : CommonUtils.getFileNameNoExtension(preset) + ".tracwiki";
 		} else if (templateLocation.endsWith("twiki")) {
-			defaultName = "wiki_page.twiki"; //$NON-NLS-1$
+			defaultName = (preset == null) ? "wiki_page.twiki" : CommonUtils.getFileNameNoExtension(preset) + ".twiki";
 		}
 		return defaultName;
 	}

@@ -313,10 +313,9 @@
 		<module>bridge</module> <!-- Bridge Projects -->
 		<module>p2.bridge</module> <!-- Update Site for Bridge Bundles -->
 		<module>p2.lib</module> <!-- Update Site for WAR Lib Bundles -->
-		
-		
 		<module>runtime</module> <!-- Runtime Projects -->
 		<module>p2.runtime</module> <!-- Update Site for Runtime Bundles -->
+		<module>p2.rcp</module> <!-- Update Site for Runtime Bundles -->
 		
 		<module>releng</module>
 		

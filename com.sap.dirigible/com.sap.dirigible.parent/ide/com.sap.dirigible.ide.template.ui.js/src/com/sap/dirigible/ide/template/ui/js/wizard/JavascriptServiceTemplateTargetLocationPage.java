@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.js.wizard;
 
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
@@ -72,7 +73,7 @@ public class JavascriptServiceTemplateTargetLocationPage extends
 	}
 
 	@Override
-	protected String getDefaultFileName() {
+	protected String getDefaultFileName(String preset) {
 		String jsOrLibName = ("/com/sap/dirigible/ide/template/ui/js/templates/guid-generator.js" //$NON-NLS-1$
 				.equals(model.getTemplate().getLocation())) ? "library" //$NON-NLS-1$
 				: "service"; //$NON-NLS-1$
@@ -95,7 +96,8 @@ public class JavascriptServiceTemplateTargetLocationPage extends
 				.equals(model.getTemplate().getLocation())) {
 			jsOrLibExt = "java"; //$NON-NLS-1$
 		}
-		return jsOrLibName + "_name." + jsOrLibExt; //$NON-NLS-1$
+		return (preset == null) ? jsOrLibName + "_name." + jsOrLibExt : CommonUtils.getFileNameNoExtension(preset) + "." + jsOrLibExt; //$NON-NLS-1$
+		
 	}
 
 	@Override

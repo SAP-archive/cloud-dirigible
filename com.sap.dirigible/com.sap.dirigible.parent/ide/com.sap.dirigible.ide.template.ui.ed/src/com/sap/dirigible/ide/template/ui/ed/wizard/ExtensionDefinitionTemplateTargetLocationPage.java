@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.ed.wizard;
 
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
@@ -72,13 +73,13 @@ public class ExtensionDefinitionTemplateTargetLocationPage extends TemplateTarge
 	}
 
 	@Override
-	protected String getDefaultFileName() {
+	protected String getDefaultFileName(String preset) {
 		String templateLocation = model.getTemplateLocation();
 		String defaultName = EXTENSION_EXTENSION;
 		if (templateLocation.equals(ExtensionDefinitionTemplateLocations.EXTENSION_POINT)) {
-			defaultName = EXTENSIONPOINT_EXTENSIONPOINT;
+			defaultName = (preset == null) ? EXTENSIONPOINT_EXTENSIONPOINT : CommonUtils.getFileNameNoExtension(preset) + ".extensionpoint";
 		} else if (templateLocation.equals(ExtensionDefinitionTemplateLocations.EXTENSION)) {
-			defaultName = EXTENSION_EXTENSION;
+			defaultName = (preset == null) ? EXTENSION_EXTENSION : CommonUtils.getFileNameNoExtension(preset) + ".extension";
 		}
 		return defaultName;
 	}

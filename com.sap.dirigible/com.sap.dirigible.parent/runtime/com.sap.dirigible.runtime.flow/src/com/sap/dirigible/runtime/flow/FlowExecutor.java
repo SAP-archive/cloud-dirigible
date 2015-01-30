@@ -28,7 +28,7 @@ import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 import com.sap.dirigible.runtime.scripting.IScriptExecutor;
-import com.sap.dirigible.runtime.utils.EngineUtils;
+import com.sap.dirigible.runtime.scripting.utils.EngineUtils;
 
 public class FlowExecutor extends AbstractScriptExecutor {
 	

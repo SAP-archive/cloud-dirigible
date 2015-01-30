@@ -15,6 +15,11 @@ public class JavaScriptExecutorProvider implements
 	public String getType() {
 		return ICommonConstants.ENGINE_TYPE.JAVA;
 	}
+	
+	@Override
+	public String getAlias() {
+		return ICommonConstants.ENGINE_ALIAS.JAVA;
+	}
 
 	@Override
 	public IScriptExecutor createExecutor(HttpServletRequest request) throws IOException {

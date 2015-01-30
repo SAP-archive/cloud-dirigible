@@ -45,4 +45,12 @@ public class CommonUtils {
 		return text.replaceAll("[^\\w]", "");
 	}
 
+	public static String getFileNameNoExtension(String fileName) {
+		String result = fileName;
+		if (fileName != null && fileName.indexOf('.') > 0) {
+			result = fileName.substring(0, fileName.lastIndexOf('.'));
+		}
+		return result;
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.sap.dirigible.runtime.command;
+package com.sap.dirigible.runtime.job;
 
 import java.io.IOException;
 
@@ -8,24 +8,24 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.runtime.scripting.IScriptExecutor;
 import com.sap.dirigible.runtime.scripting.IScriptExecutorProvider;
 
-public class CommandScriptExecutorProvider implements
+public class JobSyncScriptExecutorProvider implements
 		IScriptExecutorProvider {
 
 	@Override
 	public String getType() {
-		return ICommonConstants.ENGINE_TYPE.COMMAND;
+		return ICommonConstants.ENGINE_TYPE.JOB;
 	}
 	
 	@Override
 	public String getAlias() {
-		return ICommonConstants.ENGINE_ALIAS.COMMAND;
+		return ICommonConstants.ENGINE_ALIAS.JOB;
 	}
 
 	@Override
 	public IScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
-		CommandServlet commandServlet = new CommandServlet();
-		CommandExecutor commandExecutor = commandServlet.createExecutor(request);
-		return commandExecutor;		
+		JobSyncServlet jobServlet = new JobSyncServlet();
+		JobSyncExecutor jobSyncExecutor = jobServlet.createExecutor(request);
+		return jobSyncExecutor;
 	}
 
 }

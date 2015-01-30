@@ -8,6 +8,8 @@ public interface IScriptExecutorProvider {
 	
 	public String getType();
 	
+	public String getAlias();
+	
 	public IScriptExecutor createExecutor(HttpServletRequest request) throws IOException;
 
 }

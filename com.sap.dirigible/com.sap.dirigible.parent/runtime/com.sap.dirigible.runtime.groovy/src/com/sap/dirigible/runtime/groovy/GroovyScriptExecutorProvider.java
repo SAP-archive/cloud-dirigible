@@ -15,6 +15,11 @@ public class GroovyScriptExecutorProvider implements
 	public String getType() {
 		return ICommonConstants.ENGINE_TYPE.GROOVY;
 	}
+	
+	@Override
+	public String getAlias() {
+		return ICommonConstants.ENGINE_ALIAS.GROOVY;
+	}
 
 	@Override
 	public IScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
