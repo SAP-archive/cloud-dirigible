@@ -64,9 +64,9 @@
 		<module>com.sap.dirigible.ide.workspace.rcp</module>
 		
 		<module>com.sap.dirigible.ide.workspace</module>
-		<!-- -->
+		<!-- 
 		<module>com.sap.dirigible.ide.workspace.test</module>
-		
+		-->
 		<module>com.sap.dirigible.ide.workspace.ui</module>
 		<module>com.sap.dirigible.ide.workspace.wizard.project</module>
 		<module>com.sap.dirigible.ide.repository</module>
@@ -98,9 +98,9 @@
 		<module>com.sap.dirigible.ide.services.security.manager</module>
 		<module>com.sap.dirigible.ide.template.velocity</module>
 		<module>com.sap.dirigible.ide.template.ui.common</module>
-		<!-- --> 
+		<!-- 
 		<module>com.sap.dirigible.ide.template.ui.common.test</module>
-		 
+		 -->
 		<module>com.sap.dirigible.ide.template.ui.db</module>
 		<module>com.sap.dirigible.ide.template.ui.js</module>
 		<module>com.sap.dirigible.ide.template.ui.html</module>

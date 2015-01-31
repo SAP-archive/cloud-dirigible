@@ -12,4 +12,5 @@ Require-Bundle: org.junit,
  com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.db,
  org.mockito,
- org.objenesis
+ org.objenesis,
+ com.sap.dirigible.ide.workspace.rap
