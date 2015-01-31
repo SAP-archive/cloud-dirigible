@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.db.DBUtils;
+import com.sap.dirigible.repository.ext.db.DBUtils;
 import com.sap.dirigible.repository.ext.security.Messages;
 import com.sap.dirigible.repository.ext.utils.RequestUtils;
 
@@ -66,7 +66,7 @@ public class ExtensionManager {
 	public ExtensionManager(IRepository repository, DataSource dataSource) {
 		this.dataSource = dataSource;
 		this.repository = repository;
-		this.dbUtils = new DBUtils(repository, dataSource);
+		this.dbUtils = new DBUtils(dataSource);
 	}
 
 	public IRepository getRepository() {

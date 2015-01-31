@@ -30,8 +30,8 @@ import org.eclipse.jface.viewers.Viewer;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.repository.db.DBUtils;
-import com.sap.dirigible.repository.db.dialect.IDialectSpecifier;
+import com.sap.dirigible.repository.ext.db.DBUtils;
+import com.sap.dirigible.repository.ext.db.dialect.IDialectSpecifier;
 
 public class DatabaseViewContentProvider implements IStructuredContentProvider,
 		ITreeContentProvider {

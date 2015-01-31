@@ -17,6 +17,7 @@ package com.sap.dirigible.repository.db;
 
 import java.util.Date;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.IEntityInformation;
 import com.sap.dirigible.repository.db.dao.DBObject;
 
@@ -26,13 +27,13 @@ import com.sap.dirigible.repository.db.dao.DBObject;
  */
 public class DBEntityInformation implements IEntityInformation {
 
-	private DBRepositoryPath wrapperPath;
+	private RepositoryPath wrapperPath;
 
 	private DBObject master;
 
 	private long size;
 
-	public DBEntityInformation(DBRepositoryPath wrapperPath, DBObject master) {
+	public DBEntityInformation(RepositoryPath wrapperPath, DBObject master) {
 		this.wrapperPath = wrapperPath;
 		this.master = master;
 	}

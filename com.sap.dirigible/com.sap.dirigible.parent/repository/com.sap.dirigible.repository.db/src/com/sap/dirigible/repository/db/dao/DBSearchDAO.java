@@ -26,12 +26,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBCollection;
-import com.sap.dirigible.repository.db.DBRepositoryPath;
 import com.sap.dirigible.repository.db.DBResource;
 
 public class DBSearchDAO extends DBObjectDAO {
@@ -135,11 +135,11 @@ public class DBSearchDAO extends DBObjectDAO {
 		while (resultSet.next()) {
 			DBObject dbObject = DBMapper.dbToObject(getRepository(), resultSet);
 			if (dbObject instanceof DBFolder) {
-				ICollection collection = new DBCollection(getRepository(), new DBRepositoryPath(
+				ICollection collection = new DBCollection(getRepository(), new RepositoryPath(
 						dbObject.getPath()));
 				result.add(collection);
 			} else {
-				IResource resource = new DBResource(getRepository(), new DBRepositoryPath(
+				IResource resource = new DBResource(getRepository(), new RepositoryPath(
 						dbObject.getPath()));
 				result.add(resource);
 			}

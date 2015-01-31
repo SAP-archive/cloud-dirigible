@@ -45,7 +45,7 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.repository.db.DBRepository;
+//import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
 import com.sap.dirigible.runtime.RuntimeActivator;
 import com.sap.dirigible.runtime.logger.Logger;
@@ -106,11 +106,11 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 		registerDefaultVariableInContextAndScope(executionContext, scope, "out", System.out); //$NON-NLS-1$
 		// put the default data source
 		DataSource dataSource = null;
-		if (repository instanceof DBRepository) {
-			dataSource = ((DBRepository) repository).getDataSource();
-		} else {
+//		if (repository instanceof DBRepository) {
+//			dataSource = ((DBRepository) repository).getDataSource();
+//		} else {
 			dataSource = RepositoryFacade.getInstance().getDataSource();
-		}
+//		}
 		registerDefaultVariableInContextAndScope(executionContext, scope, "datasource", dataSource); //$NON-NLS-1$
 		// put request
 		registerDefaultVariableInContextAndScope(executionContext, scope, "request", request); //$NON-NLS-1$

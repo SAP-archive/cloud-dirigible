@@ -2,6 +2,7 @@ Manifest-Version: 1.0
 Export-Package: com.sap.dirigible.repository.ext.command,
  com.sap.dirigible.repository.ext.conf,
  com.sap.dirigible.repository.ext.db,
+ com.sap.dirigible.repository.ext.db.dialect,
  com.sap.dirigible.repository.ext.debug,
  com.sap.dirigible.repository.ext.extensions,
  com.sap.dirigible.repository.ext.lucene,
@@ -18,7 +19,6 @@ Bundle-SymbolicName: com.sap.dirigible.repository.ext;singleton:=true
 Require-Bundle: org.apache.lucene.analysis,
  org.apache.lucene.core,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  org.apache.commons.io
 Import-Package: com.google.gson,
  javax.servlet,

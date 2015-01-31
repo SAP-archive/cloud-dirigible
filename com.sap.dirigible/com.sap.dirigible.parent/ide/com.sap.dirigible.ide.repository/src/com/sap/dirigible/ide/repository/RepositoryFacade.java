@@ -15,6 +15,9 @@
 
 package com.sap.dirigible.ide.repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
@@ -23,7 +26,8 @@ import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.RepositoryException;
-import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.api.RepositoryFactory;
+//import com.sap.dirigible.repository.db.DBRepository;
 
 public class RepositoryFacade {
 
@@ -51,7 +55,12 @@ public class RepositoryFacade {
 		try {
 			DataSource dataSource = lookupDataSource();
 			String user = getUser(request);
-			repository = new DBRepository(dataSource, user, false);
+//			repository = new DBRepository(dataSource, user, false);
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("datasource", dataSource);
+			parameters.put("user", user);
+			parameters.put("recreate", Boolean.FALSE);
+			repository = RepositoryFactory.createRepository(parameters);
 			saveRepositoryInstance(request, repository);
 		} catch (Exception e) {
 			throw new RepositoryException(e);

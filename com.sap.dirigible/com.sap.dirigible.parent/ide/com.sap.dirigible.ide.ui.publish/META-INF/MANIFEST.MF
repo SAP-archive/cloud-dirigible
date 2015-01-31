@@ -14,6 +14,5 @@ Import-Package: com.google.gson;version="1.6.0",
  com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.publish;version="1.0.0",
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  org.eclipse.core.resources
 Export-Package: com.sap.dirigible.ide.ui.publish

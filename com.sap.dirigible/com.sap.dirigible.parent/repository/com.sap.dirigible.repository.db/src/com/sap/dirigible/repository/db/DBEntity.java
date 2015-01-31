@@ -22,6 +22,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IEntityInformation;
@@ -40,9 +41,9 @@ public abstract class DBEntity implements IEntity {
 
 	private final DBRepository repository;
 
-	private final DBRepositoryPath path;
+	private final RepositoryPath path;
 
-	public DBEntity(DBRepository repository, DBRepositoryPath path) {
+	public DBEntity(DBRepository repository, RepositoryPath path) {
 		super();
 		this.repository = repository;
 		this.path = path;
@@ -57,7 +58,7 @@ public abstract class DBEntity implements IEntity {
 	 * Returns the path of this {@link Entity} represented by an instance of
 	 * {@link RepositoryPath}.
 	 */
-	protected DBRepositoryPath getRepositoryPath() {
+	protected RepositoryPath getRepositoryPath() {
 		return this.path;
 	}
 
@@ -73,7 +74,7 @@ public abstract class DBEntity implements IEntity {
 
 	@Override
 	public ICollection getParent() {
-		final DBRepositoryPath parentPath = this.path.getParentPath();
+		final RepositoryPath parentPath = this.path.getParentPath();
 		if (parentPath == null) {
 			return null;
 		}

@@ -1,7 +1,6 @@
 Manifest-Version: 1.0
 Export-Package: com.sap.dirigible.repository.db,
  com.sap.dirigible.repository.db.dao,
- com.sap.dirigible.repository.db.dialect,
  com.sap.dirigible.repository.db.zip
 Bundle-ActivationPolicy: lazy
 Bundle-Name: Dirigible Repository RDBMS Implementation
@@ -12,7 +11,8 @@ Bundle-Version: 2.0.150121
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.repository.db;singleton:=true
 Require-Bundle: com.sap.dirigible.repository.api,
- org.apache.commons.io
+ org.apache.commons.io,
+ com.sap.dirigible.repository.ext
 Import-Package: org.slf4j
-
+Service-Component: OSGi-INF/repository-db.xml
 

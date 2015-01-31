@@ -15,6 +15,9 @@
 
 package com.sap.dirigible.runtime.repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
@@ -23,7 +26,8 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.RepositoryException;
-import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.api.RepositoryFactory;
+//import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.db.WrappedDataSource;
 import com.sap.dirigible.runtime.logger.Logger;
 
@@ -73,7 +77,12 @@ public class RepositoryFacade {
 		try {
 			DataSource dataSource = getDataSource(request);
 			String user = getUser(request);
-			repository = new DBRepository(dataSource, user, false);
+//			repository = new DBRepository(dataSource, user, false);
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("datasource", dataSource);
+			parameters.put("user", user);
+			parameters.put("recreate", Boolean.FALSE);
+			repository = RepositoryFactory.createRepository(parameters);
 			saveRepositoryInstance(request, repository);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

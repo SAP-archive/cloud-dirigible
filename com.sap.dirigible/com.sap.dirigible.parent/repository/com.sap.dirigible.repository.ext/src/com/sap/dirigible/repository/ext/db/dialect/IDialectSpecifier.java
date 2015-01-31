@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db.dialect;
+package com.sap.dirigible.repository.ext.db.dialect;
 
 import java.io.InputStream;
 import java.sql.ResultSet;

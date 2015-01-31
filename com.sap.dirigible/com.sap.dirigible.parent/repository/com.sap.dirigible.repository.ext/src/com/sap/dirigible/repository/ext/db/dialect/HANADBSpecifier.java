@@ -13,14 +13,14 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db.dialect;
+package com.sap.dirigible.repository.ext.db.dialect;
 
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.sap.dirigible.repository.db.DBSupportedTypesMap;
+import com.sap.dirigible.repository.ext.db.DBSupportedTypesMap;
 
 public class HANADBSpecifier implements IDialectSpecifier {
 

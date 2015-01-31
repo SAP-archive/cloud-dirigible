@@ -31,8 +31,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.db.DBRepositoryPath;
-import com.sap.dirigible.repository.db.DBUtils;
+import com.sap.dirigible.repository.api.RepositoryPath;
+import com.sap.dirigible.repository.ext.db.DBUtils;
 import com.sap.dirigible.repository.ext.utils.RequestUtils;
 
 public class SecurityManager {
@@ -80,7 +80,7 @@ public class SecurityManager {
 	public SecurityManager(IRepository repository, DataSource dataSource) {
 		this.dataSource = dataSource;
 		this.repository = repository;
-		this.dbUtils = new DBUtils(repository, dataSource);
+		this.dbUtils = new DBUtils(dataSource);
 	}
 
 	public IRepository getRepository() {
@@ -359,7 +359,7 @@ public class SecurityManager {
 				try {
 					statement = connection.prepareStatement(script);
 					
-					DBRepositoryPath path = new DBRepositoryPath(location);
+					RepositoryPath path = new RepositoryPath(location);
 					for (int i = path.getSegments().length; i > 0; i--) {
 						
 						String transitiveLocation = path.constructPath(i);

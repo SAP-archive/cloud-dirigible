@@ -7,7 +7,6 @@ Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  com.sap.dirigible.repository.ext,
  com.google.gson,
  org.apache.httpcomponents.httpclient,
@@ -36,6 +35,7 @@ Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  org.hamcrest,
  org.slf4j.log4j,
  com.sap.dirigible.runtime.java,
- com.sap.dirigible.runtime.metrics;bundle-version="2.0.150121"
+ com.sap.dirigible.runtime.metrics;bundle-version="2.0.150121",
+ com.sap.dirigible.repository.db
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.derby.jdbc

@@ -31,7 +31,7 @@ import com.sap.dirigible.ide.db.export.DataExportDialog;
 import com.sap.dirigible.ide.db.export.DataFinder;
 import com.sap.dirigible.ide.db.export.TableColumn;
 import com.sap.dirigible.ide.db.export.TableName;
-import com.sap.dirigible.repository.db.DBSupportedTypesMap;
+import com.sap.dirigible.repository.ext.db.DBSupportedTypesMap;
 
 public class DataStructureTemplateDSVPage extends WizardPage {
 	

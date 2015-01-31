@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.sap.dirigible.repository.db.dao.DBMapper;
+import com.sap.dirigible.repository.ext.db.DBUtils;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractStorageUtils;
 
@@ -153,7 +153,7 @@ public class StorageUtils extends AbstractStorageUtils {
 
 				ResultSet rs = pstmt.executeQuery();
 				if (rs.next()) {
-					return DBMapper.dbToDataBinary(connection, rs, STORAGE_DATA);
+					return DBUtils.dbToDataBinary(connection, rs, STORAGE_DATA);
 				}
 
 			} finally {

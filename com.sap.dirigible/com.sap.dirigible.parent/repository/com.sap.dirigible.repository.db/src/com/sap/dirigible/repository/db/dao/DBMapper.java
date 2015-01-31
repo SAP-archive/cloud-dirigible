@@ -28,8 +28,8 @@ import org.apache.commons.io.IOUtils;
 
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.repository.db.DBUtils;
-import com.sap.dirigible.repository.db.dialect.IDialectSpecifier;
+import com.sap.dirigible.repository.ext.db.DBUtils;
+import com.sap.dirigible.repository.ext.db.dialect.IDialectSpecifier;
 
 /**
  * Utility class for transformation between JDBC related objects to DB
@@ -97,15 +97,13 @@ public class DBMapper {
 	/**
 	 * ResultSet current row to Content transformation
 	 * 
-	 * @param repository
 	 * @param resultSet
 	 * @return
 	 * @throws SQLException
 	 */
-	static byte[] dbToData(DBRepository repository, ResultSet resultSet)
+	static byte[] dbToData(ResultSet resultSet)
 			throws SQLException {
-		String data = resultSet.getString("DOC_CONTENT"); //$NON-NLS-1$
-		return data.getBytes(Charset.defaultCharset());
+		return DBUtils.dbToData(resultSet);
 	}
 
 	/**
@@ -119,13 +117,7 @@ public class DBMapper {
 	 */
 	public static byte[] dbToDataBinary(Connection connection, ResultSet resultSet,
 			String columnName) throws SQLException, IOException {
-		String productName = connection.getMetaData().getDatabaseProductName();
-		IDialectSpecifier dialectSpecifier = DBUtils.getDialectSpecifier(productName);
-		InputStream is = dialectSpecifier.getBinaryStream(resultSet, columnName);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		IOUtils.copy(is, baos);
-		byte[] bytes = baos.toByteArray();
-		return bytes;
+		return DBUtils.dbToDataBinary(connection, resultSet, columnName);
 	}
 
 	public static DBFileVersion dbToFileVersion(Connection connection, DBRepository repository,

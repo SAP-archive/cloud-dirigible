@@ -40,9 +40,7 @@ import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.repository.db.DBSupportedTypesMap;
-import com.sap.dirigible.repository.db.DBUtils;
-import com.sap.dirigible.repository.db.dialect.IDialectSpecifier;
+import com.sap.dirigible.repository.ext.db.dialect.IDialectSpecifier;
 
 public class DatabaseUpdater extends AbstractDataUpdater {
 
@@ -92,7 +90,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 		this.repository = repository;
 		this.dataSource = dataSource;
 		this.location = location;
-		this.dbUtils = new DBUtils(repository, dataSource);
+		this.dbUtils = new DBUtils(dataSource);
 	}
 
 	@Override

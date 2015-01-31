@@ -12,6 +12,5 @@ Import-Package: com.sap.dirigible.ide.common,
  com.sap.dirigible.ide.common.io,
  com.sap.dirigible.ide.publish,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  javax.servlet.http,
  org.eclipse.core.resources

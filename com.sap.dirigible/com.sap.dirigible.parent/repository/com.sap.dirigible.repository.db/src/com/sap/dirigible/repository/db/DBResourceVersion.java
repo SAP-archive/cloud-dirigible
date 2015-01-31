@@ -18,6 +18,7 @@ package com.sap.dirigible.repository.db;
 import java.io.IOException;
 import java.util.Date;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.IResourceVersion;
 import com.sap.dirigible.repository.db.dao.DBFileVersion;
 import com.sap.dirigible.repository.db.dao.DBObject;
@@ -26,13 +27,13 @@ public class DBResourceVersion implements IResourceVersion {
 
 	private final DBRepository repository;
 
-	private final DBRepositoryPath path;
+	private final RepositoryPath path;
 
 	private int version;
 
 	private DBFileVersion fileVersion;
 
-	public DBResourceVersion(DBRepository repository, DBRepositoryPath path,
+	public DBResourceVersion(DBRepository repository, RepositoryPath path,
 			int version) {
 		super();
 		this.repository = repository;

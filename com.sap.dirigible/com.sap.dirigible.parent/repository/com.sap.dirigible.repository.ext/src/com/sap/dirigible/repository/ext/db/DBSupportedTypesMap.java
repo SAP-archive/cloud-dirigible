@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db;
+package com.sap.dirigible.repository.ext.db;
 
 public class DBSupportedTypesMap {
 
@@ -37,7 +37,7 @@ public class DBSupportedTypesMap {
 	public static final String BIT = "BIT"; //$NON-NLS-1$
 	public static final String BINARY = "BINARY"; //$NON-NLS-1$
 	public static final String BIGINT = "BIGINT"; //$NON-NLS-1$
-	public static final String UNSUPPORTED_TYPE = Messages.getString("DBSupportedTypesMap.UNSUPPORTED_TYPE"); //$NON-NLS-1$
+	public static final String UNSUPPORTED_TYPE = "Unsupported Type:"; //$NON-NLS-1$
 
 	/**
 	 * Gives the meaningful subset of all the existing types in JDBC

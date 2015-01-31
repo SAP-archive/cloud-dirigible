@@ -9,7 +9,6 @@ Bundle-ActivationPolicy: lazy
 Export-Package: com.sap.dirigible.ide.repository
 Require-Bundle: com.sap.dirigible.ide.datasource,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  org.eclipse.jface;resolution:=optional,
  org.eclipse.rap.jface;resolution:=optional,
  com.sap.dirigible.repository.ext,

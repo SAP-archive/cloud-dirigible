@@ -13,36 +13,37 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db;
+package com.sap.dirigible.repository.api;
 
 import java.util.Arrays;
 import java.util.StringTokenizer;
+
 
 /**
  * Utility class representing the path object in the Repository
  * 
  */
-public class DBRepositoryPath {
+public class RepositoryPath {
 
 	private String path;
 
 	private final String[] segments;
 
-	public DBRepositoryPath(String path) {
+	public RepositoryPath(String path) {
 		this.path = path;
 		final StringTokenizer tokenizer = new StringTokenizer(path,
-				DBRepository.PATH_DELIMITER);
+				IRepository.SEPARATOR);
 		segments = new String[tokenizer.countTokens()];
 		for (int i = 0; i < segments.length; ++i) {
 			segments[i] = tokenizer.nextToken();
 		}
 	}
 
-	public DBRepositoryPath(DBRepositoryPath repositoryPath) {
+	public RepositoryPath(RepositoryPath repositoryPath) {
 		this(repositoryPath.segments);
 	}
 
-	public DBRepositoryPath(String[] segments) {
+	public RepositoryPath(String[] segments) {
 		this.segments = Arrays.copyOf(segments, segments.length);
 		this.path = toString();
 	}
@@ -64,13 +65,13 @@ public class DBRepositoryPath {
 	 * 
 	 * @return
 	 */
-	public DBRepositoryPath getParentPath() {
+	public RepositoryPath getParentPath() {
 		if (segments.length == 0) {
 			return null;
 		}
 		final String[] newSegments = Arrays.copyOf(segments,
 				segments.length - 1);
-		return new DBRepositoryPath(newSegments);
+		return new RepositoryPath(newSegments);
 	}
 
 	/**
@@ -79,21 +80,21 @@ public class DBRepositoryPath {
 	 * @param name
 	 * @return
 	 */
-	public DBRepositoryPath append(String name) {
+	public RepositoryPath append(String name) {
 		final String[] newSegments = Arrays.copyOf(segments,
 				segments.length + 1);
 		newSegments[newSegments.length - 1] = name;
-		return new DBRepositoryPath(newSegments);
+		return new RepositoryPath(newSegments);
 	}
 
 	@Override
 	public String toString() {
 		if (segments.length == 0) {
-			return DBRepository.PATH_DELIMITER;
+			return IRepository.SEPARATOR;
 		}
 		final StringBuilder builder = new StringBuilder();
 		for (String segment : segments) {
-			builder.append(DBRepository.PATH_DELIMITER);
+			builder.append(IRepository.SEPARATOR);
 			builder.append(segment);
 		}
 		return builder.toString();
@@ -111,10 +112,10 @@ public class DBRepositoryPath {
 		if (obj == this) {
 			return true;
 		}
-		if (!(obj instanceof DBRepositoryPath)) {
+		if (!(obj instanceof RepositoryPath)) {
 			return false;
 		}
-		final DBRepositoryPath other = (DBRepositoryPath) obj;
+		final RepositoryPath other = (RepositoryPath) obj;
 		return getPath().equals(other.getPath());
 	}
 
@@ -132,11 +133,11 @@ public class DBRepositoryPath {
 			return toString();
 		}
 		if (segments.length == 0) {
-			return DBRepository.PATH_DELIMITER;
+			return IRepository.SEPARATOR;
 		}
 		final StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < number; i++) {
-			builder.append(DBRepository.PATH_DELIMITER);
+			builder.append(IRepository.SEPARATOR);
 			builder.append(segments[i]);
 		}
 		return builder.toString();

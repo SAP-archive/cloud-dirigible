@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
@@ -45,7 +46,7 @@ public class DBCollection extends DBEntity implements ICollection {
 	private static final String COULD_NOT_RENAME_COLLECTION = Messages.getString("DBCollection.COULD_NOT_RENAME_COLLECTION"); //$NON-NLS-1$
 	private static final String CANNOT_CREATE_ROOT_COLLECTION = Messages.getString("DBCollection.CANNOT_CREATE_ROOT_COLLECTION"); //$NON-NLS-1$
 
-	public DBCollection(DBRepository repository, DBRepositoryPath path) {
+	public DBCollection(DBRepository repository, RepositoryPath path) {
 		super(repository, path);
 	}
 
@@ -153,7 +154,7 @@ public class DBCollection extends DBEntity implements ICollection {
 
 	@Override
 	public ICollection getCollection(String name) {
-		final DBRepositoryPath path = getRepositoryPath().append(name);
+		final RepositoryPath path = getRepositoryPath().append(name);
 		return new DBCollection(getRepository(), path);
 	}
 
@@ -199,7 +200,7 @@ public class DBCollection extends DBEntity implements ICollection {
 
 	@Override
 	public IResource getResource(String name) throws IOException {
-		final DBRepositoryPath path = getRepositoryPath().append(name);
+		final RepositoryPath path = getRepositoryPath().append(name);
 		return new DBResource(getRepository(), path);
 	}
 

@@ -30,9 +30,9 @@ import java.util.GregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.repository.db.DBRepositoryPath;
 
 public class DBFileDAO extends DBObjectDAO {
 
@@ -377,7 +377,7 @@ public class DBFileDAO extends DBObjectDAO {
 			byte[] bytes = null;
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			while (resultSet.next()) {
-				bytes = DBMapper.dbToData(getRepository(), resultSet);
+				bytes = DBMapper.dbToData(resultSet);
 				baos.write(bytes);
 			}
 			return baos.toByteArray();
@@ -615,7 +615,7 @@ public class DBFileDAO extends DBObjectDAO {
 				while (resultSet.next()) {
 					String oldFilePath = resultSet.getString("FILE_PATH");
 					String newFilePath = oldFilePath.replace(path, newPath);
-					String newName = new DBRepositoryPath(newFilePath).getLastSegment(); 
+					String newName = new RepositoryPath(newFilePath).getLastSegment(); 
 					try {
 						script = getRepository().getDbUtils().readScript(connection,
 								DBScriptsMap.SCRIPT_RENAME_FILE, this.getClass());

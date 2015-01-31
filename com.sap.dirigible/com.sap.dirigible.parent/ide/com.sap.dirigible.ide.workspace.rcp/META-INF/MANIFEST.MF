@@ -31,7 +31,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.workspace.dual
 Import-Package: com.sap.dirigible.ide.editor.text.editor,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  javax.servlet,
  javax.servlet.http
 Bundle-ActivationPolicy: lazy

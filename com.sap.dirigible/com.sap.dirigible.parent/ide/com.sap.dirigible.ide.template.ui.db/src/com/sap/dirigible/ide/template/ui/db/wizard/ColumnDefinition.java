@@ -15,7 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.db.wizard;
 
-import com.sap.dirigible.repository.db.DBSupportedTypesMap;
+import com.sap.dirigible.repository.ext.db.DBSupportedTypesMap;
 
 public class ColumnDefinition {
 

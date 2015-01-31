@@ -6,7 +6,6 @@ Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  com.sap.dirigible.repository.ext,
  com.google.gson,
  org.apache.httpcomponents.httpclient,

@@ -25,8 +25,9 @@ import javax.sql.DataSource;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
-import com.sap.dirigible.repository.db.DBUtils;
-import com.sap.dirigible.repository.db.dialect.IDialectSpecifier;
+import com.sap.dirigible.repository.ext.db.DBUtils;
+import com.sap.dirigible.repository.ext.db.dialect.IDialectSpecifier;
+
 
 /**
  * Utilities for Services using Database

@@ -23,10 +23,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.api.IResourceVersion;
 import com.sap.dirigible.repository.db.dao.DBFile;
 import com.sap.dirigible.repository.db.dao.DBObject;
+import com.sap.dirigible.repository.ext.db.DBUtils;
 
 /**
  * The DB implementation of {@link IResource}
@@ -48,7 +50,7 @@ public class DBResource extends DBEntity implements IResource {
 
 	private String contentType;
 
-	public DBResource(DBRepository repository, DBRepositoryPath path) {
+	public DBResource(DBRepository repository, RepositoryPath path) {
 		super(repository, path);
 		try {
 			DBFile dbFile = getDocument();
@@ -241,7 +243,7 @@ public class DBResource extends DBEntity implements IResource {
 
 	@Override
 	public IResourceVersion getResourceVersion(int version) throws IOException {
-		return new DBResourceVersion(getRepository(), new DBRepositoryPath(
+		return new DBResourceVersion(getRepository(), new RepositoryPath(
 				getPath()), version);
 	}
 

@@ -16,5 +16,4 @@ Export-Package: com.sap.dirigible.ide.workspace,
  com.sap.dirigible.ide.workspace.impl.event
 Import-Package: com.sap.dirigible.ide.repository,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  javax.servlet.http

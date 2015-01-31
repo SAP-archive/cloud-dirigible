@@ -15,7 +15,7 @@ import java.util.Properties;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.sap.dirigible.repository.db.dao.DBMapper;
+import com.sap.dirigible.repository.ext.db.DBUtils;
 import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractStorageUtils;
 
@@ -193,7 +193,7 @@ public class ConfigStorageUtils extends AbstractStorageUtils {
 
 				ResultSet rs = pstmt.executeQuery();
 				if (rs.next()) {
-					byte[] data = DBMapper.dbToDataBinary(connection, rs, CONFIG_STORAGE_DATA);
+					byte[] data = DBUtils.dbToDataBinary(connection, rs, CONFIG_STORAGE_DATA);
 					ByteArrayInputStream bis = new ByteArrayInputStream(data);
 
 					Properties properties = new Properties();

@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db;
+package com.sap.dirigible.repository.ext.db;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,22 +24,24 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.StringTokenizer;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.db.dialect.DerbyDBSpecifier;
-import com.sap.dirigible.repository.db.dialect.HANADBSpecifier;
-import com.sap.dirigible.repository.db.dialect.IDialectSpecifier;
-import com.sap.dirigible.repository.db.dialect.PostgreSQLDBSpecifier;
-import com.sap.dirigible.repository.db.dialect.SAPDBSpecifier;
-import com.sap.dirigible.repository.db.dialect.SybaseDBSpecifier;
+import com.sap.dirigible.repository.ext.db.dialect.DerbyDBSpecifier;
+import com.sap.dirigible.repository.ext.db.dialect.HANADBSpecifier;
+import com.sap.dirigible.repository.ext.db.dialect.IDialectSpecifier;
+import com.sap.dirigible.repository.ext.db.dialect.PostgreSQLDBSpecifier;
+import com.sap.dirigible.repository.ext.db.dialect.SAPDBSpecifier;
+import com.sap.dirigible.repository.ext.db.dialect.SybaseDBSpecifier;
 
 public class DBUtils {
 
@@ -49,22 +51,24 @@ public class DBUtils {
 	private static final String PRODUCT_HDB = "HDB"; //$NON-NLS-1$
 	private static final String PRODUCT_POSTGRESQL = "PostgreSQL"; //$NON-NLS-1$
 	
+	public static final String SCRIPT_DELIMITER = ";"; //$NON-NLS-1$
+	
 
 	private static Logger logger = LoggerFactory.getLogger(DBUtils.class
 			.getCanonicalName());
 
-	private IRepository repository;
+//	private IRepository repository;
 
 	private DataSource dataSource;
 
-	public DBUtils(IRepository repository, DataSource dataSource) {
-		this.repository = repository;
+	public DBUtils(DataSource dataSource) {
+//		this.repository = repository;
 		this.dataSource = dataSource;
 	}
 
-	IRepository getRepository() {
-		return repository;
-	}
+//	IRepository getRepository() {
+//		return repository;
+//	}
 
 	/**
 	 * Read whole SQL script from the class path. It can contain multiple
@@ -135,7 +139,7 @@ public class DBUtils {
 				"entering executeUpdate"); //$NON-NLS-1$
 		boolean status = false;
 		StringTokenizer tokenizer = new StringTokenizer(script,
-				DBRepository.SCRIPT_DELIMITER);
+				SCRIPT_DELIMITER);
 
 		while (tokenizer.hasMoreTokens()) {
 			String line = tokenizer.nextToken();
@@ -216,10 +220,10 @@ public class DBUtils {
 				"entering normalizePath"); //$NON-NLS-1$
 		String normalizedPath = null;
 		if (path != null) {
-			if (path.endsWith(DBRepository.PATH_DELIMITER)) {
+			if (path.endsWith(IRepository.SEPARATOR)) {
 				normalizedPath = path + name;
 			} else {
-				normalizedPath = path + DBRepository.PATH_DELIMITER + name;
+				normalizedPath = path + IRepository.SEPARATOR + name;
 			}
 		}
 		logger.debug(this.getClass().getCanonicalName(),
@@ -284,5 +288,38 @@ public class DBUtils {
 	//
 	// return listOfTables;
 	// }
+
+	/**
+	 * ResultSet current row to Content transformation
+	 * 
+	 * @param resultSet
+	 * @return
+	 * @throws SQLException
+	 */
+	public static byte[] dbToData(ResultSet resultSet)
+			throws SQLException {
+		String data = resultSet.getString("DOC_CONTENT"); //$NON-NLS-1$
+		return data.getBytes(Charset.defaultCharset());
+	}
+
+	/**
+	 * ResultSet current row to Binary Content transformation
+	 * 
+	 * @param repository
+	 * @param resultSet
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public static byte[] dbToDataBinary(Connection connection, ResultSet resultSet,
+			String columnName) throws SQLException, IOException {
+		String productName = connection.getMetaData().getDatabaseProductName();
+		IDialectSpecifier dialectSpecifier = DBUtils.getDialectSpecifier(productName);
+		InputStream is = dialectSpecifier.getBinaryStream(resultSet, columnName);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		IOUtils.copy(is, baos);
+		byte[] bytes = baos.toByteArray();
+		return bytes;
+	}
 
 }

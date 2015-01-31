@@ -26,11 +26,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IResourceVersion;
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
-import com.sap.dirigible.repository.db.DBRepositoryPath;
 import com.sap.dirigible.repository.db.DBResourceVersion;
 
 /**
@@ -387,7 +387,7 @@ public class DBRepositoryDAO {
 		List<DBFileVersion> fileVersions = getFileVersionsByPath(path);
 		for (Iterator<DBFileVersion> iterator = fileVersions.iterator(); iterator.hasNext();) {
 			DBFileVersion dbFileVersion = iterator.next();
-			resultList.add(new DBResourceVersion(getRepository(), new DBRepositoryPath(path),
+			resultList.add(new DBResourceVersion(getRepository(), new RepositoryPath(path),
 					dbFileVersion.getVersion()));
 		}
 		return resultList;

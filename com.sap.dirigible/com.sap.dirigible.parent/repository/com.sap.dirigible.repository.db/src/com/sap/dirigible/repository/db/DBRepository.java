@@ -26,6 +26,7 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
@@ -34,6 +35,7 @@ import com.sap.dirigible.repository.api.IResourceVersion;
 import com.sap.dirigible.repository.db.dao.DBRepositoryDAO;
 import com.sap.dirigible.repository.db.zip.ZipExporter;
 import com.sap.dirigible.repository.db.zip.ZipImporter;
+import com.sap.dirigible.repository.ext.db.DBUtils;
 
 /**
  * The DB implementation of {@link IRepository}
@@ -49,8 +51,6 @@ public class DBRepository implements IRepository {
 			.getCanonicalName());
 
 	public static final String PATH_DELIMITER = IRepository.SEPARATOR;
-
-	public static final String SCRIPT_DELIMITER = ";"; //$NON-NLS-1$
 
 	private static final String WORKSPACE_PATH = IRepository.SEPARATOR;
 
@@ -77,7 +77,7 @@ public class DBRepository implements IRepository {
 		logger.debug(this.getClass().getCanonicalName(), "entering constructor"); //$NON-NLS-1$
 		try {
 			this.dataSource = dataSource;
-			this.dbUtils = new DBUtils(this, dataSource);
+			this.dbUtils = new DBUtils(dataSource);
 			this.user = user;
 			this.cacheEnabled = cacheEnabled;
 			this.cacheManager = new SimpleCacheManager(!this.cacheEnabled);
@@ -100,7 +100,7 @@ public class DBRepository implements IRepository {
 	@Override
 	public ICollection getRoot() {
 		logger.debug(this.getClass().getCanonicalName(), "entering getRoot"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(
+		final RepositoryPath wrapperPath = new RepositoryPath(
 				WORKSPACE_PATH);
 		DBCollection dbCollection = new DBCollection(this, wrapperPath);
 		logger.debug(this.getClass().getCanonicalName(), "exiting getRoot"); //$NON-NLS-1$
@@ -111,7 +111,7 @@ public class DBRepository implements IRepository {
 	public ICollection createCollection(String path) throws IOException {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering createCollection"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		final DBCollection collection = new DBCollection(this, wrapperPath);
 		collection.create();
 		logger.debug(this.getClass().getCanonicalName(),
@@ -123,7 +123,7 @@ public class DBRepository implements IRepository {
 	public ICollection getCollection(String path) {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering getCollection"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		DBCollection dbCollection = new DBCollection(this, wrapperPath);
 		logger.debug(this.getClass().getCanonicalName(),
 				"exiting getCollection"); //$NON-NLS-1$
@@ -134,7 +134,7 @@ public class DBRepository implements IRepository {
 	public void removeCollection(String path) throws IOException {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering removeCollection"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		final ICollection collection = new DBCollection(this, wrapperPath);
 		collection.delete();
 		logger.debug(this.getClass().getCanonicalName(),
@@ -145,7 +145,7 @@ public class DBRepository implements IRepository {
 	public boolean hasCollection(String path) throws IOException {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering hasCollection"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		final ICollection collection = new DBCollection(this, wrapperPath);
 		boolean result = collection.exists();
 		logger.debug(this.getClass().getCanonicalName(),
@@ -157,7 +157,7 @@ public class DBRepository implements IRepository {
 	public IResource createResource(String path) throws IOException {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering createResource"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		final IResource resource = new DBResource(this, wrapperPath);
 		resource.create();
 		logger.debug(this.getClass().getCanonicalName(),
@@ -170,7 +170,7 @@ public class DBRepository implements IRepository {
 			throws IOException {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering createResource with Content"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		final IResource resource = new DBResource(this, wrapperPath);
 		resource.setContent(content);
 		logger.debug(this.getClass().getCanonicalName(),
@@ -197,7 +197,7 @@ public class DBRepository implements IRepository {
 	@Override
 	public IResource getResource(String path) {
 		logger.debug(this.getClass().getCanonicalName(), "entering getResource"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		DBResource dbResource = new DBResource(this, wrapperPath);
 		logger.debug(this.getClass().getCanonicalName(), "exiting getResource"); //$NON-NLS-1$
 		return dbResource;
@@ -207,7 +207,7 @@ public class DBRepository implements IRepository {
 	public void removeResource(String path) throws IOException {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering removeResource"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		final IResource resource = new DBResource(this, wrapperPath);
 		resource.delete();
 		logger.debug(this.getClass().getCanonicalName(),
@@ -217,7 +217,7 @@ public class DBRepository implements IRepository {
 	@Override
 	public boolean hasResource(String path) throws IOException {
 		logger.debug(this.getClass().getCanonicalName(), "entering hasResource"); //$NON-NLS-1$
-		final DBRepositoryPath wrapperPath = new DBRepositoryPath(path);
+		final RepositoryPath wrapperPath = new RepositoryPath(path);
 		final IResource resource = new DBResource(this, wrapperPath);
 		boolean result = resource.exists();
 		logger.debug(this.getClass().getCanonicalName(), "exiting hasResource"); //$NON-NLS-1$
@@ -309,7 +309,7 @@ public class DBRepository implements IRepository {
 	@Override
 	public IResourceVersion getResourceVersion(String path, int version)
 			throws IOException {
-		return new DBResourceVersion(this, new DBRepositoryPath(path), version);
+		return new DBResourceVersion(this, new RepositoryPath(path), version);
 	}
 	
 	@Override

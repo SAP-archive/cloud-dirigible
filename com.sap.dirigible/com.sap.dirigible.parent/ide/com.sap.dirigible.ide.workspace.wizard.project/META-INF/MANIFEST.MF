@@ -37,6 +37,5 @@ Export-Package: com.sap.dirigible.ide.workspace.wizard.project.commands,
  com.sap.dirigible.ide.workspace.wizard.project.create
 Import-Package: com.sap.dirigible.ide.editor.text.editor,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.repository.db,
  javax.servlet,
  javax.servlet.http
