@@ -142,4 +142,16 @@ public class RepositoryPath {
 		}
 		return builder.toString();
 	}
+	
+	public static String normalizePath(String path, String name) {
+		String normalizedPath = null;
+		if (path != null) {
+			if (path.endsWith(IRepository.SEPARATOR)) {
+				normalizedPath = path + name;
+			} else {
+				normalizedPath = path + IRepository.SEPARATOR + name;
+			}
+		}
+		return normalizedPath;
+	}
 }

@@ -1,3 +1,4 @@
+package com.sap.dirigible.ide.workspace.dual;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 

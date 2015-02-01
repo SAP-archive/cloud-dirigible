@@ -30,14 +30,13 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.internal.registry.EditorDescriptor;
+import org.eclipse.ui.part.FileEditorInput;
 
 import com.sap.dirigible.ide.editor.text.editor.TextEditor;
 import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.ide.workspace.dual.EditorInputFactory;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
-import com.sap.dirigible.repository.api.ICommonConstants.ARTIFACT_TYPE;
 import com.sap.rap.ui.shared.editor.EditorUtil;
-import com.sap.rap.ui.shared.editor.SourceFileEditorInput;
 
 public class OpenHandler extends AbstractHandler {
 
@@ -97,12 +96,12 @@ public class OpenHandler extends AbstractHandler {
 	}
 
 	private IEditorPart openEditorForResource(IFile file, int row) {
-//		String editorId = EditorUtil.getEditorIdForExtension(file
-//				.getFileExtension());
-		String editorId = null;
+//		String editorId = null;
+		String editorId = EditorUtil.getEditorIdForExtension(file
+				.getFileExtension());
 		String contentType = ContentTypeHelper.getContentType(file
 				.getFileExtension());
-//		if (editorId == null) {
+		if (editorId == null) {
 			if (contentType != null && contentType.contains("text")) { //$NON-NLS-1$
 				editorId = SOURCE_CODE_EDITOR_ID;
 			} else {
@@ -113,33 +112,18 @@ public class OpenHandler extends AbstractHandler {
 //				return null;
 				editorId = TextEditor.ID;
 			}
-//		}
-		SourceFileEditorInput input = new SourceFileEditorInput(file);
+		}
+//		SourceFileEditorInput input = new SourceFileEditorInput(file);
+//		input.setRow(row);
+//		breakpointsSupported(file, contentType, input);
+//		readonlyEnabled(file, contentType, input);
 		
-		input.setRow(row);
+		FileEditorInput input = EditorInputFactory.createInput(file, row, contentType);
 		
-		breakpointsSupported(file, contentType, input);
-		
-		readonlyEnabled(file, contentType, input);
+
 		
 		return openEditor(editorId, input);
 	}
-
-	protected void readonlyEnabled(IFile file, String contentType,
-			SourceFileEditorInput input) {
-//		input.setReadOnly(true);
-	}
-
-	protected void breakpointsSupported(IFile file, String contentType,
-			SourceFileEditorInput input) {
-		if (file.getRawLocation().toString().contains(ARTIFACT_TYPE.SCRIPTING_SERVICES)
-				&& contentType != null
-				&& contentType.contains("javascript")) {
-			input.setBreakpointsEnabled(true);
-		}
-	}
-	
-	
 
 	private IEditorPart openEditor(String id, IEditorInput input) {
 		IWorkbench workbench = PlatformUI.getWorkbench();

@@ -13,96 +13,54 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db;
+package com.sap.dirigible.repository.rcp;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.zip.ZipInputStream;
-
-import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.api.IResourceVersion;
-import com.sap.dirigible.repository.db.dao.DBRepositoryDAO;
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.zip.ZipExporter;
 import com.sap.dirigible.repository.zip.ZipImporter;
-import com.sap.dirigible.repository.ext.db.DBUtils;
 
 /**
  * The DB implementation of {@link IRepository}
  * 
  */
-public class DBRepository implements IRepository {
+public class RCPRepository implements IRepository {
 
 	private static final String PROVIDED_ZIP_DATA_CANNOT_BE_NULL = Messages.getString("DBRepository.PROVIDED_ZIP_DATA_CANNOT_BE_NULL"); //$NON-NLS-1$
 
 	private static final String PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL = Messages.getString("DBRepository.PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL"); //$NON-NLS-1$
 
-	private static Logger logger = LoggerFactory.getLogger(DBRepository.class
+	private static Logger logger = LoggerFactory.getLogger(RCPRepository.class
 			.getCanonicalName());
 
 	public static final String PATH_DELIMITER = IRepository.SEPARATOR;
 
 	private static final String WORKSPACE_PATH = IRepository.SEPARATOR;
-
-	private DBRepositoryDAO repositoryDAO;
-
-	private DataSource dataSource;
-
-	private DBUtils dbUtils;
-
-	private String user;
 	
-	private boolean cacheEnabled;
-	
-	private SimpleCacheManager cacheManager;
-	
-	public DBRepository(DataSource dataSource, String user,
-			boolean forceRecreate) throws DBBaseException {
-		this(dataSource, user, forceRecreate, true);
-		logger.debug(this.getClass().getCanonicalName(), "exiting constructor"); //$NON-NLS-1$
+	private RCPRepositoryDAO repositoryDAO;
+
+	public RCPRepository() throws RCPBaseException {
+		this.repositoryDAO = new RCPRepositoryDAO(this); 
 	}
 	
-	public DBRepository(DataSource dataSource, String user,
-			boolean forceRecreate, boolean cacheEnabled) throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(), "entering constructor"); //$NON-NLS-1$
-		try {
-			this.dataSource = dataSource;
-			this.dbUtils = new DBUtils(dataSource);
-			this.user = user;
-			this.cacheEnabled = cacheEnabled;
-			this.cacheManager = new SimpleCacheManager(!this.cacheEnabled);
-			this.repositoryDAO = new DBRepositoryDAO(this);
-			this.repositoryDAO.initialize(forceRecreate);
-		} catch (SQLException e) {
-			throw new DBBaseException(e);
-		}
-		logger.debug(this.getClass().getCanonicalName(), "exiting constructor"); //$NON-NLS-1$
-	}
-	
-	public boolean isCacheEnabled() {
-		return cacheEnabled;
-	}
-	
-	public SimpleCacheManager getCacheManager() {
-		return cacheManager;
-	}
-
 	@Override
 	public ICollection getRoot() {
 		logger.debug(this.getClass().getCanonicalName(), "entering getRoot"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(
 				WORKSPACE_PATH);
-		DBCollection dbCollection = new DBCollection(this, wrapperPath);
+		RCPCollection dbCollection = new RCPCollection(this, wrapperPath);
 		logger.debug(this.getClass().getCanonicalName(), "exiting getRoot"); //$NON-NLS-1$
 		return dbCollection;
 	}
@@ -112,7 +70,7 @@ public class DBRepository implements IRepository {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering createCollection"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		final DBCollection collection = new DBCollection(this, wrapperPath);
+		final RCPCollection collection = new RCPCollection(this, wrapperPath);
 		collection.create();
 		logger.debug(this.getClass().getCanonicalName(),
 				"exiting createCollection"); //$NON-NLS-1$
@@ -124,7 +82,7 @@ public class DBRepository implements IRepository {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering getCollection"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		DBCollection dbCollection = new DBCollection(this, wrapperPath);
+		RCPCollection dbCollection = new RCPCollection(this, wrapperPath);
 		logger.debug(this.getClass().getCanonicalName(),
 				"exiting getCollection"); //$NON-NLS-1$
 		return dbCollection;
@@ -135,7 +93,7 @@ public class DBRepository implements IRepository {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering removeCollection"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		final ICollection collection = new DBCollection(this, wrapperPath);
+		final ICollection collection = new RCPCollection(this, wrapperPath);
 		collection.delete();
 		logger.debug(this.getClass().getCanonicalName(),
 				"exiting removeCollection"); //$NON-NLS-1$
@@ -146,7 +104,7 @@ public class DBRepository implements IRepository {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering hasCollection"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		final ICollection collection = new DBCollection(this, wrapperPath);
+		final ICollection collection = new RCPCollection(this, wrapperPath);
 		boolean result = collection.exists();
 		logger.debug(this.getClass().getCanonicalName(),
 				"exiting hasCollection"); //$NON-NLS-1$
@@ -158,7 +116,7 @@ public class DBRepository implements IRepository {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering createResource"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		final IResource resource = new DBResource(this, wrapperPath);
+		final IResource resource = new RCPResource(this, wrapperPath);
 		resource.create();
 		logger.debug(this.getClass().getCanonicalName(),
 				"exiting createResource"); //$NON-NLS-1$
@@ -171,7 +129,7 @@ public class DBRepository implements IRepository {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering createResource with Content"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		final IResource resource = new DBResource(this, wrapperPath);
+		final IResource resource = new RCPResource(this, wrapperPath);
 		resource.setContent(content);
 		logger.debug(this.getClass().getCanonicalName(),
 				"exiting createResource with Content"); //$NON-NLS-1$
@@ -185,7 +143,7 @@ public class DBRepository implements IRepository {
 				"entering createResource with Content"); //$NON-NLS-1$
 		try {
 			getRepositoryDAO().createFile(path, content, isBinary, contentType);
-		} catch (DBBaseException e) {
+		} catch (RCPBaseException e) {
 			throw new IOException(e);
 		}
 		final IResource resource = getResource(path);
@@ -198,7 +156,7 @@ public class DBRepository implements IRepository {
 	public IResource getResource(String path) {
 		logger.debug(this.getClass().getCanonicalName(), "entering getResource"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		DBResource dbResource = new DBResource(this, wrapperPath);
+		RCPResource dbResource = new RCPResource(this, wrapperPath);
 		logger.debug(this.getClass().getCanonicalName(), "exiting getResource"); //$NON-NLS-1$
 		return dbResource;
 	}
@@ -208,7 +166,7 @@ public class DBRepository implements IRepository {
 		logger.debug(this.getClass().getCanonicalName(),
 				"entering removeResource"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		final IResource resource = new DBResource(this, wrapperPath);
+		final IResource resource = new RCPResource(this, wrapperPath);
 		resource.delete();
 		logger.debug(this.getClass().getCanonicalName(),
 				"exiting removeResource"); //$NON-NLS-1$
@@ -218,7 +176,7 @@ public class DBRepository implements IRepository {
 	public boolean hasResource(String path) throws IOException {
 		logger.debug(this.getClass().getCanonicalName(), "entering hasResource"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		final IResource resource = new DBResource(this, wrapperPath);
+		final IResource resource = new RCPResource(this, wrapperPath);
 		boolean result = resource.exists();
 		logger.debug(this.getClass().getCanonicalName(), "exiting hasResource"); //$NON-NLS-1$
 		return result;
@@ -226,23 +184,11 @@ public class DBRepository implements IRepository {
 
 	@Override
 	public void dispose() {
-		repositoryDAO.dispose();
+//		repositoryDAO.dispose();
 	}
 
-	public DBRepositoryDAO getRepositoryDAO() {
+	public RCPRepositoryDAO getRepositoryDAO() {
 		return repositoryDAO;
-	}
-
-	public DataSource getDataSource() {
-		return dataSource;
-	}
-
-	public DBUtils getDbUtils() {
-		return dbUtils;
-	}
-
-	public String getUser() {
-		return user;
 	}
 
 	@Override
@@ -279,42 +225,53 @@ public class DBRepository implements IRepository {
 	@Override
 	public List<IEntity> searchName(String parameter, boolean caseInsensitive)
 			throws IOException {
-		return repositoryDAO.searchName(parameter, caseInsensitive);
+//		return repositoryDAO.searchName(parameter, caseInsensitive);
+		return null;
 	}
 
 	@Override
 	public List<IEntity> searchName(String root, String parameter, boolean caseInsensitive)
 			throws IOException {
-		return repositoryDAO.searchName(root, parameter, caseInsensitive);
+//		return repositoryDAO.searchName(root, parameter, caseInsensitive);
+		return null;
 	}
 	
 	@Override
 	public List<IEntity> searchPath(String parameter, boolean caseInsensitive)
 			throws IOException {
-		return repositoryDAO.searchPath(parameter, caseInsensitive);
+//		return repositoryDAO.searchPath(parameter, caseInsensitive);
+		return null;
 	}
 
 	@Override
 	public List<IEntity> searchText(String parameter, boolean caseInsensitive)
 			throws IOException {
-		return repositoryDAO.searchText(parameter, caseInsensitive);
+//		return repositoryDAO.searchText(parameter, caseInsensitive);
+		return null;
 	}
 
 	@Override
 	public List<IResourceVersion> getResourceVersions(String path)
 			throws IOException {
-		return repositoryDAO.getResourceVersionsByPath(path);
+//		return repositoryDAO.getResourceVersionsByPath(path);
+		return null;
 	}
 
 	@Override
 	public IResourceVersion getResourceVersion(String path, int version)
 			throws IOException {
-		return new DBResourceVersion(this, new RepositoryPath(path), version);
+//		return new DBResourceVersion(this, new RepositoryPath(path), version);
+		return null;
 	}
 	
 	@Override
 	public void cleanupOldVersions() throws IOException {
-		repositoryDAO.cleanupOldVersions();
+//		repositoryDAO.cleanupOldVersions();
+	}
+
+	public String getUser() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

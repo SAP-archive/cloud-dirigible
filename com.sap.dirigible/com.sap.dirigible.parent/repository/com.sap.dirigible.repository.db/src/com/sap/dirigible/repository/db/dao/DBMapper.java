@@ -15,21 +15,15 @@
 
 package com.sap.dirigible.repository.db.dao;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.commons.io.IOUtils;
-
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.db.DBUtils;
-import com.sap.dirigible.repository.ext.db.dialect.IDialectSpecifier;
 
 /**
  * Utility class for transformation between JDBC related objects to DB

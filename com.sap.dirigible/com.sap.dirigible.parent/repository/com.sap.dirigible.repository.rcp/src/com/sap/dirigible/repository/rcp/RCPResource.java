@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db;
+package com.sap.dirigible.repository.rcp;
 
 import static java.text.MessageFormat.format;
 
@@ -23,18 +23,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.api.IResourceVersion;
-import com.sap.dirigible.repository.db.dao.DBFile;
-import com.sap.dirigible.repository.db.dao.DBObject;
-import com.sap.dirigible.repository.ext.db.DBUtils;
+import com.sap.dirigible.repository.api.RepositoryPath;
 
 /**
  * The DB implementation of {@link IResource}
  * 
  */
-public class DBResource extends DBEntity implements IResource {
+public class RCPResource extends RCPEntity implements IResource {
 
 	private static final String THERE_IS_NO_RESOURCE_AT_PATH_0 = Messages.getString("DBResource.THERE_IS_NO_RESOURCE_AT_PATH_0"); //$NON-NLS-1$
 	private static final String COULD_NOT_UPDATE_DOCUMENT = Messages.getString("DBResource.COULD_NOT_UPDATE_DOCUMENT"); //$NON-NLS-1$
@@ -44,19 +41,19 @@ public class DBResource extends DBEntity implements IResource {
 	private static final String COULD_NOT_RENAME_RESOURCE = Messages.getString("DBResource.COULD_NOT_RENAME_RESOURCE"); //$NON-NLS-1$
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(DBResource.class);
+			.getLogger(RCPResource.class);
 
 	private boolean binary = false;
 
 	private String contentType;
 
-	public DBResource(DBRepository repository, RepositoryPath path) {
+	public RCPResource(RCPRepository repository, RepositoryPath path) {
 		super(repository, path);
 		try {
-			DBFile dbFile = getDocument();
-			if (dbFile != null) {
-				this.binary = dbFile.isBinary();
-				this.contentType = dbFile.getContentType();
+			RCPFile rcpFile = getDocument();
+			if (rcpFile != null) {
+				this.binary = rcpFile.isBinary();
+				this.contentType = rcpFile.getContentType();
 
 			}
 		} catch (IOException e) {
@@ -71,20 +68,20 @@ public class DBResource extends DBEntity implements IResource {
 
 	@Override
 	public void delete() throws IOException {
-		final DBFile document = getDocumentSafe();
+		final RCPFile document = getDocumentSafe();
 		try {
 			document.delete();
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_DELETE_RESOURCE + this.getName(), ex);
 		}
 	}
 
 	@Override
 	public void renameTo(String name) throws IOException {
-		 final DBFile document = getDocumentSafe();
+		 final RCPFile document = getDocumentSafe();
 		 try {
 			 document.rename(RepositoryPath.normalizePath(getParent().getPath(), name));
-		 } catch (DBBaseException ex) {
+		 } catch (RCPBaseException ex) {
 			 throw new IOException(COULD_NOT_RENAME_RESOURCE + this.getName(),
 						ex);
 		 }
@@ -92,10 +89,10 @@ public class DBResource extends DBEntity implements IResource {
 
 	@Override
 	public void moveTo(String path) throws IOException {
-		final DBFile document = getDocumentSafe();
+		final RCPFile document = getDocumentSafe();
 		 try {
 			 document.rename(path);
-		 } catch (DBBaseException ex) {
+		 } catch (RCPBaseException ex) {
 			 throw new IOException(COULD_NOT_RENAME_RESOURCE + this.getName(),
 						ex);
 		 }
@@ -119,11 +116,11 @@ public class DBResource extends DBEntity implements IResource {
 
 	@Override
 	public byte[] getContent() throws IOException {
-		final DBFile document = getDocumentSafe();
+		final RCPFile document = getDocumentSafe();
 		try {
 			byte[] bytes = document.getData();
 			return bytes;
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_READ_RESOURCE_CONTENT, ex);
 		}
 	}
@@ -136,10 +133,10 @@ public class DBResource extends DBEntity implements IResource {
 		}
 
 		if (exists()) {
-			final DBFile document = getDocumentSafe();
+			final RCPFile document = getDocumentSafe();
 			try {
 				document.setData(content);
-			} catch (DBBaseException ex) {
+			} catch (RCPBaseException ex) {
 				throw new IOException(COULD_NOT_UPDATE_DOCUMENT, ex);
 			}
 		} else {
@@ -155,10 +152,10 @@ public class DBResource extends DBEntity implements IResource {
 		if (obj == this) {
 			return true;
 		}
-		if (!(obj instanceof DBResource)) {
+		if (!(obj instanceof RCPResource)) {
 			return false;
 		}
-		final DBResource other = (DBResource) obj;
+		final RCPResource other = (RCPResource) obj;
 		return getPath().equals(other.getPath());
 	}
 
@@ -168,26 +165,26 @@ public class DBResource extends DBEntity implements IResource {
 	}
 
 	/**
-	 * Returns the {@link DBFile} object matching this {@link DBResource}. If
+	 * Returns the {@link RCPFile} object matching this {@link RCPResource}. If
 	 * there is no such object, then <code>null</code> is returned.
 	 */
-	protected DBFile getDocument() throws IOException {
-		final DBObject object = getDBObject();
+	protected RCPFile getDocument() throws IOException {
+		final RCPObject object = getRCPObject();
 		if (object == null) {
 			return null;
 		}
-		if (!(object instanceof DBFile)) {
+		if (!(object instanceof RCPFile)) {
 			return null;
 		}
-		return (DBFile) object;
+		return (RCPFile) object;
 	}
 
 	/**
-	 * Returns the {@link DBFile} object matching this {@link DBResource}. If
+	 * Returns the {@link RCPFile} object matching this {@link RCPResource}. If
 	 * there is no such object, then an {@link IOException} is thrown.
 	 */
-	protected DBFile getDocumentSafe() throws IOException {
-		final DBFile document = getDocument();
+	protected RCPFile getDocumentSafe() throws IOException {
+		final RCPFile document = getDocument();
 		if (document == null) {
 			throw new IOException(format(THERE_IS_NO_RESOURCE_AT_PATH_0,
 					getPath()));
@@ -217,10 +214,10 @@ public class DBResource extends DBEntity implements IResource {
 		}
 
 		if (exists()) {
-			final DBFile document = getDocumentSafe();
+			final RCPFile document = getDocumentSafe();
 			try {
 				document.setData(content);
-			} catch (DBBaseException ex) {
+			} catch (RCPBaseException ex) {
 				throw new IOException(COULD_NOT_UPDATE_DOCUMENT, ex);
 			}
 		} else {
@@ -231,19 +228,20 @@ public class DBResource extends DBEntity implements IResource {
 
 	@Override
 	public List<IResourceVersion> getResourceVersions() throws IOException {
-		try {
-			return getRepository().getRepositoryDAO()
-					.getResourceVersionsByPath(getPath());
-		} catch (DBBaseException ex) {
-			logger.error(ex.getMessage(), ex);
+//		try {
+//			return getRepository().getRepositoryDAO()
+//					.getResourceVersionsByPath(getPath());
+//		} catch (RCPBaseException ex) {
+//			logger.error(ex.getMessage(), ex);
 			return null;
-		}
+//		}
 	}
 
 	@Override
 	public IResourceVersion getResourceVersion(int version) throws IOException {
-		return new DBResourceVersion(getRepository(), new RepositoryPath(
-				getPath()), version);
+//		return new DBResourceVersion(getRepository(), new RepositoryPath(
+//				getPath()), version);
+		return null;
 	}
 
 }

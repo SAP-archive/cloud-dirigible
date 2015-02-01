@@ -13,47 +13,45 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db.dao;
+package com.sap.dirigible.repository.rcp;
 
 import java.util.List;
 
 import com.sap.dirigible.repository.api.RepositoryPath;
-import com.sap.dirigible.repository.db.DBBaseException;
-import com.sap.dirigible.repository.db.DBRepository;
 
 /**
  * Internal representation of a Folder/Collection kind of object
  * 
  */
-public class DBFolder extends DBObject {
+public class RCPFolder extends RCPObject {
 
-	public DBFolder(DBRepository repository) {
+	public RCPFolder(RCPRepository repository) {
 		super(repository);
 	}
 
-	public void deleteTree() throws DBBaseException {
+	public void deleteTree() throws RCPBaseException {
 		getRepository().getRepositoryDAO().removeFolderByPath(getPath());
 	}
 
-	public List<DBObject> getChildren() throws DBBaseException {
-		List<DBObject> result = getRepository().getRepositoryDAO()
+	public List<RCPObject> getChildren() throws RCPBaseException {
+		List<RCPObject> result = getRepository().getRepositoryDAO()
 				.getChildrenByFolder(getPath());
 		return result;
 	}
 
-	public void createFolder(String name) throws DBBaseException {
+	public void createFolder(String name) throws RCPBaseException {
 		getRepository().getRepositoryDAO().createFolder(
 				RepositoryPath.normalizePath(getPath(), name));
 	}
 
 	public void createFile(String name, byte[] content, boolean isBinary,
-			String contentType) throws DBBaseException {
+			String contentType) throws RCPBaseException {
 		getRepository().getRepositoryDAO().createFile(
 				RepositoryPath.normalizePath(getPath(), name),
 				content, isBinary, contentType);
 	}
 	
-	public void renameFolder(String newPath) throws DBBaseException {
+	public void renameFolder(String newPath) throws RCPBaseException {
 		getRepository().getRepositoryDAO().renameFolder(getPath(), newPath);
 	}
 

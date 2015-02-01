@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db;
+package com.sap.dirigible.repository.rcp;
 
 import static java.text.MessageFormat.format;
 
@@ -21,20 +21,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.repository.db.dao.DBFile;
-import com.sap.dirigible.repository.db.dao.DBFolder;
-import com.sap.dirigible.repository.db.dao.DBObject;
+import com.sap.dirigible.repository.api.RepositoryPath;
 
 /**
  * The DB implementation of {@link ICollection}
  * 
  */
-public class DBCollection extends DBEntity implements ICollection {
+public class RCPCollection extends RCPEntity implements ICollection {
 
 	private static final String THERE_IS_NO_COLLECTION_AT_PATH_0 = Messages.getString("DBCollection.THERE_IS_NO_COLLECTION_AT_PATH_0"); //$NON-NLS-1$
 	private static final String COULD_NOT_CREATE_CHILD_DOCUMENT = Messages.getString("DBCollection.COULD_NOT_CREATE_CHILD_DOCUMENT"); //$NON-NLS-1$
@@ -46,7 +43,7 @@ public class DBCollection extends DBEntity implements ICollection {
 	private static final String COULD_NOT_RENAME_COLLECTION = Messages.getString("DBCollection.COULD_NOT_RENAME_COLLECTION"); //$NON-NLS-1$
 	private static final String CANNOT_CREATE_ROOT_COLLECTION = Messages.getString("DBCollection.CANNOT_CREATE_ROOT_COLLECTION"); //$NON-NLS-1$
 
-	public DBCollection(DBRepository repository, RepositoryPath path) {
+	public RCPCollection(RCPRepository repository, RepositoryPath path) {
 		super(repository, path);
 	}
 
@@ -54,17 +51,17 @@ public class DBCollection extends DBEntity implements ICollection {
 	public void create() throws IOException {
 		final ICollection parent = getParent();
 		if (parent == null) {
-			throw new DBBaseException(CANNOT_CREATE_ROOT_COLLECTION);
+			throw new RCPBaseException(CANNOT_CREATE_ROOT_COLLECTION);
 		}
 		parent.createCollection(getName());
 	}
 
 	@Override
 	public void delete() throws IOException {
-		final DBFolder folder = getFolderSafe();
+		final RCPFolder folder = getFolderSafe();
 		try {
 			folder.deleteTree();
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_DELETE_COLLECTION + this.getName(),
 					ex);
 		}
@@ -72,10 +69,10 @@ public class DBCollection extends DBEntity implements ICollection {
 
 	@Override
 	public void renameTo(String name) throws IOException {
-		final DBFolder folder = getFolderSafe();
+		final RCPFolder folder = getFolderSafe();
 		try {
 			folder.renameFolder(RepositoryPath.normalizePath(getParent().getPath(), name));
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_RENAME_COLLECTION + this.getName(),
 					ex);
 		}
@@ -83,10 +80,10 @@ public class DBCollection extends DBEntity implements ICollection {
 
 	@Override
 	public void moveTo(String path) throws IOException {
-		final DBFolder folder = getFolderSafe();
+		final RCPFolder folder = getFolderSafe();
 		try {
 			folder.renameFolder(path);
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_RENAME_COLLECTION + this.getName(),
 					ex);
 		}
@@ -126,14 +123,14 @@ public class DBCollection extends DBEntity implements ICollection {
 	@Override
 	public List<String> getCollectionsNames() throws IOException {
 		final List<String> result = new ArrayList<String>();
-		final DBFolder folder = getFolderSafe();
+		final RCPFolder folder = getFolderSafe();
 		try {
-			for (DBObject child : folder.getChildren()) {
-				if (child instanceof DBFolder) {
+			for (RCPObject child : folder.getChildren()) {
+				if (child instanceof RCPFolder) {
 					result.add(child.getName());
 				}
 			}
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_GET_CHILD_COLLECTION_NAMES
 					+ this.getName(), ex);
 		}
@@ -143,10 +140,10 @@ public class DBCollection extends DBEntity implements ICollection {
 	@Override
 	public ICollection createCollection(String name) throws IOException {
 		createAncestorsAndSelfIfMissing();
-		final DBFolder folder = getFolderSafe();
+		final RCPFolder folder = getFolderSafe();
 		try {
 			folder.createFolder(name);
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_CREATE_CHILD_COLLECTION + name, ex);
 		}
 		return getCollection(name);
@@ -155,7 +152,7 @@ public class DBCollection extends DBEntity implements ICollection {
 	@Override
 	public ICollection getCollection(String name) {
 		final RepositoryPath path = getRepositoryPath().append(name);
-		return new DBCollection(getRepository(), path);
+		return new RCPCollection(getRepository(), path);
 	}
 
 	@Override
@@ -184,14 +181,14 @@ public class DBCollection extends DBEntity implements ICollection {
 	@Override
 	public List<String> getResourcesNames() throws IOException {
 		final List<String> result = new ArrayList<String>();
-		final DBFolder folder = getFolderSafe();
+		final RCPFolder folder = getFolderSafe();
 		try {
-			for (DBObject child : folder.getChildren()) {
-				if (child instanceof DBFile) {
+			for (RCPObject child : folder.getChildren()) {
+				if (child instanceof RCPFile) {
 					result.add(child.getName());
 				}
 			}
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_GET_CHILD_RESOURCE_NAMES
 					+ this.getName(), ex);
 		}
@@ -201,7 +198,7 @@ public class DBCollection extends DBEntity implements ICollection {
 	@Override
 	public IResource getResource(String name) throws IOException {
 		final RepositoryPath path = getRepositoryPath().append(name);
-		return new DBResource(getRepository(), path);
+		return new RCPResource(getRepository(), path);
 	}
 
 //	@Override
@@ -227,10 +224,10 @@ public class DBCollection extends DBEntity implements ICollection {
 	public IResource createResource(String name, byte[] content,
 			boolean isBinary, String contentType) throws IOException {
 		createAncestorsAndSelfIfMissing();
-		final DBFolder folder = getFolderSafe();
+		final RCPFolder folder = getFolderSafe();
 		try {
 			folder.createFile(name, content, isBinary, contentType);
-		} catch (DBBaseException ex) {
+		} catch (RCPBaseException ex) {
 			throw new IOException(COULD_NOT_CREATE_CHILD_DOCUMENT + name, ex);
 		}
 		return getResource(name);
@@ -263,10 +260,10 @@ public class DBCollection extends DBEntity implements ICollection {
 		if (obj == this) {
 			return true;
 		}
-		if (!(obj instanceof DBCollection)) {
+		if (!(obj instanceof RCPCollection)) {
 			return false;
 		}
-		final DBCollection other = (DBCollection) obj;
+		final RCPCollection other = (RCPCollection) obj;
 		return getPath().equals(other.getPath());
 	}
 
@@ -279,23 +276,23 @@ public class DBCollection extends DBEntity implements ICollection {
 	 * Returns the {@link Folder} object matching this {@link CMISContainer}. If
 	 * there is no such object, then <code>null</code> is returned.
 	 */
-	protected DBFolder getFolder() throws IOException {
-		final DBObject object = getDBObject();
+	protected RCPFolder getFolder() throws IOException {
+		final RCPObject object = getRCPObject();
 		if (object == null) {
 			return null;
 		}
-		if (!(object instanceof DBFolder)) {
+		if (!(object instanceof RCPFolder)) {
 			return null;
 		}
-		return (DBFolder) object;
+		return (RCPFolder) object;
 	}
 
 	/**
-	 * Returns the {@link DBFolder} object matching this {@link DBCollection}.
+	 * Returns the {@link RCPFolder} object matching this {@link DBCollection}.
 	 * If there is no such object, then an {@link IOException} is thrown.
 	 */
-	protected DBFolder getFolderSafe() throws IOException {
-		final DBFolder folder = getFolder();
+	protected RCPFolder getFolderSafe() throws IOException {
+		final RCPFolder folder = getFolder();
 		if (folder == null) {
 			throw new IOException(format(THERE_IS_NO_COLLECTION_AT_PATH_0,
 					getPath()));

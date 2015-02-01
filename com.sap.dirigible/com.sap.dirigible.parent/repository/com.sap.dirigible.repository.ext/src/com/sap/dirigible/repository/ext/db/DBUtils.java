@@ -215,22 +215,6 @@ public class DBUtils {
 				"exiting closeStatement"); //$NON-NLS-1$
 	}
 
-	public String normalizePath(String path, String name) {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering normalizePath"); //$NON-NLS-1$
-		String normalizedPath = null;
-		if (path != null) {
-			if (path.endsWith(IRepository.SEPARATOR)) {
-				normalizedPath = path + name;
-			} else {
-				normalizedPath = path + IRepository.SEPARATOR + name;
-			}
-		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting normalizePath"); //$NON-NLS-1$
-		return normalizedPath;
-	}
-
 	public static IDialectSpecifier getDialectSpecifier(String productName) {
 		if (productName != null) {
 			if (PRODUCT_HDB.equals(productName)) {

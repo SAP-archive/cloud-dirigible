@@ -13,25 +13,32 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db.zip;
+package com.sap.dirigible.repository.rcp;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import com.sap.dirigible.repository.api.RepositoryException;
 
-public class Messages {
-	private static final String BUNDLE_NAME = "com.sap.dirigible.repository.db.zip.messages"; //$NON-NLS-1$
+/**
+ * Main exception for the DB repository implementation
+ * 
+ */
+public class RCPBaseException extends RepositoryException {
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	private static final long serialVersionUID = 116149128529374300L;
 
-	private Messages() {
+	public RCPBaseException() {
+		super();
 	}
 
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	public RCPBaseException(String arg0, Throwable arg1) {
+		super(arg0, arg1);
 	}
+
+	public RCPBaseException(String arg0) {
+		super(arg0);
+	}
+
+	public RCPBaseException(Throwable arg0) {
+		super(arg0);
+	}
+
 }

@@ -34,4 +34,4 @@ Import-Package: com.sap.dirigible.ide.editor.text.editor,
  javax.servlet,
  javax.servlet.http
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: RCPWorkspaceActivator
+Bundle-Activator: com.sap.dirigible.ide.workspace.dual.RCPWorkspaceActivator

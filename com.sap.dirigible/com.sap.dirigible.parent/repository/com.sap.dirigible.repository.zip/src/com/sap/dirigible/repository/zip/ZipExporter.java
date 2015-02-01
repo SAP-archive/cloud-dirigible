@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.repository.db.zip;
+package com.sap.dirigible.repository.zip;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
