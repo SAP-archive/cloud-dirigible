@@ -6,7 +6,6 @@ Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.jgit,
- com.sap.dirigible.ide.workspace,
  com.sap.dirigible.ide.workspace.ui,
  com.sap.dirigible.repository.api,
  com.sap.dirigible.ide.common,
@@ -15,7 +14,10 @@ Require-Bundle: org.eclipse.jgit,
  org.eclipse.core.runtime,
  org.eclipse.core.expressions;bundle-version="3.4.500",
  com.sap.dirigible.repository.ext,
- org.apache.commons.io
+ org.apache.commons.io,
+ com.sap.dirigible.ide.workspace.rcp;resolution:=optional,
+ com.sap.dirigible.ide.workspace.rap;resolution:=optional,
+ com.sap.dirigible.ide.repository
 Import-Package: com.sap.dirigible.ide.logging,
  org.eclipse.core.resources
 Export-Package: com.sap.dirigible.ide.jgit.utils,

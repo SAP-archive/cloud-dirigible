@@ -32,15 +32,15 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
+import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.status.DefaultProgressMonitor;
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.jgit.command.ui.CloneCommandDialog;
 import com.sap.dirigible.ide.jgit.connector.JGitConnector;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
-import com.sap.dirigible.ide.workspace.impl.DefaultProgressMonitor;
-import com.sap.dirigible.ide.workspace.impl.Workspace;
+import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.repository.api.IRepository;
 
@@ -81,7 +81,7 @@ public class CloneCommandHandler extends AbstractWorkspaceHandler {
 			final String password) {
 		File gitDirectory = null;
 		try {
-			String user = RemoteResourcesPlugin.getUserName();
+			String user = CommonParameters.getUserName();
 			String repositoryName = repositoryURI.substring(repositoryURI.lastIndexOf(SLASH) + 1,
 					repositoryURI.lastIndexOf(DOT_GIT));
 			gitDirectory = GitFileUtils.createTempDirectory(JGitConnector.TEMP_DIRECTORY_PREFIX
@@ -95,8 +95,7 @@ public class CloneCommandHandler extends AbstractWorkspaceHandler {
 			final String lastSha = jgit.getLastSHAForBranch(MASTER);
 			GitProjectProperties gitProperties = new GitProjectProperties(repositoryURI, lastSha);
 
-			Workspace workspace = (Workspace) RemoteResourcesPlugin.getWorkspace();
-			IRepository repository = workspace.getRepository();
+			IRepository repository = RepositoryFacade.getInstance().getRepository();
 			String workspacePath = String.format(
 					GitProjectProperties.DB_DIRIGIBLE_USERS_S_WORKSPACE, user);
 

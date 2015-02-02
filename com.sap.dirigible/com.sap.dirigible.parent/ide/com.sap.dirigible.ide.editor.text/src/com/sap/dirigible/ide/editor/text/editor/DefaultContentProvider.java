@@ -79,7 +79,7 @@ public class DefaultContentProvider implements IContentProvider,
 			throws ContentProviderException {
 		try {
 			BufferedReader in = null;
-			if (file instanceof com.sap.dirigible.ide.workspace.impl.File) {
+			if (file.getClass().getCanonicalName().equals("com.sap.dirigible.ide.workspace.impl.File")) {
 				in = new BufferedReader(new InputStreamReader(
 						file.getContents()));
 			} else {
@@ -113,7 +113,7 @@ public class DefaultContentProvider implements IContentProvider,
 	protected static final void writeFile(IFile file, byte[] content)
 			throws ContentProviderException {
 		try {
-			if (file instanceof com.sap.dirigible.ide.workspace.impl.File) {
+			if (file.getClass().getCanonicalName().equals("com.sap.dirigible.ide.workspace.impl.File")) {
 			file.setContents(new ByteArrayInputStream(content), false, false,
 					null);
 			} else {

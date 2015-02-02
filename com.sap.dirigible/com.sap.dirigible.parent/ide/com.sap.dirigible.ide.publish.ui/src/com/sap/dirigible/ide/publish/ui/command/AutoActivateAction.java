@@ -34,7 +34,7 @@ import org.eclipse.ui.PlatformUI;
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.PublishManager;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.view.WebViewerView;
 
 public class AutoActivateAction implements IWorkbenchWindowActionDelegate, IResourceChangeListener {
@@ -64,8 +64,7 @@ public class AutoActivateAction implements IWorkbenchWindowActionDelegate, IReso
 
 	@Override
 	public void init(IWorkbenchWindow window) {
-		RemoteResourcesPlugin.getWorkspace().addResourceChangeListener(this);
-
+		WorkspaceLocator.getWorkspace().addResourceChangeListener(this);
 	}
 
 	public static boolean isAutoActivateStrategy() {

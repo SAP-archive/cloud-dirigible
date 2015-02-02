@@ -33,15 +33,15 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.status.DefaultProgressMonitor;
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.jgit.connector.JGitConnector;
 import com.sap.dirigible.ide.jgit.utils.CommandHandlerUtils;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
-import com.sap.dirigible.ide.workspace.impl.DefaultProgressMonitor;
-import com.sap.dirigible.ide.workspace.impl.Workspace;
+import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.repository.api.IRepository;
 
@@ -103,7 +103,7 @@ public class ResetCommandHandler extends AbstractWorkspaceHandler {
 				project.getName());
 		File tempGitDirectory = null;
 		try {
-			String dirigibleUser = RemoteResourcesPlugin.getUserName();
+			String dirigibleUser = CommonParameters.getUserName();
 			GitProjectProperties gitProperties = GitFileUtils.getGitPropertiesForProject(project,
 					dirigibleUser);
 			String gitRepositoryURI = gitProperties.getURL();
@@ -118,8 +118,7 @@ public class ResetCommandHandler extends AbstractWorkspaceHandler {
 
 			GitFileUtils.deleteDGBRepositoryProject(project, dirigibleUser);
 
-			Workspace workspace = (Workspace) project.getWorkspace();
-			IRepository dirigibleRepository = workspace.getRepository();
+			IRepository dirigibleRepository = RepositoryFacade.getInstance().getRepository();
 
 			String workspacePath = String.format(
 					GitProjectProperties.DB_DIRIGIBLE_USERS_S_WORKSPACE, dirigibleUser);

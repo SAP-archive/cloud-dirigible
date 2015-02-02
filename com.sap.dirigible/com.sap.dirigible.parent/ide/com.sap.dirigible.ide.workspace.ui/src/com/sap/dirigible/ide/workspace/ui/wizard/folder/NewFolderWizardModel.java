@@ -25,7 +25,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewerUtils;
@@ -73,7 +73,7 @@ public class NewFolderWizardModel {
 	}
 
 	public IValidationStatus validate() {
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IStatus projectPathValidation = workspace.validatePath(parentLocation,
 				IResource.PROJECT);
 		IStatus folderPathValidation = workspace.validatePath(parentLocation,
@@ -98,7 +98,7 @@ public class NewFolderWizardModel {
 
 	public void execute() throws CoreException {
 		IPath location = new Path(parentLocation).append(folderName);
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
 		IFolder folder = root.getFolder(location);
 		folder.create(false, false, null);

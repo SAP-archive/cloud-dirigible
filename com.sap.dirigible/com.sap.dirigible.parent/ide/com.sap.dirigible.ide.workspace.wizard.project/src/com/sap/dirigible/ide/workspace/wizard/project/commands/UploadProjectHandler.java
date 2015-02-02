@@ -23,6 +23,7 @@ import java.util.zip.ZipInputStream;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
@@ -30,11 +31,9 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
-import com.sap.dirigible.ide.workspace.impl.Workspace;
-import com.sap.dirigible.repository.api.IRepository;
-
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
+import com.sap.dirigible.repository.api.IRepository;
 
 public class UploadProjectHandler extends AbstractWorkspaceHandler {
 
@@ -66,9 +65,8 @@ public class UploadProjectHandler extends AbstractWorkspaceHandler {
 				try {
 					in = new FileInputStream(fullFileName);
 					IRepository repository = RepositoryFacade.getInstance().getRepository();
-					Workspace workspace = (Workspace) RemoteResourcesPlugin.getWorkspace();
-					String root = workspace.getRepositoryPathForWorkspace(RemoteResourcesPlugin
-							.getUserName());
+					IWorkspace workspace = WorkspaceLocator.getWorkspace();
+					String root = WorkspaceLocator.getRepositoryPathForWorkspace(workspace);
 					repository.importZip(new ZipInputStream(in), root);
 					refreshWorkspace();
 				} catch (Exception e) {

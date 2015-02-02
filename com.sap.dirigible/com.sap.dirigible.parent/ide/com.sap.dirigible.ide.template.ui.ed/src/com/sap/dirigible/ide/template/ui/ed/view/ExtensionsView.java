@@ -40,7 +40,7 @@ import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.template.ui.ed.wizard.Messages;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.commands.OpenHandler;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.ext.extensions.ExtensionDefinition;
@@ -95,7 +95,7 @@ public class ExtensionsView extends ViewPart {
 
 	private void openEditor(String path) {
 		IPath location = new Path(path);
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
 		IFile file = root.getFile(location);
 		if (file.exists()) {

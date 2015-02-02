@@ -41,7 +41,7 @@ import org.eclipse.ui.part.ViewPart;
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.ui.view.IRefreshableView;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewer;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewerUtils;
@@ -173,7 +173,7 @@ public class WorkspaceExplorerView extends ViewPart implements IRefreshableView 
 	}
 
 	protected IWorkspace getWorkspace() {
-		return RemoteResourcesPlugin.getWorkspace();
+		return WorkspaceLocator.getWorkspace();
 	}
 
 }

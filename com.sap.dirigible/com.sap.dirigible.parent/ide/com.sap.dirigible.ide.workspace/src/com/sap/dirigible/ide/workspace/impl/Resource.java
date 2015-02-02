@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 
+import com.sap.dirigible.ide.common.status.DefaultProgressMonitor;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.ide.workspace.impl.event.ResourceChangeEvent;

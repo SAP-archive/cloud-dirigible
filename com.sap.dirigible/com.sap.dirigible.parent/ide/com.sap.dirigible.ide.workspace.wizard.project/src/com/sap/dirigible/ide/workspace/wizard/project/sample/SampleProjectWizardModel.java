@@ -31,7 +31,7 @@ import org.eclipse.core.runtime.Status;
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
 import com.sap.dirigible.ide.workspace.wizard.project.create.Messages;
@@ -84,7 +84,7 @@ public class SampleProjectWizardModel {
 				repository.importZip(zipInputStream,
 						CommonParameters.getWorkspace());
 				
-				IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+				IWorkspace workspace = WorkspaceLocator.getWorkspace();
 				IWorkspaceRoot root = workspace.getRoot();
 
 				String gitProjectName = projectFile.getName();
@@ -106,7 +106,7 @@ public class SampleProjectWizardModel {
 	}
 	
 	public IValidationStatus validate() {
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IStatus pathValidation = workspace.validateName(projectName,
 				IResource.PROJECT);
 		if (!pathValidation.isOK()) {

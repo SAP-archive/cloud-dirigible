@@ -20,10 +20,10 @@ import java.io.IOException;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IProject;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
-import com.sap.dirigible.ide.workspace.impl.Workspace;
+import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.IRepository;
 
 public class GitProjectPropertyTest extends PropertyTester {
@@ -38,10 +38,9 @@ public class GitProjectPropertyTest extends PropertyTester {
 		}
 		if (receiver instanceof IProject) {
 			IProject project = (IProject) receiver;
-			Workspace workspace = (Workspace) project.getWorkspace();
-			IRepository repository = workspace.getRepository();
+			IRepository repository = RepositoryFacade.getInstance().getRepository();
 
-			String user = RemoteResourcesPlugin.getUserName();
+			String user = CommonParameters.getUserName();
 			String projectName = project.getName();
 			String gitFilePath = String.format(GitProjectProperties.GIT_PROPERTY_FILE_LOCATION,
 					user, projectName);

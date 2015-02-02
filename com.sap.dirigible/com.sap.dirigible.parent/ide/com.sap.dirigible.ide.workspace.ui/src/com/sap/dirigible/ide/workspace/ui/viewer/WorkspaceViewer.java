@@ -33,7 +33,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 
 public class WorkspaceViewer {
 
@@ -46,7 +46,7 @@ public class WorkspaceViewer {
 	private final IResourceChangeListener changeListener = new CustomResourceChangeListener();
 
 	public WorkspaceViewer(Composite parent, int style) {
-		this(parent, style, RemoteResourcesPlugin.getWorkspace());
+		this(parent, style, WorkspaceLocator.getWorkspace());
 	}
 
 	private WorkspaceViewer(Composite parent, int style, IWorkspace workspace) {

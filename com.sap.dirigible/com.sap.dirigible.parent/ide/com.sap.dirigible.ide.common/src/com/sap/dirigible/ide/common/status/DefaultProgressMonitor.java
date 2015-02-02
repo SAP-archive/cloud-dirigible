@@ -13,7 +13,7 @@
  * limitations under the License. 
  *******************************************************************************/
 
-package com.sap.dirigible.ide.workspace.impl;
+package com.sap.dirigible.ide.common.status;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -23,8 +23,6 @@ import org.eclipse.jface.action.SubStatusLineManager;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.widgets.Control;
-
-import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 
 public class DefaultProgressMonitor implements IProgressMonitor {
 

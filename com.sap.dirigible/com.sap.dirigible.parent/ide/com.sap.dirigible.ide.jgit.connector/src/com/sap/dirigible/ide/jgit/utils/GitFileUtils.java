@@ -33,8 +33,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
-import com.sap.dirigible.ide.workspace.impl.Workspace;
+import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
@@ -105,8 +104,7 @@ public class GitFileUtils {
 		String repositoryPath = String.format(GitProjectProperties.DB_DIRIGIBLE_USERS_S_WORKSPACE,
 				dirigibleUser);
 		String fullPath = repositoryPath + projectPath;
-		Workspace workspace = (Workspace) RemoteResourcesPlugin.getWorkspace();
-		IRepository repository = workspace.getRepository();
+		IRepository repository = RepositoryFacade.getInstance().getRepository();
 		repository.getCollection(fullPath).delete();
 	}
 
@@ -199,8 +197,7 @@ public class GitFileUtils {
 
 	public static GitProjectProperties getGitPropertiesForProject(final IProject selectedProject,
 			String user) throws IOException {
-		Workspace workspace = ((Workspace) selectedProject.getWorkspace());
-		IRepository dirigibleRepository = workspace.getRepository();
+		IRepository dirigibleRepository = RepositoryFacade.getInstance().getRepository();
 
 		String projectName = selectedProject.getName();
 		com.sap.dirigible.repository.api.IResource resource = dirigibleRepository

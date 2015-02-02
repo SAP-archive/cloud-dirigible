@@ -14,6 +14,10 @@ public class RepositoryFactory {
 	static IRepositoryProvider repositoryProvider;
 	
 	static {
+		registerServices();
+	}
+
+	private static void registerServices() {
 		// register script executor providers
 		try {
 			BundleContext context = RepositoryActivator.getContext();
@@ -21,6 +25,7 @@ public class RepositoryFactory {
 			for (Iterator<ServiceReference<IRepositoryProvider>> iterator = serviceReferences.iterator(); iterator.hasNext();) {
 				ServiceReference<IRepositoryProvider> serviceReference = iterator.next();
 				repositoryProvider = context.getService(serviceReference);
+				break;
 			}
 		} catch (InvalidSyntaxException e) {
 //			logger.error(e.getMessage(), e);
@@ -31,7 +36,10 @@ public class RepositoryFactory {
 	public static IRepository createRepository(Map<String, Object> parameters) 
 		throws RepositoryCreationException {
 		if (repositoryProvider == null) {
-			throw new RepositoryCreationException("Repository provider has NOT been registered");
+			registerServices();
+			if (repositoryProvider == null) {
+				throw new RepositoryCreationException("Repository provider has NOT been registered");
+			}
 		}
 		return repositoryProvider.createRepository(parameters);
 	}

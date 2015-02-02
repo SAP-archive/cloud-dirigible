@@ -35,6 +35,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.status.DefaultProgressMonitor;
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.jgit.command.ui.ShareCommandDialog;
 import com.sap.dirigible.ide.jgit.connector.JGitConnector;
@@ -42,9 +44,7 @@ import com.sap.dirigible.ide.jgit.utils.CommandHandlerUtils;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
-import com.sap.dirigible.ide.workspace.impl.DefaultProgressMonitor;
-import com.sap.dirigible.ide.workspace.impl.Workspace;
+import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.repository.api.IRepository;
 
@@ -124,12 +124,11 @@ public class ShareCommandHandler extends AbstractWorkspaceHandler {
 			jgit.commit(commitMessage, username, email, true);
 			jgit.push(username, password);
 
-			Workspace workspace = (Workspace) RemoteResourcesPlugin.getWorkspace();
-			IRepository dirigibleRepository = workspace.getRepository();
+			IRepository dirigibleRepository = RepositoryFacade.getInstance().getRepository();
 
 			String lastSHA = jgit.getLastSHAForBranch(MASTER);
 			GitProjectProperties properties = new GitProjectProperties(repositoryURI, lastSHA);
-			String user = RemoteResourcesPlugin.getUserName();
+			String user = CommonParameters.getUserName();
 
 			GitFileUtils.saveGitPropertiesFile(dirigibleRepository, properties, user,
 					project.getName());

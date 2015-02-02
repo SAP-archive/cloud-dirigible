@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
 
 public class RenameWizardModel {
@@ -53,7 +53,7 @@ public class RenameWizardModel {
 	}
 
 	public ValidationStatus validate() {
-		final IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		final IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		final IStatus nameValidation = workspace.validateName(resourceName,
 				resource.getType());
 		if (!nameValidation.isOK()) {

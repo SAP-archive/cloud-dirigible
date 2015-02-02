@@ -35,6 +35,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.status.DefaultProgressMonitor;
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.jgit.command.ui.PushCommandDialog;
 import com.sap.dirigible.ide.jgit.connector.JGitConnector;
@@ -42,9 +44,7 @@ import com.sap.dirigible.ide.jgit.utils.CommandHandlerUtils;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
-import com.sap.dirigible.ide.workspace.impl.DefaultProgressMonitor;
-import com.sap.dirigible.ide.workspace.impl.Workspace;
+import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.repository.api.IRepository;
 
@@ -127,7 +127,7 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 		GitProjectProperties gitProperties = null;
 		try {
 			gitProperties = GitFileUtils.getGitPropertiesForProject(selectedProject,
-					RemoteResourcesPlugin.getUserName());
+					CommonParameters.getUserName());
 		} catch (IOException e) {
 			MessageDialog.openError(null, THIS_IS_NOT_A_GIT_PROJECT, errorMessage);
 			return;
@@ -145,7 +145,7 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 			JGitConnector jgit = new JGitConnector(repository);
 			String lastSHA = gitProperties.getSHA();
 
-			final String changesBranch = CHANGES_BRANCH + RemoteResourcesPlugin.getUserName();
+			final String changesBranch = CHANGES_BRANCH + CommonParameters.getUserName();
 			jgit.checkout(lastSHA);
 			jgit.createBranch(changesBranch, lastSHA);
 			jgit.checkout(changesBranch);
@@ -163,12 +163,11 @@ public class PushCommandHandler extends AbstractWorkspaceHandler {
 				jgit.rebase(changesBranch);
 				jgit.push(username, password);
 
-				String dirigibleUser = RemoteResourcesPlugin.getUserName();
+				String dirigibleUser = CommonParameters.getUserName();
 
 				GitFileUtils.deleteDGBRepositoryProject(selectedProject, dirigibleUser);
 
-				Workspace workspace = (Workspace) RemoteResourcesPlugin.getWorkspace();
-				IRepository dirigibleRepository = workspace.getRepository();
+				IRepository dirigibleRepository = RepositoryFacade.getInstance().getRepository();
 
 				String workspacePath = String.format(
 						GitProjectProperties.DB_DIRIGIBLE_USERS_S_WORKSPACE, dirigibleUser);

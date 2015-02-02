@@ -95,7 +95,11 @@ public class ResourceHistoryView extends ViewPart {
 				String error = null;
 				try {
 					resourceVersions = selectedResource.getResourceVersions();
-					return resourceVersions.toArray(new IResourceVersion[] {});
+					if (resourceVersions != null) {
+						return resourceVersions.toArray(new IResourceVersion[] {});
+					} else {
+						return new IResourceVersion[] {};
+					}
 				} catch (IOException e) {
 					error = e.getMessage();
 					logger.error(e.getMessage(), e);

@@ -33,7 +33,7 @@ import org.eclipse.core.runtime.Path;
 
 import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.template.velocity.VelocityGenerator;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewerUtils;
 
 public abstract class TemplateGenerator {
@@ -76,7 +76,7 @@ public abstract class TemplateGenerator {
 	}
 
 	protected void createFile(IPath location, byte[] bytes) throws Exception {
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
 		IFile file = root.getFile(location);
 		if (file.exists()) {

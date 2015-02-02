@@ -30,7 +30,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 
 import com.sap.dirigible.ide.logging.Logger;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.shared.IContentProvider;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.shared.TextContentProvider;
@@ -124,7 +124,7 @@ public class NewFileWizardModel {
 	}
 
 	private IValidationStatus validateResourceLocation() {
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IStatus folderLocationValidation = workspace.validatePath(
 				parentLocation, IResource.FOLDER);
 		IStatus projectLocationValidation = workspace.validatePath(
@@ -170,7 +170,7 @@ public class NewFileWizardModel {
 
 	public void execute() throws CoreException {
 		IPath location = new Path(parentLocation).append(fileName);
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
 		IFile file = root.getFile(location);
 		try {

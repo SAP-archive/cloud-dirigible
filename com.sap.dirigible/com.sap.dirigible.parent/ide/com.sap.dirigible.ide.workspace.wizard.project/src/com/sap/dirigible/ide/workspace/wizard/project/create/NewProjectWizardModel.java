@@ -31,7 +31,7 @@ import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishManager;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
-import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
+import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
 import com.sap.dirigible.repository.api.ICollection;
@@ -75,7 +75,7 @@ public class NewProjectWizardModel {
 	}
 
 	public IValidationStatus validate() {
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IStatus pathValidation = workspace.validateName(projectName,
 				IResource.PROJECT);
 		if (!pathValidation.isOK()) {
@@ -129,11 +129,14 @@ public class NewProjectWizardModel {
 	}
 
 	public IProject execute() throws CoreException {
-		IWorkspace workspace = RemoteResourcesPlugin.getWorkspace();
+		IWorkspace workspace = WorkspaceLocator.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
 		IProject project = root.getProject(projectName);
 		// create the project first
 		project.create(null);
+		
+		project.open(null);		
+		
 		if (isUseTemplate()) {
 			String contentPath = this.template.getContentPath();
 			try {
@@ -164,7 +167,7 @@ public class NewProjectWizardModel {
 				folder.create(true, false, null);
 			}
 		}
-
+		
 		return project;
 	}
 
