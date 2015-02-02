@@ -76,6 +76,8 @@ public class RCPWorkspaceMapper {
 			prefixMapEquals.put("/db/dirigible/registry", workspaceRoot + File.separator + "registry");
 			prefixMapEquals.put("/db/dirigible/sandbox", workspaceRoot + File.separator + "sandbox");
 			prefixMapEquals.put("/db/dirigible/templates", workspaceRoot + File.separator + "templates");
+			prefixMapEquals.put("/db/dirigible/default.content", workspaceRoot + File.separator + "db" + File.separator + "dirigible" + File.separator + "default.content");
+			
 		}
 
 	}

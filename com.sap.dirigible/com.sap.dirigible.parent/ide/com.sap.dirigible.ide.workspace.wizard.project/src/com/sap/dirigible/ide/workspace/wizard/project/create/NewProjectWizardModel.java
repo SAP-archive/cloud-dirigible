@@ -18,6 +18,7 @@ package com.sap.dirigible.ide.workspace.wizard.project.create;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -25,6 +26,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 
 import com.sap.dirigible.ide.logging.Logger;
@@ -133,9 +135,13 @@ public class NewProjectWizardModel {
 		IWorkspaceRoot root = workspace.getRoot();
 		IProject project = root.getProject(projectName);
 		// create the project first
-		project.create(null);
+		try {
+			project.create(new NullProgressMonitor());
+		} catch(CoreException e) {
+			logger.error(e.getMessage());
+		}
 		
-		project.open(null);		
+		project.open(new NullProgressMonitor());		
 		
 		if (isUseTemplate()) {
 			String contentPath = this.template.getContentPath();

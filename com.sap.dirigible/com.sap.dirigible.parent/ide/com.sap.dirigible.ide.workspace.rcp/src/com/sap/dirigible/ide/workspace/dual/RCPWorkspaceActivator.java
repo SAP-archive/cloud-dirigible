@@ -18,7 +18,7 @@ public class RCPWorkspaceActivator extends AbstractUIPlugin {
 		super.start(context);
 		this.context = context;
 		ContentInitializerServlet initializerServlet = new ContentInitializerServlet();
-		initializerServlet.initDefaultContent(null);
+//		initializerServlet.initDefaultContent(null);
 	}
 
 	@Override

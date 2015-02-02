@@ -23,8 +23,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.runtime.task.IRunnableTask;
+import com.sap.dirigible.runtime.task.TaskManagerShort;
 
 public class ContentInitializerServlet extends HttpServlet {
 
@@ -48,16 +51,63 @@ public class ContentInitializerServlet extends HttpServlet {
 //
 //	private static final String SYSTEM_USER = "SYSTEM"; //$NON-NLS-1$
 	
+	public ContentInitializerServlet() {
+		super();
+		TaskManagerShort.getInstance().registerRunnableTask(new ContentInitializerRegister(this));
+		logger.info("Content Initializer Register has been registered");
+	}
+	
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		initDefaultContent(null);
+//		initDefaultContent(null);
+//		TaskManagerShort.getInstance().registerRunnableTask(new ContentInitializerRegister(this));
+//		logger.info("Content Initializer Register has been registered");
 	}
 	
-	public void initDefaultContent(HttpServletRequest request) throws ServletException {
+
+	class ContentInitializerRegister implements IRunnableTask {
+
+		ContentInitializerServlet contentInitializerServlet;
+
+		ContentInitializerRegister(ContentInitializerServlet contentInitializerServlet) {
+			this.contentInitializerServlet = contentInitializerServlet;
+		}
+
+		@Override
+		public String getName() {
+			return "Content Initializer Register";
+		}
+
+		@Override
+		public void start() {
+			boolean ok = false;
+			try {
+				ok = initDefaultContent(null);
+			} catch (ServletException e) {
+				logger.error(e.getMessage(), e);
+			}
+			if (ok) {
+				TaskManagerShort.getInstance().unregisterRunnableTask(this);
+				logger.info("Content Initializer Register has been un-registered");
+			}
+		}
+
+	}
+	
+	public boolean initDefaultContent(HttpServletRequest request) throws ServletException {
 		
 		ContentImporterServlet contentImporterServlet = new ContentImporterServlet();
+		
+		try {
+			IRepository repository = contentImporterServlet.getRepository(request);
+			if (repository == null) {
+				return false;
+			}
+		} catch (IOException e1) {
+			return false;
+		}
 		try {
 			// TODO better check for content init done 
 			IResource resource = contentImporterServlet.getRepository(request).getResource("/db/dirigible/default.content");
@@ -75,6 +125,7 @@ public class ContentInitializerServlet extends HttpServlet {
 			logger.error(e.getMessage());
 		}
 		
+		return true;
 	}
 	
 	
