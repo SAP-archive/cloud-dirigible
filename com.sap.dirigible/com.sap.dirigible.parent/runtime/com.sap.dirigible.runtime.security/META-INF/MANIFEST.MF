@@ -21,4 +21,3 @@ Import-Package: javax.servlet,
 Bundle-ActivationPolicy: lazy
 Export-Package: com.sap.dirigible.runtime.filter,
  com.sap.dirigible.runtime.security
-

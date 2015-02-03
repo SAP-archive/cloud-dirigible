@@ -24,10 +24,6 @@ import javax.servlet.http.HttpServlet;
 
 import com.sap.dirigible.runtime.job.JobsSynchronizer;
 import com.sap.dirigible.runtime.logger.Logger;
-import com.sap.dirigible.runtime.memory.MemoryLogCleanupTask;
-import com.sap.dirigible.runtime.memory.MemoryLogTask;
-import com.sap.dirigible.runtime.metrics.AccessLogCleanupTask;
-import com.sap.dirigible.runtime.metrics.AccessLogLocationsSynchronizer;
 import com.sap.dirigible.runtime.repository.RepositoryHistoryCleanupTask;
 import com.sap.dirigible.runtime.search.RebuildSearchIndexTask;
 import com.sap.dirigible.runtime.search.UpdateSearchIndexTask;
@@ -42,54 +38,71 @@ public class SchedulerServlet extends HttpServlet {
 
 	private static final Logger logger = Logger.getLogger(SchedulerServlet.class);
 
-	private ScheduledExecutorService securitySynchronizerScheduler;
-	private ScheduledExecutorService jobsSynchronizerScheduler;
-	private ScheduledExecutorService taskManagerShortScheduler;
-	private ScheduledExecutorService taskManagerMediumScheduler;
-	private ScheduledExecutorService taskManagerLongScheduler;
+	private static ScheduledExecutorService securitySynchronizerScheduler;
+	private static ScheduledExecutorService jobsSynchronizerScheduler;
+	private static ScheduledExecutorService taskManagerShortScheduler;
+	private static ScheduledExecutorService taskManagerMediumScheduler;
+	private static ScheduledExecutorService taskManagerLongScheduler;
+	
+	private static Boolean started = false;
 	
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
-				+ "contextInitialized"); //$NON-NLS-1$
+		startSchedulers();
+	}
 
-		securitySynchronizerScheduler = Executors.newSingleThreadScheduledExecutor();
-		securitySynchronizerScheduler.scheduleAtFixedRate(new SecuritySynchronizer(), 1, 1, TimeUnit.MINUTES);
+	public void startSchedulers() {
+		synchronized (started) {
+			if (!started) {
+				logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
+						+ "contextInitialized"); //$NON-NLS-1$
 		
-		jobsSynchronizerScheduler = Executors.newSingleThreadScheduledExecutor();
-		jobsSynchronizerScheduler.scheduleAtFixedRate(new JobsSynchronizer(), 1, 1, TimeUnit.MINUTES);
-
-		taskManagerShortScheduler = Executors.newSingleThreadScheduledExecutor();
-		taskManagerShortScheduler.scheduleAtFixedRate(TaskManagerShort.getInstance(),10, 10, TimeUnit.SECONDS);
-
-		taskManagerMediumScheduler = Executors.newSingleThreadScheduledExecutor();
-		taskManagerMediumScheduler.scheduleAtFixedRate(TaskManagerMedium.getInstance(), 1, 1,TimeUnit.MINUTES);
-
-		taskManagerLongScheduler = Executors.newSingleThreadScheduledExecutor();
-		taskManagerLongScheduler.scheduleAtFixedRate(TaskManagerLong.getInstance(),	1, 1,TimeUnit.HOURS);
-
-		registerRunnableTasks();
-
-		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
-				+ "contextInitialized"); //$NON-NLS-1$
+				securitySynchronizerScheduler = Executors.newSingleThreadScheduledExecutor();
+				securitySynchronizerScheduler.scheduleAtFixedRate(new SecuritySynchronizer(), 1, 1, TimeUnit.MINUTES);
+				
+				jobsSynchronizerScheduler = Executors.newSingleThreadScheduledExecutor();
+				jobsSynchronizerScheduler.scheduleAtFixedRate(new JobsSynchronizer(), 1, 1, TimeUnit.MINUTES);
+		
+				taskManagerShortScheduler = Executors.newSingleThreadScheduledExecutor();
+				taskManagerShortScheduler.scheduleAtFixedRate(TaskManagerShort.getInstance(),10, 10, TimeUnit.SECONDS);
+		
+				taskManagerMediumScheduler = Executors.newSingleThreadScheduledExecutor();
+				taskManagerMediumScheduler.scheduleAtFixedRate(TaskManagerMedium.getInstance(), 1, 1,TimeUnit.MINUTES);
+		
+				taskManagerLongScheduler = Executors.newSingleThreadScheduledExecutor();
+				taskManagerLongScheduler.scheduleAtFixedRate(TaskManagerLong.getInstance(),	1, 1,TimeUnit.HOURS);
+		
+				registerRunnableTasks();
+		
+				logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
+						+ "contextInitialized"); //$NON-NLS-1$
+				started = true;
+			}
+		}
 	}
 	
 	@Override
 	public void destroy() {
 		
-		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
-				+ "contextDestroyed"); //$NON-NLS-1$
-
-		securitySynchronizerScheduler.shutdownNow();
-		taskManagerShortScheduler.shutdownNow();
-		taskManagerMediumScheduler.shutdownNow();
-		taskManagerLongScheduler.shutdownNow();
-
-		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
-				+ "contextDestroyed"); //$NON-NLS-1$
+		stopSchedulers();
 		
 		super.destroy();
+	}
+
+	void stopSchedulers() {
+		synchronized (started) {
+			if (started) {
+				logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
+						+ "contextDestroyed"); //$NON-NLS-1$
+				securitySynchronizerScheduler.shutdownNow();
+				taskManagerShortScheduler.shutdownNow();
+				taskManagerMediumScheduler.shutdownNow();
+				taskManagerLongScheduler.shutdownNow();
+				logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
+						+ "contextDestroyed"); //$NON-NLS-1$
+			}
+		}
 	}
 
 
@@ -98,26 +111,26 @@ public class SchedulerServlet extends HttpServlet {
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "registerRunnableTasks"); //$NON-NLS-1$
 
-		// short
-		AccessLogLocationsSynchronizer accessLogLocationsSynchronizer = new AccessLogLocationsSynchronizer();
-		TaskManagerShort.getInstance().registerRunnableTask(accessLogLocationsSynchronizer);
-
-		// medium
-		MemoryLogTask memoryLogTask = new MemoryLogTask();
-		TaskManagerMedium.getInstance().registerRunnableTask(memoryLogTask);
+//		// short
+//		AccessLogLocationsSynchronizer accessLogLocationsSynchronizer = new AccessLogLocationsSynchronizer();
+//		TaskManagerShort.getInstance().registerRunnableTask(accessLogLocationsSynchronizer);
+//
+//		// medium
+//		MemoryLogTask memoryLogTask = new MemoryLogTask();
+//		TaskManagerMedium.getInstance().registerRunnableTask(memoryLogTask);
 
 		UpdateSearchIndexTask updateSearchIndexTask = new UpdateSearchIndexTask();
 		TaskManagerLong.getInstance().registerRunnableTask(updateSearchIndexTask);
 
-		// long
-		AccessLogCleanupTask accessLogCleanupTask = new AccessLogCleanupTask();
-		TaskManagerLong.getInstance().registerRunnableTask(accessLogCleanupTask);
+//		// long
+//		AccessLogCleanupTask accessLogCleanupTask = new AccessLogCleanupTask();
+//		TaskManagerLong.getInstance().registerRunnableTask(accessLogCleanupTask);
 
 		RepositoryHistoryCleanupTask historyCleanupTask = new RepositoryHistoryCleanupTask();
 		TaskManagerLong.getInstance().registerRunnableTask(historyCleanupTask);
 
-		MemoryLogCleanupTask memoryLogCleanupTask = new MemoryLogCleanupTask();
-		TaskManagerLong.getInstance().registerRunnableTask(memoryLogCleanupTask);
+//		MemoryLogCleanupTask memoryLogCleanupTask = new MemoryLogCleanupTask();
+//		TaskManagerLong.getInstance().registerRunnableTask(memoryLogCleanupTask);
 
 		RebuildSearchIndexTask rebuildSearchIndexTask = new RebuildSearchIndexTask();
 		TaskManagerLong.getInstance().registerRunnableTask(rebuildSearchIndexTask);
@@ -126,5 +139,24 @@ public class SchedulerServlet extends HttpServlet {
 				+ "registerRunnableTasks"); //$NON-NLS-1$
 	}
 
+	public ScheduledExecutorService getSecuritySynchronizerScheduler() {
+		return securitySynchronizerScheduler;
+	}
+
+	public ScheduledExecutorService getJobsSynchronizerScheduler() {
+		return jobsSynchronizerScheduler;
+	}
+
+	public ScheduledExecutorService getTaskManagerShortScheduler() {
+		return taskManagerShortScheduler;
+	}
+
+	public ScheduledExecutorService getTaskManagerMediumScheduler() {
+		return taskManagerMediumScheduler;
+	}
+
+	public ScheduledExecutorService getTaskManagerLongScheduler() {
+		return taskManagerLongScheduler;
+	}
 
 }

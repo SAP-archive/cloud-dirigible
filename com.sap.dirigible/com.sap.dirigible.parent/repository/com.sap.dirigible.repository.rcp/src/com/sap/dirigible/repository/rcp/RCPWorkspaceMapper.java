@@ -12,17 +12,27 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.RepositoryPath;
 
 public class RCPWorkspaceMapper {
 	
 	private static Map<String, String> prefixMap = Collections.synchronizedMap(new HashMap<String, String>());
 	private static Map<String, String> prefixMapEquals = Collections.synchronizedMap(new HashMap<String, String>());
 	
+	private static String workspaceRoot = "/";
+	
 	public static String getMappedName(String repositoryName) throws IOException {
 		String workspaceName = null;
 		
 		if (repositoryName != null) {
 			check();
+			
+			if (repositoryName.startsWith(workspaceRoot)
+					&& repositoryName.length() > workspaceRoot.length()) {
+				repositoryName = IRepository.SEPARATOR + repositoryName.substring(workspaceRoot.length() + 1);
+			}
+			
+			repositoryName = repositoryName.replace(File.separator, IRepository.SEPARATOR);
 			
 			for (Entry<String, String> prefix: prefixMapEquals.entrySet()) {
 				if (repositoryName.equals(prefix.getKey())) {
@@ -46,6 +56,8 @@ public class RCPWorkspaceMapper {
 		if (workspaceName == null) {
 			workspaceName = repositoryName;
 //			throw new IOException("No workspace mapping for file: " + repositoryName);
+		} else {
+			workspaceName = workspaceName.replace(IRepository.SEPARATOR, File.separator);
 		}
 		
 		return workspaceName;
@@ -56,27 +68,27 @@ public class RCPWorkspaceMapper {
 			
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			File workspaceDirectory = workspace.getRoot().getLocation().toFile();
-			String workspaceRoot = "/";
 			workspaceRoot = workspaceDirectory.getCanonicalPath();
-			
 			
 			prefixMap.put("/db/dirigible/users/local/workspace", workspaceRoot);
 			prefixMap.put(workspaceRoot + "/db/dirigible/users/local/workspace", workspaceRoot);
 			
-			prefixMap.put("/db/dirigible/registry", workspaceRoot + File.separator + "registry");
-			prefixMap.put("/db/dirigible/sandbox", workspaceRoot + File.separator + "sandbox");
-			prefixMap.put("/db/dirigible/templates", workspaceRoot + File.separator + "templates");
+			String db_dirigible_root = workspaceRoot + File.separator + "db" + File.separator + "dirigible" + File.separator;
+			
+			prefixMap.put("/db/dirigible/registry", db_dirigible_root + "registry");
+			prefixMap.put("/db/dirigible/sandbox", db_dirigible_root + "sandbox");
+			prefixMap.put("/db/dirigible/templates", db_dirigible_root + "templates");
 			
 			prefixMapEquals.put("/", workspaceRoot);
 			prefixMapEquals.put("/db", workspaceRoot + File.separator + "db");
 			prefixMapEquals.put("/db/dirigible", workspaceRoot + File.separator + "db" + File.separator + "dirigible");
-			prefixMapEquals.put("/db/dirigible/users", workspaceRoot + File.separator + "db" + File.separator + "dirigible" + File.separator + "users");
-			prefixMapEquals.put("/db/dirigible/users/local", workspaceRoot + File.separator + "db" + File.separator + "dirigible" + File.separator + "users" + File.separator + "local" );
+			prefixMapEquals.put("/db/dirigible/users", db_dirigible_root + "users");
+			prefixMapEquals.put("/db/dirigible/users/local", db_dirigible_root + "users" + File.separator + "local" );
 			
-			prefixMapEquals.put("/db/dirigible/registry", workspaceRoot + File.separator + "registry");
-			prefixMapEquals.put("/db/dirigible/sandbox", workspaceRoot + File.separator + "sandbox");
-			prefixMapEquals.put("/db/dirigible/templates", workspaceRoot + File.separator + "templates");
-			prefixMapEquals.put("/db/dirigible/default.content", workspaceRoot + File.separator + "db" + File.separator + "dirigible" + File.separator + "default.content");
+			prefixMapEquals.put("/db/dirigible/registry", db_dirigible_root + "registry");
+			prefixMapEquals.put("/db/dirigible/sandbox", db_dirigible_root + "sandbox");
+			prefixMapEquals.put("/db/dirigible/templates", db_dirigible_root + "templates");
+			prefixMapEquals.put("/db/dirigible/default.content", db_dirigible_root + "default.content");
 			
 		}
 

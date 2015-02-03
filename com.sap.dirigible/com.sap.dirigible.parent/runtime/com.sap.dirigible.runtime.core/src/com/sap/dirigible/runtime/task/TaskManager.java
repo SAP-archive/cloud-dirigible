@@ -30,7 +30,10 @@ public abstract class TaskManager implements Runnable {
 
 	private List<IRunnableTask> runnableTasks = Collections
 			.synchronizedList(new ArrayList<IRunnableTask>());
-
+	
+	private List<IRunnableTask> forRemove = Collections
+			.synchronizedList(new ArrayList<IRunnableTask>());
+	
 	@Override
 	public void run() {
 
@@ -54,6 +57,7 @@ public abstract class TaskManager implements Runnable {
 	// }
 
 	public void registerRunnableTask(IRunnableTask runnableTask) {
+	
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "registerRunnableTask"); //$NON-NLS-1$
 
@@ -62,21 +66,40 @@ public abstract class TaskManager implements Runnable {
 
 		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "registerRunnableTask"); //$NON-NLS-1$
+
 	}
 
 	public void unregisterRunnableTask(IRunnableTask runnableTask) {
 		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "unregisterRunnableTask"); //$NON-NLS-1$
 
-		runnableTasks.remove(runnableTask);
+		forRemove.add(runnableTask);
+
 		logger.debug("unregistered runnable task: " + runnableTask.getName()); //$NON-NLS-1$
 
 		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
 				+ "unregisterRunnableTask"); //$NON-NLS-1$
 	}
+	
+	private void removeRunnableTask(IRunnableTask runnableTask) {
+		logger.debug("entering: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
+				+ "removeRunnableTask"); //$NON-NLS-1$
+
+		runnableTasks.remove(runnableTask);
+		logger.debug("unregistered runnable task: " + runnableTask.getName()); //$NON-NLS-1$
+
+		logger.debug("exiting: " + this.getClass().getCanonicalName() + " -> " //$NON-NLS-1$ //$NON-NLS-2$
+				+ "removeRunnableTask"); //$NON-NLS-1$
+	}
 
 	private void startRunnableTasks() throws ServletException {
-
+		
+		// remove the tasks registered for removing first
+		for (IRunnableTask runnableTask : forRemove) {
+			removeRunnableTask(runnableTask);
+		}
+		
+		// start consecutively all available tasks
 		for (Iterator<IRunnableTask> iterator = runnableTasks.iterator(); iterator.hasNext();) {
 			IRunnableTask task = iterator.next();
 			try {

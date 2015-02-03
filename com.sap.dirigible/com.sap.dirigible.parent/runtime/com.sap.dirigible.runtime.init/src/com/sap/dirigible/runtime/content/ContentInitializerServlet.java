@@ -51,19 +51,23 @@ public class ContentInitializerServlet extends HttpServlet {
 //
 //	private static final String SYSTEM_USER = "SYSTEM"; //$NON-NLS-1$
 	
-	public ContentInitializerServlet() {
-		super();
-		TaskManagerShort.getInstance().registerRunnableTask(new ContentInitializerRegister(this));
-		logger.info("Content Initializer Register has been registered");
-	}
+//	public ContentInitializerServlet() {
+//		super();
+//		registerInitRegister();
+//	}
 	
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 //		initDefaultContent(null);
-//		TaskManagerShort.getInstance().registerRunnableTask(new ContentInitializerRegister(this));
-//		logger.info("Content Initializer Register has been registered");
+		registerInitRegister();
+	}
+
+
+	public void registerInitRegister() {
+		TaskManagerShort.getInstance().registerRunnableTask(new ContentInitializerRegister(this));
+		logger.info("Content Initializer Register has been registered");
 	}
 	
 
