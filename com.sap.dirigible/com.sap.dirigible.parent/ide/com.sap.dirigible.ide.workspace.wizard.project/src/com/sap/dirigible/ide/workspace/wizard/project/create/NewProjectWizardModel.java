@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
@@ -152,7 +153,11 @@ public class NewProjectWizardModel {
 						.getResource(contentPath);
 				if (contentResource.exists()) {
 					byte[] data = contentResource.getContent();
-					repository.importZip(data, project.getRawLocation()
+					IPath location = project.getRawLocation();
+					if (location == null) {
+						location = project.getLocation();
+					}
+					repository.importZip(data, location
 							.toString());
 				}
 			} catch (RepositoryException e) {

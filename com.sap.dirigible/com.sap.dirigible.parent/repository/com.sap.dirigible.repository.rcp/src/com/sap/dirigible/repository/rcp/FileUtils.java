@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 
+import com.sap.dirigible.repository.api.IRepositoryPaths;
+
 public class FileUtils {
 
 	public static void saveFile(String workspacePath, byte[] content)
@@ -64,12 +66,25 @@ public class FileUtils {
 	}
 
 	public static String getOwner(String workspacePath) throws IOException {
-		Path path = FileSystems.getDefault().getPath(workspacePath);
+		String convertedPath = convertToWorkspacePath(workspacePath);
+		Path path = FileSystems.getDefault().getPath(convertedPath);
 		return Files.getOwner(path).getName();
 	}
 	
 	public static Date getModifiedAt(String workspacePath) throws IOException {
-		Path path = FileSystems.getDefault().getPath(workspacePath);
+		String convertedPath = convertToWorkspacePath(workspacePath);
+		Path path = FileSystems.getDefault().getPath(convertedPath);
 		return new Date(Files.getLastModifiedTime(path).toMillis());
+	}
+
+	private static String convertToWorkspacePath(String path) {
+		String workspacePath = null;
+		if (path.startsWith(IRepositoryPaths.SEPARATOR)) {
+			workspacePath = path.substring(IRepositoryPaths.SEPARATOR.length());
+		} else {
+			workspacePath = path;
+		}
+		workspacePath = workspacePath.replace(IRepositoryPaths.SEPARATOR, File.separator);
+		return workspacePath;
 	}
 }
