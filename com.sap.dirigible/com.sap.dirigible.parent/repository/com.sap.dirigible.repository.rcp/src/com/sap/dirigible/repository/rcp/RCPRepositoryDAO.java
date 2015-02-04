@@ -116,7 +116,12 @@ public class RCPRepositoryDAO {
 			String workspacePath = RCPWorkspaceMapper.getMappedName(path);
 			File objectFile = new File(workspacePath);
 			if (!objectFile.exists()) {
-				return null;
+				// This is folder, that was not created
+				if (ContentTypeHelper.getExtension(workspacePath).isEmpty()) {
+					objectFile.mkdirs();
+				} else {
+					return null;
+				}
 			}
 			if (objectFile.isFile()) {
 				String contentType = ContentTypeHelper.getContentType(FileUtils.getExtension(workspacePath));
