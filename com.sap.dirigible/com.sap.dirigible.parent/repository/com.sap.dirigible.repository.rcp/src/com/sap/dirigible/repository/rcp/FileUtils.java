@@ -14,6 +14,7 @@ public class FileUtils {
 
 	public static void saveFile(String workspacePath, byte[] content)
 			throws FileNotFoundException, IOException {
+		createFoldersIfNecessary(workspacePath);
 		Path path = FileSystems.getDefault().getPath(workspacePath);
 		Files.write(path, content);
 	}
@@ -26,6 +27,7 @@ public class FileUtils {
 	
 	public static void moveFile(String workspacePathOld, String workspacePathNew)
 			throws FileNotFoundException, IOException {
+		createFoldersIfNecessary(workspacePathNew);
 		Path pathOld = FileSystems.getDefault().getPath(workspacePathOld);
 		Path pathNew = FileSystems.getDefault().getPath(workspacePathNew);
 		Files.move(pathOld, pathNew);
@@ -40,12 +42,13 @@ public class FileUtils {
 	public static boolean createFolder(String workspacePath) {
 		File folder = new File(workspacePath);
 		if (!folder.exists()) {
-			return folder.mkdir();
+			return folder.mkdirs();
 		}
 		return true;
 	}
 	
 	public static boolean createFile(String workspacePath) throws IOException {
+		createFoldersIfNecessary(workspacePath);
 		File file = new File(workspacePath);
 		if (!file.exists()) {
 			return file.createNewFile();
@@ -75,6 +78,14 @@ public class FileUtils {
 		String convertedPath = convertToWorkspacePath(workspacePath);
 		Path path = FileSystems.getDefault().getPath(convertedPath);
 		return new Date(Files.getLastModifiedTime(path).toMillis());
+	}
+
+	private static void createFoldersIfNecessary(String workspacePath) {
+		int lastIndexOf = workspacePath.lastIndexOf(File.separator);
+		if (lastIndexOf > 0) {
+			String directory = workspacePath.substring(0, lastIndexOf);
+			createFolder(directory);
+		}
 	}
 
 	private static String convertToWorkspacePath(String path) {

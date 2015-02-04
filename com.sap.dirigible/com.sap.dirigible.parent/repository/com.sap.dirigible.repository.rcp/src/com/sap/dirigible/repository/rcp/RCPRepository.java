@@ -23,6 +23,7 @@ import java.util.zip.ZipInputStream;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.api.IResourceVersion;
 import com.sap.dirigible.repository.api.RepositoryPath;
@@ -173,33 +174,40 @@ public class RCPRepository implements IRepository {
 	}
 
 	@Override
-	public void importZip(ZipInputStream zipInputStream, String relativeRoot)
+	public void importZip(ZipInputStream zipInputStream, String path)
 			throws IOException {
 		if (zipInputStream == null) {
 			logger.error(PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL);
 			throw new IOException(PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL);
 		}
+		String relativeRoot = RCPWorkspaceMapper.getReverseMappedName(path);
 		ZipImporter.importZip(this, zipInputStream, relativeRoot);
 	}
 
 	@Override
-	public void importZip(byte[] data, String relativeRoot) throws IOException {
+	public void importZip(byte[] data, String path) throws IOException {
 		if (data == null) {
 			logger.error(PROVIDED_ZIP_DATA_CANNOT_BE_NULL);
 			throw new IOException(PROVIDED_ZIP_DATA_CANNOT_BE_NULL);
 		}
+		String relativeRoot = RCPWorkspaceMapper.getReverseMappedName(path);
 		ZipImporter.importZip(this, new ZipInputStream(
 				new ByteArrayInputStream(data)), relativeRoot);
 	}
 
 	@Override
 	public byte[] exportZip(List<String> relativeRoots) throws IOException {
+		for (int i = 0; i < relativeRoots.size(); i++) {
+			String relativeRoot = RCPWorkspaceMapper.getReverseMappedName(relativeRoots.get(i));
+			relativeRoots.set(i, relativeRoot);
+		}
 		return ZipExporter.exportZip(this, relativeRoots);
 	}
 
 	@Override
-	public byte[] exportZip(String relativeRoot, boolean inclusive)
+	public byte[] exportZip(String path, boolean inclusive)
 			throws IOException {
+		String relativeRoot = RCPWorkspaceMapper.getReverseMappedName(path);
 		return ZipExporter.exportZip(this, relativeRoot, inclusive);
 	}
 

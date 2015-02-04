@@ -6,13 +6,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.api.RepositoryPath;
+import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public class RCPWorkspaceMapper {
 	
@@ -62,7 +61,11 @@ public class RCPWorkspaceMapper {
 		
 		return workspaceName;
 	}
-	
+
+	public static String getReverseMappedName(String workspaceName) {
+		return "/db/dirigible/users/local/workspace/" + workspaceName.substring(workspaceName.lastIndexOf(IRepositoryPaths.SEPARATOR) + 1);
+	}
+
 	private static void check() throws IOException {
 		if (prefixMap.isEmpty()) {
 			

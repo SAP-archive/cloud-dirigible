@@ -2,7 +2,6 @@ package com.sap.dirigible.repository.rcp;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +117,7 @@ public class RCPRepositoryDAO {
 			if (!objectFile.exists()) {
 				// This is folder, that was not created
 				if (ContentTypeHelper.getExtension(workspacePath).isEmpty()) {
-					objectFile.mkdirs();
+					FileUtils.createFolder(workspacePath);
 				} else {
 					return null;
 				}

@@ -18,7 +18,6 @@ package com.sap.dirigible.ide.workspace.wizard.project.create;
 import java.io.IOException;
 import java.util.List;
 
-import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
