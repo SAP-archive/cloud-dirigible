@@ -19,14 +19,12 @@ import static java.text.MessageFormat.format;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IEntityInformation;
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.db.dao.DBObject;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * The DB implementation of {@link IEntity}
@@ -36,8 +34,7 @@ public abstract class DBEntity implements IEntity {
 
 	private static final String THERE_IS_NO_ENTITY_AT_PATH_0 = Messages.getString("DBEntity.THERE_IS_NO_ENTITY_AT_PATH_0"); //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(DBEntity.class);
+	private static final Logger logger = Logger.getLogger(DBEntity.class);
 
 	private final DBRepository repository;
 

@@ -35,12 +35,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class WrappedConnection implements Connection {
 
-	private static final Logger logger = LoggerFactory.getLogger(WrappedConnection.class);
+	private static final Logger logger = Logger.getLogger(WrappedConnection.class);
 
 	private Connection originalConnection;
 

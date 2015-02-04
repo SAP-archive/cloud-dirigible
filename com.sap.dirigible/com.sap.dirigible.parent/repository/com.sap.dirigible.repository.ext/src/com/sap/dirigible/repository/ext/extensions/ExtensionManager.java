@@ -11,17 +11,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.db.DBUtils;
 import com.sap.dirigible.repository.ext.security.Messages;
 import com.sap.dirigible.repository.ext.utils.RequestUtils;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ExtensionManager {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ExtensionManager.class);
+	private static final Logger logger = Logger.getLogger(ExtensionManager.class);
 	
 	private static final String DATABASE_ERROR = Messages.getString("SecurityManager.DATABASE_ERROR"); //$NON-NLS-1$
 	

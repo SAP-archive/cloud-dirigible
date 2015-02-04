@@ -29,9 +29,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -41,6 +38,7 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.ext.db.dialect.IDialectSpecifier;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DatabaseUpdater extends AbstractDataUpdater {
 
@@ -74,7 +72,7 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 	private static final String PRIMARY_KEY = "PRIMARY KEY "; //$NON-NLS-1$
 	private static final String NOT_NULL = "NOT NULL "; //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory.getLogger(DatabaseUpdater.class);
+	private static final Logger logger = Logger.getLogger(DatabaseUpdater.class);
 
 	public static final String EXTENSION_TABLE = ".table"; //$NON-NLS-1$
 	public static final String EXTENSION_VIEW = ".view"; //$NON-NLS-1$

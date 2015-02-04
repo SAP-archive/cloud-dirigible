@@ -34,8 +34,6 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonObject;
 import com.sap.dirigible.repository.api.ICollection;
@@ -43,6 +41,7 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.ext.db.AbstractDataUpdater;
+import com.sap.dirigible.runtime.logger.Logger;
 
 public class JobsUpdater extends AbstractDataUpdater {
 
@@ -50,7 +49,7 @@ public class JobsUpdater extends AbstractDataUpdater {
 	
 	public static final String REGISTRY_INTEGRATION_DEFAULT = ICommonConstants.INTEGRATION_REGISTRY_PUBLISH_LOCATION;
 	
-	private static final Logger logger = LoggerFactory.getLogger(JobsUpdater.class);
+	private static final Logger logger = Logger.getLogger(JobsUpdater.class);
 
 	private IRepository repository;
 	private DataSource dataSource;

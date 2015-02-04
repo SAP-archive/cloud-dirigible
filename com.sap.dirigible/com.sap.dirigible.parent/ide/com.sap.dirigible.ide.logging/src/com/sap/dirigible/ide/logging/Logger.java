@@ -19,7 +19,6 @@ import java.util.logging.Level;
 
 import org.slf4j.LoggerFactory;
 
-
 /**
  * This is the central class used for logging in the Dirigible project.
  * <p>
@@ -29,13 +28,19 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class Logger {
-	
-	public static final String LOG_IN_SYSTEM_OUTPUT = "logInSystemOutput"; //$NON-NLS-1$
-	
-	public static boolean isLogInSystemOutput() {
-//		return Boolean.parseBoolean((String) RWT.getRequest().getSession().getAttribute(LOG_IN_SYSTEM_OUTPUT));
-		return false;
+
+	/**
+	 * System property for disabling logging with DEBUG, WARN, INFO and TRACE levels
+	 */
+	private static final String DISABLE_LOGGING = "disable.logging";
+	private static final boolean LOGGING_DISABLED = isLoggingDisabled();
+
+	private static boolean isLoggingDisabled() {
+		String disableLogging = System.getProperty(DISABLE_LOGGING);
+		return (disableLogging != null) && (Boolean.valueOf(disableLogging));
 	}
+
+	protected boolean printInSystemOutput = false;
 
 	/**
 	 * Returns a {@link Logger} instance that is bound to the specified name.
@@ -154,12 +159,11 @@ public class Logger {
 	public void trace(String message, Throwable t) {
 		if (isTraceEnabled()) {
 			logger1.trace(message, t);
-			logger2.log(Level.FINEST, message, t);
+			logger2.log(Level.FINE, message, t);
 		}
 		logInSystemOutput(message, t);
 	}
 
-	
 	/**
 	 * Is the logger instance enabled for the ERROR level?
 	 * 
@@ -177,7 +181,7 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isDebugEnabled() {
-		return logger1.isDebugEnabled() || logger2.isLoggable(Level.FINE);
+		return (!LOGGING_DISABLED) && (logger1.isDebugEnabled() || logger2.isLoggable(Level.FINE));
 	}
 
 	/**
@@ -187,7 +191,7 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isWarnEnabled() {
-		return logger1.isWarnEnabled() || logger2.isLoggable(Level.WARNING);
+		return (!LOGGING_DISABLED) && (logger1.isWarnEnabled() || logger2.isLoggable(Level.WARNING));
 	}
 	
 	/**
@@ -197,7 +201,7 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isInfoEnabled() {
-		return logger1.isInfoEnabled() || logger2.isLoggable(Level.INFO);
+		return (!LOGGING_DISABLED) && (logger1.isInfoEnabled() || logger2.isLoggable(Level.INFO));
 	}
 	
 	/**
@@ -207,16 +211,15 @@ public class Logger {
 	 *         otherwise.
 	 */
 	public boolean isTraceEnabled() {
-		return logger1.isTraceEnabled() || logger2.isLoggable(Level.FINEST);
+		return (!LOGGING_DISABLED) && (logger1.isTraceEnabled() || logger2.isLoggable(Level.FINE));
 	}
 
-	private static void logInSystemOutput(String message, Throwable t) {
-		if (isLogInSystemOutput()) {
+	private void logInSystemOutput(String message, Throwable t) {
+		if (printInSystemOutput) {
 			System.err.println(message);
 			if (t != null) {
 				t.printStackTrace();
 			}
 		}
 	}
-
 }

@@ -21,8 +21,8 @@ Require-Bundle: org.apache.lucene.analysis,
  com.sap.dirigible.repository.api,
  org.apache.commons.io
 Import-Package: com.google.gson,
+ com.sap.dirigible.repository.logging,
  javax.servlet,
- javax.servlet.http,
- org.slf4j
+ javax.servlet.http
 
 

@@ -27,17 +27,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.ext.db.DBUtils;
 import com.sap.dirigible.repository.ext.utils.RequestUtils;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class SecurityManager {
 
-	private static final Logger logger = LoggerFactory.getLogger(SecurityManager.class);
+	private static final Logger logger = Logger.getLogger(SecurityManager.class);
 	
 	private static final String LOCATION_S_AND_S_DOES_NOT_EXIST = Messages.getString("SecurityManager.LOCATION_S_AND_S_DOES_NOT_EXIST"); //$NON-NLS-1$
 

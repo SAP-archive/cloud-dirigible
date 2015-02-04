@@ -27,12 +27,10 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DBFileDAO extends DBObjectDAO {
 
@@ -42,8 +40,7 @@ public class DBFileDAO extends DBObjectDAO {
 
 	private static final String BIN_CONTENT = "BIN_CONTENT"; //$NON-NLS-1$
 
-	private static Logger logger = LoggerFactory.getLogger(DBFileDAO.class
-			.getCanonicalName());
+	private static Logger logger = Logger.getLogger(DBFileDAO.class);
 
 	private static int DOC_CHUNK_SIZE = 2000;
 
@@ -61,8 +58,7 @@ public class DBFileDAO extends DBObjectDAO {
 	 * @throws DBBaseException
 	 */
 	public DBFile getFileByPath(String path) throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getFileByPath"); //$NON-NLS-1$
+		logger.debug("entering getFileByPath"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -71,8 +67,7 @@ public class DBFileDAO extends DBObjectDAO {
 		if (dbObject instanceof DBFile) {
 			dbFile = (DBFile) dbObject;
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getFileByPath"); //$NON-NLS-1$
+		logger.debug("exiting getFileByPath"); //$NON-NLS-1$
 		return dbFile;
 	}
 
@@ -91,7 +86,7 @@ public class DBFileDAO extends DBObjectDAO {
 	void insertFile(String name, String path, String contentType,
 			String createdBy, String modifiedBy, int type)
 			throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(), "entering insertFile"); //$NON-NLS-1$
+		logger.debug("entering insertFile"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -120,7 +115,7 @@ public class DBFileDAO extends DBObjectDAO {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
 		}
-		logger.debug(this.getClass().getCanonicalName(), "exiting insertFile"); //$NON-NLS-1$
+		logger.debug("exiting insertFile"); //$NON-NLS-1$
 	}
 
 	/**

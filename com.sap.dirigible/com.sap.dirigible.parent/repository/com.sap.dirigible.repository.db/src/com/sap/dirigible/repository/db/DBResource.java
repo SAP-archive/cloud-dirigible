@@ -20,15 +20,12 @@ import static java.text.MessageFormat.format;
 import java.io.IOException;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.api.IResourceVersion;
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.db.dao.DBFile;
 import com.sap.dirigible.repository.db.dao.DBObject;
-import com.sap.dirigible.repository.ext.db.DBUtils;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * The DB implementation of {@link IResource}
@@ -43,8 +40,7 @@ public class DBResource extends DBEntity implements IResource {
 	private static final String COULD_NOT_DELETE_RESOURCE = Messages.getString("DBResource.COULD_NOT_DELETE_RESOURCE"); //$NON-NLS-1$
 	private static final String COULD_NOT_RENAME_RESOURCE = Messages.getString("DBResource.COULD_NOT_RENAME_RESOURCE"); //$NON-NLS-1$
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(DBResource.class);
+	private static final Logger logger = Logger.getLogger(DBResource.class);
 
 	private boolean binary = false;
 

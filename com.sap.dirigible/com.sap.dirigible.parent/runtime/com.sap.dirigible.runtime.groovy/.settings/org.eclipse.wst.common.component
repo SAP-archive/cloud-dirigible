@@ -7,9 +7,6 @@
         <dependent-module archiveName="com.sap.dirigible.repository.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.api/com.sap.dirigible.repository.api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="com.sap.dirigible.repository.db-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.db/com.sap.dirigible.repository.db">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="com.sap.dirigible.repository.ext-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.sap.dirigible.repository.ext/com.sap.dirigible.repository.ext">
             <dependency-type>uses</dependency-type>
         </dependent-module>

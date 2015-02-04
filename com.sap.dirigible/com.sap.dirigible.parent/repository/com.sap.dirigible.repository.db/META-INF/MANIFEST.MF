@@ -13,6 +13,6 @@ Require-Bundle: com.sap.dirigible.repository.api,
  org.apache.commons.io,
  com.sap.dirigible.repository.ext,
  com.sap.dirigible.repository.zip
-Import-Package: org.slf4j
+Import-Package: com.sap.dirigible.repository.logging
 Service-Component: OSGi-INF/repository-db.xml
 

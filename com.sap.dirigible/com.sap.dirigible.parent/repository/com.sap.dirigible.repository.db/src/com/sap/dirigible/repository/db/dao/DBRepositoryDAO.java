@@ -23,15 +23,13 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IResourceVersion;
+import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.db.DBResourceVersion;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * Utility class for direct database manipulation via JDBC
@@ -48,8 +46,7 @@ public class DBRepositoryDAO {
 	private static final String DATA_ACCESS_OBJECT_FOR_REPOSITORY_NOT_INITIALIZED = Messages
 			.getString("DBRepositoryDAO.DATA_ACCESS_OBJECT_FOR_REPOSITORY_NOT_INITIALIZED"); //$NON-NLS-1$
 
-	private static Logger logger = LoggerFactory
-			.getLogger(DBRepositoryDAO.class.getCanonicalName());
+	private static Logger logger = Logger.getLogger(DBRepositoryDAO.class);
 
 	private DBRepository repository;
 
@@ -66,7 +63,7 @@ public class DBRepositoryDAO {
 	private DBFileVersionDAO dbFileVersionDAO;
 
 	public DBRepositoryDAO(DBRepository repository) {
-		logger.debug(this.getClass().getCanonicalName(), "entering constructor"); //$NON-NLS-1$
+		logger.debug("entering constructor"); //$NON-NLS-1$
 
 		this.repository = repository;
 
@@ -76,7 +73,7 @@ public class DBRepositoryDAO {
 		this.dbSearchDAO = new DBSearchDAO(this);
 		this.dbFileVersionDAO = new DBFileVersionDAO(this);
 
-		logger.debug(this.getClass().getCanonicalName(), "exiting constructor"); //$NON-NLS-1$
+		logger.debug("exiting constructor"); //$NON-NLS-1$
 	}
 
 	/**
@@ -85,9 +82,9 @@ public class DBRepositoryDAO {
 	 * @return
 	 */
 	DBRepository getRepository() {
-		logger.debug(this.getClass().getCanonicalName(), "entering getRepository"); //$NON-NLS-1$
+		logger.debug("entering getRepository"); //$NON-NLS-1$
 		DBRepository dbRepository = repository;
-		logger.debug(this.getClass().getCanonicalName(), "exiting getRepository"); //$NON-NLS-1$
+		logger.debug("exiting getRepository"); //$NON-NLS-1$
 		return dbRepository;
 	}
 
@@ -136,7 +133,7 @@ public class DBRepositoryDAO {
 	 * @throws SQLException
 	 */
 	public boolean initialize(boolean forceRecreate) throws SQLException {
-		logger.debug(this.getClass().getCanonicalName(), "entering initialize"); //$NON-NLS-1$
+		logger.debug("entering initialize"); //$NON-NLS-1$
 		synchronized (DBRepositoryDAO.class) {
 			Connection connection = null;
 			try {
@@ -146,7 +143,7 @@ public class DBRepositoryDAO {
 				getRepository().getDbUtils().closeConnection(connection);
 			}
 		}
-		logger.debug(this.getClass().getCanonicalName(), "exiting initialize"); //$NON-NLS-1$
+		logger.debug("exiting initialize"); //$NON-NLS-1$
 		return initialized;
 	}
 
@@ -158,11 +155,11 @@ public class DBRepositoryDAO {
 	 * @return
 	 */
 	private boolean initialize(Connection connection, boolean forceRecreate) {
-		logger.debug(this.getClass().getCanonicalName(), "entering initialize with connection"); //$NON-NLS-1$
+		logger.debug("entering initialize with connection"); //$NON-NLS-1$
 		DBRepositoryInitializer dbRepositoryInitializer = new DBRepositoryInitializer(repository,
 				connection, forceRecreate);
 		boolean result = dbRepositoryInitializer.initialize();
-		logger.debug(this.getClass().getCanonicalName(), "exiting initialize with connection"); //$NON-NLS-1$
+		logger.debug("exiting initialize with connection"); //$NON-NLS-1$
 		return result;
 	}
 

@@ -11,5 +11,4 @@ Bundle-SymbolicName: com.sap.dirigible.repository.zip;singleton:=true
 Require-Bundle: com.sap.dirigible.repository.api,
  org.apache.commons.io,
  com.sap.dirigible.repository.ext
-Import-Package: org.slf4j
 

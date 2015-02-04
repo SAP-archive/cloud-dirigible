@@ -21,16 +21,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DBObjectDAO {
 
-	private static Logger logger = LoggerFactory.getLogger(DBObjectDAO.class
-			.getCanonicalName());
+	private static Logger logger = Logger.getLogger(DBObjectDAO.class);
 
 	private DBRepositoryDAO dbRepositoryDAO;
 
@@ -74,8 +71,7 @@ public class DBObjectDAO {
 	 * @throws DBBaseException
 	 */
 	public DBObject getObjectByPath(String path) throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getObjectByPath"); //$NON-NLS-1$
+		logger.debug("entering getObjectByPath"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -127,8 +123,7 @@ public class DBObjectDAO {
 			getRepository().getCacheManager().put(path, dbObject);
 		}
 		
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getObjectByPath"); //$NON-NLS-1$
+		logger.debug("exiting getObjectByPath"); //$NON-NLS-1$
 		return dbObject;
 	}
 

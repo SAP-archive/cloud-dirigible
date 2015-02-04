@@ -32,16 +32,14 @@ import java.util.StringTokenizer;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.db.dialect.DerbyDBSpecifier;
 import com.sap.dirigible.repository.ext.db.dialect.HANADBSpecifier;
 import com.sap.dirigible.repository.ext.db.dialect.IDialectSpecifier;
 import com.sap.dirigible.repository.ext.db.dialect.PostgreSQLDBSpecifier;
 import com.sap.dirigible.repository.ext.db.dialect.SAPDBSpecifier;
 import com.sap.dirigible.repository.ext.db.dialect.SybaseDBSpecifier;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DBUtils {
 
@@ -54,7 +52,7 @@ public class DBUtils {
 	public static final String SCRIPT_DELIMITER = ";"; //$NON-NLS-1$
 	
 
-	private static Logger logger = LoggerFactory.getLogger(DBUtils.class
+	private static Logger logger = Logger.getLogger(DBUtils.class
 			.getCanonicalName());
 
 //	private IRepository repository;
@@ -78,7 +76,7 @@ public class DBUtils {
 	 * @return the SQL script as a String
 	 */
 	public String readScript(Connection conn, String path, Class<?> clazz) throws IOException {
-		logger.debug(this.getClass().getCanonicalName(), "entering readScript"); //$NON-NLS-1$
+		logger.debug("entering readScript"); //$NON-NLS-1$
 		String sql = null;
 		InputStream in = clazz.getResourceAsStream(path);
 		if (in == null) {
@@ -122,7 +120,7 @@ public class DBUtils {
 			}
 		}
 
-		logger.debug(this.getClass().getCanonicalName(), "exiting readScript"); //$NON-NLS-1$
+		logger.debug("exiting readScript"); //$NON-NLS-1$
 
 		return sql;
 	}
@@ -135,8 +133,7 @@ public class DBUtils {
 	 * @return
 	 */
 	public boolean executeUpdate(Connection connection, String script) {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering executeUpdate"); //$NON-NLS-1$
+		logger.debug("entering executeUpdate"); //$NON-NLS-1$
 		boolean status = false;
 		StringTokenizer tokenizer = new StringTokenizer(script,
 				SCRIPT_DELIMITER);
@@ -163,33 +160,27 @@ public class DBUtils {
 			}
 			status = true;
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting executeUpdate"); //$NON-NLS-1$
+		logger.debug("exiting executeUpdate"); //$NON-NLS-1$
 		return status;
 	}
 
 	public PreparedStatement getPreparedStatement(Connection connection,
 			String sql) throws SQLException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getPreparedStatement"); //$NON-NLS-1$
+		logger.debug("entering getPreparedStatement"); //$NON-NLS-1$
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getPreparedStatement"); //$NON-NLS-1$
+		logger.debug("exiting getPreparedStatement"); //$NON-NLS-1$
 		return preparedStatement;
 	}
 
 	public Connection getConnection() throws SQLException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getConnection"); //$NON-NLS-1$
+		logger.debug("entering getConnection"); //$NON-NLS-1$
 		Connection connection = this.dataSource.getConnection();
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getConnection"); //$NON-NLS-1$
+		logger.debug("exiting getConnection"); //$NON-NLS-1$
 		return connection;
 	}
 
 	public void closeConnection(Connection connection) {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering closeConnection"); //$NON-NLS-1$
+		logger.debug("entering closeConnection"); //$NON-NLS-1$
 		if (connection != null) {
 			try {
 				connection.close();
@@ -197,13 +188,11 @@ public class DBUtils {
 				logger.error(e.getMessage());
 			}
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting closeConnection"); //$NON-NLS-1$
+		logger.debug("exiting closeConnection"); //$NON-NLS-1$
 	}
 
 	public void closeStatement(Statement statement) {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering closeStatement"); //$NON-NLS-1$
+		logger.debug("entering closeStatement"); //$NON-NLS-1$
 		if (statement != null) {
 			try {
 				statement.close();
@@ -211,8 +200,7 @@ public class DBUtils {
 				logger.error(e.getMessage());
 			}
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting closeStatement"); //$NON-NLS-1$
+		logger.debug("exiting closeStatement"); //$NON-NLS-1$
 	}
 
 	public static IDialectSpecifier getDialectSpecifier(String productName) {

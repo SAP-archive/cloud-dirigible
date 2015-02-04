@@ -25,12 +25,11 @@ import java.util.Collections;
 
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class WrappedDataSource implements DataSource {
 	
-	private static final Logger logger = LoggerFactory.getLogger(WrappedDataSource.class);
+	private static final Logger logger = Logger.getLogger(WrappedDataSource.class);
 	
 	private static final int MAX_CONNECTIONS_COUNT = 8;
 	

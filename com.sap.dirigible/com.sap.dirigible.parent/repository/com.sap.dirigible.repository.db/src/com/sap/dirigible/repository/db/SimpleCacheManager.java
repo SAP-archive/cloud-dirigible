@@ -20,12 +20,11 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class SimpleCacheManager {
 	
-	private static final Logger logger = LoggerFactory.getLogger(SimpleCacheManager.class);
+	private static final Logger logger = Logger.getLogger(SimpleCacheManager.class);
 	
 	private static final long MAX_EXPIRATION_TIME = 10000; 
 

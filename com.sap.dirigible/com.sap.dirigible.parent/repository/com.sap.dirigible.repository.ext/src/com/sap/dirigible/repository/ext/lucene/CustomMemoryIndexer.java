@@ -25,15 +25,15 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.sap.dirigible.repository.logging.Logger;
 
 public class CustomMemoryIndexer {
 	
 	private static final String FIELD_ID = "id"; //$NON-NLS-1$
 	private static final String FIELD_CONTENT = "content"; //$NON-NLS-1$
 	
-	private static final Logger logger = LoggerFactory.getLogger(CustomMemoryIndexer.class);
+	private static final Logger logger = Logger.getLogger(CustomMemoryIndexer.class);
 	
 	private Directory directory = new RAMDirectory();
 	

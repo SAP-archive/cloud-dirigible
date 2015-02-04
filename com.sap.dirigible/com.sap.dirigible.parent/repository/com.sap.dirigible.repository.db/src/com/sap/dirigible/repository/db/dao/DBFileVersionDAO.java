@@ -25,16 +25,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DBFileVersionDAO {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(DBFileVersionDAO.class.getCanonicalName());
+	private static Logger logger = Logger.getLogger(DBFileVersionDAO.class);
 
 	private DBRepositoryDAO dbRepositoryDAO;
 
@@ -79,8 +76,7 @@ public class DBFileVersionDAO {
 	 */
 	public DBFileVersion getFileVersionByPath(String path, int version)
 			throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getFileVersionByPath"); //$NON-NLS-1$
+		logger.debug("entering getFileVersionByPath"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -121,16 +117,14 @@ public class DBFileVersionDAO {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getFileVersionByPath"); //$NON-NLS-1$
+		logger.debug("exiting getFileVersionByPath"); //$NON-NLS-1$
 		return dbFileVersion;
 	}
 
 	private int insertFileVersion(String path, byte[] bytes,
 			String contentType, String createdBy, int type)
 			throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering insertFileVersion"); //$NON-NLS-1$
+		logger.debug("entering insertFileVersion"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -165,14 +159,12 @@ public class DBFileVersionDAO {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting insertFileVersion"); //$NON-NLS-1$
+		logger.debug("exiting insertFileVersion"); //$NON-NLS-1$
 		return version;
 	}
 
 	private int getNextVersion(String path) {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getNextVersion"); //$NON-NLS-1$
+		logger.debug("entering getNextVersion"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -212,8 +204,7 @@ public class DBFileVersionDAO {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getNextVersion"); //$NON-NLS-1$
+		logger.debug("exiting getNextVersion"); //$NON-NLS-1$
 		return (version + 1);
 	}
 
@@ -257,8 +248,7 @@ public class DBFileVersionDAO {
 	}
 
 	public List<DBFileVersion> getFileVersionsByPath(String path) {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getFileVersionsByPath"); //$NON-NLS-1$
+		logger.debug("entering getFileVersionsByPath"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -299,14 +289,12 @@ public class DBFileVersionDAO {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getFileVersionsByPath"); //$NON-NLS-1$
+		logger.debug("exiting getFileVersionsByPath"); //$NON-NLS-1$
 		return dbFileVersions;
 	}
 
 	public void removeAllFileVersions(String path) throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering removeAllFileVersions"); //$NON-NLS-1$
+		logger.debug("entering removeAllFileVersions"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -331,13 +319,11 @@ public class DBFileVersionDAO {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting removeAllFileVersions"); //$NON-NLS-1$
+		logger.debug("exiting removeAllFileVersions"); //$NON-NLS-1$
 	}
 	
 	public void removeAllFileVersionsBeforeDate(Date date) throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering removeAllFileVersionsBeforeDate"); //$NON-NLS-1$
+		logger.debug("entering removeAllFileVersionsBeforeDate"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -362,8 +348,7 @@ public class DBFileVersionDAO {
 			getRepository().getDbUtils().closeStatement(preparedStatement);
 			getRepository().getDbUtils().closeConnection(connection);
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting removeAllFileVersionsBeforeDate"); //$NON-NLS-1$
+		logger.debug("exiting removeAllFileVersionsBeforeDate"); //$NON-NLS-1$
 	}
 	
 	

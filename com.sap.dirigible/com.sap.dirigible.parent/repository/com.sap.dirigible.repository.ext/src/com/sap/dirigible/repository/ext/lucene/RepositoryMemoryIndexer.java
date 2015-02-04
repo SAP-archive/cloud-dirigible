@@ -24,12 +24,11 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RepositoryMemoryIndexer {
 	
@@ -37,7 +36,7 @@ public class RepositoryMemoryIndexer {
 	private static final String FIELD_NAME = "name"; //$NON-NLS-1$
 	private static final String FIELD_CONTENT = "content"; //$NON-NLS-1$
 	
-	private static final Logger logger = LoggerFactory.getLogger(RepositoryMemoryIndexer.class);
+	private static final Logger logger = Logger.getLogger(RepositoryMemoryIndexer.class);
 	
 	private static Directory directory = new RAMDirectory();
 	private static List<String> indexedResources = new ArrayList<String>();

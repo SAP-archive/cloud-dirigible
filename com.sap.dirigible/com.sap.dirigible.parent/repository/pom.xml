@@ -61,6 +61,7 @@
 		<module>com.sap.dirigible.repository.ext</module>
 		<module>com.sap.dirigible.repository.ext.test</module>
 		<module>com.sap.dirigible.repository.rcp</module>
+		<module>com.sap.dirigible.repository.logging</module>
 	</modules>
  
 </project>

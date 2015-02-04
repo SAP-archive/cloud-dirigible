@@ -10,9 +10,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sap.dirigible.repository.api.ICollection;
@@ -20,6 +17,7 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.ext.db.AbstractDataUpdater;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ExtensionUpdater extends AbstractDataUpdater {
 	
@@ -30,7 +28,7 @@ public class ExtensionUpdater extends AbstractDataUpdater {
 	public static final String EXTENSION_EXTENSION_POINT = ".extensionpoint"; //$NON-NLS-1$
 	public static final String REGISTRY_EXTENSION_DEFINITIONS_DEFAULT = ICommonConstants.EXTENSION_REGISTRY_PUBLISH_LOCATION;
 
-	private static final Logger logger = LoggerFactory.getLogger(ExtensionUpdater.class);
+	private static final Logger logger = Logger.getLogger(ExtensionUpdater.class);
 	
 	private IRepository repository;
 	private DataSource dataSource;

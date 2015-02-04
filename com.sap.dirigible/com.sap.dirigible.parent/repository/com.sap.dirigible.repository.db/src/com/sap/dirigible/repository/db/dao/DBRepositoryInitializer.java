@@ -25,10 +25,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * Initialize the database schema of Repository Supports incremental alteration
@@ -53,8 +51,7 @@ public class DBRepositoryInitializer {
 
 	private static final String INITIAL_CREATION = Messages.getString("DBRepositoryInitializer.INITIAL_CREATION"); //$NON-NLS-1$
 
-	private static Logger logger = LoggerFactory
-			.getLogger(DBRepositoryInitializer.class.getCanonicalName());
+	private static Logger logger = Logger.getLogger(DBRepositoryInitializer.class);
 
 	private static final String TABLE_NAME_DGB_SCHEMA_VERSIONS = "DGB_SCHEMA_VERSIONS"; //$NON-NLS-1$
 	private static final String TABLE_COLUMN_SCHV_VERSION = "SCHV_VERSION"; //$NON-NLS-1$
@@ -101,11 +98,11 @@ public class DBRepositoryInitializer {
 
 	DBRepositoryInitializer(DBRepository repository, Connection connection,
 			boolean forceRecreate) {
-		logger.debug(this.getClass().getCanonicalName(), "entering constructor"); //$NON-NLS-1$
+		logger.debug("entering constructor"); //$NON-NLS-1$
 		this.repository = repository;
 		this.connection = connection;
 		this.forceRecreate = forceRecreate;
-		logger.debug(this.getClass().getCanonicalName(), "exiting constructor"); //$NON-NLS-1$
+		logger.debug("exiting constructor"); //$NON-NLS-1$
 	}
 
 	/**
@@ -115,13 +112,13 @@ public class DBRepositoryInitializer {
 	 */
 	boolean initialize() {
 		boolean result = false;
-		logger.debug(this.getClass().getCanonicalName(), "entering initialize"); //$NON-NLS-1$
+		logger.debug("entering initialize"); //$NON-NLS-1$
 		if (forceRecreate) {
 			result = forceRecreate();
 		} else {
 			result = updateIncrements();
 		}
-		logger.debug(this.getClass().getCanonicalName(), "exiting initialize"); //$NON-NLS-1$
+		logger.debug("exiting initialize"); //$NON-NLS-1$
 		return result;
 	}
 
@@ -135,8 +132,7 @@ public class DBRepositoryInitializer {
 	 * @return
 	 */
 	private boolean forceRecreate() {
-		logger.warn(this.getClass().getCanonicalName(),
-				"entering forceRecreate"); //$NON-NLS-1$
+		logger.warn("entering forceRecreate"); //$NON-NLS-1$
 		boolean result = false;
 		for (Iterator<ScriptDescriptor> iterator = scriptDescriptors.iterator(); iterator
 				.hasNext();) {
@@ -158,7 +154,7 @@ public class DBRepositoryInitializer {
 			}
 		}
 
-		logger.warn(this.getClass().getCanonicalName(), "exiting forceRecreate"); //$NON-NLS-1$
+		logger.warn("exiting forceRecreate"); //$NON-NLS-1$
 		return result;
 	}
 
@@ -168,7 +164,7 @@ public class DBRepositoryInitializer {
 	 * @return
 	 */
 	private boolean updateIncrements() {
-		logger.debug(this.getClass().getCanonicalName(), "updateIncrements"); //$NON-NLS-1$
+		logger.debug("updateIncrements"); //$NON-NLS-1$
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -222,8 +218,7 @@ public class DBRepositoryInitializer {
 			getRepository().getDbUtils().closeConnection(connection);
 		}
 
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting updateIncrements"); //$NON-NLS-1$
+		logger.debug("exiting updateIncrements"); //$NON-NLS-1$
 		return true;
 	}
 

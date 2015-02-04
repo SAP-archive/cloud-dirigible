@@ -24,17 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DBFolderDAO extends DBObjectDAO {
 
-	private static Logger logger = LoggerFactory.getLogger(DBFolderDAO.class
-			.getCanonicalName());
+	private static Logger logger = Logger.getLogger(DBFolderDAO.class);
 
 	DBFolderDAO(DBRepositoryDAO dbRepositoryDAO) {
 		super(dbRepositoryDAO);
@@ -48,8 +45,7 @@ public class DBFolderDAO extends DBObjectDAO {
 	 * @throws DBBaseException
 	 */
 	DBFolder getFolderByPath(String path) throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering getFolderByPath"); //$NON-NLS-1$
+		logger.debug("entering getFolderByPath"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -58,8 +54,7 @@ public class DBFolderDAO extends DBObjectDAO {
 		if (dbObject instanceof DBFolder) {
 			dbFolder = (DBFolder) dbObject;
 		}
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting getFolderByPath"); //$NON-NLS-1$
+		logger.debug("exiting getFolderByPath"); //$NON-NLS-1$
 		return dbFolder;
 	}
 
@@ -72,8 +67,7 @@ public class DBFolderDAO extends DBObjectDAO {
 	 * @throws DBBaseException
 	 */
 	DBFolder createFolder(String path) throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				"entering createFolder"); //$NON-NLS-1$
+		logger.debug("entering createFolder"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -98,7 +92,7 @@ public class DBFolderDAO extends DBObjectDAO {
 
 			pathBuffer.append(DBRepository.PATH_DELIMITER);
 		}
-		logger.debug(this.getClass().getCanonicalName(), "exiting createFolder"); //$NON-NLS-1$
+		logger.debug("exiting createFolder"); //$NON-NLS-1$
 		return current;
 	}
 
@@ -112,8 +106,7 @@ public class DBFolderDAO extends DBObjectDAO {
 	 */
 	DBFolder createSingleFolder(String path, DBFolder parent)
 			throws DBBaseException {
-		logger.debug(this.getClass().getCanonicalName(),
-				" entering createSingleFolder"); //$NON-NLS-1$
+		logger.debug(" entering createSingleFolder"); //$NON-NLS-1$
 
 		checkInitialized();
 
@@ -126,8 +119,7 @@ public class DBFolderDAO extends DBObjectDAO {
 				createdBy, modifiedBy, DBMapper.OBJECT_TYPE_FOLDER);
 
 		DBFolder dbFolder = getFolderByPath(path);
-		logger.debug(this.getClass().getCanonicalName(),
-				"exiting createSingleFolder"); //$NON-NLS-1$
+		logger.debug("exiting createSingleFolder"); //$NON-NLS-1$
 		return dbFolder;
 	}
 
