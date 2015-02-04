@@ -40,6 +40,14 @@ public class AbstractArtifactLabelProvider extends LabelProvider {
 	public static final URL TYPE_XSD_ICON_URL = getIconURL("icon-xsd.png"); //$NON-NLS-1$
 	public static final URL TYPE_UNKNOWN_ICON_URL = getIconURL("icon-unknown.png"); //$NON-NLS-1$
 	public static final URL TYPE_COLLECTION_ICON_URL = getIconURL("icon-collection.png"); //$NON-NLS-1$
+	public static final URL TYPE_COLLECTION_DS_ICON_URL = getIconURL("icon-collection-ds.png"); //$NON-NLS-1$
+	public static final URL TYPE_COLLECTION_IS_ICON_URL = getIconURL("icon-collection-is.png"); //$NON-NLS-1$
+	public static final URL TYPE_COLLECTION_EXT_ICON_URL = getIconURL("icon-collection-ext.png"); //$NON-NLS-1$
+	public static final URL TYPE_COLLECTION_SS_ICON_URL = getIconURL("icon-collection-ss.png"); //$NON-NLS-1$
+	public static final URL TYPE_COLLECTION_SEC_ICON_URL = getIconURL("icon-collection-sec.png"); //$NON-NLS-1$
+	public static final URL TYPE_COLLECTION_TEST_ICON_URL = getIconURL("icon-collection-test.png"); //$NON-NLS-1$
+	public static final URL TYPE_COLLECTION_WEB_ICON_URL = getIconURL("icon-collection-web.png"); //$NON-NLS-1$
+	public static final URL TYPE_COLLECTION_WIKI_ICON_URL = getIconURL("icon-collection-wiki.png"); //$NON-NLS-1$
 	public static final URL TYPE_JSLIB_ICON_URL = getIconURL("icon-jslib.png"); //$NON-NLS-1$
 	public static final URL TYPE_ODATA_ICON_URL = getIconURL("icon-odata.png"); //$NON-NLS-1$
 	public static final URL TYPE_ENTITY_ICON_URL = getIconURL("icon-entity.png"); //$NON-NLS-1$

@@ -48,7 +48,7 @@ public class WorkspaceLabelProvider extends ArtifactLabelProvider {
 			return createImage(TYPE_PROJECT_ICON_URL);
 		}
 		if (element instanceof IFolder) {
-			return createImage(TYPE_COLLECTION_ICON_URL);
+			return getCollectionImageByName(((IFolder) element).getName());
 		}
 		if (element instanceof IFile) {
 			return getResourceImage(((IFile) element).getName());
