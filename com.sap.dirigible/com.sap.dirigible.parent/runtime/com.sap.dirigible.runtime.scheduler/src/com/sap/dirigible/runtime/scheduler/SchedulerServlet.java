@@ -22,8 +22,8 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.job.JobsSynchronizer;
-import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryHistoryCleanupTask;
 import com.sap.dirigible.runtime.search.RebuildSearchIndexTask;
 import com.sap.dirigible.runtime.search.UpdateSearchIndexTask;

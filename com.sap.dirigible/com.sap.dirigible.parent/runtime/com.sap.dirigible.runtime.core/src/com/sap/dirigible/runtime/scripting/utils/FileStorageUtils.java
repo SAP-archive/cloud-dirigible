@@ -14,7 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.sap.dirigible.repository.ext.db.DBUtils;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractStorageUtils;
 
 public class FileStorageUtils extends AbstractStorageUtils {

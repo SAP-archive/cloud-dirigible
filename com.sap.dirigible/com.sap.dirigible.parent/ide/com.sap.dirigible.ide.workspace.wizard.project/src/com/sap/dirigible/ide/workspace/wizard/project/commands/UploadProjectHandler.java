@@ -29,11 +29,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class UploadProjectHandler extends AbstractWorkspaceHandler {
 

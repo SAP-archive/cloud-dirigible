@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class BaseContentServlet extends HttpServlet {

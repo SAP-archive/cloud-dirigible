@@ -41,7 +41,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DataExportDialog extends TitleAreaDialog {
 

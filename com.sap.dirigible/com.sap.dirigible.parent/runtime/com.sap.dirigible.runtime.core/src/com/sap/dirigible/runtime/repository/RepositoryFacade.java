@@ -29,7 +29,7 @@ import com.sap.dirigible.repository.api.RepositoryException;
 import com.sap.dirigible.repository.api.RepositoryFactory;
 //import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.ext.db.WrappedDataSource;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RepositoryFacade {
 

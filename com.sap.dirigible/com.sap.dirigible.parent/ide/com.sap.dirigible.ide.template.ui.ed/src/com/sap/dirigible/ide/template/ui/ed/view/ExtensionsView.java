@@ -37,7 +37,6 @@ import org.eclipse.ui.part.ViewPart;
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.template.ui.ed.wizard.Messages;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
@@ -46,6 +45,7 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.ext.extensions.ExtensionDefinition;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
 import com.sap.dirigible.repository.ext.extensions.ExtensionPointDefinition;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ExtensionsView extends ViewPart {
 

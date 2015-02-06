@@ -21,8 +21,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.RuntimeActivator;
-import com.sap.dirigible.runtime.logger.Logger;
 
 public class DebugProtocolUtils {
 

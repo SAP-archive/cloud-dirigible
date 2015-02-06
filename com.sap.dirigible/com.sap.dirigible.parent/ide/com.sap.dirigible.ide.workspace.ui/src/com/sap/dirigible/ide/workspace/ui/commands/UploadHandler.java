@@ -33,7 +33,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class UploadHandler extends AbstractHandler {
 

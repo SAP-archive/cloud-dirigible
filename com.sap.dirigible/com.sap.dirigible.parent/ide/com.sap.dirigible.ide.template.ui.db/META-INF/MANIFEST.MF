@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  org.eclipse.core.runtime,
  com.sap.dirigible.repository.ext
 Import-Package: com.sap.dirigible.ide.common.io,
- com.sap.dirigible.ide.logging,
+ com.sap.dirigible.repository.logging,
  com.sap.dirigible.ide.ui.common.validation,
  com.sap.dirigible.ide.workspace.ui.shared,
  org.eclipse.core.resources

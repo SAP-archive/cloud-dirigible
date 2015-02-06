@@ -43,10 +43,10 @@ import com.sap.dirigible.ide.jgit.connector.JGitConnector;
 import com.sap.dirigible.ide.jgit.utils.CommandHandlerUtils;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class PushCommandHandler extends AbstractWorkspaceHandler {
 	private static final String TASK_PUSHING_TO_REMOTE_REPOSITORY = Messages.PushCommandHandler_TASK_PUSHING_TO_REMOTE_REPOSITORY;

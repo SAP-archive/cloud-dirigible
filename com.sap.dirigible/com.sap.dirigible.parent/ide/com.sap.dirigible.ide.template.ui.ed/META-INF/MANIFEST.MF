@@ -21,6 +21,6 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  com.sap.dirigible.ide.workspace.rcp;resolution:=optional,
  com.sap.dirigible.ide.workspace.rap;resolution:=optional
 Import-Package: com.sap.dirigible.ide.common.io,
- com.sap.dirigible.ide.logging,
+ com.sap.dirigible.repository.logging,
  com.sap.dirigible.ide.ui.common.validation,
  org.eclipse.core.resources

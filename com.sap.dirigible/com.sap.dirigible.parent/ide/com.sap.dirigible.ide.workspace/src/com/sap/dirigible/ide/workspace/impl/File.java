@@ -35,10 +35,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.content.IContentDescription;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.ide.workspace.impl.event.ResourceChangeEvent;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class File extends Resource implements IFile {
 

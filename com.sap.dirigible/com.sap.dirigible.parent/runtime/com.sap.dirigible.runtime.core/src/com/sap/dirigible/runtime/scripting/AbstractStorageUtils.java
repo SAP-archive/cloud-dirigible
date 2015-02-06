@@ -9,7 +9,7 @@ import java.sql.Statement;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class AbstractStorageUtils {
 	

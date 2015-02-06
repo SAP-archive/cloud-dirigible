@@ -13,8 +13,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import com.sap.dirigible.repository.api.ICommonConstants;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.scripting.IScriptExecutor;
 import com.sap.dirigible.runtime.scripting.utils.EngineUtils;
 

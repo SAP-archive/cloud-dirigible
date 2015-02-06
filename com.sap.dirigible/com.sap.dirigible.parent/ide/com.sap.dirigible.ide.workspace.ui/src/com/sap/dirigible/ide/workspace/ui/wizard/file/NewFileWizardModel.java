@@ -29,7 +29,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.shared.IContentProvider;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
@@ -37,6 +36,7 @@ import com.sap.dirigible.ide.workspace.ui.shared.TextContentProvider;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewerUtils;
 import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class NewFileWizardModel {
 

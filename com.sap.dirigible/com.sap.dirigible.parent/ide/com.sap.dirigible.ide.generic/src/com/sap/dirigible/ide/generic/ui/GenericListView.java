@@ -50,8 +50,8 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.common.UriValidator;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class GenericListView extends ViewPart {
 

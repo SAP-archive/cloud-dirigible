@@ -21,8 +21,8 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.ui.view.WebViewerView;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ShowWebViewerHandler extends AbstractHandler {
 

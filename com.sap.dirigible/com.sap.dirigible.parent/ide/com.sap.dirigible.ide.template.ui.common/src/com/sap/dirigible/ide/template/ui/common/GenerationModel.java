@@ -26,11 +26,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 
 import com.sap.dirigible.ide.common.CommonUtils;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 import com.sap.dirigible.ide.ui.common.validation.ValidationStatus;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class GenerationModel {
 	

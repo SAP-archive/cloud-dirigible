@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.EditorPart;
 
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class AbstractTextEditor extends EditorPart {
 

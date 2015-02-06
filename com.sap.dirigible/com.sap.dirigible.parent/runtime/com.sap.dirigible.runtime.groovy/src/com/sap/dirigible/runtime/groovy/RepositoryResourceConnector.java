@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RepositoryResourceConnector implements ResourceConnector {
 	

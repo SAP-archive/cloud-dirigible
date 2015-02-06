@@ -28,7 +28,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ProxyUtils {
 

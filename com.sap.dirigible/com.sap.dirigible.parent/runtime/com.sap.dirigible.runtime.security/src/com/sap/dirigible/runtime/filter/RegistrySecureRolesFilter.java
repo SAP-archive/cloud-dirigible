@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sap.dirigible.repository.api.RepositoryException;
 import com.sap.dirigible.repository.ext.security.SecurityManager;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.registry.Messages;
 import com.sap.dirigible.runtime.registry.PathUtils;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;

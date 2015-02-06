@@ -44,13 +44,13 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 
 import com.sap.dirigible.ide.common.status.DefaultProgressMonitor;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.ide.workspace.impl.event.ResourceChangeEvent;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IEntityInformation;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class Resource implements IResource {
 

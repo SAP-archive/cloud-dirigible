@@ -30,12 +30,11 @@ import org.eclipse.ui.IFileEditorInput;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.editor.text.input.ContentEditorInput;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
-import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DefaultContentProvider implements IContentProvider,
 		IExecutableExtension {

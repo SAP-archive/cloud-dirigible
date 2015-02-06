@@ -22,9 +22,9 @@ import org.eclipse.core.resources.IProject;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class GitProjectPropertyTest extends PropertyTester {
 	private static final Logger logger = Logger.getLogger(GitProjectProperties.class);

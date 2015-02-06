@@ -29,7 +29,7 @@ import com.sap.dirigible.repository.ext.debug.DebugConstants;
 import com.sap.dirigible.repository.ext.debug.DebugSessionMetadata;
 import com.sap.dirigible.repository.ext.debug.DebugSessionsMetadata;
 import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 import com.sap.dirigible.runtime.task.TaskManagerShort;
 

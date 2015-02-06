@@ -57,7 +57,6 @@
 		<module>com.sap.dirigible.ide.common.rap</module>
 		<module>com.sap.dirigible.ide.common.rcp</module>
 		<module>com.sap.dirigible.ide.common</module>
-		<module>com.sap.dirigible.ide.logging</module>
 		<module>com.sap.dirigible.ide.ui.rap</module>
 		
 		<module>com.sap.dirigible.ide.workspace.rap</module>

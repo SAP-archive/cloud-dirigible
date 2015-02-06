@@ -23,9 +23,9 @@ import org.eclipse.swt.widgets.MenuItem;
 
 import com.sap.dirigible.ide.common.ExtensionPointUtils;
 import com.sap.dirigible.ide.common.image.ImageUtils;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.ui.view.newmenu.NewMenuException;
 import com.sap.dirigible.ide.workspace.ui.view.newmenu.NewMenuItemDescriptor;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class NewMenuItemViewProvider {
 

@@ -29,7 +29,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishManager;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
@@ -40,6 +39,7 @@ import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.RepositoryException;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class NewProjectWizardModel {
 

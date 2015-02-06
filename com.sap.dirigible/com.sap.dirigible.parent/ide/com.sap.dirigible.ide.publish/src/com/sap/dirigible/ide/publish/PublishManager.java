@@ -34,7 +34,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 import com.sap.dirigible.ide.common.ExtensionPointUtils;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public final class PublishManager {
 

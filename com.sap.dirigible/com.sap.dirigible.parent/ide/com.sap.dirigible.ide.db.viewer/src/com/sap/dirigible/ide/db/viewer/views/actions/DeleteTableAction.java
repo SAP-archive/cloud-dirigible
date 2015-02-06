@@ -29,7 +29,7 @@ import com.sap.dirigible.ide.db.viewer.views.IDbConnectionFactory;
 import com.sap.dirigible.ide.db.viewer.views.TableDefinition;
 import com.sap.dirigible.ide.db.viewer.views.TreeObject;
 import com.sap.dirigible.ide.db.viewer.views.TreeParent;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * Action that will trigger opening of Table Definition editor.

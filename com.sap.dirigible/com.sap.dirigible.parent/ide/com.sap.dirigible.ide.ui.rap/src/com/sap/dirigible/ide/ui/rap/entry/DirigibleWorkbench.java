@@ -24,8 +24,8 @@ import org.eclipse.ui.PlatformUI;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.io.ProxyUtils;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DirigibleWorkbench implements EntryPoint {
 

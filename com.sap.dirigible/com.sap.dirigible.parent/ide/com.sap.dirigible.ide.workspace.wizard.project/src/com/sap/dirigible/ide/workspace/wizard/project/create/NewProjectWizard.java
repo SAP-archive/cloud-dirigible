@@ -21,7 +21,7 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class NewProjectWizard extends Wizard {
 

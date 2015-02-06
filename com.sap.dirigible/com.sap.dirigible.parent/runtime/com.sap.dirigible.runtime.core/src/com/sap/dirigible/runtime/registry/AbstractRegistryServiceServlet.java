@@ -31,7 +31,7 @@ import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class AbstractRegistryServiceServlet extends AbstractRegistryServlet {
 

@@ -41,7 +41,7 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.ext.db.AbstractDataUpdater;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class JobsUpdater extends AbstractDataUpdater {
 

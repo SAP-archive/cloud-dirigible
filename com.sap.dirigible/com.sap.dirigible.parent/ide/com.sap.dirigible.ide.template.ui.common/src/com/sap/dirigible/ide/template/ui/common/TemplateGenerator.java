@@ -31,10 +31,10 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.template.velocity.VelocityGenerator;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewerUtils;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class TemplateGenerator {
 

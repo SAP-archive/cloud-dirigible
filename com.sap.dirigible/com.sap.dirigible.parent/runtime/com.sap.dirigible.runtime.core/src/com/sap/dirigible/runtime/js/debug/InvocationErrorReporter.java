@@ -18,7 +18,7 @@ package com.sap.dirigible.runtime.js.debug;
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
 
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class InvocationErrorReporter implements ErrorReporter {
 

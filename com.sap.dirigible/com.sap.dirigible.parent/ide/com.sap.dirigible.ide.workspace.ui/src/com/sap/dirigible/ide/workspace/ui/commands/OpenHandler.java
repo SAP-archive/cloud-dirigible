@@ -33,9 +33,9 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.sap.dirigible.ide.editor.text.editor.TextEditor;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.dual.EditorInputFactory;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.rap.ui.shared.editor.EditorUtil;
 
 public class OpenHandler extends AbstractHandler {

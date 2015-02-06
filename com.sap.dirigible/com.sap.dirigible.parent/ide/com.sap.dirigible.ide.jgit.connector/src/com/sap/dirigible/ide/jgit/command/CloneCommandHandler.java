@@ -39,10 +39,10 @@ import com.sap.dirigible.ide.jgit.command.ui.CloneCommandDialog;
 import com.sap.dirigible.ide.jgit.connector.JGitConnector;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class CloneCommandHandler extends AbstractWorkspaceHandler {
 

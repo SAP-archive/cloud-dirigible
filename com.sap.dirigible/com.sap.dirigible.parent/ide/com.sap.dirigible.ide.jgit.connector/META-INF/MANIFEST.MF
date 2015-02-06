@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.jgit,
  com.sap.dirigible.ide.workspace.rcp;resolution:=optional,
  com.sap.dirigible.ide.workspace.rap;resolution:=optional,
  com.sap.dirigible.ide.repository
-Import-Package: com.sap.dirigible.ide.logging,
+Import-Package: com.sap.dirigible.repository.logging,
  org.eclipse.core.resources
 Export-Package: com.sap.dirigible.ide.jgit.utils,
  com.sap.dirigible.ide.jgit.connector

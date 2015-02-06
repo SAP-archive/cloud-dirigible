@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.sap.dirigible.repository.api.ContentTypeHelper;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.registry.PathUtils;
 
 public class AccessLogServlet extends HttpServlet {

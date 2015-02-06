@@ -13,10 +13,10 @@ import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.conf.ConfigurationStore;
 import com.sap.dirigible.repository.ext.conf.IConfigurationStore;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class AbstractRepositoryPreferenceStore implements IPreferenceStore {
 	

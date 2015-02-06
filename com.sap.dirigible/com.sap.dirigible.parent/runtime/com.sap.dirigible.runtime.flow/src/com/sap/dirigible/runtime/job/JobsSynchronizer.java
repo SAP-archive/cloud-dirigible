@@ -21,7 +21,7 @@ import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class JobsSynchronizer implements Runnable {

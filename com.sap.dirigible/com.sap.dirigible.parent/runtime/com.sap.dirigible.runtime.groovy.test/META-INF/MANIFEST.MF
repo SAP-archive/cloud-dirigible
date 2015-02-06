@@ -23,7 +23,8 @@ Require-Bundle: com.sap.dirigible.repository.api,
  com.sap.dirigible.runtime.core,
  org.junit,
  org.hamcrest,
- com.sap.dirigible.repository.db
+ com.sap.dirigible.repository.db,
+ com.sap.dirigible.repository.logging
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,
@@ -42,7 +43,6 @@ Export-Package: com.sap.dirigible.runtime.command,
  com.sap.dirigible.runtime.filter,
  com.sap.dirigible.runtime.js,
  com.sap.dirigible.runtime.js.debug,
- com.sap.dirigible.runtime.logger,
  com.sap.dirigible.runtime.logging,
  com.sap.dirigible.runtime.mail,
  com.sap.dirigible.runtime.memory,

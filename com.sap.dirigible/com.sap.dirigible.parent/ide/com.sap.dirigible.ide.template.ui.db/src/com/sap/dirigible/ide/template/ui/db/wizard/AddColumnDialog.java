@@ -32,8 +32,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.ext.db.DBSupportedTypesMap;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class AddColumnDialog extends TitleAreaDialog {
 	

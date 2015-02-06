@@ -25,7 +25,7 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.service.ServiceHandler;
 import org.eclipse.rap.rwt.service.ServiceManager;
 
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DataExportServiceHandler implements ServiceHandler {
 

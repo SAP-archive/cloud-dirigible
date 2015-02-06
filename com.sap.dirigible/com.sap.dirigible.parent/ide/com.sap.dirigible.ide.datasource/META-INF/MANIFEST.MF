@@ -5,7 +5,7 @@ Bundle-SymbolicName: com.sap.dirigible.ide.datasource;singleton:=true
 Bundle-Version: 2.0.150121
 Bundle-Vendor: SAP
 Require-Bundle: org.eclipse.core.runtime,
- com.sap.dirigible.ide.logging,
+ com.sap.dirigible.repository.logging,
  com.sap.dirigible.repository.ext,
  com.sap.dirigible.ide.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

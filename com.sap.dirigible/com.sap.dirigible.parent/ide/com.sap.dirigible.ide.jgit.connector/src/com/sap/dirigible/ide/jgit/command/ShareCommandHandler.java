@@ -43,10 +43,10 @@ import com.sap.dirigible.ide.jgit.connector.JGitConnector;
 import com.sap.dirigible.ide.jgit.utils.CommandHandlerUtils;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.jgit.utils.GitProjectProperties;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ShareCommandHandler extends AbstractWorkspaceHandler {
 	private static final String TASK_SHARING_PROJECT = Messages.ShareCommandHandler_TASK_SHARING_PROJECT;

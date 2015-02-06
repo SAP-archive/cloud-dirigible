@@ -117,13 +117,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.sap.dirigible.ide.logging"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.sap.dirigible.ide.publish"
          download-size="0"
          install-size="0"

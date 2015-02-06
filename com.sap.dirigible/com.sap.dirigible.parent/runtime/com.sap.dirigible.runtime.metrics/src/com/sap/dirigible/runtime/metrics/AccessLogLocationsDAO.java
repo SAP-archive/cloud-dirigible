@@ -24,7 +24,7 @@ import java.sql.Statement;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class AccessLogLocationsDAO {

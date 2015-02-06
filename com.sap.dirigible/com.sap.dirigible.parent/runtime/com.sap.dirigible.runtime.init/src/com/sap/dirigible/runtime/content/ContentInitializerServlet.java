@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 import com.sap.dirigible.runtime.task.TaskManagerShort;
 

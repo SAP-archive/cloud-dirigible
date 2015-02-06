@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  org.eclipse.rap.ui;resolution:=optional,
  org.eclipse.ui.ide;resolution:=optional,
  com.sap.org.eclipse.ui.ide;resolution:=optional,
- com.sap.dirigible.ide.logging,
+ com.sap.dirigible.repository.logging,
  org.eclipse.core.runtime
 Export-Package: com.sap.dirigible.ide.ui.common.validation
 Bundle-ActivationPolicy: lazy

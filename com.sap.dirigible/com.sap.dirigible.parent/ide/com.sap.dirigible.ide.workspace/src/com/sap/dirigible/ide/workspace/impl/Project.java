@@ -16,8 +16,6 @@
 package com.sap.dirigible.ide.workspace.impl;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
 import java.net.URI;
 import java.util.Map;
 
@@ -35,13 +33,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.QualifiedName;
-import org.eclipse.core.runtime.content.IContentDescription;
-import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.content.IContentTypeMatcher;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.impl.event.ResourceChangeEvent;
+import com.sap.dirigible.repository.logging.Logger;
 
 @SuppressWarnings("deprecation")
 public class Project extends Container implements IProject {

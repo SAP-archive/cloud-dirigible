@@ -1,7 +1,6 @@
 package com.sap.dirigible.runtime.java;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
@@ -20,10 +19,10 @@ import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
 
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
 import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryCompilationException;
 import com.sap.dirigible.runtime.java.dynamic.compilation.InMemoryDiagnosticListener;
-import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class JavaExecutor extends AbstractScriptExecutor {

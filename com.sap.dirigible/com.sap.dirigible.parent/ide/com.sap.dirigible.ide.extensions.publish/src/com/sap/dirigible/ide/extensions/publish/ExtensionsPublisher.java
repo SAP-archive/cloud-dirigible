@@ -15,8 +15,8 @@
 
 package com.sap.dirigible.ide.extensions.publish;
 
-import static com.sap.dirigible.ide.extensions.publish.ExtensionsConstants.REGISTYRY_PUBLISH_LOCATION;
 import static com.sap.dirigible.ide.extensions.publish.ExtensionsConstants.ED_CONTENT_FOLDER;
+import static com.sap.dirigible.ide.extensions.publish.ExtensionsConstants.REGISTYRY_PUBLISH_LOCATION;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +27,14 @@ import org.eclipse.core.resources.IProject;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.publish.AbstractPublisher;
-import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.IPublisher;
+import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.ext.extensions.ExtensionUpdater;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ExtensionsPublisher extends AbstractPublisher implements IPublisher {
 

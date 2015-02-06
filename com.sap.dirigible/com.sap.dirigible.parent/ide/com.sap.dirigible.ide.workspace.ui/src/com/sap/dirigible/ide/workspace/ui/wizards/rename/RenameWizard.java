@@ -21,7 +21,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
 
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RenameWizard extends Wizard {
 

@@ -12,7 +12,7 @@ Require-Bundle: com.sap.dirigible.ide.datasource,
  org.eclipse.jface;resolution:=optional,
  org.eclipse.rap.jface;resolution:=optional,
  com.sap.dirigible.repository.ext,
- com.sap.dirigible.ide.logging,
+ com.sap.dirigible.repository.logging,
  com.sap.dirigible.ide.common
 Import-Package: javax.servlet,
  javax.servlet.annotation,

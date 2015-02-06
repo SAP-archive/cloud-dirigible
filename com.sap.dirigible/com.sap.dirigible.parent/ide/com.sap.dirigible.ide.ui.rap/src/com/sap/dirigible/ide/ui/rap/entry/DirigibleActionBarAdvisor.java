@@ -46,9 +46,8 @@ import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
 
-import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DirigibleActionBarAdvisor extends ActionBarAdvisor {
 

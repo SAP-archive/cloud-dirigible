@@ -41,7 +41,7 @@ import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IEntityInformation;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * Servlet implementation class RegistryServlet

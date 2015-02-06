@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  com.sap.dirigible.ide.repository,
  com.sap.dirigible.ide.datasource,
  com.sap.dirigible.repository.api,
- com.sap.dirigible.ide.logging,
+ com.sap.dirigible.repository.logging,
  com.sap.dirigible.repository.ext,
  org.eclipse.core.runtime;resolution:=optional
 Export-Package: com.sap.dirigible.ide.generic.ui

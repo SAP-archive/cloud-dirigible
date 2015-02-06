@@ -9,8 +9,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryGlobalPreferenceStore;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class TerminalPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 

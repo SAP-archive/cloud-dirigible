@@ -32,7 +32,7 @@ import com.google.gson.JsonObject;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.ext.lucene.RepositoryMemoryIndexer;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.registry.AbstractRegistryServlet;
 
 /**

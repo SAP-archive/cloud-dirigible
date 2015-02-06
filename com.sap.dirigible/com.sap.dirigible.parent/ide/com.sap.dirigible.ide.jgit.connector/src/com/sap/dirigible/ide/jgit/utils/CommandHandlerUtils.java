@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class CommandHandlerUtils {
 	private static final String UNKNOWN_SELECTION_TYPE = Messages.CommandHandlerUtils_UNKNOWN_SELECTION_TYPE;

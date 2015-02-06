@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 
 import org.junit.Test;
 
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.commons.AbstractConsoleOutputTest;
 
 

@@ -30,9 +30,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.ext.command.Piper;
 import com.sap.dirigible.repository.ext.command.ProcessUtils;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class TerminalView extends ViewPart {
 	

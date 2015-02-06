@@ -24,9 +24,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.ui.shared.FocusableWizardPage;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RenameWizardNamingPage extends FocusableWizardPage {
 

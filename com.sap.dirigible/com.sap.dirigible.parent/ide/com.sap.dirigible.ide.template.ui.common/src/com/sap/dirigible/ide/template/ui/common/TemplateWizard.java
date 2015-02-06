@@ -22,8 +22,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.ui.commands.OpenHandler;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class TemplateWizard extends Wizard {
 

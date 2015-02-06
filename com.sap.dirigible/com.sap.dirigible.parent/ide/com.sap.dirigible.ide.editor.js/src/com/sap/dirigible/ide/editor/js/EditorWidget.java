@@ -30,8 +30,8 @@ import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.editor.text.editor.AbstractTextEditorWidget;
 import com.sap.dirigible.ide.editor.text.editor.EditorMode;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.logging.Logger;
 
 @SuppressWarnings("unused")
 public class EditorWidget extends AbstractTextEditorWidget {

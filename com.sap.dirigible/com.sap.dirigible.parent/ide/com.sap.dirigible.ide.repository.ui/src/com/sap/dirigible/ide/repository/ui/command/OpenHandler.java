@@ -32,8 +32,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.editor.text.input.ContentEditorInput;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.IResource;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class OpenHandler extends AbstractHandler {
 

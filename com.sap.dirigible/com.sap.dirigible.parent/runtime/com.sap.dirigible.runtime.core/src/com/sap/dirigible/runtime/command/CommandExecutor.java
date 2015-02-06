@@ -31,8 +31,8 @@ import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.command.Piper;
 import com.sap.dirigible.repository.ext.command.ProcessUtils;
 import com.sap.dirigible.repository.ext.utils.FileUtils;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.filter.XSSUtils;
-import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class CommandExecutor extends AbstractScriptExecutor {

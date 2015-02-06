@@ -23,7 +23,8 @@ Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  org.eclipse.core.runtime,
  org.eclipse.equinox.util,
  org.eclipse.equinox.ds,
- org.eclipse.osgi.services
+ org.eclipse.osgi.services,
+ com.sap.dirigible.repository.logging
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,
@@ -41,7 +42,6 @@ Export-Package: com.sap.dirigible.runtime,
  com.sap.dirigible.runtime.filter,
  com.sap.dirigible.runtime.js,
  com.sap.dirigible.runtime.js.debug,
- com.sap.dirigible.runtime.logger,
  com.sap.dirigible.runtime.logging,
  com.sap.dirigible.runtime.mail,
  com.sap.dirigible.runtime.registry,

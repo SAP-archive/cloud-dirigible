@@ -43,7 +43,7 @@ import org.eclipse.swt.widgets.TableItem;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class HtmlForEntityTemplateTablePage extends WizardPage {
 

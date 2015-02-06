@@ -17,7 +17,7 @@ package com.sap.dirigible.runtime.metrics;
 
 import java.sql.SQLException;
 
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 
 public class AccessLogCleanupTask implements IRunnableTask {

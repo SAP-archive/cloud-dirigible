@@ -63,7 +63,6 @@ import com.sap.dirigible.ide.debug.model.DebugModel;
 import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.debug.model.IDebugController;
 import com.sap.dirigible.ide.editor.js.JavaScriptEditor;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.ide.workspace.ui.commands.OpenHandler;
 import com.sap.dirigible.ide.workspace.ui.view.WebViewerView;
@@ -75,6 +74,7 @@ import com.sap.dirigible.repository.ext.debug.DebugSessionMetadata;
 import com.sap.dirigible.repository.ext.debug.DebugSessionsMetadata;
 import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
 import com.sap.dirigible.repository.ext.debug.VariableValuesMetadata;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DebugView extends ViewPart implements IDebugController, IPropertyListener {
 	private static final String INTERNAL_ERROR_DEBUG_BRIDGE_IS_NOT_PRESENT = "Internal error - DebugBridge is not present";

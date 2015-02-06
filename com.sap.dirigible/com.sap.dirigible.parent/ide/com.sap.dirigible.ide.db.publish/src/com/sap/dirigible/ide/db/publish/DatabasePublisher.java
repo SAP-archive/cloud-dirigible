@@ -28,7 +28,6 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.publish.AbstractPublisher;
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishException;
@@ -38,6 +37,7 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.db.DatabaseUpdater;
 import com.sap.dirigible.repository.ext.db.DsvUpdater;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 

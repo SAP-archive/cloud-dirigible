@@ -18,8 +18,9 @@ package com.sap.dirigible.ide.workspace.wizard.project.sample;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
+
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 
 public class SampleProjectWizard extends Wizard {

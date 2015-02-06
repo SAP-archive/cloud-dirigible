@@ -32,10 +32,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class Container extends Resource implements IContainer {
 

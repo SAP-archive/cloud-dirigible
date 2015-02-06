@@ -23,10 +23,10 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Shell;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.ext.extensions.ExtensionDefinition;
 import com.sap.dirigible.repository.ext.extensions.ExtensionManager;
 import com.sap.dirigible.repository.ext.extensions.ExtensionPointDefinition;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ExtensionsContentProvider implements ITreeContentProvider {
 	private static final long serialVersionUID = -1334098123002372113L;

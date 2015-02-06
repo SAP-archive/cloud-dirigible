@@ -53,13 +53,12 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 
-import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.RepositoryException;
+import com.sap.dirigible.repository.logging.Logger;
 
 @SuppressWarnings("deprecation")
 public class Workspace implements IWorkspace {

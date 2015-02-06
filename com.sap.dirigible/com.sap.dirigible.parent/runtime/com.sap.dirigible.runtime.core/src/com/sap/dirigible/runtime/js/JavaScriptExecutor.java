@@ -33,7 +33,7 @@ import org.mozilla.javascript.commonjs.module.provider.ModuleSourceProvider;
 import org.mozilla.javascript.commonjs.module.provider.SoftCachingModuleScriptProvider;
 
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
 
 public class JavaScriptExecutor extends AbstractScriptExecutor {

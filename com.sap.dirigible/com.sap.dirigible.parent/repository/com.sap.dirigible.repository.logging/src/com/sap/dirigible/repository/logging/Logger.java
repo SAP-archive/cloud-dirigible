@@ -48,7 +48,7 @@ public class Logger {
 	private final org.slf4j.Logger logger1;
 	private final java.util.logging.Logger logger2;
 
-	private Logger(org.slf4j.Logger logger1, java.util.logging.Logger logger2) {
+	public Logger(org.slf4j.Logger logger1, java.util.logging.Logger logger2) {
 		this.logger1 = logger1;
 		this.logger2 = logger2;
 	}

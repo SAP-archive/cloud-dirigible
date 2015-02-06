@@ -31,12 +31,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.MessageDialog;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class AbstractPublisher implements IPublisher {
 

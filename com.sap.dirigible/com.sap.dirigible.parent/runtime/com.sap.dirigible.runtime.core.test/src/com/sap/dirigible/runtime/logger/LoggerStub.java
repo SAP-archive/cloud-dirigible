@@ -2,6 +2,8 @@ package com.sap.dirigible.runtime.logger;
 
 import org.slf4j.LoggerFactory;
 
+import com.sap.dirigible.repository.logging.Logger;
+
 public class LoggerStub extends Logger {
 
 	public static Logger getLogger(String name) {

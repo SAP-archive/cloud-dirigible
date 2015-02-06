@@ -47,7 +47,7 @@ import org.eclipse.ui.part.ViewPart;
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.editor.text.editor.AbstractTextEditorWidget;
 import com.sap.dirigible.ide.editor.text.editor.EditorMode;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class AbstractSQLConsole extends ViewPart implements ISQLConsole {
 

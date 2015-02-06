@@ -25,7 +25,7 @@ import org.eclipse.ui.IEditorInput;
 
 import com.sap.dirigible.ide.editor.text.editor.ContentProviderException;
 import com.sap.dirigible.ide.editor.text.editor.TextEditor;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DesignerEditor extends TextEditor {
 

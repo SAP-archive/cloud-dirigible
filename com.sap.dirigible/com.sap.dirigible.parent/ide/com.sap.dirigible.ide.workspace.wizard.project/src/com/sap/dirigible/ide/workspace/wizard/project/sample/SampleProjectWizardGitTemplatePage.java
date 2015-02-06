@@ -51,9 +51,9 @@ import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.image.ImageUtils;
 import com.sap.dirigible.ide.jgit.connector.JGitConnector;
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.wizard.project.create.ProjectTemplateType;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class SampleProjectWizardGitTemplatePage extends WizardPage {
 

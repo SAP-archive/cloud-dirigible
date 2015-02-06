@@ -34,11 +34,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import com.sap.dirigible.ide.common.image.ImageUtils;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class NewProjectWizardTemplateTypePage extends WizardPage {
 

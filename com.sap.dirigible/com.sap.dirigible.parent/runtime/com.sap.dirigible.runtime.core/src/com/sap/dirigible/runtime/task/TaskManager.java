@@ -22,7 +22,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class TaskManager implements Runnable {
 

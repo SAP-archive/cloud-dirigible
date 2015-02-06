@@ -23,9 +23,9 @@ import org.eclipse.ui.internal.SaveAction;
 
 import com.sap.dirigible.ide.common.image.ImageUtils;
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.PublishManager;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ToolBarMenuViewProvider {
 

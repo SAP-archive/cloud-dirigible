@@ -27,10 +27,10 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.PublishManager;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * Handler for the Publish command.

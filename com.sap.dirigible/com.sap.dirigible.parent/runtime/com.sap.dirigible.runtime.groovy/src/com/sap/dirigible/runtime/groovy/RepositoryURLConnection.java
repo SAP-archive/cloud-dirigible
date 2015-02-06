@@ -24,7 +24,7 @@ import java.net.URLConnection;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RepositoryURLConnection extends URLConnection {
 	

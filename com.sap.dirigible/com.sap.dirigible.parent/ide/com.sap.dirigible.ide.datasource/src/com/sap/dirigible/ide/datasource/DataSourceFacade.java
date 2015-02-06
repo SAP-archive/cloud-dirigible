@@ -24,8 +24,8 @@ import javax.sql.DataSource;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.ext.db.WrappedDataSource;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * DataSource Facade utility class for IDE

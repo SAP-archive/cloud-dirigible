@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DebugModelFacade {
 	

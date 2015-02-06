@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  org.eclipse.core.runtime,
  com.sap.dirigible.ide.workspace.rcp;resolution:=optional,
  com.sap.dirigible.ide.workspace.rap;resolution:=optional
-Import-Package: com.sap.dirigible.ide.logging,
+Import-Package: com.sap.dirigible.repository.logging,
  com.sap.dirigible.ide.publish,
  javax.servlet,
  javax.servlet.http,

@@ -35,8 +35,8 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.ext.db.DBTableDataInserter;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class UploadDataHandler extends AbstractHandler {
 

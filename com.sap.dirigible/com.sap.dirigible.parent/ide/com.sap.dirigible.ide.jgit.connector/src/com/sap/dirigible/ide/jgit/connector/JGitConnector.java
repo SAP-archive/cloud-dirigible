@@ -58,7 +58,7 @@ import org.eclipse.jgit.util.StringUtils;
 
 import com.sap.dirigible.ide.jgit.utils.GitFileUtils;
 import com.sap.dirigible.ide.jgit.utils.Messages;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class JGitConnector {
 

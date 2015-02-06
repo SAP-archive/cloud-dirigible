@@ -42,8 +42,8 @@ import com.sap.dirigible.repository.ext.debug.DebugSessionMetadata;
 import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
 import com.sap.dirigible.repository.ext.debug.VariableValue;
 import com.sap.dirigible.repository.ext.debug.VariableValuesMetadata;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.js.debug.IDebugCommands.DebugCommand;
-import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 
 public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener {

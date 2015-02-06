@@ -7,7 +7,7 @@ Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.sap.dirigible.ide.repository,
  org.eclipse.core.runtime;bundle-version="3.8.0",
- com.sap.dirigible.ide.logging,
+ com.sap.dirigible.repository.logging,
  com.sap.dirigible.ide.datasource
 Import-Package: com.google.gson;version="1.6.0",
  com.sap.dirigible.ide.common,

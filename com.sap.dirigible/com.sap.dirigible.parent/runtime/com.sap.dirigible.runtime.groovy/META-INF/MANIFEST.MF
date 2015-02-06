@@ -24,7 +24,8 @@ Require-Bundle: com.sap.dirigible.repository.api,
  com.sap.dirigible.runtime.security,
  org.eclipse.equinox.util,
  org.eclipse.equinox.ds,
- org.eclipse.osgi.services
+ org.eclipse.osgi.services,
+ com.sap.dirigible.repository.logging
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,

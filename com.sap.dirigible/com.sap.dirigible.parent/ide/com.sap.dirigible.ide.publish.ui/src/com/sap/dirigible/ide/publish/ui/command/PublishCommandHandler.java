@@ -15,24 +15,18 @@
 
 package com.sap.dirigible.ide.publish.ui.command;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.publish.PublishException;
 import com.sap.dirigible.ide.publish.PublishManager;
+import com.sap.dirigible.repository.logging.Logger;
 
 /**
  * Handler for the Publish command.

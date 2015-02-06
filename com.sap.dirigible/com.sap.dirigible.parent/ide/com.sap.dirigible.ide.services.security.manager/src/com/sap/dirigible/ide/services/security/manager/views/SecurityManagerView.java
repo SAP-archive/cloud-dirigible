@@ -41,11 +41,11 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.ext.security.SecurityException;
 import com.sap.dirigible.repository.ext.security.SecurityLocationMetadata;
 import com.sap.dirigible.repository.ext.security.SecurityManager;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class SecurityManagerView extends ViewPart {
 

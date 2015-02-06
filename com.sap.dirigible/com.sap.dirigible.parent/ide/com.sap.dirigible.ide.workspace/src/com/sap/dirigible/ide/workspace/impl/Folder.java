@@ -26,8 +26,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.workspace.impl.event.ResourceChangeEvent;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class Folder extends Container implements IFolder {
 

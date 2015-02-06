@@ -30,7 +30,7 @@ import com.sap.dirigible.repository.api.ContentTypeHelper;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IResource;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RepositoryServlet extends RegistryServlet {
 

@@ -20,9 +20,9 @@ import java.io.IOException;
 import org.eclipse.core.expressions.PropertyTester;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RepositoryPermissionTester extends PropertyTester {
 	private static final Logger logger = Logger.getLogger(RepositoryPermissionTester.class);

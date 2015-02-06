@@ -29,7 +29,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
@@ -40,6 +39,7 @@ import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.RepositoryException;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class SampleProjectWizardModel {
 	private static final String ERROR_OCCURED_WHEN_TRYING_TO_VALIDATE_NEW_PROJECT_NAME = Messages.NewProjectWizardModel_ERROR_OCCURED_WHEN_TRYING_TO_VALIDATE_NEW_PROJECT_NAME;

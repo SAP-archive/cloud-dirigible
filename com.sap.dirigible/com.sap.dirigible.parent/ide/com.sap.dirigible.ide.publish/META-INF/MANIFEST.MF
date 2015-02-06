@@ -16,7 +16,7 @@ Import-Package: com.sap.dirigible.ide.common,
  org.eclipse.jface.dialogs,
  org.eclipse.jface.viewers
 Export-Package: com.sap.dirigible.ide.publish;version="1.0.0";uses:="org.eclipse.core.resources"
-Require-Bundle: com.sap.dirigible.ide.logging,
+Require-Bundle: com.sap.dirigible.repository.logging,
  org.apache.commons.io,
  org.eclipse.ui;resolution:=optional,
  org.eclipse.rap.ui;resolution:=optional

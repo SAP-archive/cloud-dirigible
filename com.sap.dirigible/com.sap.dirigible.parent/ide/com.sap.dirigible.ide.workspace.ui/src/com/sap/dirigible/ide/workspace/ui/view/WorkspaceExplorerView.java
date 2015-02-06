@@ -39,12 +39,12 @@ import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.ui.view.IRefreshableView;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.commands.AbstractWorkspaceHandler;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewer;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewerUtils;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class WorkspaceExplorerView extends ViewPart implements IRefreshableView {
 

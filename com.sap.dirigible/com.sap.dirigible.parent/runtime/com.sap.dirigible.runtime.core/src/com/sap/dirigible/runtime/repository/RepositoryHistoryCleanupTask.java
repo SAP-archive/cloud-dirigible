@@ -17,7 +17,7 @@ package com.sap.dirigible.runtime.repository;
 
 import java.io.IOException;
 
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 
 public class RepositoryHistoryCleanupTask implements IRunnableTask {

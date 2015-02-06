@@ -8,7 +8,7 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  org.eclipse.rap.ui;resolution:=optional,
  org.eclipse.core.resources,
  com.sap.dirigible.ide.common,
- com.sap.dirigible.ide.logging,
+ com.sap.dirigible.repository.logging,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.workspace,

@@ -20,9 +20,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.js.JavaScriptServlet;
-import com.sap.dirigible.runtime.logger.Logger;
 
 /**
  * Servlet for JavaScript scripts execution

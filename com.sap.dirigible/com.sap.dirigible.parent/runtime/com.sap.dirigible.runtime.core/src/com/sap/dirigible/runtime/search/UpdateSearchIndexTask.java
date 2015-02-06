@@ -16,7 +16,7 @@
 package com.sap.dirigible.runtime.search;
 
 import com.sap.dirigible.repository.ext.lucene.RepositoryMemoryIndexer;
-import com.sap.dirigible.runtime.logger.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
 import com.sap.dirigible.runtime.task.IRunnableTask;
 

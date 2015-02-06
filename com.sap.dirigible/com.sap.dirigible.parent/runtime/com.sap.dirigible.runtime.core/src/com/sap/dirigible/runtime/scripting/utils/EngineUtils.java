@@ -14,8 +14,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.RuntimeActivator;
-import com.sap.dirigible.runtime.logger.Logger;
 import com.sap.dirigible.runtime.scripting.IScriptExecutor;
 import com.sap.dirigible.runtime.scripting.IScriptExecutorProvider;
 

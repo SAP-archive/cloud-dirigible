@@ -29,11 +29,11 @@ import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
 
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.repository.ui.viewer.RepositoryViewer;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.RepositoryException;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class RepositoryView extends ViewPart implements IRefreshableView {
 

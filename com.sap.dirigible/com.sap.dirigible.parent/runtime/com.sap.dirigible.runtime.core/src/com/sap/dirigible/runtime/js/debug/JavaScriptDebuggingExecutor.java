@@ -23,8 +23,8 @@ import org.mozilla.javascript.ErrorReporter;
 
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.debug.IDebugProtocol;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.js.JavaScriptExecutor;
-import com.sap.dirigible.runtime.logger.Logger;
 
 public class JavaScriptDebuggingExecutor extends JavaScriptExecutor {
 

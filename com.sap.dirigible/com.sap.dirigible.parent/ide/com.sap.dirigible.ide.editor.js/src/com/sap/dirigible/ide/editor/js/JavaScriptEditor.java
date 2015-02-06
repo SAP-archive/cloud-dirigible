@@ -30,8 +30,8 @@ import com.sap.dirigible.ide.debug.model.DebugModelFacade;
 import com.sap.dirigible.ide.editor.text.editor.ContentProviderException;
 import com.sap.dirigible.ide.editor.text.editor.EditorMode;
 import com.sap.dirigible.ide.editor.text.editor.TextEditor;
-import com.sap.dirigible.ide.logging.Logger;
 import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.logging.Logger;
 import com.sap.rap.ui.shared.editor.SourceFileEditorInput;
 
 public class JavaScriptEditor extends TextEditor {

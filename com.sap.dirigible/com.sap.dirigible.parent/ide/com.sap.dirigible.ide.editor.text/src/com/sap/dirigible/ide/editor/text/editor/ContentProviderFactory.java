@@ -26,7 +26,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.ui.IEditorInput;
 
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class ContentProviderFactory {
 
