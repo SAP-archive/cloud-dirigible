@@ -24,6 +24,11 @@ public class RCPWorkspaceMapper {
 		String workspaceName = null;
 		
 		if (repositoryName != null) {
+
+			if (FileUtils.exists(repositoryName)) {
+				return repositoryName;
+			}
+			
 			check();
 			
 			if (repositoryName.startsWith(workspaceRoot)

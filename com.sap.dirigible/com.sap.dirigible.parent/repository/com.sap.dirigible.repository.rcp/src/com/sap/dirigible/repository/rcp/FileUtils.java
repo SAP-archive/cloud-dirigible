@@ -98,4 +98,9 @@ public class FileUtils {
 		workspacePath = workspacePath.replace(IRepositoryPaths.SEPARATOR, File.separator);
 		return workspacePath;
 	}
+
+	public static boolean exists(String repositoryName) {
+		Path path = FileSystems.getDefault().getPath(repositoryName);
+		return Files.exists(path);
+	}
 }

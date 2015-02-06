@@ -140,9 +140,9 @@ public class RCPRepository implements IRepository {
 	public IResource getResource(String path) {
 		logger.debug("entering getResource"); //$NON-NLS-1$
 		final RepositoryPath wrapperPath = new RepositoryPath(path);
-		RCPResource dbResource = new RCPResource(this, wrapperPath);
+		RCPResource resource = new RCPResource(this, wrapperPath);
 		logger.debug("exiting getResource"); //$NON-NLS-1$
-		return dbResource;
+		return resource;
 	}
 
 	@Override

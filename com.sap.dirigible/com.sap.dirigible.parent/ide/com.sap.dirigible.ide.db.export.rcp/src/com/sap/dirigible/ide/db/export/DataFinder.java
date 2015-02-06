@@ -25,8 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
-import com.sap.dirigible.ide.db.export.TableColumn;
-import com.sap.dirigible.ide.logging.Logger;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class DataFinder {
 

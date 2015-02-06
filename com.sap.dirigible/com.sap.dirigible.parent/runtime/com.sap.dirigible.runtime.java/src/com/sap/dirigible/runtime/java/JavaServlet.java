@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.core.runtime.Platform;
+
 import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
 import com.sap.dirigible.runtime.scripting.AbstractScriptingServlet;
@@ -66,7 +68,11 @@ public class JavaServlet extends AbstractScriptingServlet {
 	
 	private String getClasspath() throws IOException {
 		if (this.classpath == null) {
-			this.classpath = ClassFileManager.getJars(this.libDirectory);
+			if (this.libDirectory != null) {
+				this.classpath = ClassFileManager.getJars(this.libDirectory);
+			} else {
+				this.classpath = Platform.getInstallLocation().getURL().toString();
+			}
 		}
 		return this.classpath;
 	}
