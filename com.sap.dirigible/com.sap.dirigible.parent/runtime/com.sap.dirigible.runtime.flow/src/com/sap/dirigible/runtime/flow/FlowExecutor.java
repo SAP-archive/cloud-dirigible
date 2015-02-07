@@ -165,4 +165,8 @@ public class FlowExecutor extends AbstractScriptExecutor {
 		// do nothing
 	}
 
+	@Override
+	protected String getModuleType(String path) {
+		return ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES;
+	}
 }

@@ -212,7 +212,7 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 			String resourcePath = createResourcePath(rootPath, module, extension);
 			final IResource resource = repository.getResource(resourcePath);
 			if (resource.exists()) {
-				return new Module(getModuleName(resource.getPath()), readResourceData(repository,
+				return new Module(getModuleName(resource.getPath()), resource.getPath(), readResourceData(repository,
 						resourcePath));
 			}
 		}
@@ -232,7 +232,7 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 				if (entity.exists()) {
 					String path = entity.getPath();
 					String moduleName = getModuleName(path);
-					Module module = new Module(moduleName, readResourceData(repository, path), entity.getInformation());
+					Module module = new Module(moduleName, path, readResourceData(repository, path), entity.getInformation());
 					modules.put(moduleName, module);
 				}
 			}
@@ -240,9 +240,9 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 		return Arrays.asList(modules.values().toArray(new Module[] {}));
 	}
 
-	private static String getModuleName(String path) {
+	private String getModuleName(String path) {
 		String workspace = ICommonConstants.WORKSPACE + ICommonConstants.SEPARATOR;
-		String scriptingServices = ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES
+		String scriptingServices = getModuleType(path) //ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES
 				+ ICommonConstants.SEPARATOR;
 		int indexOfSandbox = path.indexOf(ICommonConstants.SANDBOX);
 		int indexOfRegistry = path.indexOf(ICommonConstants.REGISTRY);
@@ -258,9 +258,10 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 		return result;
 	}
 
+	protected abstract String getModuleType(String path);
+
 	private String createResourcePath(String root, String module, String extension) {
-		StringBuilder buff = new StringBuilder().append(root).append(ICommonConstants.SEPARATOR)
-				.append(module);
+		StringBuilder buff = new StringBuilder().append(root).append(IRepository.SEPARATOR).append(module);
 		if (extension != null) {
 			buff.append(extension);
 		}
@@ -277,5 +278,16 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 			throw new IOException(logMsg);
 		}
 		return collection;
+	}
+	
+	public IResource getResource(IRepository repository, String repositoryPath)
+			throws IOException {
+		final IResource resource = repository.getResource(repositoryPath);
+		if (!resource.exists()) {
+			final String logMsg = String.format(THERE_IS_NO_RESOURCE_AT_THE_SPECIFIED_SERVICE_PATH, resource.getName(), repositoryPath); 
+			logger.error(logMsg);
+			throw new IOException(logMsg);
+		}
+		return resource;
 	}
 }

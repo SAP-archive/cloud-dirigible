@@ -89,7 +89,7 @@ public class ClassFileManager extends ForwardingJavaFileManager<JavaFileManager>
 	
 	public static List<JavaFileObject> getSourceFiles(List<Module> modules) throws IOException {
 		for (Module module : modules) {
-			String fqn = getFQN(module.getPath());
+			String fqn = getFQN(module.getName());
 			long lastModified = getLastModified(module);
 
 			JavaClassObject lastKnownSoruceFile = (JavaClassObject) getSourceFile(fqn);

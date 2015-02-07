@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
@@ -107,5 +108,8 @@ public class GroovyExecutor extends AbstractScriptExecutor {
 		}
 	}
 
-		
+	@Override
+	protected String getModuleType(String path) {
+		return ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
+	}
 }

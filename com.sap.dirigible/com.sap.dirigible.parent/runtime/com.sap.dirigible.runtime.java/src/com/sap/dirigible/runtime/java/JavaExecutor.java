@@ -18,6 +18,7 @@ import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.java.dynamic.compilation.ClassFileManager;
@@ -101,5 +102,10 @@ public class JavaExecutor extends AbstractScriptExecutor {
 	@Override
 	protected void registerDefaultVariable(Object scope, String name, Object value) {
 		defaultVariables.put(name, value);
+	}
+	
+	@Override
+	protected String getModuleType(String path) {
+		return ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
 	}
 }

@@ -31,6 +31,7 @@ import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.registry.PathUtils;
 import com.sap.dirigible.runtime.registry.RegistryServlet;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
+import com.sap.dirigible.runtime.scripting.IScriptExecutor;
 
 public class WebRegistryServlet extends RegistryServlet {
 
@@ -53,9 +54,9 @@ public class WebRegistryServlet extends RegistryServlet {
 		if (request.getAttribute(SandboxFilter.SANDBOX_CONTEXT) != null
 				&& (Boolean) request.getAttribute(SandboxFilter.SANDBOX_CONTEXT)) {
 			return IRepositoryPaths.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR
-					+ RepositoryFacade.getUser(request) + WEB_CONTENT + requestPath;
+					+ RepositoryFacade.getUser(request) + getContentFolder() + requestPath;
 		}
-		return IRepositoryPaths.REGISTRY_DEPLOY_PATH + WEB_CONTENT + requestPath;
+		return IRepositoryPaths.REGISTRY_DEPLOY_PATH + getContentFolder() + requestPath;
 	}
 	
 	protected String getWebRegistryPath(HttpServletRequest request)
@@ -63,9 +64,13 @@ public class WebRegistryServlet extends RegistryServlet {
 		if (request.getAttribute(SandboxFilter.SANDBOX_CONTEXT) != null
 				&& (Boolean) request.getAttribute(SandboxFilter.SANDBOX_CONTEXT)) {
 			return IRepositoryPaths.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR
-					+ RepositoryFacade.getUser(request) + WEB_CONTENT;
+					+ RepositoryFacade.getUser(request) + getContentFolder();
 		}
-		return IRepositoryPaths.REGISTRY_DEPLOY_PATH + WEB_CONTENT;
+		return IRepositoryPaths.REGISTRY_DEPLOY_PATH + getContentFolder();
+	}
+	
+	protected String getContentFolder() {
+		return WEB_CONTENT;
 	}
 
 	@Override
@@ -90,7 +95,7 @@ public class WebRegistryServlet extends RegistryServlet {
 			IResource headerRef = entity.getParent().getResource(HEADER_REF);
 			if (!nohf && headerRef.exists()) {
 				String headerPath = new String(headerRef.getContent()).trim();
-				IResource headerContent = entity.getRepository().getResource(IRepositoryPaths.REGISTRY_DEPLOY_PATH + WEB_CONTENT + headerPath);
+				IResource headerContent = entity.getRepository().getResource(IRepositoryPaths.REGISTRY_DEPLOY_PATH + getContentFolder() + headerPath);
 				// start with header
 				if(headerContent.exists()){
 					outputStream.write(headerContent.getContent());
@@ -108,7 +113,7 @@ public class WebRegistryServlet extends RegistryServlet {
 			IResource footerRef = entity.getParent().getResource(FOOTER_REF);
 			if(!nohf && footerRef.exists()) {
 				String footerPath = new String(footerRef.getContent()).trim();
-				IResource footerContent = entity.getRepository().getResource(IRepositoryPaths.REGISTRY_DEPLOY_PATH + WEB_CONTENT + footerPath);
+				IResource footerContent = entity.getRepository().getResource(IRepositoryPaths.REGISTRY_DEPLOY_PATH + getContentFolder() + footerPath);
 				// end with footer
 				if(footerContent.exists()){
 					outputStream.write(footerContent.getContent());
@@ -150,9 +155,9 @@ public class WebRegistryServlet extends RegistryServlet {
 		return preprocessContent(data, entity);
 	}
 	
-	public WebExecutor createExecutor(HttpServletRequest request) throws IOException {
+	public IScriptExecutor createExecutor(HttpServletRequest request) throws IOException {
 		WebExecutor executor = new WebExecutor(getRepository(request),
-				getWebRegistryPath(request), IRepositoryPaths.REGISTRY_DEPLOY_PATH + WEB_CONTENT);
+				getWebRegistryPath(request), IRepositoryPaths.REGISTRY_DEPLOY_PATH + getContentFolder());
 		return executor;
 	}
 }

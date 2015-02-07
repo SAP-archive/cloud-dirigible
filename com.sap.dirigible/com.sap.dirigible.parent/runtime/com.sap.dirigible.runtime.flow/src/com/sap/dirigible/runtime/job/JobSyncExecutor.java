@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
@@ -97,6 +98,11 @@ public class JobSyncExecutor extends AbstractScriptExecutor {
 	protected void registerDefaultVariable(Object scope, String name,
 			Object value) {
 		// do nothing
+	}
+	
+	@Override
+	protected String getModuleType(String path) {
+		return ICommonConstants.ARTIFACT_TYPE.INTEGRATION_SERVICES;
 	}
 
 }

@@ -71,13 +71,21 @@ public class FileUtils {
 	public static String getOwner(String workspacePath) throws IOException {
 		String convertedPath = convertToWorkspacePath(workspacePath);
 		Path path = FileSystems.getDefault().getPath(convertedPath);
-		return Files.getOwner(path).getName();
+		if (new File(convertedPath).exists()) {
+			return Files.getOwner(path).getName();
+		} else {
+			return "none";
+		}
 	}
 	
 	public static Date getModifiedAt(String workspacePath) throws IOException {
 		String convertedPath = convertToWorkspacePath(workspacePath);
 		Path path = FileSystems.getDefault().getPath(convertedPath);
-		return new Date(Files.getLastModifiedTime(path).toMillis());
+		if (new File(convertedPath).exists()) {
+			return new Date(Files.getLastModifiedTime(path).toMillis());
+		} else {
+			return new Date();
+		}
 	}
 
 	public static void createFoldersIfNecessary(String workspacePath) {

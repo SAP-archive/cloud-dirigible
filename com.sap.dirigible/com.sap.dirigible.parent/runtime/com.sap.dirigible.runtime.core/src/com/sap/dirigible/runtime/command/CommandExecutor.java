@@ -27,6 +27,7 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 
 import com.sap.dirigible.repository.api.ICollection;
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.ext.command.Piper;
 import com.sap.dirigible.repository.ext.command.ProcessUtils;
@@ -173,6 +174,11 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			ScriptableObject local = (ScriptableObject) scope;
 			local.put(name, local, value);
 		}
+	}
+	
+	@Override
+	protected String getModuleType(String path) {
+		return ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES;
 	}
 
 }

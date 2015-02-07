@@ -22,12 +22,14 @@ import javax.naming.Context;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.logging.Logger;
 import com.sap.dirigible.runtime.js.RepositoryModuleSourceProvider;
 import com.sap.dirigible.runtime.scripting.AbstractScriptExecutor;
+import com.sap.dirigible.runtime.scripting.Module;
 
 public class WebExecutor extends AbstractScriptExecutor {
 	
@@ -58,12 +60,19 @@ public class WebExecutor extends AbstractScriptExecutor {
 			throw new IOException("Web module cannot be null");
 		}
 
-		String result = new String(retrieveModule(this.repository, module, null, this.rootPaths).getContent());
+		Module scriptingModule = retrieveModule(this.repository, module, null, this.rootPaths);
+		byte[] result = scriptingModule.getContent();
 		
-		response.getWriter().print(result);
+		result = preprocessContent(result, getResource(repository, scriptingModule.getPath()));
+		
+		response.getWriter().print(new String(result));
 		response.getWriter().flush();
 		logger.debug("exiting: executeServiceModule()");
 		return result;
+	}
+	
+	protected byte[] preprocessContent(byte[] rawContent, IEntity entity) throws IOException {
+		return rawContent;
 	}
 	
 	protected byte[] buildResourceData(final IEntity entity, final HttpServletRequest request,
@@ -91,6 +100,11 @@ public class WebExecutor extends AbstractScriptExecutor {
 	@Override
 	protected void registerDefaultVariable(Object scope, String name, Object value) {
 		//
+	}
+
+	@Override
+	protected String getModuleType(String path) {
+		return ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT;
 	}
 
 }
