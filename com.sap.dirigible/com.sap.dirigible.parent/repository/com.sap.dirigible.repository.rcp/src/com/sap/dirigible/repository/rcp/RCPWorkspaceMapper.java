@@ -15,6 +15,7 @@ import com.sap.dirigible.repository.api.IRepositoryPaths;
 
 public class RCPWorkspaceMapper {
 	
+	private static final String DB_DIRIGIBLE_USERS_LOCAL_WORKSPACE = "/db/dirigible/users/local/workspace/";
 	private static Map<String, String> prefixMap = Collections.synchronizedMap(new HashMap<String, String>());
 	private static Map<String, String> prefixMapEquals = Collections.synchronizedMap(new HashMap<String, String>());
 	
@@ -23,10 +24,16 @@ public class RCPWorkspaceMapper {
 	public static String getMappedName(String repositoryName) throws IOException {
 		String workspaceName = null;
 		
-		if (repositoryName != null) {
+		if (repositoryName != null
+				&& !"".equals(repositoryName)) {
 
 			if (FileUtils.exists(repositoryName)) {
 				return repositoryName;
+			}
+			String repositoryPathEffect = repositoryName.substring(1);
+			repositoryPathEffect = repositoryPathEffect.replace(File.separator, IRepository.SEPARATOR);
+			if (FileUtils.exists(repositoryPathEffect)) {
+				return repositoryPathEffect;
 			}
 			
 			check();
@@ -68,7 +75,16 @@ public class RCPWorkspaceMapper {
 	}
 
 	public static String getReverseMappedName(String workspaceName) {
-		return "/db/dirigible/users/local/workspace/" + workspaceName.substring(workspaceName.lastIndexOf(IRepositoryPaths.SEPARATOR) + 1);
+		if (workspaceName == null
+				|| "".endsWith(workspaceName)) {
+			return workspaceName;
+		}
+		if (workspaceName.startsWith(DB_DIRIGIBLE_USERS_LOCAL_WORKSPACE)) {
+			return workspaceName;
+		}
+		workspaceName = workspaceName.substring(workspaceRoot.length());
+		workspaceName = workspaceName.replace(File.separator, IRepository.SEPARATOR);
+		return workspaceName;
 	}
 
 	private static void check() throws IOException {

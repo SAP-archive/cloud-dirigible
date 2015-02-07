@@ -118,17 +118,15 @@ public class RCPRepositoryDAO {
 				// This is folder, that was not created
 				if (ContentTypeHelper.getExtension(workspacePath).isEmpty()) {
 					FileUtils.createFolder(workspacePath);
-				} else {
-					return null;
 				}
 			}
 			if (objectFile.isFile()) {
 				String contentType = ContentTypeHelper.getContentType(FileUtils.getExtension(workspacePath));
 				rcpObject = new RCPFile(repository, ContentTypeHelper.isBinary(contentType), contentType);
-//				FileUtils.createFolder(workspacePath);
+//				FileUtils.createFile(workspacePath);
 			} else {
 				rcpObject = new RCPFolder(repository);
-//				FileUtils.createFile(workspacePath);
+//				FileUtils.createFolder(workspacePath);
 			}
 			rcpObject.setName(objectFile.getName());
 			rcpObject.setPath(workspacePath);

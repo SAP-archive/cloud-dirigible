@@ -178,6 +178,8 @@ public class NewProjectWizardModel {
 			}
 		}
 		
+		project.refreshLocal(1, new NullProgressMonitor());
+		
 		return project;
 	}
 

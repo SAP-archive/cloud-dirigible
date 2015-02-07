@@ -80,7 +80,7 @@ public class FileUtils {
 		return new Date(Files.getLastModifiedTime(path).toMillis());
 	}
 
-	private static void createFoldersIfNecessary(String workspacePath) {
+	public static void createFoldersIfNecessary(String workspacePath) {
 		int lastIndexOf = workspacePath.lastIndexOf(File.separator);
 		if (lastIndexOf > 0) {
 			String directory = workspacePath.substring(0, lastIndexOf);
@@ -100,7 +100,16 @@ public class FileUtils {
 	}
 
 	public static boolean exists(String repositoryName) {
-		Path path = FileSystems.getDefault().getPath(repositoryName);
+		if (repositoryName == null
+				|| "".equals(repositoryName)) {
+			return false;
+		}
+		Path path;
+		try {
+			path = FileSystems.getDefault().getPath(repositoryName);
+		} catch (java.nio.file.InvalidPathException e) {
+			return false;
+		}
 		return Files.exists(path);
 	}
 }

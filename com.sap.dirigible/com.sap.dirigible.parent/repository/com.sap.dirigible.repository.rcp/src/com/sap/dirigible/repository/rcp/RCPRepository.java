@@ -16,20 +16,22 @@
 package com.sap.dirigible.repository.rcp;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
-import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.api.IResourceVersion;
 import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.logging.Logger;
-import com.sap.dirigible.repository.zip.ZipExporter;
-import com.sap.dirigible.repository.zip.ZipImporter;
 
 /**
  * The DB implementation of {@link IRepository}
@@ -180,8 +182,7 @@ public class RCPRepository implements IRepository {
 			logger.error(PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL);
 			throw new IOException(PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL);
 		}
-		String relativeRoot = RCPWorkspaceMapper.getReverseMappedName(path);
-		ZipImporter.importZip(this, zipInputStream, relativeRoot);
+		ZipImporter.unzip(path,zipInputStream);
 	}
 
 	@Override
@@ -190,25 +191,25 @@ public class RCPRepository implements IRepository {
 			logger.error(PROVIDED_ZIP_DATA_CANNOT_BE_NULL);
 			throw new IOException(PROVIDED_ZIP_DATA_CANNOT_BE_NULL);
 		}
-		String relativeRoot = RCPWorkspaceMapper.getReverseMappedName(path);
-		ZipImporter.importZip(this, new ZipInputStream(
-				new ByteArrayInputStream(data)), relativeRoot);
+		ZipImporter.unzip(path, new ZipInputStream(
+				new ByteArrayInputStream(data)));
 	}
 
 	@Override
 	public byte[] exportZip(List<String> relativeRoots) throws IOException {
-		for (int i = 0; i < relativeRoots.size(); i++) {
-			String relativeRoot = RCPWorkspaceMapper.getReverseMappedName(relativeRoots.get(i));
-			relativeRoots.set(i, relativeRoot);
-		}
-		return ZipExporter.exportZip(this, relativeRoots);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ZipOutputStream zipOutputStream = new ZipOutputStream(baos);
+		ZipExporter.zip(relativeRoots, zipOutputStream);
+		return baos.toByteArray();
 	}
 
 	@Override
 	public byte[] exportZip(String path, boolean inclusive)
 			throws IOException {
-		String relativeRoot = RCPWorkspaceMapper.getReverseMappedName(path);
-		return ZipExporter.exportZip(this, relativeRoot, inclusive);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ZipOutputStream zipOutputStream = new ZipOutputStream(baos);
+		ZipExporter.zip(path, zipOutputStream);
+		return baos.toByteArray();
 	}
 
 	@Override
@@ -222,7 +223,53 @@ public class RCPRepository implements IRepository {
 	public List<IEntity> searchName(String root, String parameter, boolean caseInsensitive)
 			throws IOException {
 //		return repositoryDAO.searchName(root, parameter, caseInsensitive);
-		return null;
+//		return null;
+		
+		String workspacePath = RCPWorkspaceMapper.getMappedName(root);
+		
+		List<IEntity> entities = new ArrayList<IEntity>();
+		
+
+		if (parameter == null
+				|| "".equals(parameter)) {
+			return entities;
+		}
+		
+		if (parameter.startsWith("%")) {
+			parameter = parameter.substring(1);
+		}
+		
+		File dir = new File(workspacePath);
+		findInDirectory(dir, parameter, entities);
+
+    	return entities;
+	}
+
+	private void findInDirectory(File dir, String parameter,
+			List<IEntity> entities) throws IOException {
+		
+		
+		final String search = parameter;
+    	File[] found = dir.listFiles(new FilenameFilter() {
+			
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(search);
+			}
+		});
+    	
+    	for (File f : found) {
+    		String repositoryName = RCPWorkspaceMapper.getReverseMappedName(f.getCanonicalPath());
+    		RepositoryPath repositoryPath = new RepositoryPath(repositoryName);
+    		entities.add(new RCPResource(this, repositoryPath));
+    	}
+    	
+    	File[] all = dir.listFiles();
+		for (File f : all) {
+			if (f.isDirectory()) {
+				findInDirectory(f, parameter, entities);
+			}
+		}
 	}
 	
 	@Override
@@ -259,8 +306,7 @@ public class RCPRepository implements IRepository {
 	}
 
 	public String getUser() {
-		// TODO Auto-generated method stub
-		return null;
+		return "local";
 	}
 
 }
