@@ -259,8 +259,12 @@ public abstract class AbstractScriptExecutor implements IScriptExecutor {
 	}
 
 	private String createResourcePath(String root, String module, String extension) {
-		String resourcePath = new StringBuilder().append(root).append(ICommonConstants.SEPARATOR)
-				.append(module).append(extension).toString();
+		StringBuilder buff = new StringBuilder().append(root).append(ICommonConstants.SEPARATOR)
+				.append(module);
+		if (extension != null) {
+			buff.append(extension);
+		}
+		String resourcePath = buff.toString();
 		return resourcePath;
 	}
 

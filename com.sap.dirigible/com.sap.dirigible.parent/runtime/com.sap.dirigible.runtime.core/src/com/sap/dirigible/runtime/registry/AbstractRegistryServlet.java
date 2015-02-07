@@ -61,26 +61,30 @@ public abstract class AbstractRegistryServlet extends HttpServlet {
 		
 	}
 
-	private void initRepository(HttpServletRequest request) throws ServletException {
+	private IRepository initRepository(HttpServletRequest request) throws ServletException {
 		try {
-			final IRepository repository = RepositoryFacade.getInstance().getRepository(request);
-			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
-			if (!repository.hasCollection(IRepositoryPaths.REGISTRY_DEPLOY_PATH)) {
-				repository.createCollection(IRepositoryPaths.REGISTRY_DEPLOY_PATH);
+			final IRepository repository = RepositoryFacade.getInstance()
+					.getRepository(request);
+			if (request != null) {
+				request.getSession().setAttribute(REPOSITORY_ATTRIBUTE, repository);
 			}
+			return repository;
+//			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
 		} catch (Exception ex) {
-			throw new ServletException("Could not initialize repository.", ex); //$NON-NLS-1$
+			throw new ServletException("Could not initialize Repository", ex);
 		}
 	}
 
-	protected IRepository getRepository(HttpServletRequest request) throws IOException {
-		IRepository repository = (IRepository) getServletContext().getAttribute(
-				REPOSITORY_ATTRIBUTE);
+	protected IRepository getRepository(HttpServletRequest request) throws IOException {	
+		IRepository repository = null; 
+		if (request != null) {
+			repository = (IRepository) request.getSession().getAttribute(REPOSITORY_ATTRIBUTE);
+		}
 		if (repository == null) {
 			try {
-				initRepository(request);
-				repository = (IRepository) getServletContext().getAttribute(REPOSITORY_ATTRIBUTE);
-			} catch (ServletException e) {
+				repository = initRepository(request);
+			} catch (Exception e) {
+				log(e.getMessage(), e);
 				throw new IOException(e);
 			}
 		}

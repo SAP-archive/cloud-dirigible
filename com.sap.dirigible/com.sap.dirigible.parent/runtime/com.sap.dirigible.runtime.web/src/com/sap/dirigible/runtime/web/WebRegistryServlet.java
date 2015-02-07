@@ -27,6 +27,7 @@ import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.runtime.filter.SandboxFilter;
+import com.sap.dirigible.runtime.js.JavaScriptExecutor;
 import com.sap.dirigible.runtime.registry.PathUtils;
 import com.sap.dirigible.runtime.registry.RegistryServlet;
 import com.sap.dirigible.runtime.repository.RepositoryFacade;
@@ -55,6 +56,16 @@ public class WebRegistryServlet extends RegistryServlet {
 					+ RepositoryFacade.getUser(request) + WEB_CONTENT + requestPath;
 		}
 		return IRepositoryPaths.REGISTRY_DEPLOY_PATH + WEB_CONTENT + requestPath;
+	}
+	
+	protected String getWebRegistryPath(HttpServletRequest request)
+			throws IllegalArgumentException {
+		if (request.getAttribute(SandboxFilter.SANDBOX_CONTEXT) != null
+				&& (Boolean) request.getAttribute(SandboxFilter.SANDBOX_CONTEXT)) {
+			return IRepositoryPaths.SANDBOX_DEPLOY_PATH + ICommonConstants.SEPARATOR
+					+ RepositoryFacade.getUser(request) + WEB_CONTENT;
+		}
+		return IRepositoryPaths.REGISTRY_DEPLOY_PATH + WEB_CONTENT;
 	}
 
 	@Override
@@ -137,5 +148,11 @@ public class WebRegistryServlet extends RegistryServlet {
 		writer.flush();
 		data = baos.toByteArray();
 		return preprocessContent(data, entity);
+	}
+	
+	public WebExecutor createExecutor(HttpServletRequest request) throws IOException {
+		WebExecutor executor = new WebExecutor(getRepository(request),
+				getWebRegistryPath(request), IRepositoryPaths.REGISTRY_DEPLOY_PATH + WEB_CONTENT);
+		return executor;
 	}
 }

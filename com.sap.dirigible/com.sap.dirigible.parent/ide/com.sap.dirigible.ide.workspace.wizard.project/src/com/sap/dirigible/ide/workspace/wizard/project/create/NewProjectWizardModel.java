@@ -136,12 +136,12 @@ public class NewProjectWizardModel {
 		IProject project = root.getProject(projectName);
 		// create the project first
 		try {
-			project.create(new NullProgressMonitor());
+			project.create(null);
 		} catch(CoreException e) {
 			logger.error(e.getMessage());
 		}
 		
-		project.open(new NullProgressMonitor());		
+		project.open(null);		
 		
 		if (isUseTemplate()) {
 			String contentPath = this.template.getContentPath();
@@ -178,7 +178,7 @@ public class NewProjectWizardModel {
 			}
 		}
 		
-		project.refreshLocal(1, new NullProgressMonitor());
+		project.refreshLocal(1, null);
 		
 		return project;
 	}

@@ -63,6 +63,8 @@ public interface ICommonConstants {
 		public static final String FLOW = "flow"; //$NON-NLS-1$
 		public static final String OUTPUT = "output"; //$NON-NLS-1$
 		public static final String JOB = "job"; //$NON-NLS-1$
+		public static final String WEB = "web"; //$NON-NLS-1$
+		public static final String WIKI = "wiki"; //$NON-NLS-1$
 	}
 	
 	public interface ENGINE_ALIAS {
@@ -72,6 +74,8 @@ public interface ICommonConstants {
 		public static final String COMMAND = "command"; //$NON-NLS-1$
 		public static final String FLOW = "flow"; //$NON-NLS-1$
 		public static final String JOB = "job"; //$NON-NLS-1$
+		public static final String WEB = "web"; //$NON-NLS-1$
+		public static final String WIKI = "wiki"; //$NON-NLS-1$
 	}
 
 	public static final String DATA_CONTENT_REGISTRY_PUBLISH_LOCATION = IRepositoryPaths.DB_DIRIGIBLE_REGISTRY_PUBLIC
