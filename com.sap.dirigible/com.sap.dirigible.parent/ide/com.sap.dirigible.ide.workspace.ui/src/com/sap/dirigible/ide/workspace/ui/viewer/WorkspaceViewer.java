@@ -34,8 +34,12 @@ import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
+import com.sap.dirigible.repository.logging.Logger;
 
 public class WorkspaceViewer {
+	
+	public static final Logger logger = Logger
+			.getLogger(WorkspaceViewer.class.getCanonicalName());
 
 	private static final String WORKSPACE_MENU = "Workspace Menu"; //$NON-NLS-1$
 
@@ -178,7 +182,11 @@ public class WorkspaceViewer {
 			if (!viewer.getControl().isDisposed()) {
 //				viewer.getContentProvider().dispose();
 //				viewer.setContentProvider(new WorkspaceContentProvider());
-				refresh();
+				try {
+					refresh();
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+				}
 			}
 		}
 	}

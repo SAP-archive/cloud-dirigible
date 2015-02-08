@@ -24,7 +24,9 @@ Require-Bundle: org.eclipse.core.resources,
  org.apache.commons.io,
  org.eclipse.core.runtime,
  com.sap.dirigible.runtime.core,
- com.sap.dirigible.runtime.init
+ com.sap.dirigible.runtime.init,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.launching
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.workspace.dual
 Import-Package: com.sap.dirigible.ide.editor.text.editor,

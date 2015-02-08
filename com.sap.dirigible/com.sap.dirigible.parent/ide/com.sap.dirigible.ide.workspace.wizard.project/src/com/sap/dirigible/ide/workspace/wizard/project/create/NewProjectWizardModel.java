@@ -26,12 +26,12 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 
 import com.sap.dirigible.ide.publish.IPublisher;
 import com.sap.dirigible.ide.publish.PublishManager;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
+import com.sap.dirigible.ide.workspace.dual.ProjectCreatorEnhancer;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.ide.workspace.ui.shared.IValidationStatus;
 import com.sap.dirigible.ide.workspace.ui.shared.ValidationStatus;
@@ -141,7 +141,7 @@ public class NewProjectWizardModel {
 			logger.error(e.getMessage());
 		}
 		
-		project.open(null);		
+		project.open(null);
 		
 		if (isUseTemplate()) {
 			String contentPath = this.template.getContentPath();
@@ -178,7 +178,9 @@ public class NewProjectWizardModel {
 			}
 		}
 		
-		project.refreshLocal(1, null);
+		ProjectCreatorEnhancer.enhance(project);
+		
+		project.refreshLocal(2, null);
 		
 		return project;
 	}
