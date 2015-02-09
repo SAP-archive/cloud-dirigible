@@ -3,6 +3,7 @@ package com.sap.dirigible.runtime.java;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +72,11 @@ public class JavaServlet extends AbstractScriptingServlet {
 			if (this.libDirectory != null) {
 				this.classpath = ClassFileManager.getJars(this.libDirectory);
 			} else {
-				this.classpath = Platform.getInstallLocation().getURL().toString();
+				try {
+					this.classpath = ClassFileManager.getJars(new File(Platform.getInstallLocation().getURL().toURI()));
+				} catch (URISyntaxException e) {
+					throw new IOException(e);
+				}
 			}
 		}
 		return this.classpath;
