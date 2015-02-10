@@ -47,16 +47,10 @@ public class DirectRenderer {
 			scriptExecutor.executeServiceModule(request, response, module, executionContext);
 			return new String(baos.toByteArray(), "UTF-8");
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			message = e.getMessage();
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			message = e.getMessage();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			message = e.getMessage();
 		}
 		return message;

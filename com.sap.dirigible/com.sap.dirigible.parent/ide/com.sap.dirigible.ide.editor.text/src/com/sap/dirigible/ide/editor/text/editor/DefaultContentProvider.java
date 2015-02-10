@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
@@ -65,14 +66,13 @@ public class DefaultContentProvider implements IContentProvider,
 		if (input instanceof IFileEditorInput) {
 			IFileEditorInput fileInput = (IFileEditorInput) input;
 			writeFile(fileInput.getFile(), content.getBytes());
-			activateIfNeeded();
+//			activateIfNeeded();
 		}
 	}
 
-	private void activateIfNeeded() {
-		// TODO Auto-generated method stub
-		
-	}
+//	private void activateIfNeeded() {
+//		ResourcesPlugin.getWorkspace().notifyAll();
+//	}
 
 	protected static final String readFile(IFile file)
 			throws ContentProviderException {

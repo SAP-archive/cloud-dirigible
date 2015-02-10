@@ -53,6 +53,7 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.ide.workspace.RemoteResourcesPlugin;
 import com.sap.dirigible.repository.api.IRepository;
@@ -62,6 +63,10 @@ import com.sap.dirigible.repository.logging.Logger;
 
 @SuppressWarnings("deprecation")
 public class Workspace implements IWorkspace {
+
+	private static final String WORKSPACE_CHANGE_LISTENERS_FLAGS = "workspace.changeListenersFlags";
+
+	private static final String WORKSPACE_CHANGE_LISTENERS = "workspace.changeListeners";
 
 	private static final String INVALID_ROOT_PATH = Messages.Workspace_INVALID_ROOT_PATH;
 
@@ -121,15 +126,32 @@ public class Workspace implements IWorkspace {
 
 	private String username = null;
 
-	private final Set<IResourceChangeListener> changeListeners = new HashSet<IResourceChangeListener>();
-
-	private final Map<IResourceChangeListener, Integer> changeListenersFlags = new HashMap<IResourceChangeListener, Integer>();
-
 	public Workspace() throws RepositoryException {
 		repository = RepositoryFacade.getInstance().getRepository();
+		
 		if (repository == null) {
 			throw new RepositoryException(COULD_NOT_CREATE_REPOSITORY_HANDLER);
 		}
+	}
+
+	private Map<IResourceChangeListener, Integer> lookupChangeListenersFlags() {
+		Map<IResourceChangeListener, Integer> changeListenersFlags
+				= (Map<IResourceChangeListener, Integer>) CommonParameters.getObject(WORKSPACE_CHANGE_LISTENERS_FLAGS);
+		if (changeListenersFlags == null) {
+			changeListenersFlags = new HashMap<IResourceChangeListener, Integer>();
+			CommonParameters.setObject(WORKSPACE_CHANGE_LISTENERS_FLAGS, changeListenersFlags);
+		}
+		return changeListenersFlags;
+	}
+
+	private Set<IResourceChangeListener> lookupChangeListeners() {
+		Set<IResourceChangeListener> changeListeners = 
+				(Set<IResourceChangeListener>) CommonParameters.getObject(WORKSPACE_CHANGE_LISTENERS);
+		if (changeListeners == null) {
+			changeListeners = new HashSet<IResourceChangeListener>();
+			CommonParameters.setObject(WORKSPACE_CHANGE_LISTENERS, changeListeners);
+		}
+		return changeListeners;
 	}
 
 	public Workspace(IRepository repository) {
@@ -248,14 +270,14 @@ public class Workspace implements IWorkspace {
 		if (listener == null) {
 			throw new IllegalArgumentException(LISTENER_MAY_NOT_BE_NULL);
 		}
-		changeListeners.add(listener);
-		changeListenersFlags.put(listener, eventMask);
+		lookupChangeListeners().add(listener);
+		lookupChangeListenersFlags().put(listener, eventMask);
 	}
 
 	public void notifyResourceChanged(IResourceChangeEvent event) {
 		for (IResourceChangeListener listener : new HashSet<IResourceChangeListener>(
-				changeListeners)) {
-			int flags = changeListenersFlags.get(listener);
+				lookupChangeListeners())) {
+			int flags = lookupChangeListenersFlags().get(listener);
 			if ((event.getType() & flags) != 0) {
 				listener.resourceChanged(event);
 			}
@@ -455,8 +477,8 @@ public class Workspace implements IWorkspace {
 	 */
 	public void removeResourceChangeListener(IResourceChangeListener listener) {
 		if (listener != null) {
-			changeListeners.remove(listener);
-			changeListenersFlags.remove(listener);
+			lookupChangeListeners().remove(listener);
+			lookupChangeListenersFlags().remove(listener);
 		}
 	}
 

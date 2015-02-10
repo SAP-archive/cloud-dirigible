@@ -61,7 +61,7 @@ public class ContentInitializerServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 //		initDefaultContent(null);
-		registerInitRegister();
+//		registerInitRegister();
 	}
 
 
