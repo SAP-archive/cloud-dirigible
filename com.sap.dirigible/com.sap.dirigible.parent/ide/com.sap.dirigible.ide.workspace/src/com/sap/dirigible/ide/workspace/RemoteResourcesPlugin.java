@@ -71,6 +71,7 @@ public class RemoteResourcesPlugin {
 	 * @return a {@link Workspace} instance.
 	 */
 	public static IWorkspace getWorkspace(String user) {
+		CommonParameters.initSystemParameters();
 		Workspace workspace = (Workspace) CommonParameters.getObject(Workspace.class.getCanonicalName());
 		if (workspace == null) {
 			workspace = new Workspace();

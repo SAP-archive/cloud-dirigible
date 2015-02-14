@@ -13,11 +13,11 @@ public class PublishActivator implements BundleActivator {
 	@Override
 	public void start(BundleContext arg0) throws Exception {
 		try {
-			new AutoActivateAction().init(null);
-		} catch (Exception e) {
-			if (CommonParameters.getRequest() == null) {
-				logger.error("Auto Activator has not been registered", e);
+			if (CommonParameters.isRCP()) {
+				new AutoActivateAction().init(null);
 			}
+		} catch (Exception e) {
+			logger.error("Auto Activator has not been registered", e);
 		}
 	}
 

@@ -291,11 +291,17 @@ public class CommonParameters {
 		return DualParameters.getSessionId();
 	}
 	
+	public static final boolean isRAP() {
+		return DualParameters.isRAP();
+	}
 	
+	public static final boolean isRCP() {
+		return DualParameters.isRCP();
+	}
 	
-	
-	
-	
+	public static final void initSystemParameters() {
+		DualParameters.initSystemParameters();
+	}
 	
 	
 	

@@ -136,4 +136,12 @@ public class DualParameters {
 //		return sessionId;
 		return "LOCAL";
 	}
+	
+	public static final boolean isRAP() {
+		return false;
+	}
+	
+	public static final boolean isRCP() {
+		return true;
+	}
 }

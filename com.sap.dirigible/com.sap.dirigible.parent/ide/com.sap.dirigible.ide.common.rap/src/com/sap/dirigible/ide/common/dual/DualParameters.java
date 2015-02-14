@@ -28,7 +28,7 @@ public class DualParameters {
 	
 	public static final String ENABLE_ROLES = "enableRoles"; //$NON-NLS-1$
 	
-	static {
+	public static void initSystemParameters() {
 		HttpServletRequest req = RWT.getRequest();
 		String parameterHC_HOST = System.getProperty(HC_HOST);
 		req.getSession().setAttribute(HC_HOST, parameterHC_HOST);
@@ -127,4 +127,13 @@ public class DualParameters {
 		String sessionId = RWT.getRequest().getSession(true).getId();
 		return sessionId;
 	}
+	
+	public static final boolean isRAP() {
+		return true;
+	}
+	
+	public static final boolean isRCP() {
+		return false;
+	}
 }
+
