@@ -38,17 +38,17 @@ import org.eclipse.swt.widgets.Text;
 import com.sap.dirigible.ide.workspace.ui.viewer.ReservedFolderFilter;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceContainerFilter;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewer;
+import com.sap.dirigible.repository.api.IRepository;
 
 public abstract class TemplateTargetLocationPage extends WizardPage {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7791118502101439238L;
 
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	private static final String INPUT_THE_FILE_NAME = Messages.TemplateTargetLocationPage_INPUT_THE_FILE_NAME;
+	
+	private static final String INPUT_THE_PACKAGE_NAME = Messages.TemplateTargetLocationPage_INPUT_THE_PACKAGE_NAME;
 
 	private static final String SELECT_THE_LOCATION_OF_THE_GENERATED_PAGE = Messages.TemplateTargetLocationPage_SELECT_THE_LOCATION_OF_THE_GENERATED_PAGE;
 
@@ -56,6 +56,8 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 
 	private WorkspaceViewer projectViewer;
 
+	private Text packageNameText;
+	
 	private Text fileNameText;
 
 	protected TemplateTargetLocationPage(String pageName) {
@@ -69,6 +71,7 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 		composite.setLayout(new GridLayout(1, false));
 
 		createProjectViewerField(composite);
+		createPackageNameField(composite);
 		createFileNameField(composite);
 		checkPageStatus();
 	}
@@ -97,8 +100,16 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 							setErrorMessage(null);
 							IContainer container = ((IContainer) selection
 									.getFirstElement());
+							// #177
 							targetLocation = container.getFullPath().toString();
-							getModel().setTargetLocation(targetLocation);
+							
+//							getModel().setTargetLocation(targetLocation);
+							if (getModel().getTargetContainer() == null) { 
+								getModel().setTargetContainer(targetLocation);
+							}
+							if (getModel().getPackageName() == null) {
+								getModel().setPackageName(getModel().getProjectName());
+							}
 						}
 						checkPageStatus();
 					}
@@ -177,9 +188,6 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 				false));
 		fileNameText.addModifyListener(new ModifyListener() {
 
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 72329751007839679L;
 
 			@Override
@@ -197,6 +205,34 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 
 	}
 
+	private void createPackageNameField(Composite parent) {
+		final Label label = new Label(parent, SWT.NONE);
+		label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+		label.setText(Messages.TemplateTargetLocationPage_PACKAGE_NAME);
+
+		packageNameText = new Text(parent, SWT.BORDER);
+		packageNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false));
+		packageNameText.addModifyListener(new ModifyListener() {
+
+			private static final long serialVersionUID = 72329751007839679L;
+
+			@Override
+			public void modifyText(ModifyEvent event) {
+				if (packageNameText.getText() == null
+						|| EMPTY_STRING.equals(packageNameText.getText())) {
+					setErrorMessage(INPUT_THE_PACKAGE_NAME);
+				} else {
+					setErrorMessage(null);
+					getModel().setPackageName(packageNameText.getText());
+				}
+				checkPageStatus();
+			}
+		});
+
+	}
+
+	
 	protected abstract void checkPageStatus();
 
 	protected abstract String getDefaultFileName(String preset);
@@ -204,6 +240,9 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 	@Override
 	public void setVisible(boolean visible) {
 		setPreselectedElement();
+		
+		packageNameText.setText(getDefaultPackageName());
+		
 		if (fileNameText.getText() == null
 				|| EMPTY_STRING.equals(fileNameText.getText())) {
 			fileNameText.setText(getDefaultFileName(null));
@@ -218,6 +257,11 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 		super.setVisible(visible);
 		preselectFileNameText();
 
+	}
+
+	private String getDefaultPackageName() {
+		return (getModel().getPackageName() == null) ?
+				getModel().getProjectName() : getModel().getPackageName();
 	}
 
 	private void preselectFileNameText() {

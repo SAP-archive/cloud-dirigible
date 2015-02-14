@@ -30,6 +30,7 @@ import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
 import com.sap.dirigible.ide.ui.common.validation.ValidationStatus;
 import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
 import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.logging.Logger;
 
 public abstract class GenerationModel {
@@ -51,7 +52,11 @@ public abstract class GenerationModel {
 	private IResource sourceResource;
 
 	private String targetLocation;
+	
+	private String targetContainer;
 
+	private String packageName;
+	
 	private String fileName;
 
 	private TemplateType template;
@@ -67,11 +72,33 @@ public abstract class GenerationModel {
 	}
 
 	public String getTargetLocation() {
-		return targetLocation;
+//		return targetLocation;
+		return this.targetContainer + IRepository.SEPARATOR + getPackageName();
 	}
 
 	public void setTargetLocation(String targetLocation) {
 		this.targetLocation = targetLocation;
+	}
+	
+	public String getTargetContainer() {
+		return targetContainer;
+	}
+	
+	public void setTargetContainer(String targetContainer) {
+		this.targetContainer = targetContainer;
+	}
+	
+	public String getPackageName() {
+		return this.packageName;
+	}
+	
+	public void setPackageName(String packageName) {
+		if (this.packageName != null
+				&& this.packageName.length() > 1
+				&& this.packageName.startsWith(IRepository.SEPARATOR)) {
+			this.packageName = this.packageName.substring(1);
+		}
+		this.packageName = packageName;
 	}
 
 	public String getFileName() {
@@ -177,7 +204,7 @@ public abstract class GenerationModel {
 
 	public String getProjectName() {
 		StringBuilder result = new StringBuilder();
-		IPath location = new Path(getTargetLocation());
+		IPath location = new Path(getTargetContainer());
 		if (location.segmentCount() > 2) {
 			for (int i = 0; i < location.segmentCount(); i++) {
 				if (i == 1) {

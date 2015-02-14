@@ -15,28 +15,12 @@
 
 package com.sap.dirigible.ide.publish.ui.command;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.ui.PlatformUI;
 
 import com.sap.dirigible.ide.common.CommonParameters;
-import com.sap.dirigible.ide.publish.IPublisher;
-import com.sap.dirigible.ide.publish.PublishException;
-import com.sap.dirigible.ide.publish.PublishManager;
-import com.sap.dirigible.ide.workspace.dual.WorkspaceLocator;
-import com.sap.dirigible.ide.workspace.ui.view.WebViewerView;
 
 public class AutoActivateAction implements IWorkbenchWindowActionDelegate {
 

@@ -15,6 +15,7 @@
 
 package com.sap.dirigible.ide.template.ui.html.wizard;
 
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateTargetLocationPage;
 import com.sap.dirigible.ide.ui.common.validation.IValidationStatus;
@@ -82,7 +83,9 @@ public class HtmlTemplateTargetLocationPage extends TemplateTargetLocationPage {
 			}
 			return pageName; //$NON-NLS-1$
 		} else {
-			return getModel().getFileName();
+//			return getModel().getFileName();
+			return (preset == null) ? getModel().getFileName()
+					: CommonUtils.getFileNameNoExtension(preset) + ".html"; //$NON-NLS-1$
 		}
 	}
 	

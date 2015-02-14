@@ -79,18 +79,28 @@ public class WikiTemplateTargetLocationPage extends TemplateTargetLocationPage {
 	protected String getDefaultFileName(String preset) {
 		String templateLocation = model.getTemplateLocation();
 		String defaultName = null;
+		String defaultExt = null;
 		if (templateLocation.endsWith("confluence")) {
-			defaultName = (preset == null) ? "wiki_page.confluence" : CommonUtils.getFileNameNoExtension(preset) + ".confluence";
+			defaultExt = ".confluence";
+			defaultName = (preset == null) ? "wiki_page.confluence" : CommonUtils.getFileNameNoExtension(preset) + defaultExt;
 		} else if (templateLocation.endsWith("md")) {
-			defaultName = (preset == null) ? "wiki_page.md" : CommonUtils.getFileNameNoExtension(preset) + ".md";
+			defaultExt = ".md";
+			defaultName = (preset == null) ? "wiki_page.md" : CommonUtils.getFileNameNoExtension(preset) + defaultExt;
 		} else if (templateLocation.endsWith("textile")) {
-			defaultName = (preset == null) ? "wiki_page.textile" : CommonUtils.getFileNameNoExtension(preset) + ".textile";
+			defaultExt = ".textile";
+			defaultName = (preset == null) ? "wiki_page.textile" : CommonUtils.getFileNameNoExtension(preset) + defaultExt;
 		} else if (templateLocation.endsWith("tracwiki")) {
-			defaultName = (preset == null) ? "wiki_page.tracwiki" : CommonUtils.getFileNameNoExtension(preset) + ".tracwiki";
+			defaultExt = ".tracwiki";
+			defaultName = (preset == null) ? "wiki_page.tracwiki" : CommonUtils.getFileNameNoExtension(preset) + defaultExt;
 		} else if (templateLocation.endsWith("twiki")) {
-			defaultName = (preset == null) ? "wiki_page.twiki" : CommonUtils.getFileNameNoExtension(preset) + ".twiki";
+			defaultExt = ".twiki";
+			defaultName = (preset == null) ? "wiki_page.twiki" : CommonUtils.getFileNameNoExtension(preset) + defaultExt;
+		} else {
+			defaultExt = ".html";
 		}
-		return defaultName;
+//		return defaultName;
+		return (preset == null) ? defaultName
+				: CommonUtils.getFileNameNoExtension(preset) + defaultExt; //$NON-NLS-1$
 	}
 
 	@Override

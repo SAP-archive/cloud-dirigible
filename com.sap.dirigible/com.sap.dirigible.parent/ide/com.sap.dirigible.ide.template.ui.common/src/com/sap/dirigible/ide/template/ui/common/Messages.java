@@ -32,7 +32,9 @@ public class Messages extends NLS {
 	public static String TemplateFileCommandHandler_UNKNOWN_SELECTION_TYPE;
 	public static String TemplateGenerator_THE_FILE_ALREADY_EXISTS_SKIPPED_GENERATION_OF;
 	public static String TemplateTargetLocationPage_FILE_NAME;
+	public static String TemplateTargetLocationPage_PACKAGE_NAME;
 	public static String TemplateTargetLocationPage_INPUT_THE_FILE_NAME;
+	public static String TemplateTargetLocationPage_INPUT_THE_PACKAGE_NAME;
 	public static String TemplateTargetLocationPage_SELECT_THE_LOCATION_OF_THE_GENERATED_PAGE;
 	public static String TemplateTypeWizardPage_AVAILABLE_TEMPLATES;
 	public static String TemplateTypeWizardPage_ERROR_ON_LOADING_TEMPLATES_FOR_GENERATION;
