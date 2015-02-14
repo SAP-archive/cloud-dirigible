@@ -8,6 +8,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ISaveContext;
 import org.eclipse.core.resources.ISaveParticipant;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -45,22 +46,46 @@ public class AutoActivator implements //ISaveParticipant {
 	}
 
 	@Override
-	public void resourceChanged(IResourceChangeEvent arg0) {
+	public void resourceChanged(IResourceChangeEvent event) {
 		
 		if (!AutoActivateAction.isAutoActivateStrategy()) {
 			return;
 		}
-		IResource delta = arg0.getResource();
+		IResource delta = event.getResource();
+		if (delta == null
+				&& event.getDelta() != null) {
+			 delta = locateResource(event);
+		}
 		if (delta != null) {
 			if (delta instanceof IFile) {
 				activateFile((IFile) delta);
 			} else {
-				activate(delta.getProject());
+				if (delta.getProject() != null) {
+					activate(delta.getProject());
+				}
 			}
 		}
 		
 	}
+
+	private IResource locateResource(IResourceChangeEvent event) {
+		IResource resource = null;
+		if (event.getDelta().getAffectedChildren().length > 0) {
+			resource = locateResourceFromChild(event.getDelta().getAffectedChildren()[0]);
+		}
+		return resource;
+	}
 	
+	private IResource locateResourceFromChild(IResourceDelta resourceDelta) {
+		IResource resource = null;
+		if (resourceDelta.getAffectedChildren().length > 0) {
+			resource = locateResourceFromChild(resourceDelta.getAffectedChildren()[0]);
+		} else {
+			resource = resourceDelta.getResource();
+		}
+		return resource;
+	}
+
 	private void activate(IProject project) {
 		try {
 			PublishManager.activateProject(project);

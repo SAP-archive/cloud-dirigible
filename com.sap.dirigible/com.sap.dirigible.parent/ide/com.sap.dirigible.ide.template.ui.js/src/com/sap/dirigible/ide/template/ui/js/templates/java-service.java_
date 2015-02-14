@@ -1,4 +1,3 @@
-#set( $packageName = $projectName.replace("/", ".") )
 package ${packageName};
 
 import java.util.Map;

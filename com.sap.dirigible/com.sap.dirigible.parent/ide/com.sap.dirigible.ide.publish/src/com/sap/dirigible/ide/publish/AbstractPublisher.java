@@ -81,7 +81,8 @@ public abstract class AbstractPublisher implements IPublisher {
 //		final ICollection projectContainer = publishContainer.getCollection(file.getProject().getName());
 		// #177
 		final ICollection projectContainer = publishContainer;
-		final com.sap.dirigible.repository.api.IResource fileResource = projectContainer.getResource(file.getProjectRelativePath().removeFirstSegments(1).toString());
+		final com.sap.dirigible.repository.api.IResource fileResource = 
+				projectContainer.getResource(file.getProjectRelativePath().removeFirstSegments(1).toString());
 		return fileResource;
 	}
 

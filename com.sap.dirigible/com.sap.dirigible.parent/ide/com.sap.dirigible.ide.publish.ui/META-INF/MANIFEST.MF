@@ -18,3 +18,5 @@ Import-Package: com.sap.dirigible.repository.logging,
  javax.servlet,
  javax.servlet.http,
  org.eclipse.core.resources
+Bundle-Activator: com.sap.dirigible.ide.publish.ui.command.PublishActivator
+Bundle-ActivationPolicy: lazy

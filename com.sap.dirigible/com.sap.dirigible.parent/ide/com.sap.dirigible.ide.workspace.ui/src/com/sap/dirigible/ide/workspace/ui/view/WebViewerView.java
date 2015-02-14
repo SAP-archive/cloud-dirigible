@@ -98,12 +98,14 @@ public class WebViewerView extends ViewPart {
 	private boolean isContent = false;
 
 	public static void refreshWebViewerViewIfVisible() {
-		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage();
-		IViewPart view = activePage.findView(WebViewerView.class.getName());
-		if (view != null && view instanceof WebViewerView) {
-			if (activePage.isPartVisible(view)) {
-				((WebViewerView) view).refresh();
+		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if (workbenchWindow != null) {
+			IWorkbenchPage activePage = workbenchWindow.getActivePage();
+			IViewPart view = activePage.findView(WebViewerView.class.getName());
+			if (view != null && view instanceof WebViewerView) {
+				if (activePage.isPartVisible(view)) {
+					((WebViewerView) view).refresh();
+				}
 			}
 		}
 	}

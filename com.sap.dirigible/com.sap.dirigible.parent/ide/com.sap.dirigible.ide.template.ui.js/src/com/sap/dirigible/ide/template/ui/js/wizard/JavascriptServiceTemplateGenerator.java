@@ -38,6 +38,7 @@ public class JavascriptServiceTemplateGenerator extends TemplateGenerator {
 	protected Map<String, Object> prepareParameters() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("projectName", model.getProjectName()); //$NON-NLS-1$
+		parameters.put("packageName", model.getPackageName()); //$NON-NLS-1$
 		parameters.put("tableName", model.getTableName()); //$NON-NLS-1$
 		parameters.put("tableType", model.getTableType()); //$NON-NLS-1$
 		parameters.put("entityName", toCamelCase(model.getTableName())); //$NON-NLS-1$

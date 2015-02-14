@@ -197,6 +197,10 @@ public class RCPCollection extends RCPEntity implements ICollection {
 
 	@Override
 	public IResource getResource(String name) throws IOException {
+//		if (name != null
+//				&& name.indexOf(IRepository.SEPARATOR) > -1) {
+//			name = name.substring(name.indexOf(IRepository.SEPARATOR) + 1);
+//		}
 		final RepositoryPath path = getRepositoryPath().append(name);
 		return new RCPResource(getRepository(), path);
 	}
