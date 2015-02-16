@@ -19,7 +19,7 @@ import com.sap.dirigible.runtime.filter.AbstractRegistrySecureFilter;
 
 public class JobRegistrySecureFilter extends AbstractRegistrySecureFilter {
 
-	private static final String JOB_SECURED_MAPPING = "/job-secured"; //$NON-NLS-1$
+	private static final String JOB_SECURED_MAPPING = "/services/job-secured"; //$NON-NLS-1$
 
 	@Override
 	protected String getSecuredMapping() {
