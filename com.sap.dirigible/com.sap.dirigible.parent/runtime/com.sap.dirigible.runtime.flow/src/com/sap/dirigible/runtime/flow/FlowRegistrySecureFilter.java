@@ -19,7 +19,7 @@ import com.sap.dirigible.runtime.filter.AbstractRegistrySecureFilter;
 
 public class FlowRegistrySecureFilter extends AbstractRegistrySecureFilter {
 
-	private static final String FLOW_SECURED_MAPPING = "/flow-secured"; //$NON-NLS-1$
+	private static final String FLOW_SECURED_MAPPING = "/services/flow-secured"; //$NON-NLS-1$
 
 	@Override
 	protected String getSecuredMapping() {

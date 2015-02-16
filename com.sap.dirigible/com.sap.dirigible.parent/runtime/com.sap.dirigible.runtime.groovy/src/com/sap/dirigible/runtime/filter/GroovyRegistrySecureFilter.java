@@ -16,7 +16,7 @@
 package com.sap.dirigible.runtime.filter;
 
 public class GroovyRegistrySecureFilter extends AbstractRegistrySecureFilter {
-	private static final String WEB_SECURED_MAPPING = "/py-secured"; //$NON-NLS-1$
+	private static final String WEB_SECURED_MAPPING = "/services/groovy-secured"; //$NON-NLS-1$
 
 	@Override
 	protected String getSecuredMapping() {

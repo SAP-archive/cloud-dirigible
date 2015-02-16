@@ -17,7 +17,7 @@ package com.sap.dirigible.runtime.filter;
 
 public class CommandRegistrySecureFilter extends AbstractRegistrySecureFilter {
 
-	private static final String COMMAND_SECURED_MAPPING = "/command-secured"; //$NON-NLS-1$
+	private static final String COMMAND_SECURED_MAPPING = "/services/command-secured"; //$NON-NLS-1$
 
 	@Override
 	protected String getSecuredMapping() {
