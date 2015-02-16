@@ -9,7 +9,7 @@ public class RCPRepositoryProvider implements IRepositoryProvider {
 
 	@Override
 	public IRepository createRepository(Map<String, Object> parameters) {
-		return new RCPRepository();
+		return RCPRepository.getInstance();
 	}
 
 }

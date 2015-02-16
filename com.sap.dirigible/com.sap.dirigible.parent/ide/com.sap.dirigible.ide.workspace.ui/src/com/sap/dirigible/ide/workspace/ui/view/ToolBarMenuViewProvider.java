@@ -54,28 +54,29 @@ public class ToolBarMenuViewProvider {
 			"com.sap.dirigible.ide.publish.ui", "/resources/icons/", "activate.png")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 	public static void createToolBarMenu(Composite parent, Shell shell) {
-		
-		int style = (CommonParameters.isRAP()) ? SWT.FLAT | SWT.WRAP | SWT.RIGHT | SWT.BORDER | SWT.SHADOW_OUT : SWT.FLAT | SWT.WRAP | SWT.RIGHT; 
-		
-		final ToolBar toolBar = new ToolBar(parent, style);
-
-		createActivateToolItem(toolBar, shell);
-
-		createSeparator(toolBar);
-
-		createPublishToolItem(toolBar, shell);
-
-		createSeparator(toolBar);
-
-		createSaveToolItem(toolBar);
-
-		createSeparator(toolBar);
-
-		createSaveAllToolItem(toolBar);
-
-		createSeparator(toolBar);
-
-		createNewToolItem(parent, toolBar);
+		if (CommonParameters.isRAP()) {
+			int style = SWT.FLAT | SWT.WRAP | SWT.RIGHT | SWT.BORDER | SWT.SHADOW_OUT; 
+			
+			final ToolBar toolBar = new ToolBar(parent, style);
+	
+			createActivateToolItem(toolBar, shell);
+	
+			createSeparator(toolBar);
+	
+			createPublishToolItem(toolBar, shell);
+	
+			createSeparator(toolBar);
+	
+			createSaveToolItem(toolBar);
+	
+			createSeparator(toolBar);
+	
+			createSaveAllToolItem(toolBar);
+	
+			createSeparator(toolBar);
+	
+			createNewToolItem(parent, toolBar);
+		}
 	}
 
 	private static ToolItem createSeparator(final ToolBar toolBar) {

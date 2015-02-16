@@ -20,17 +20,23 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import javax.sql.DataSource;
+
+import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.api.IResource;
 import com.sap.dirigible.repository.api.IResourceVersion;
 import com.sap.dirigible.repository.api.RepositoryPath;
+import com.sap.dirigible.repository.db.init.DBRepositoryInitializer;
 import com.sap.dirigible.repository.logging.Logger;
 
 /**
@@ -50,9 +56,33 @@ public class RCPRepository implements IRepository {
 	private static final String WORKSPACE_PATH = IRepository.SEPARATOR;
 	
 	private RCPRepositoryDAO repositoryDAO;
+	
+	private static RCPRepository instance;
+	
+	public static RCPRepository getInstance() {
+		if (instance == null) {
+			instance = new RCPRepository();
+		}
+		return instance;
+	}
 
-	public RCPRepository() throws RCPBaseException {
-		this.repositoryDAO = new RCPRepositoryDAO(this); 
+	private RCPRepository() throws RCPBaseException {
+		this.repositoryDAO = new RCPRepositoryDAO(this);
+		try {
+			DataSource dataSource = DataSourceFacade.getInstance().getDataSource();
+			Connection connection = dataSource.getConnection();
+			try {
+				DBRepositoryInitializer dbRepositoryInitializer = new DBRepositoryInitializer(dataSource,
+						connection, false);
+				boolean result = dbRepositoryInitializer.initialize();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		} catch (SQLException e) {
+			throw new RCPBaseException("Initializing local database for Repository use failed", e);
+		}
 	}
 	
 	@Override

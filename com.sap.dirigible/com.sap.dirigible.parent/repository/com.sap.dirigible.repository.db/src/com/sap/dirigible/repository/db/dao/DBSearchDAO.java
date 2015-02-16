@@ -30,6 +30,7 @@ import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBCollection;
 import com.sap.dirigible.repository.db.DBResource;
+import com.sap.dirigible.repository.db.init.DBScriptsMap;
 import com.sap.dirigible.repository.logging.Logger;
 
 public class DBSearchDAO extends DBObjectDAO {

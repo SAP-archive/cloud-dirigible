@@ -12,7 +12,8 @@ Bundle-SymbolicName: com.sap.dirigible.repository.db;singleton:=true
 Require-Bundle: com.sap.dirigible.repository.api,
  org.apache.commons.io,
  com.sap.dirigible.repository.ext,
- com.sap.dirigible.repository.zip
+ com.sap.dirigible.repository.zip,
+ com.sap.dirigible.repository.db.init
 Import-Package: com.sap.dirigible.repository.logging
 Service-Component: OSGi-INF/repository-db.xml
 

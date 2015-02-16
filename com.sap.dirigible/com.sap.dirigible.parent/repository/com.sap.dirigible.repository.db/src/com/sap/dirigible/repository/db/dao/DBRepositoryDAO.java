@@ -29,6 +29,7 @@ import com.sap.dirigible.repository.api.RepositoryPath;
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
 import com.sap.dirigible.repository.db.DBResourceVersion;
+import com.sap.dirigible.repository.db.init.DBRepositoryInitializer;
 import com.sap.dirigible.repository.logging.Logger;
 
 /**
@@ -156,7 +157,7 @@ public class DBRepositoryDAO {
 	 */
 	private boolean initialize(Connection connection, boolean forceRecreate) {
 		logger.debug("entering initialize with connection"); //$NON-NLS-1$
-		DBRepositoryInitializer dbRepositoryInitializer = new DBRepositoryInitializer(repository,
+		DBRepositoryInitializer dbRepositoryInitializer = new DBRepositoryInitializer(repository.getDataSource(),
 				connection, forceRecreate);
 		boolean result = dbRepositoryInitializer.initialize();
 		logger.debug("exiting initialize with connection"); //$NON-NLS-1$

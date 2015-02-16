@@ -23,6 +23,7 @@ import java.sql.SQLException;
 
 import com.sap.dirigible.repository.db.DBBaseException;
 import com.sap.dirigible.repository.db.DBRepository;
+import com.sap.dirigible.repository.db.init.DBScriptsMap;
 import com.sap.dirigible.repository.logging.Logger;
 
 public class DBObjectDAO {

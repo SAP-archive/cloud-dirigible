@@ -13,7 +13,9 @@ Require-Bundle: com.sap.dirigible.repository.api,
  com.sap.dirigible.repository.ext,
  org.eclipse.osgi,
  org.eclipse.core.resources,
- org.eclipse.equinox.registry
+ org.eclipse.equinox.registry,
+ com.sap.dirigible.repository.db.init,
+ com.sap.dirigible.ide.datasource
 Import-Package: com.sap.dirigible.repository.logging
 Service-Component: OSGi-INF/repository-rcp.xml
 Bundle-Activator: com.sap.dirigible.repository.rcp.RCPRepositoryActivator
