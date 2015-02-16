@@ -68,7 +68,7 @@ public class IntegrationPublisher extends AbstractPublisher implements
 	public void publish(IProject project) throws PublishException {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(
-					project, IS_REGISTYRY_PUBLISH_LOCATION);
+					project, getRegistryLocation());
 			final IFolder sourceFolder = getSourceFolder(project,
 					IS_CONTENT_FOLDER);
 			copyAllFromTo(sourceFolder, targetContainer);
@@ -285,6 +285,11 @@ public class IntegrationPublisher extends AbstractPublisher implements
 			logger.debug("IntegrationPublisher.propertyChange() - received message via runtime for another client: " + clientId); //$NON-NLS-1$
 		}
 		
+	}
+
+	@Override
+	protected String getRegistryLocation() {
+		return IS_REGISTYRY_PUBLISH_LOCATION;
 	}
 	
 	

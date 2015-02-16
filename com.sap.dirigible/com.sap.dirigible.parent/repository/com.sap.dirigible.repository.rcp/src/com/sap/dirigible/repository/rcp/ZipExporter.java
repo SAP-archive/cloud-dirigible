@@ -11,7 +11,8 @@ public class ZipExporter {
 	
 	public static void zip(List<String> inputFolders, ZipOutputStream zipOutputStream)  throws IOException {
 		for (String inputFolder : inputFolders) {
-			zip(inputFolder, zipOutputStream);
+			String workspaceFolder = RCPWorkspaceMapper.getMappedName(inputFolder);
+			zip(workspaceFolder, zipOutputStream);
 		}
     }
 	

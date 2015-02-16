@@ -49,7 +49,7 @@ public class ExtensionsPublisher extends AbstractPublisher implements IPublisher
 	public void publish(IProject project) throws PublishException {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(
-					project, REGISTYRY_PUBLISH_LOCATION);
+					project, getRegistryLocation());
 			final IFolder sourceFolder = getSourceFolder(project,
 					ED_CONTENT_FOLDER);
 			copyAllFromTo(sourceFolder, targetContainer);
@@ -58,7 +58,7 @@ public class ExtensionsPublisher extends AbstractPublisher implements IPublisher
 			ExtensionUpdater extensionUpdater = new ExtensionUpdater(
 					RepositoryFacade.getInstance().getRepository(),
 					DataSourceFacade.getInstance().getDataSource(),
-					REGISTYRY_PUBLISH_LOCATION);
+					getRegistryLocation());
 			extensionUpdater.enumerateKnownFiles(targetContainer, knownFiles);
 			extensionUpdater.executeUpdate(knownFiles, CommonParameters.getRequest());
 		} catch (Exception ex) {
@@ -112,5 +112,10 @@ public class ExtensionsPublisher extends AbstractPublisher implements IPublisher
 	@Override
 	protected String getSandboxLocation() {
 		return null;
+	}
+
+	@Override
+	protected String getRegistryLocation() {
+		return REGISTYRY_PUBLISH_LOCATION;
 	}
 }

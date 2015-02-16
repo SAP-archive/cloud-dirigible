@@ -37,7 +37,7 @@ public class TestCasesPublisher extends AbstractPublisher implements IPublisher 
 	public void publish(IProject project) throws PublishException {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(
-					project, ICommonConstants.TESTS_REGISTRY_PUBLISH_LOCATION);
+					project, getRegistryLocation());
 			final IFolder sourceFolder = getSourceFolder(project,
 					ICommonConstants.ARTIFACT_TYPE.TEST_CASES);
 			copyAllFromTo(sourceFolder, targetContainer);
@@ -93,6 +93,11 @@ public class TestCasesPublisher extends AbstractPublisher implements IPublisher 
 	@Override
 	public boolean isAutoActivationAllowed() {
 		return true;
+	}
+
+	@Override
+	protected String getRegistryLocation() {
+		return ICommonConstants.TESTS_REGISTRY_PUBLISH_LOCATION;
 	}
 
 }

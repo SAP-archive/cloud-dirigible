@@ -21,6 +21,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.internal.SaveAction;
 
+import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.common.image.ImageUtils;
 import com.sap.dirigible.ide.common.status.StatusLineManagerUtil;
 import com.sap.dirigible.ide.publish.PublishException;
@@ -53,8 +54,10 @@ public class ToolBarMenuViewProvider {
 			"com.sap.dirigible.ide.publish.ui", "/resources/icons/", "activate.png")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 	public static void createToolBarMenu(Composite parent, Shell shell) {
-		final ToolBar toolBar = new ToolBar(parent, SWT.FLAT | SWT.WRAP | SWT.RIGHT | SWT.BORDER
-				| SWT.SHADOW_OUT);
+		
+		int style = (CommonParameters.isRAP()) ? SWT.FLAT | SWT.WRAP | SWT.RIGHT | SWT.BORDER | SWT.SHADOW_OUT : SWT.FLAT | SWT.WRAP | SWT.RIGHT; 
+		
+		final ToolBar toolBar = new ToolBar(parent, style);
 
 		createActivateToolItem(toolBar, shell);
 

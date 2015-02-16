@@ -53,7 +53,7 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 	public void publish(IProject project) throws PublishException {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(
-					project, REGISTYRY_PUBLISH_LOCATION);
+					project, getRegistryLocation());
 			final IFolder sourceFolder = getSourceFolder(project,
 					ICommonConstants.ARTIFACT_TYPE.DATA_STRUCTURES);
 			copyAllFromTo(sourceFolder, targetContainer);
@@ -69,6 +69,11 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 			logger.error(ex.getMessage(), ex);
 			throw new PublishException(ex.getMessage(), ex);
 		}
+	}
+
+	@Override
+	protected String getRegistryLocation() {
+		return REGISTYRY_PUBLISH_LOCATION;
 	}
 	
 	// no sandboxing for database artifacts
@@ -87,7 +92,7 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 			Exception {
 		List<String> knownFiles = new ArrayList<String>();
 		DatabaseUpdater databaseUpdater = new DatabaseUpdater(repository,
-				dataSource, REGISTYRY_PUBLISH_LOCATION);
+				dataSource, getRegistryLocation());
 		databaseUpdater.enumerateKnownFiles(targetContainer, knownFiles);
 		databaseUpdater.executeUpdate(knownFiles);
 	}
@@ -97,7 +102,7 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 			Exception {
 		List<String> knownFiles = new ArrayList<String>();
 		DsvUpdater dsvUpdater = new DsvUpdater(repository, dataSource,
-				REGISTYRY_PUBLISH_LOCATION);
+				getRegistryLocation());
 		dsvUpdater.enumerateKnownFiles(targetContainer, knownFiles);
 		dsvUpdater.executeUpdate(knownFiles);
 	}

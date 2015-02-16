@@ -31,7 +31,7 @@ public class DualParameters {
 	
 	private static final Map<String, Object> SESSION_MOCK = Collections.synchronizedMap(new HashMap<String, Object>());
 	
-	static {
+	public static void initSystemParameters() {
 		String parameterHC_HOST = System.getProperty(HC_HOST);
 		SESSION_MOCK.put(HC_HOST, parameterHC_HOST);
 		String parameterHC_REGION = System.getProperty(HC_REGION);

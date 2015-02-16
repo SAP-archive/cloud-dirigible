@@ -10,4 +10,43 @@
       </serviceHandler>
    </extension>
    
+   <extension
+         point="org.eclipse.ui.menus">
+     <menuContribution
+            locationURI="popup:com.sap.dirigible.ide.workspace.ui.view.Menu.import">
+            <command
+                  commandId="com.sap.dirigible.ide.workspace.wizard.project.commands.UploadProjectHandler"
+                  icon="icons/icon-project.png"
+                  label="Project"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+               </visibleWhen>
+            </command>
+            
+	  </menuContribution>
+	  
+	  <menuContribution
+            locationURI="popup:com.sap.dirigible.ide.workspace.ui.view.Menu.export">
+            
+            <command
+                  commandId="com.sap.dirigible.ide.workspace.wizard.project.command.DownloadProjectHandler"
+                  icon="icons/icon-project.png"
+                  label="Project"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <iterate>
+                        <instanceof
+                              value="org.eclipse.core.resources.IProject">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+            </command>
+      </menuContribution>
+      
+	</extension>
+	  
 </plugin>

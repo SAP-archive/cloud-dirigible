@@ -33,7 +33,6 @@ import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.repository.RepositoryFacade;
 import com.sap.dirigible.repository.api.ICollection;
 import com.sap.dirigible.repository.api.ICommonConstants;
-import com.sap.dirigible.repository.api.IEntity;
 import com.sap.dirigible.repository.api.IRepository;
 import com.sap.dirigible.repository.logging.Logger;
 
@@ -55,9 +54,14 @@ public abstract class AbstractPublisher implements IPublisher {
 //	private static final String PUBLISH = Messages.getString("AbstractPublisher.PUBLISH"); //$NON-NLS-1$
 	
 	public static final Logger logger = Logger.getLogger(AbstractPublisher.class);
+	
+	private String currentPublishLocation;
 
 	protected ICollection getTargetProjectContainer(IProject project, String registryLocation)
 			throws IOException {
+		
+		this.currentPublishLocation = registryLocation;
+		
 		final IRepository repository = RepositoryFacade.getInstance().getRepository();
 		final ICollection publishContainer = repository.getCollection(registryLocation);
 //		final ICollection projectContainer = publishContainer.getCollection(project.getName());
@@ -184,11 +188,15 @@ public abstract class AbstractPublisher implements IPublisher {
 		return CommonParameters.isUserInRole(CommonParameters.ROLE_OPERATOR);
 	}
 
-	public void copyFileInto(IFile file, ICollection target, String user) throws IOException,
+	private void copyFileInto(IFile file, ICollection target, String user) throws IOException,
 			CoreException {
+		
+		String fileLocation = file.getFullPath().toString();
+		String projectLocation = file.getProject().getFullPath().toString();
+		
 		final com.sap.dirigible.repository.api.IResource targetResource = 
-				target.getResource(file.getFullPath().toString().substring(
-						file.getProject().getFullPath().toString().length() + 1 + getFolderType().length() + 1));
+				target.getRepository().getResource(this.currentPublishLocation + IRepository.SEPARATOR + fileLocation.substring(
+						projectLocation.length() + getFolderType().length() + 2));
 		if (!checkOverridePermissionsForResource(file.getName(), user, targetResource)) {
 			return;
 		}
@@ -307,7 +315,9 @@ public abstract class AbstractPublisher implements IPublisher {
 		return false;
 	}
 	
-	protected abstract String getSandboxLocation();	
+	protected abstract String getSandboxLocation();
+	
+	protected abstract String getRegistryLocation();
 
 	@Override
 	public void activateFile(IFile file) throws PublishException {

@@ -37,7 +37,7 @@ public class UiPublisher extends AbstractPublisher implements IPublisher {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(
 					project,
-					ICommonConstants.WEB_CONTENT_REGISTRY_PUBLISH_LOCATION);
+					getRegistryLocation());
 			final IFolder sourceFolder = getSourceFolder(project,
 					ICommonConstants.ARTIFACT_TYPE.WEB_CONTENT);
 			copyAllFromTo(sourceFolder, targetContainer);
@@ -89,6 +89,11 @@ public class UiPublisher extends AbstractPublisher implements IPublisher {
 	@Override
 	public boolean isAutoActivationAllowed() {
 		return true;
+	}
+
+	@Override
+	protected String getRegistryLocation() {
+		return ICommonConstants.WEB_CONTENT_REGISTRY_PUBLISH_LOCATION;
 	}
 
 }

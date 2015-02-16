@@ -36,7 +36,7 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 	public void publish(IProject project) throws PublishException {
 		try {
 			final ICollection targetContainer = getTargetProjectContainer(project,
-					ICommonConstants.SCRIPTING_REGISTRY_PUBLISH_LOCATION);
+					getRegistryLocation());
 			final IFolder sourceFolder = getSourceFolder(project,
 					ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES);
 			copyAllFromTo(sourceFolder, targetContainer);
@@ -139,6 +139,11 @@ public class ScriptsPublisher extends AbstractPublisher implements IPublisher {
 					+ generatePublishedPath(file);
 		}
 		return null;
+	}
+
+	@Override
+	protected String getRegistryLocation() {
+		return ICommonConstants.SCRIPTING_REGISTRY_PUBLISH_LOCATION;
 	}
 
 }

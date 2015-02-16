@@ -8,8 +8,9 @@ import java.util.zip.ZipInputStream;
 
 public class ZipImporter {
 	
-	public static void unzip(String destinationFolder, ZipInputStream zipInput) {
-		File directory = new File(destinationFolder);
+	public static void unzip(String destinationFolder, ZipInputStream zipInput) throws IOException {
+		String workspaceFolder = RCPWorkspaceMapper.getMappedName(destinationFolder);
+		File directory = new File(workspaceFolder);
         
 		if(!directory.exists()) 
 			directory.mkdirs();
@@ -21,7 +22,7 @@ public class ZipImporter {
             
 			while(entry != null){
 				String entryName = entry.getName();
-				File file = new File(destinationFolder + File.separator + entryName);
+				File file = new File(workspaceFolder + File.separator + entryName);
                 
 				if(entry.isDirectory()) {
 					File newDir = new File(file.getCanonicalPath());
