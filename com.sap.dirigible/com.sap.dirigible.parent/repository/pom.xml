@@ -56,6 +56,7 @@
 	<modules>
 		<module>com.sap.dirigible.repository.api</module>
 		<module>com.sap.dirigible.repository.zip</module>
+		<module>com.sap.dirigible.repository.db.init</module>
 		<module>com.sap.dirigible.repository.db</module>
 		<module>com.sap.dirigible.repository.db.test</module>
 		<module>com.sap.dirigible.repository.ext</module>
