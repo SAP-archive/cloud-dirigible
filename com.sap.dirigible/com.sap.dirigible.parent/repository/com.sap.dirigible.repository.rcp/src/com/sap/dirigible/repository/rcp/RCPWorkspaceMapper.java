@@ -27,7 +27,8 @@ public class RCPWorkspaceMapper {
 		if (repositoryName != null
 				&& !"".equals(repositoryName)) {
 
-			if (FileUtils.exists(repositoryName)) {
+			if (FileUtils.exists(repositoryName)
+					&& !"/".equals(repositoryName)) {
 				return repositoryName;
 			}
 			String repositoryPathEffect = repositoryName.substring(1);

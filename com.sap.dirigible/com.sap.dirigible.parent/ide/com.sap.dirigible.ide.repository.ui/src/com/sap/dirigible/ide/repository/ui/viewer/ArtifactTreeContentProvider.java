@@ -28,10 +28,8 @@ import com.sap.dirigible.repository.logging.Logger;
 
 public class ArtifactTreeContentProvider implements ITreeContentProvider {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5108751356542487531L;
+	
 	private static final String COULD_NOT_CHECK_IF_COLLECTION_HAS_CHILDREN = Messages.ArtifactTreeContentProvider_COULD_NOT_CHECK_IF_COLLECTION_HAS_CHILDREN;
 	private static final String ERROR_CLICK_TO_RETRY = Messages.ArtifactTreeContentProvider_ERROR_CLICK_TO_RETRY;
 	private static final String COULD_NOT_RESOLVE_COLLECTION_S_CHILDREN = Messages.ArtifactTreeContentProvider_COULD_NOT_RESOLVE_COLLECTION_S_CHILDREN;
