@@ -14,7 +14,6 @@ import com.sap.dirigible.cli.utils.Utils;
 
 public class ImportProjectCommand implements ICommand, CommonProperties.ImportProjectCommand {
 
-	@Override
 	public void execute(Properties propeties) throws IOException {
 		String url = propeties.getProperty(PROPERTY_URL);
 		File file = new File(propeties.getProperty(PROPERTY_ARCHIVE));

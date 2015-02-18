@@ -18,7 +18,7 @@ public class CLI implements CommonProperties.CLI {
 	private static ICommand getCommand(Properties properties) {
 		ICommand command = null;
 		String commandName = properties.getProperty(COMMAND);
-		if (commandName.equals(COMMAND_IMPORT)) {
+		if (COMMAND_IMPORT.equals(commandName)) {
 			command = new ImportProjectCommand();
 		}
 		return command;
