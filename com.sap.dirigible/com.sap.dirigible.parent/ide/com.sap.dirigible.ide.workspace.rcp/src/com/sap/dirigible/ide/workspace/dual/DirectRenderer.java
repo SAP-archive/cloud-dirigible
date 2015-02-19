@@ -45,6 +45,8 @@ public class DirectRenderer {
 			IScriptExecutor scriptExecutor = EngineUtils.createExecutorByAlias(alias, request);
 			// location/module
 			scriptExecutor.executeServiceModule(request, response, module, executionContext);
+			response.getWriter().flush();
+			response.getOutputStream().flush();
 			return new String(baos.toByteArray(), "UTF-8");
 		} catch (MalformedURLException e) {
 			message = e.getMessage();

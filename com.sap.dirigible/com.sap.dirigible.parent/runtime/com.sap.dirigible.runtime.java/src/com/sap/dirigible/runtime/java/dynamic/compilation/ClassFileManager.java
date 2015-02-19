@@ -56,31 +56,35 @@ public class ClassFileManager extends ForwardingJavaFileManager<JavaFileManager>
 //		File libDirectory = new File(url.toURI()).getParentFile();
 //		return getJars(libDirectory);
 //	}
-
+	
 	public static String getJars(File libDirectory) throws IOException {
 		
-		StringBuilder jars = new StringBuilder();
-		
-		if (libDirectory == null) {
-			throw new IOException("Lib directory is null");
-		}
-		
-		if (!libDirectory.exists()) {
-			throw new IOException(String.format("File %s does not exist", libDirectory.getCanonicalFile()));
-		}
-
-		for (File jar : libDirectory.listFiles()) {
-			String jarPath = jar.getCanonicalPath();
-			if (jar.isFile()) {
-				if (!jarPath.contains(".source_")
-						&& jarPath.endsWith(".jar")) { // exclude source bundles
-					jars.append(jarPath + separator);
-				}
-			} else {
-				jars.append(getJars(jar));
+			StringBuilder jars = new StringBuilder();
+			
+			if (libDirectory == null) {
+				throw new IOException("Lib directory is null");
 			}
-		}
-		return jars.toString();
+			
+			if (!libDirectory.exists()) {
+				throw new IOException(String.format("File %s does not exist", libDirectory.getCanonicalFile()));
+			}
+	
+			for (File jar : libDirectory.listFiles()) {
+				String jarPath = jar.getCanonicalPath();
+				if (jar.isFile()) {
+					if (!jarPath.contains(".source_")
+							&& jarPath.endsWith(".jar")) { // exclude source bundles
+						jars.append(jarPath + separator);
+					}
+//					if (jarPath.contains("javax.servlet")
+//							&& jarPath.endsWith(".jar")) {
+//						jars.append(jarPath + separator);
+//					}
+				} else {
+					jars.append(getJars(jar));
+				}
+			}
+			return jars.toString();
 	}
 	
 	public static JavaFileObject getSourceFile(String className) {

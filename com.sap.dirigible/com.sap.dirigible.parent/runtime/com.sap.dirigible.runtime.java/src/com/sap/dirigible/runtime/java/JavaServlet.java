@@ -25,7 +25,7 @@ public class JavaServlet extends AbstractScriptingServlet {
 	
 	private File libDirectory;
 	
-	private String classpath;
+	private static String classpath;
 	
 	@Override
 	public void init() throws ServletException {
@@ -68,18 +68,21 @@ public class JavaServlet extends AbstractScriptingServlet {
 	}
 	
 	private String getClasspath() throws IOException {
-		if (this.classpath == null) {
-			if (this.libDirectory != null) {
-				this.classpath = ClassFileManager.getJars(this.libDirectory);
-			} else {
-				try {
-					this.classpath = ClassFileManager.getJars(new File(Platform.getInstallLocation().getURL().toURI()));
-				} catch (URISyntaxException e) {
-					throw new IOException(e);
+		
+		synchronized (JavaServlet.class) {
+			if (classpath == null) {
+				if (this.libDirectory != null) {
+					classpath = ClassFileManager.getJars(this.libDirectory);
+				} else {
+					try {
+						classpath = ClassFileManager.getJars(new File(Platform.getInstallLocation().getURL().toURI()));
+					} catch (URISyntaxException e) {
+						throw new IOException(e);
+					}
 				}
 			}
 		}
-		return this.classpath;
+		return classpath;
 	}
 
 	public JavaExecutor createExecutor(HttpServletRequest request) throws IOException {
