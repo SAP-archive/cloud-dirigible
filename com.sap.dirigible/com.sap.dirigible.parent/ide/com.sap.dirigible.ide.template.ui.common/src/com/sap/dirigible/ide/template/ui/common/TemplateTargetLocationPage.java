@@ -38,7 +38,6 @@ import org.eclipse.swt.widgets.Text;
 import com.sap.dirigible.ide.workspace.ui.viewer.ReservedFolderFilter;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceContainerFilter;
 import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewer;
-import com.sap.dirigible.repository.api.IRepository;
 
 public abstract class TemplateTargetLocationPage extends WizardPage {
 
@@ -108,7 +107,11 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 								getModel().setTargetContainer(targetLocation);
 							}
 							if (getModel().getPackageName() == null) {
-								getModel().setPackageName(getModel().getProjectName());
+								if (container.getProjectRelativePath().segmentCount() <= 1) {
+									getModel().setPackageName(getModel().getProjectName());
+								} else {
+									packageNameText.setEnabled(false);
+								}
 							}
 						}
 						checkPageStatus();
@@ -241,7 +244,9 @@ public abstract class TemplateTargetLocationPage extends WizardPage {
 	public void setVisible(boolean visible) {
 		setPreselectedElement();
 		
-		packageNameText.setText(getDefaultPackageName());
+		if (packageNameText.isEnabled()) {
+			packageNameText.setText(getDefaultPackageName());
+		}
 		
 		if (fileNameText.getText() == null
 				|| EMPTY_STRING.equals(fileNameText.getText())) {
