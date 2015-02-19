@@ -20,8 +20,9 @@ public class LocalHttpServletResponse implements HttpServletResponse {
 	
 	public LocalHttpServletResponse(ByteArrayOutputStream baos) {
 //		this.baos = baos;
-		this.sos = new LocalServletOutputStream(baos);
 		this.printWriter = new PrintWriter(baos);
+		this.sos = new LocalServletOutputStream(printWriter);
+		
 	}
 
 	@Override
@@ -240,105 +241,89 @@ public class LocalHttpServletResponse implements HttpServletResponse {
 
 	static class LocalServletOutputStream extends ServletOutputStream {
 
-		private ByteArrayOutputStream baos;
+		private PrintWriter writer;
 		
-		LocalServletOutputStream(ByteArrayOutputStream baos) {
-			this.baos = baos;
+		LocalServletOutputStream(PrintWriter writer) {
+			this.writer = writer;
 		}
 		
 		@Override
 		public void write(int b) throws IOException {
-			baos.write(b);
-			
+			writer.write(b);
 		}
 
 		@Override
 		public void print(boolean arg0) throws IOException {
-			// TODO Auto-generated method stub
-			super.print(arg0);
+			writer.print(arg0);
 		}
 
 		@Override
 		public void print(char c) throws IOException {
-			// TODO Auto-generated method stub
-			super.print(c);
+			writer.print(c);
 		}
 
 		@Override
 		public void print(double d) throws IOException {
-			// TODO Auto-generated method stub
-			super.print(d);
+			writer.print(d);
 		}
 
 		@Override
 		public void print(float f) throws IOException {
-			// TODO Auto-generated method stub
-			super.print(f);
+			writer.print(f);
 		}
 
 		@Override
 		public void print(int i) throws IOException {
-			// TODO Auto-generated method stub
-			super.print(i);
+			writer.print(i);
 		}
 
 		@Override
 		public void print(long l) throws IOException {
-			// TODO Auto-generated method stub
-			super.print(l);
+			writer.print(l);
 		}
 
 		@Override
 		public void print(String arg0) throws IOException {
-			// TODO Auto-generated method stub
-			super.print(arg0);
+			writer.print(arg0);
 		}
 
 		@Override
 		public void println() throws IOException {
-			// TODO Auto-generated method stub
-			super.println();
+			writer.println();
 		}
 
 		@Override
 		public void println(boolean b) throws IOException {
-			// TODO Auto-generated method stub
-			super.println(b);
+			writer.println(b);
 		}
 
 		@Override
 		public void println(char c) throws IOException {
-			// TODO Auto-generated method stub
-			super.println(c);
+			writer.println(c);
 		}
 
 		@Override
 		public void println(double d) throws IOException {
-			// TODO Auto-generated method stub
 			super.println(d);
 		}
 
 		@Override
 		public void println(float f) throws IOException {
-			// TODO Auto-generated method stub
 			super.println(f);
 		}
 
 		@Override
 		public void println(int i) throws IOException {
-			// TODO Auto-generated method stub
 			super.println(i);
 		}
 
 		@Override
 		public void println(long l) throws IOException {
-			// TODO Auto-generated method stub
 			super.println(l);
 		}
 
 		@Override
 		public void println(String s) throws IOException {
-			// TODO Auto-generated method stub
 			super.println(s);
 		}
 		
