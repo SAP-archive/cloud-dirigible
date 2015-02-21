@@ -57,10 +57,14 @@ public class ExtensionUpdater extends AbstractDataUpdater {
 				for (Iterator<String> iterator = knownFiles.iterator(); iterator
 						.hasNext();) {
 					String dsDefinition = iterator.next();
-					if (dsDefinition.endsWith(EXTENSION_EXTENSION)) {
-						executeExtensionUpdate(connection, dsDefinition, request);
-					} else if (dsDefinition.endsWith(EXTENSION_EXTENSION_POINT)) {
-						executeExtensionPointUpdate(connection, dsDefinition, request);
+					try {
+						if (dsDefinition.endsWith(EXTENSION_EXTENSION)) {
+							executeExtensionUpdate(connection, dsDefinition, request);
+						} else if (dsDefinition.endsWith(EXTENSION_EXTENSION_POINT)) {
+							executeExtensionPointUpdate(connection, dsDefinition, request);
+						}
+					} catch (Exception e) {
+						logger.error(e.getMessage(), e);
 					}
 				}
 			} finally {
@@ -70,10 +74,6 @@ public class ExtensionUpdater extends AbstractDataUpdater {
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
 		}
 	}
 

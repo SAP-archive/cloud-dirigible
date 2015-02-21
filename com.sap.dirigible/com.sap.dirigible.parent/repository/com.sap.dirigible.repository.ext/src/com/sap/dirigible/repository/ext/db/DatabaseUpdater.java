@@ -107,10 +107,14 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 				for (Iterator<String> iterator = knownFiles.iterator(); iterator
 						.hasNext();) {
 					String dsDefinition = iterator.next();
-					if (dsDefinition.endsWith(EXTENSION_TABLE)) {
-						executeTableUpdate(connection, databaseMetaData, dialectSpecifier, dsDefinition);
-					} else if (dsDefinition.endsWith(EXTENSION_VIEW)) {
-						executeViewUpdate(connection, databaseMetaData, dialectSpecifier, dsDefinition);
+					try {
+						if (dsDefinition.endsWith(EXTENSION_TABLE)) {
+							executeTableUpdate(connection, databaseMetaData, dialectSpecifier, dsDefinition);
+						} else if (dsDefinition.endsWith(EXTENSION_VIEW)) {
+							executeViewUpdate(connection, databaseMetaData, dialectSpecifier, dsDefinition);
+						}
+					} catch (Exception e) {
+						logger.error(e.getMessage(), e);
 					}
 				}
 			} finally {
@@ -120,10 +124,6 @@ public class DatabaseUpdater extends AbstractDataUpdater {
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
 		}
 	}
 	

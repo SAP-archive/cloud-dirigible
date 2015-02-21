@@ -91,8 +91,12 @@ public class JobsUpdater extends AbstractDataUpdater {
 				for (Iterator<String> iterator = knownFiles.iterator(); iterator
 						.hasNext();) {
 					String jobDefinition = iterator.next();
-					if (jobDefinition.endsWith(EXTENSION_JOB)) {
-						executeJobUpdate(connection, jobDefinition, request);
+					try {
+						if (jobDefinition.endsWith(EXTENSION_JOB)) {
+							executeJobUpdate(connection, jobDefinition, request);
+						}
+					} catch (Exception e) {
+						logger.error(e.getMessage(), e);
 					}
 				}
 			} finally {
@@ -102,10 +106,6 @@ public class JobsUpdater extends AbstractDataUpdater {
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
 		}
 	}
 

@@ -91,8 +91,12 @@ public class DsvUpdater extends AbstractDataUpdater {
 
 			try {
 				for (String dsDefinition : knownFiles) {
-					if (dsDefinition.endsWith(EXTENSION_DSV)) {
-						executeDSVUpdate(connection, dsDefinition);
+					try {
+						if (dsDefinition.endsWith(EXTENSION_DSV)) {
+							executeDSVUpdate(connection, dsDefinition);
+						}
+					} catch (Exception e) {
+						logger.error(e.getMessage(), e);
 					}
 				}
 			} finally {
@@ -102,10 +106,6 @@ public class DsvUpdater extends AbstractDataUpdater {
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
 		}
 	}
 

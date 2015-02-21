@@ -73,8 +73,12 @@ public class SecurityUpdater extends AbstractDataUpdater {
 				for (Iterator<String> iterator = knownFiles.iterator(); iterator
 						.hasNext();) {
 					String dsDefinition = iterator.next();
-					if (dsDefinition.endsWith(EXTENSION_ACCESS)) {
-						executeAccessUpdate(connection, dsDefinition, request);
+					try {
+						if (dsDefinition.endsWith(EXTENSION_ACCESS)) {
+							executeAccessUpdate(connection, dsDefinition, request);
+						}
+					} catch (Exception e) {
+						logger.error(e.getMessage(), e);
 					}
 				}
 			} finally {
@@ -84,10 +88,6 @@ public class SecurityUpdater extends AbstractDataUpdater {
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
-//			throw new Exception(e);
 		}
 	}
 
