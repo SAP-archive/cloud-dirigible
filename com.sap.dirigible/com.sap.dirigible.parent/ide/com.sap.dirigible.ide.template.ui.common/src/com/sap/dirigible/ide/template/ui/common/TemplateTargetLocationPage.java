@@ -41,8 +41,6 @@ import com.sap.dirigible.ide.workspace.ui.viewer.WorkspaceViewer;
 
 public abstract class TemplateTargetLocationPage extends WizardPage {
 
-	private static final long serialVersionUID = -7791118502101439238L;
-
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	private static final String INPUT_THE_FILE_NAME = Messages.TemplateTargetLocationPage_INPUT_THE_FILE_NAME;

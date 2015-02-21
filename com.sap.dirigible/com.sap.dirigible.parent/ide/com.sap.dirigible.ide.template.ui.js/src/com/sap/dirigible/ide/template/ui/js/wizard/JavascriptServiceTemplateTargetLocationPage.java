@@ -24,8 +24,6 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 public class JavascriptServiceTemplateTargetLocationPage extends
 		TemplateTargetLocationPage {
 
-	private static final long serialVersionUID = 6376197935502791442L;
-
 	private static final String SELECT_THE_TARGET_LOCATION_AND_THE_TARGET_FILE_NAME = Messages.JavascriptServiceTemplateTargetLocationPage_SELECT_THE_TARGET_LOCATION_AND_THE_TARGET_FILE_NAME;
 
 	private static final String TARGET_LOCATION = Messages.JavascriptServiceTemplateTargetLocationPage_TARGET_LOCATION;

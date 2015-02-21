@@ -20,8 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateGenerator;
+import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class JavascriptServiceTemplateGenerator extends TemplateGenerator {
 
@@ -38,7 +42,11 @@ public class JavascriptServiceTemplateGenerator extends TemplateGenerator {
 	protected Map<String, Object> prepareParameters() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("projectName", model.getProjectName()); //$NON-NLS-1$
-		parameters.put("packageName", model.getPackageName()); //$NON-NLS-1$
+		if (model.getPackageName() != null) {
+			parameters.put("packageName", model.getPackageName()); //$NON-NLS-1$
+		} else {
+			parameters.put("packageName", constructPackageName()); //$NON-NLS-1$
+		}
 		parameters.put("tableName", model.getTableName()); //$NON-NLS-1$
 		parameters.put("tableType", model.getTableType()); //$NON-NLS-1$
 		parameters.put("entityName", toCamelCase(model.getTableName())); //$NON-NLS-1$
@@ -70,6 +78,22 @@ public class JavascriptServiceTemplateGenerator extends TemplateGenerator {
 
 		return parameters;
 	}
+	
+	public String constructPackageName() {
+		StringBuilder result = new StringBuilder();
+		IPath location = new Path(model.getTargetContainer());
+		if (location.segmentCount() > 2) {
+			for (int i = 2; i < location.segmentCount(); i++) {
+				result.append(location.segment(i) + ICommonConstants.SEPARATOR);
+			}
+			result.delete(result.length() - ICommonConstants.SEPARATOR.length(), result.length());
+		} else {
+			result.append(location.segment(0));
+		}
+		String constructedPackage = result.toString().replace(ICommonConstants.SEPARATOR, ".");
+		return constructedPackage;
+	}
+
 
 	private TableColumn[] getTableColumnsWithoutKeys(TableColumn[] tableColumns) {
 		if (tableColumns == null) {

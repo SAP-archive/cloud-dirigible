@@ -51,7 +51,7 @@ public abstract class GenerationModel {
 
 	private IResource sourceResource;
 
-	private String targetLocation;
+//	private String targetLocation;
 	
 	private String targetContainer;
 
@@ -82,9 +82,9 @@ public abstract class GenerationModel {
 		return this.targetContainer + IRepository.SEPARATOR + getPackageName();
 	}
 
-	public void setTargetLocation(String targetLocation) {
-		this.targetLocation = targetLocation;
-	}
+//	public void setTargetLocation(String targetLocation) {
+//		this.targetLocation = targetLocation;
+//	}
 	
 	public String getTargetContainer() {
 		return targetContainer;
@@ -224,7 +224,7 @@ public abstract class GenerationModel {
 //		}
 		return result.toString();
 	}
-
+	
 	public Class<?> getTemplateClassLoader() {
 		return templateClassLoader;
 	}

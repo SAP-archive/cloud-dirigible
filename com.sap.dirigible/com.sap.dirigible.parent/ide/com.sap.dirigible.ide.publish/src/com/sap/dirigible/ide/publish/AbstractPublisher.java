@@ -188,7 +188,7 @@ public abstract class AbstractPublisher implements IPublisher {
 		return CommonParameters.isUserInRole(CommonParameters.ROLE_OPERATOR);
 	}
 
-	private void copyFileInto(IFile file, ICollection target, String user) throws IOException,
+	public void copyFileInto(IFile file, ICollection target, String user) throws IOException,
 			CoreException {
 		
 		String fileLocation = file.getFullPath().toString();
