@@ -25,9 +25,9 @@ import com.sap.dirigible.repository.api.IRepository;
 
 public interface IDataUpdater {
 	
-	public void executeUpdate(List<String> knownFiles) throws Exception;
+	public void executeUpdate(List<String> knownFiles, List<String> errors) throws Exception;
 	
-	public void executeUpdate(List<String> knownFiles, HttpServletRequest request) throws Exception;
+	public void executeUpdate(List<String> knownFiles, HttpServletRequest request, List<String> errors) throws Exception;
 	
 	public void enumerateKnownFiles(ICollection collection,
 			List<String> dsDefinitions) throws IOException;

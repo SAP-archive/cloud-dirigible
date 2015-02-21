@@ -81,7 +81,7 @@ public class DsvUpdater extends AbstractDataUpdater {
 	}
 
 	@Override
-	public void executeUpdate(List<String> knownFiles) throws Exception {
+	public void executeUpdate(List<String> knownFiles, List<String> errors) throws Exception {
 		if (knownFiles.size() == 0) {
 			return;
 		}
@@ -97,6 +97,7 @@ public class DsvUpdater extends AbstractDataUpdater {
 						}
 					} catch (Exception e) {
 						logger.error(e.getMessage(), e);
+						errors.add(e.getMessage());
 					}
 				}
 			} finally {
@@ -110,8 +111,8 @@ public class DsvUpdater extends AbstractDataUpdater {
 	}
 
 	@Override
-	public void executeUpdate(List<String> knownFiles, HttpServletRequest request) throws Exception {
-		executeUpdate(knownFiles);
+	public void executeUpdate(List<String> knownFiles, HttpServletRequest request, List<String> errors) throws Exception {
+		executeUpdate(knownFiles, errors);
 	}
 	
 	private void executeDSVUpdate(Connection connection, String dsDefinition)

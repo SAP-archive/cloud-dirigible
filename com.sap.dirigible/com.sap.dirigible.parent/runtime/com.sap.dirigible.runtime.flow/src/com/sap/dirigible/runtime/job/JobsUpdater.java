@@ -79,7 +79,7 @@ public class JobsUpdater extends AbstractDataUpdater {
 
 	@Override
 	public void executeUpdate(List<String> knownFiles,
-			HttpServletRequest request) throws Exception {
+			HttpServletRequest request, List<String> errors) throws Exception {
 		if (knownFiles.size() == 0) {
 			return;
 		}
@@ -97,6 +97,7 @@ public class JobsUpdater extends AbstractDataUpdater {
 						}
 					} catch (Exception e) {
 						logger.error(e.getMessage(), e);
+						errors.add(e.getMessage());
 					}
 				}
 			} finally {
@@ -239,8 +240,8 @@ public class JobsUpdater extends AbstractDataUpdater {
 	}
 	
 	@Override
-	public void executeUpdate(List<String> knownFiles) throws Exception {
-		executeUpdate(knownFiles, null);
+	public void executeUpdate(List<String> knownFiles, List<String> errors) throws Exception {
+		executeUpdate(knownFiles, null, errors);
 	}
 	
 }

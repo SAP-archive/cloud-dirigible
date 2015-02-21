@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.publish.AbstractPublisher;
 import com.sap.dirigible.ide.publish.IPublisher;
@@ -94,7 +95,11 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 		DatabaseUpdater databaseUpdater = new DatabaseUpdater(repository,
 				dataSource, getRegistryLocation());
 		databaseUpdater.enumerateKnownFiles(targetContainer, knownFiles);
-		databaseUpdater.executeUpdate(knownFiles);
+		List<String> errors = new ArrayList<String>();
+		databaseUpdater.executeUpdate(knownFiles, errors);
+		if (errors.size() > 0) {
+			throw new PublishException(CommonUtils.concatenateListOfStrings(errors, "\n"));
+		}
 	}
 
 	private void processDSV(ICollection targetContainer,
@@ -104,7 +109,11 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 		DsvUpdater dsvUpdater = new DsvUpdater(repository, dataSource,
 				getRegistryLocation());
 		dsvUpdater.enumerateKnownFiles(targetContainer, knownFiles);
-		dsvUpdater.executeUpdate(knownFiles);
+		List<String> errors = new ArrayList<String>();
+		dsvUpdater.executeUpdate(knownFiles, errors);
+		if (errors.size() > 0) {
+			throw new PublishException(CommonUtils.concatenateListOfStrings(errors, "\n"));
+		}
 	}
 
 	@Override

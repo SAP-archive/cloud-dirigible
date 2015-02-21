@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 
 import com.sap.dirigible.ide.common.CommonParameters;
+import com.sap.dirigible.ide.common.CommonUtils;
 import com.sap.dirigible.ide.datasource.DataSourceFacade;
 import com.sap.dirigible.ide.publish.AbstractPublisher;
 import com.sap.dirigible.ide.publish.IPublisher;
@@ -60,7 +61,11 @@ public class SecurityPublisher extends AbstractPublisher implements IPublisher {
 					DataSourceFacade.getInstance().getDataSource(),
 					getRegistryLocation());
 			securityUpdater.enumerateKnownFiles(targetContainer, knownFiles);
-			securityUpdater.executeUpdate(knownFiles, CommonParameters.getRequest());
+			List<String> errors = new ArrayList<String>();
+			securityUpdater.executeUpdate(knownFiles, CommonParameters.getRequest(), errors);
+			if (errors.size() > 0) {
+				throw new PublishException(CommonUtils.concatenateListOfStrings(errors, "\n"));
+			}
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			throw new PublishException(ex.getMessage(), ex);

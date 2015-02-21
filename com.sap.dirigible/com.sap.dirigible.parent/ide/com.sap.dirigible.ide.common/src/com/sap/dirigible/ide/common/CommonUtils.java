@@ -15,6 +15,8 @@
 
 package com.sap.dirigible.ide.common;
 
+import java.util.List;
+
 import com.sap.dirigible.repository.api.ICommonConstants;
 import com.sap.dirigible.repository.api.IRepositoryPaths;
 
@@ -51,6 +53,14 @@ public class CommonUtils {
 			result = fileName.substring(0, fileName.lastIndexOf('.'));
 		}
 		return result;
+	}
+	
+	public static String concatenateListOfStrings(List<String> list, String separator) {
+		StringBuffer buff = new StringBuffer();
+		for (String s : list) {
+			buff.append(s).append(separator);
+		}
+		return buff.toString();
 	}
 
 }
