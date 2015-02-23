@@ -2,7 +2,7 @@
 <feature
       id="com.sap.dirigible.ide.feature"
       label="Dirigible IDE Bundles Feature"
-      version="2.0.150121"
+      version="2.0.150223"
       provider-name="SAP">
 
    <description url="http://www.dirigible.io/">

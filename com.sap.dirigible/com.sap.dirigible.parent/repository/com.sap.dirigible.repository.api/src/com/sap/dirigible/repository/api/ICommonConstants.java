@@ -18,7 +18,7 @@ package com.sap.dirigible.repository.api;
 public interface ICommonConstants {
 	
 	public static final String DIRIGIBLE_PRODUCT_NAME = "Dirigible"; //$NON-NLS-1$
-	public static final String DIRIGIBLE_PRODUCT_VERSION = "2.0.150121-beta"; //$NON-NLS-1$
+	public static final String DIRIGIBLE_PRODUCT_VERSION = "2.0.150223-beta"; //$NON-NLS-1$
 	
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	public static final String SEPARATOR = "/"; //$NON-NLS-1$

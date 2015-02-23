@@ -2,7 +2,7 @@
 <feature
       id="com.sap.dirigible.repository.feature"
       label="Dirigible Repository Bundles Feature"
-      version="2.0.150121"
+      version="2.0.150223"
       provider-name="SAP">
 
    <description url="http://www.dirigible.io/">

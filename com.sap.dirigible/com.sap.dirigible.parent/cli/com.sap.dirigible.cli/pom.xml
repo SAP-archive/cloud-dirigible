@@ -4,7 +4,7 @@
 
 	<groupId>com.sap.dirigible</groupId>
 	<artifactId>com.sap.dirigible.cli</artifactId>
-	<version>2.0.150121</version>
+	<version>2.0.150223</version>
 	<packaging>jar</packaging>
 
 	<name>Dirigible - CLI</name>

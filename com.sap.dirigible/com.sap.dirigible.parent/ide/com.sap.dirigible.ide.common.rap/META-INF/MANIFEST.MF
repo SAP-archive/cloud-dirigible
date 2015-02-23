@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible IDE - Common
 Bundle-SymbolicName: com.sap.dirigible.ide.common.rap
-Bundle-Version: 2.0.150121
+Bundle-Version: 2.0.150223
 Bundle-Vendor: SAP
 Export-Package: com.sap.dirigible.ide.common.dual
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

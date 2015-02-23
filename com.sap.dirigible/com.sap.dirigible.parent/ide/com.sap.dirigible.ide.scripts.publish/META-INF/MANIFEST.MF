@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Scripts Publisher
 Bundle-SymbolicName: com.sap.dirigible.ide.scripts.publish;singleton:=true
-Bundle-Version: 2.0.150121
+Bundle-Version: 2.0.150223
 Bundle-Vendor: SAP
 Require-Bundle: com.sap.dirigible.ide.repository,
  org.eclipse.core.runtime;bundle-version="3.6.0"

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible Help Perspective
 Bundle-SymbolicName: com.sap.dirigible.ide.help;singleton:=true
-Bundle-Version: 2.0.150121
+Bundle-Version: 2.0.150223
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.ui;resolution:=optional,

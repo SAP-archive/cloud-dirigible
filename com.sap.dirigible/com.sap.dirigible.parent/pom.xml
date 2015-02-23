@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sap.dirigible</groupId>
 	<artifactId>com.sap.dirigible.parent</artifactId>
-	<version>2.0.150121</version>
+	<version>2.0.150223</version>
 	<packaging>pom</packaging>
 	<name>com.sap.dirigible.parent</name>
 	<description>Dirigible Parent</description>
