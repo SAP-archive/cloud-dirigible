@@ -194,3 +194,4 @@ If you'd like to contribute to Dirigible, please file an [issue](https://github.
 - [http://dirigible.io/p2/lib/](http://dirigible.io/p2/lib/)
 - [http://dirigible.io/p2/repository/](http://dirigible.io/p2/repository/)
 - [http://dirigible.io/p2/runtime/](http://dirigible.io/p2/runtime/)
+- [http://dirigible.io/p2/rcp/](http://dirigible.io/p2/rcp/)
