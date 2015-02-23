@@ -343,5 +343,16 @@ public abstract class AbstractPublisher implements IPublisher {
 	public String getDebugEndpoint(IFile file) {
 		return null;
 	}
+	
+	public String getWorkspaceLocation() {
+		return CommonParameters.getWorkspace();
+	}
+	
+	public ICollection getSourceProjectContainer(IProject project) {
+		final IRepository repository = RepositoryFacade.getInstance().getRepository();
+		final ICollection workspaceContainer = repository.getCollection(getWorkspaceLocation());
+		final ICollection projectContainer = workspaceContainer.getCollection(project.getName());
+		return projectContainer;
+	}
 
 }

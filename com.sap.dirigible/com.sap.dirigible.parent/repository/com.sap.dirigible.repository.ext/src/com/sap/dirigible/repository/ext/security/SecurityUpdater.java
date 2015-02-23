@@ -154,9 +154,11 @@ public class SecurityUpdater extends AbstractDataUpdater {
 				IResource resource = iterator.next();
 				if (resource != null && resource.getName() != null) {
 					if (resource.getName().endsWith(EXTENSION_ACCESS)) {
-						String fullPath = collection.getPath().substring(
-								this.location.length())
-								+ IRepository.SEPARATOR + resource.getName();
+//						# 177
+//						String fullPath = collection.getPath().substring(
+//								this.location.length())
+//								+ IRepository.SEPARATOR + resource.getName();
+						String fullPath = resource.getPath();
 						dsDefinitions.add(fullPath);
 					}
 				}

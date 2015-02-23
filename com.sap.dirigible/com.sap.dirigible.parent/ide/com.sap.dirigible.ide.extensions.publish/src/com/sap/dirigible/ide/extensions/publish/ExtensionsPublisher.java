@@ -15,7 +15,6 @@
 
 package com.sap.dirigible.ide.extensions.publish;
 
-import static com.sap.dirigible.ide.extensions.publish.ExtensionsConstants.ED_CONTENT_FOLDER;
 import static com.sap.dirigible.ide.extensions.publish.ExtensionsConstants.REGISTYRY_PUBLISH_LOCATION;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class ExtensionsPublisher extends AbstractPublisher implements IPublisher
 			final ICollection targetContainer = getTargetProjectContainer(
 					project, getRegistryLocation());
 			final IFolder sourceFolder = getSourceFolder(project,
-					ED_CONTENT_FOLDER);
+					ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS);
 			copyAllFromTo(sourceFolder, targetContainer);
 
 			List<String> knownFiles = new ArrayList<String>();
@@ -60,7 +59,15 @@ public class ExtensionsPublisher extends AbstractPublisher implements IPublisher
 					RepositoryFacade.getInstance().getRepository(),
 					DataSourceFacade.getInstance().getDataSource(),
 					getRegistryLocation());
-			extensionUpdater.enumerateKnownFiles(targetContainer, knownFiles);
+			
+//			# 177
+//			extensionUpdater.enumerateKnownFiles(targetContainer, knownFiles);
+			
+			ICollection sourceProjectContainer = getSourceProjectContainer(project);
+			ICollection sourceContainer = sourceProjectContainer.getCollection(
+					ICommonConstants.ARTIFACT_TYPE.EXTENSION_DEFINITIONS);
+			extensionUpdater.enumerateKnownFiles(sourceContainer, knownFiles);
+			
 			List<String> errors = new ArrayList<String>();
 			extensionUpdater.executeUpdate(knownFiles, CommonParameters.getRequest(), errors);
 			if (errors.size() > 0) {

@@ -60,7 +60,14 @@ public class SecurityPublisher extends AbstractPublisher implements IPublisher {
 					RepositoryFacade.getInstance().getRepository(),
 					DataSourceFacade.getInstance().getDataSource(),
 					getRegistryLocation());
-			securityUpdater.enumerateKnownFiles(targetContainer, knownFiles);
+			
+//			# 177
+//			securityUpdater.enumerateKnownFiles(targetContainer, knownFiles);
+			ICollection sourceProjectContainer = getSourceProjectContainer(project);
+			ICollection sourceContainer = sourceProjectContainer.getCollection(
+					ICommonConstants.ARTIFACT_TYPE.SECURITY_CONSTRAINTS);
+			securityUpdater.enumerateKnownFiles(sourceContainer, knownFiles);
+			
 			List<String> errors = new ArrayList<String>();
 			securityUpdater.executeUpdate(knownFiles, CommonParameters.getRequest(), errors);
 			if (errors.size() > 0) {

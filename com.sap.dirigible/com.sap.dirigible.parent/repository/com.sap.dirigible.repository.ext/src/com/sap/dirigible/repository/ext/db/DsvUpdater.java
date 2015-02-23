@@ -63,9 +63,11 @@ public class DsvUpdater extends AbstractDataUpdater {
 				IResource resource = iterator.next();
 				if (resource != null && resource.getName() != null) {
 					if (resource.getName().endsWith(EXTENSION_DSV)) {
-						String fullPath = collection.getPath().substring(
-								this.location.length())
-								+ IRepository.SEPARATOR + resource.getName();
+//						# 177
+//						String fullPath = collection.getPath().substring(
+//								this.location.length())
+//								+ IRepository.SEPARATOR + resource.getName();
+						String fullPath = resource.getPath();
 						dsDefinitions.add(fullPath);
 					}
 				}
@@ -117,8 +119,7 @@ public class DsvUpdater extends AbstractDataUpdater {
 	
 	private void executeDSVUpdate(Connection connection, String dsDefinition)
 			throws Exception {
-		String dsDefinitionTable = dsDefinition.replace(EXTENSION_DSV,
-				EXTENSION_TABLE);
+		String dsDefinitionTable = dsDefinition.replace(EXTENSION_DSV, EXTENSION_TABLE);
 		JsonObject dsDefinitionObject = parseTable(dsDefinitionTable);
 		String tableName = dsDefinitionObject.get(TABLE_NAME).getAsString();
 		tableName = tableName.toUpperCase();

@@ -155,9 +155,11 @@ public class ExtensionUpdater extends AbstractDataUpdater {
 				if (resource != null && resource.getName() != null) {
 					if (resource.getName().endsWith(EXTENSION_EXTENSION)
 							|| resource.getName().endsWith(EXTENSION_EXTENSION_POINT)) {
-						String fullPath = collection.getPath().substring(
-								this.location.length())
-								+ IRepository.SEPARATOR + resource.getName();
+//						# 177
+//						String fullPath = collection.getPath().substring(
+//								this.location.length())
+//								+ IRepository.SEPARATOR + resource.getName();
+						String fullPath = resource.getPath();
 						dsDefinitions.add(fullPath);
 					}
 				}

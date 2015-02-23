@@ -59,13 +59,19 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 					ICommonConstants.ARTIFACT_TYPE.DATA_STRUCTURES);
 			copyAllFromTo(sourceFolder, targetContainer);
 
-			IRepository repository = RepositoryFacade.getInstance()
-					.getRepository();
-			DataSource dataSource = DataSourceFacade.getInstance()
-					.getDataSource();
+			IRepository repository = RepositoryFacade.getInstance().getRepository();
+			DataSource dataSource = DataSourceFacade.getInstance().getDataSource();
+			
+			ICollection sourceProjectContainer = getSourceProjectContainer(project);
+			ICollection sourceContainer = sourceProjectContainer.getCollection(ICommonConstants.ARTIFACT_TYPE.DATA_STRUCTURES);
 
-			processTablesAndViews(targetContainer, repository, dataSource);
-			processDSV(targetContainer, repository, dataSource);
+//			# 177
+//			processTablesAndViews(targetContainer, repository, dataSource);
+//			processDSV(targetContainer, repository, dataSource);
+			
+			processTablesAndViews(sourceContainer, repository, dataSource);
+			processDSV(sourceProjectContainer, repository, dataSource);
+			
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			throw new PublishException(ex.getMessage(), ex);

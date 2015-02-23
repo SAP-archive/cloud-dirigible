@@ -29,8 +29,7 @@ public interface IDataUpdater {
 	
 	public void executeUpdate(List<String> knownFiles, HttpServletRequest request, List<String> errors) throws Exception;
 	
-	public void enumerateKnownFiles(ICollection collection,
-			List<String> dsDefinitions) throws IOException;
+	public void enumerateKnownFiles(ICollection collection, List<String> dsDefinitions) throws IOException;
 
 	public void applyUpdates() throws IOException, Exception;
 	
