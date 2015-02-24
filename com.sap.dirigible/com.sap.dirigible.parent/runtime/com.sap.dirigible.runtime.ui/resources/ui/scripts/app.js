@@ -68,7 +68,7 @@ fileApp.config(function($routeProvider) {
     });
 }).controller('ImportCtrl', function($scope, FileUploader) {
   var uploader = $scope.uploader = new FileUploader({
-    url: 'import'
+    url: '../import'
   });
 
   uploader.filters.push({
