@@ -25,6 +25,7 @@ import com.sap.dirigible.ide.common.CommonParameters;
 import com.sap.dirigible.ide.template.ui.common.GenerationModel;
 import com.sap.dirigible.ide.template.ui.common.TemplateGenerator;
 import com.sap.dirigible.repository.api.ICommonConstants;
+import com.sap.dirigible.repository.api.IRepository;
 
 public class IntegrationServiceTemplateGenerator extends TemplateGenerator {
 
@@ -83,12 +84,16 @@ public class IntegrationServiceTemplateGenerator extends TemplateGenerator {
 		super.generate();
 		IPath targetLocationPath = new Path(getModel().getTargetLocation());
 		String projectName = getModel().getProjectName();
-		while ((!projectName.equals(targetLocationPath.lastSegment()))
-				|| targetLocationPath.segmentCount() == 0) {
-			targetLocationPath = targetLocationPath.removeLastSegments(1);
-		}
+//		while ((!projectName.equals(targetLocationPath.lastSegment()))
+//				|| targetLocationPath.segmentCount() == 0) {
+////			targetLocationPath = targetLocationPath.removeLastSegments(1);
+			targetLocationPath = targetLocationPath.removeLastSegments(targetLocationPath.segmentCount() - 1);
+//		}
 		String targetLocationPathJavaScriptServices = targetLocationPath
-				.append("/" + ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES) //$NON-NLS-1$
+				.append(IRepository.SEPARATOR) 
+				.append(ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES)
+				.append(IRepository.SEPARATOR)
+				.append(projectName)
 				.toString();
 
 		if ("/com/sap/dirigible/ide/template/ui/is/templates/shielding-js.flow" //$NON-NLS-1$
