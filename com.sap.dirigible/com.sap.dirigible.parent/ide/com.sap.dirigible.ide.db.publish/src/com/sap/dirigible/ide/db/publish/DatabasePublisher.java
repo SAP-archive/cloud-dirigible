@@ -112,8 +112,7 @@ public class DatabasePublisher extends AbstractPublisher implements IPublisher {
 			IRepository repository, DataSource dataSource) throws IOException,
 			Exception {
 		List<String> knownFiles = new ArrayList<String>();
-		DsvUpdater dsvUpdater = new DsvUpdater(repository, dataSource,
-				getRegistryLocation());
+		DsvUpdater dsvUpdater = new DsvUpdater(repository, dataSource, getRegistryLocation());
 		dsvUpdater.enumerateKnownFiles(targetContainer, knownFiles);
 		List<String> errors = new ArrayList<String>();
 		dsvUpdater.executeUpdate(knownFiles, errors);

@@ -115,7 +115,10 @@ public class JobsUpdater extends AbstractDataUpdater {
 			throws SQLException, IOException, JobsException {
 		
 		IRepository repository = this.repository;
-		String resourcePath = this.location + jobDefinition;
+//		# 177
+//		String resourcePath = this.location + jobDefinition;
+		String resourcePath = jobDefinition;
+		
 		IResource resource = repository.getResource(resourcePath);
 		String content = new String(resource.getContent());
 		

@@ -134,8 +134,9 @@ public class SecurityUpdater extends AbstractDataUpdater {
 		// ]
 
 		IRepository repository = this.repository;
-		IResource resource = repository.getResource(this.location
-				+ dsDefinition);
+//		# 177
+//		IResource resource = repository.getResource(this.location + dsDefinition);
+		IResource resource = repository.getResource(dsDefinition);
 		String content = new String(resource.getContent());
 		JsonParser parser = new JsonParser();
 		JsonArray dsDefinitionObject = (JsonArray) parser.parse(content);

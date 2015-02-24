@@ -126,8 +126,9 @@ public class DsvUpdater extends AbstractDataUpdater {
 		deleteAllDataFromTable(tableName);
 
 		IRepository repository = this.repository;
-		IResource resource = repository.getResource(this.location
-				+ dsDefinition);
+//		# 177
+//		IResource resource = repository.getResource(this.location + dsDefinition);
+		IResource resource = repository.getResource(dsDefinition);
 		byte[] content = resource.getContent();
 
 		if (content.length != 0) {
@@ -139,8 +140,9 @@ public class DsvUpdater extends AbstractDataUpdater {
 
 	private JsonObject parseTable(String dsDefinition) throws IOException {
 		IRepository repository = this.repository;
-		IResource resource = repository.getResource(this.location
-				+ dsDefinition);
+//		# 177
+//		IResource resource = repository.getResource(this.location + dsDefinition);
+		IResource resource = repository.getResource(dsDefinition);
 		String content = new String(resource.getContent());
 		JsonParser parser = new JsonParser();
 		JsonObject dsDefinitionObject = (JsonObject) parser.parse(content);
