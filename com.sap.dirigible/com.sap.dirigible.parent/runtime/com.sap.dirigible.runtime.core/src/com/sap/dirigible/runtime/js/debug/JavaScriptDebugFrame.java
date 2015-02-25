@@ -277,7 +277,8 @@ public class JavaScriptDebugFrame implements DebugFrame, PropertyChangeListener 
 		}
 		variableValuesMetadata.setVariableValueList(variableValuesList);
 		sendVariableValuesMetadata();
-		sendOnBreakLineChange(script.getSourceName(), row);
+		String sourceName = script.getSourceName();
+		sendOnBreakLineChange(sourceName, row);
 	}
 
 	private String parseValueToString(Object value) {

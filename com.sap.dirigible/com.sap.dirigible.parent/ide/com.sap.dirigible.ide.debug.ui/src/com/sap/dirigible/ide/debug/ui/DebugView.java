@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.IPath;
@@ -458,7 +459,9 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 //						refreshAllViews();
 
 						if (openEditor) {
-							openEditor(debugModel.getCurrentLineBreak().getFullPath(), debugModel.getCurrentLineBreak().getRow());
+							String path = debugModel.getCurrentLineBreak().getFullPath();
+							Integer row = debugModel.getCurrentLineBreak().getRow();
+							openEditor(path, row);
 							openEditor = false;
 						}
 						pushSession.stop();
@@ -543,11 +546,13 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 						currentLineBreak.getExecutionId(), currentLineBreak.getUserId());
 				debugModel.setCurrentLineBreak(currentLineBreak);
 				StringBuilder path = new StringBuilder(currentLineBreak.getFullPath());
-				int lastIndex = path.lastIndexOf(SLASH);
-				if (lastIndex != -1) {
-					path.insert(lastIndex, SCRIPTING_SERVICES);
+//				int lastIndex = path.lastIndexOf(SLASH);
+//				if (lastIndex != -1) {
+//					# 177
+//					path.insert(lastIndex, SCRIPTING_SERVICES);
+					path.insert(0, SCRIPTING_SERVICES);
 					currentLineBreak.setFullPath(path.toString());
-				}
+//				}
 				sessionsMetadataRecieved = true;
 			}
 		}
@@ -653,13 +658,25 @@ public class DebugView extends ViewPart implements IDebugController, IPropertyLi
 		IWorkspaceRoot root = workspace.getRoot();
 		if (root.exists(location)) {
 			IFile file = root.getFile(location);
-			IEditorPart sourceCodeEditor = OpenHandler.open(file, row);
-			if (sourceCodeEditor != null && sourceCodeEditor instanceof JavaScriptEditor) {
-				((JavaScriptEditor) sourceCodeEditor).setDebugRow(row);
+			return openWorkspaceFile(row, file);
+		} else {
+			IProject[] projects = root.getProjects();
+			for (IProject project : projects) {
+				if (project.exists(location)) {
+					IFile file = project.getFile(location);
+					return openWorkspaceFile(row, file);
+				}
 			}
-			return sourceCodeEditor;
 		}
 		return null;
+	}
+
+	private IEditorPart openWorkspaceFile(int row, IFile file) {
+		IEditorPart sourceCodeEditor = OpenHandler.open(file, row);
+		if (sourceCodeEditor != null && sourceCodeEditor instanceof JavaScriptEditor) {
+			((JavaScriptEditor) sourceCodeEditor).setDebugRow(row);
+		}
+		return sourceCodeEditor;
 	}
 
 	@Override

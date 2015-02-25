@@ -38,7 +38,8 @@ public class CommonUtils {
 		int indexOfSlash = path.indexOf(ICommonConstants.SEPARATOR, indexOfWorkspace);
 		path.replace(0, indexOfSlash, ICommonConstants.EMPTY_STRING);
 		int indexOfFolder = path.indexOf(folder);
-		path.replace(indexOfFolder, indexOfFolder + folder.length() + 1,
+//		# 177
+		path.replace(0, indexOfFolder + folder.length(),
 				ICommonConstants.EMPTY_STRING);
 		return path.toString();
 	}
