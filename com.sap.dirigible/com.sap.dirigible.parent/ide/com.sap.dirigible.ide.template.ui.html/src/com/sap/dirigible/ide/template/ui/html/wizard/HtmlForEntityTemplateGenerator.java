@@ -26,7 +26,8 @@ import com.sap.dirigible.repository.api.ICommonConstants;
 
 public class HtmlForEntityTemplateGenerator extends TemplateGenerator {
 
-	private static final String REST_SERVICE_ROOT_JS = "/dirigible/services/js"; //$NON-NLS-1$
+//	private static final String REST_SERVICE_ROOT_JS = "/dirigible/services/js"; //$NON-NLS-1$
+	private static final String REST_SERVICE_ROOT_JS = "../../js"; //$NON-NLS-1$
 
 	private static final String LOG_TAG = "HTML_FOR_ENTITY_GENERATOR"; //$NON-NLS-1$
 
@@ -63,9 +64,14 @@ public class HtmlForEntityTemplateGenerator extends TemplateGenerator {
 		// /project1/ScriptingServices/te1.entity
 		IFile source = model.getSourceFile();
 		String entityPath = source.getFullPath().toString();
-		String result = entityPath.replaceAll("/" //$NON-NLS-1$
-				+ ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES, ""); //$NON-NLS-1$
-		result = result.replaceAll(source.getFileExtension(), ""); //$NON-NLS-1$
+		String result = "";
+		int index = entityPath.indexOf(ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES);
+		if (index >= 0) {
+			result = entityPath.substring(index + ICommonConstants.ARTIFACT_TYPE.SCRIPTING_SERVICES.length());
+		} else {
+			result = entityPath; //$NON-NLS-1$
+		}
+		result = result.replace(source.getFileExtension(), ""); //$NON-NLS-1$
 		result += "js"; //$NON-NLS-1$
 		return REST_SERVICE_ROOT_JS + result;
 	}
