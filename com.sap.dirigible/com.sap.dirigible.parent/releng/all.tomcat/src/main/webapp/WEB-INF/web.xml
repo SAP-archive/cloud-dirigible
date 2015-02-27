@@ -171,8 +171,8 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Registry Import/Export Services</web-resource-name>
-			<url-pattern>/import</url-pattern>
-			<url-pattern>/export</url-pattern>
+			<url-pattern>/services/import</url-pattern>
+			<url-pattern>/services/export</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Operator</role-name>
