@@ -87,6 +87,25 @@ public class DBFileDAO extends DBObjectDAO {
 	void insertFile(String name, String path, String contentType,
 			String createdBy, String modifiedBy, int type)
 			throws DBBaseException {
+		insertFile(name, path, contentType, createdBy, modifiedBy, type, false);
+	}
+
+	/**
+	 * Create the database file or folder object in the target database schema,
+	 * located at the given path, content type, etc.
+	 * 
+	 * @param name
+	 * @param path
+	 * @param contentType
+	 * @param createdBy
+	 * @param modifiedBy
+	 * @param type
+	 * @param override
+	 * @throws DBBaseException
+	 */
+	void insertFile(String name, String path, String contentType,
+			String createdBy, String modifiedBy, int type, boolean override)
+			throws DBBaseException {
 		logger.debug("entering insertFile"); //$NON-NLS-1$
 
 		checkInitialized();
@@ -109,7 +128,13 @@ public class DBFileDAO extends DBObjectDAO {
 			preparedStatement.setTimestamp(8, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new DBBaseException(e);
+			if(override) {
+				getRepository().getDbUtils().closeStatement(preparedStatement);
+				getRepository().getDbUtils().closeConnection(connection);
+				updateFile(name, path, contentType, createdBy, modifiedBy, type);
+			} else {
+				throw new DBBaseException(e);
+			}
 		} catch (IOException e) {
 			throw new DBBaseException(e);
 		} finally {
@@ -117,6 +142,53 @@ public class DBFileDAO extends DBObjectDAO {
 			getRepository().getDbUtils().closeConnection(connection);
 		}
 		logger.debug("exiting insertFile"); //$NON-NLS-1$
+	}
+
+	/**
+	 * Create the database file or folder object in the target database schema,
+	 * located at the given path, content type, etc.
+	 * 
+	 * @param name
+	 * @param path
+	 * @param contentType
+	 * @param createdBy
+	 * @param modifiedBy
+	 * @param type
+	 * @throws DBBaseException
+	 */
+	void updateFile(String name, String path, String contentType,
+			String createdBy, String modifiedBy, int type)
+			throws DBBaseException {
+		logger.debug("entering updateFile"); //$NON-NLS-1$
+
+		checkInitialized();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = getRepository().getDbUtils().getConnection();
+			String script = getRepository().getDbUtils().readScript(connection,
+					DBScriptsMap.SCRIPT_UPDATE_FILE, this.getClass());
+			preparedStatement = getRepository().getDbUtils()
+					.getPreparedStatement(connection, script);
+			preparedStatement.setInt(1, type);
+			preparedStatement.setString(2, contentType);
+			preparedStatement.setString(3, createdBy);
+			preparedStatement.setTimestamp(4, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
+			preparedStatement.setString(5, modifiedBy);
+			preparedStatement.setTimestamp(6, new Timestamp(GregorianCalendar.getInstance().getTime().getTime()));
+			preparedStatement.setString(7, name);
+			preparedStatement.setString(8, path);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DBBaseException(e);
+		} catch (IOException e) {
+			throw new DBBaseException(e);
+		} finally {
+			getRepository().getDbUtils().closeStatement(preparedStatement);
+			getRepository().getDbUtils().closeConnection(connection);
+		}
+		logger.debug("exiting updateFile"); //$NON-NLS-1$
 	}
 
 	/**
@@ -163,6 +235,22 @@ public class DBFileDAO extends DBObjectDAO {
 	 */
 	public DBFile createFile(String path, byte[] bytes, boolean isBinary,
 			String contentType) throws DBBaseException {
+		return createFile(path, bytes, isBinary, contentType, false);
+	}
+
+	/**
+	 * Create the file (text or binary) at the given path
+	 * 
+	 * @param path
+	 * @param bytes
+	 * @param isBinary
+	 * @param contentType
+	 * @param override
+	 * @return
+	 * @throws DBBaseException
+	 */
+	public DBFile createFile(String path, byte[] bytes, boolean isBinary,
+			String contentType, boolean override) throws DBBaseException {
 
 		checkInitialized();
 
@@ -174,7 +262,7 @@ public class DBFileDAO extends DBObjectDAO {
 		String modifiedBy = getRepository().getUser();
 
 		DBFile resource = getFileByPath(path);
-		if (resource == null) {
+		if ((override) || (resource == null)) {
 			String name = path.substring(path
 					.lastIndexOf(DBRepository.PATH_DELIMITER) + 1);
 			String collectionPath = path.substring(0,
@@ -184,7 +272,7 @@ public class DBFileDAO extends DBObjectDAO {
 			if (parent != null) {
 				insertFile(name, path, contentType, createdBy, modifiedBy,
 						isBinary ? DBMapper.OBJECT_TYPE_BINARY
-								: DBMapper.OBJECT_TYPE_DOCUMENT);
+								: DBMapper.OBJECT_TYPE_DOCUMENT, override);
 				resource = getFileByPath(path);
 				removeDocument(resource);
 				removeBinary(resource);

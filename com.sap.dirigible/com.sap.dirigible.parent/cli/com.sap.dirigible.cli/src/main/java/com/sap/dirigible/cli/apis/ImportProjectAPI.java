@@ -2,6 +2,8 @@ package com.sap.dirigible.cli.apis;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,11 +23,7 @@ public class ImportProjectAPI {
 	private static final Logger logger = Logger.getLogger(ImportProjectAPI.class.getCanonicalName());
 	private static final String PART_NAME = "bin";
 
-	public static void importProject(String url, InputStream in, String filename) throws IOException {
-		importProject(null, url, in, filename);
-	}
-
-	public static void importProject(RequestConfig config, String url, InputStream in, String filename) throws IOException {
+	public static void importProject(RequestConfig config, String url, InputStream in, String filename, Map<String, String> headers) throws IOException {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		
 		MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
@@ -33,10 +31,17 @@ public class ImportProjectAPI {
 
 		HttpPost postRequest = new HttpPost(url);
 		postRequest.setEntity(entityBuilder.build());
+		addHeaders(postRequest, headers);
 		if (config != null) {
 			postRequest.setConfig(config);
 		}
 		executeRequest(httpClient, postRequest);
+	}
+
+	private static void addHeaders(HttpPost postRequest, Map<String, String> headers) {
+		for(Entry<String, String> header : headers.entrySet()) {
+			postRequest.setHeader(header.getKey(), header.getValue());
+		}
 	}
 
 	private static void executeRequest(CloseableHttpClient httpClient, HttpPost postRequest) throws IOException, ClientProtocolException {

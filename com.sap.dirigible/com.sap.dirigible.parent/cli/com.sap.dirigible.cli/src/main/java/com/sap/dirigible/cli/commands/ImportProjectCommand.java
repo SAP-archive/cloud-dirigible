@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.http.client.config.RequestConfig;
@@ -19,7 +21,9 @@ public class ImportProjectCommand implements ICommand, CommonProperties.ImportPr
 		File file = new File(propeties.getProperty(PROPERTY_ARCHIVE));
 		InputStream in = new FileInputStream(file);
 		RequestConfig config = getRequestConfig(propeties);
-		ImportProjectAPI.importProject(config, url, in, file.getName());
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(PROPERTY_OVERRIDE, propeties.getProperty(PROPERTY_OVERRIDE));
+		ImportProjectAPI.importProject(config, url, in, file.getName(), headers);
 	}
 
 	private RequestConfig getRequestConfig(Properties properties) {

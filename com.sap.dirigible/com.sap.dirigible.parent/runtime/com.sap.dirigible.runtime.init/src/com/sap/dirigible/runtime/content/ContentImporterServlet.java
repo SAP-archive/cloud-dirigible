@@ -19,6 +19,10 @@ import com.sap.dirigible.repository.logging.Logger;
 
 public class ContentImporterServlet extends BaseContentServlet {
 
+	private static final String PARAMETER_OVERRIDE = "override";
+
+	private static final String HEADER_OVERRIDE = "override";
+
 	private static final long serialVersionUID = 5844468087553458293L;
 
 	private static final Logger logger = Logger
@@ -43,7 +47,8 @@ public class ContentImporterServlet extends BaseContentServlet {
 				for (FileItem fileItem : items) {
 					logger.debug("Importing " + fileItem.getFieldName());
 					InputStream in = fileItem.getInputStream();
-					importZipAndUpdate(in, request);
+					boolean override = Boolean.parseBoolean(request.getParameter(PARAMETER_OVERRIDE)) || Boolean.parseBoolean(request.getHeader(HEADER_OVERRIDE));
+					importZipAndUpdate(in, request, override);
 					logger.debug("Content imported.");
 				}
 			} catch (FileUploadException e) {

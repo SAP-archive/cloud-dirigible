@@ -243,7 +243,23 @@ public class DBRepositoryDAO {
 	 */
 	public DBFile createFile(String path, byte[] bytes, boolean isBinary, String contentType)
 			throws DBBaseException {
-		DBFile dbFile = this.dbFileDAO.createFile(path, bytes, isBinary, contentType);
+		return createFile(path, bytes, isBinary, contentType, false);
+	}
+
+	/**
+	 * Create the file (text or binary) at the given path
+	 * 
+	 * @param path
+	 * @param bytes
+	 * @param isBinary
+	 * @param contentType
+	 * @param override
+	 * @return
+	 * @throws DBBaseException
+	 */
+	public DBFile createFile(String path, byte[] bytes, boolean isBinary, String contentType, boolean override)
+			throws DBBaseException {
+		DBFile dbFile = this.dbFileDAO.createFile(path, bytes, isBinary, contentType, override);
 		this.dbFileVersionDAO.createFileVersion(path, bytes, isBinary, contentType);
 		return dbFile;
 	}

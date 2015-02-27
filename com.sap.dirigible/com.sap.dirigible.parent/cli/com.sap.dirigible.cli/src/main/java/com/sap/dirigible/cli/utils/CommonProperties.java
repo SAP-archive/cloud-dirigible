@@ -16,5 +16,6 @@ public interface CommonProperties {
 	public interface ImportProjectCommand extends RemoteCommand {
 		public static final String PROPERTY_URL = "url";
 		public static final String PROPERTY_ARCHIVE = "archive";
+		public static final String PROPERTY_OVERRIDE = "override";
 	}
 }

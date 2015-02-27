@@ -166,9 +166,15 @@ public class DBRepository implements IRepository {
 	@Override
 	public IResource createResource(String path, byte[] content,
 			boolean isBinary, String contentType) throws IOException {
+		return createResource(path, content, isBinary, contentType, false);
+	}
+
+	@Override
+	public IResource createResource(String path, byte[] content,
+			boolean isBinary, String contentType, boolean override) throws IOException {
 		logger.debug("entering createResource with Content"); //$NON-NLS-1$
 		try {
-			getRepositoryDAO().createFile(path, content, isBinary, contentType);
+			getRepositoryDAO().createFile(path, content, isBinary, contentType, override);
 		} catch (DBBaseException e) {
 			throw new IOException(e);
 		}
@@ -229,21 +235,32 @@ public class DBRepository implements IRepository {
 	@Override
 	public void importZip(ZipInputStream zipInputStream, String relativeRoot)
 			throws IOException {
+		importZip(zipInputStream, relativeRoot, false);
+	}
+
+	@Override
+	public void importZip(ZipInputStream zipInputStream, String relativeRoot, boolean override)
+			throws IOException {
 		if (zipInputStream == null) {
 			logger.error(PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL);
 			throw new IOException(PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL);
 		}
-		ZipImporter.importZip(this, zipInputStream, relativeRoot);
+		ZipImporter.importZip(this, zipInputStream, relativeRoot, override);
 	}
 
 	@Override
 	public void importZip(byte[] data, String relativeRoot) throws IOException {
+		importZip(data, relativeRoot, false);
+	}
+
+	@Override
+	public void importZip(byte[] data, String relativeRoot, boolean override) throws IOException {
 		if (data == null) {
 			logger.error(PROVIDED_ZIP_DATA_CANNOT_BE_NULL);
 			throw new IOException(PROVIDED_ZIP_DATA_CANNOT_BE_NULL);
 		}
 		ZipImporter.importZip(this, new ZipInputStream(
-				new ByteArrayInputStream(data)), relativeRoot);
+				new ByteArrayInputStream(data)), relativeRoot, override);
 	}
 
 	@Override

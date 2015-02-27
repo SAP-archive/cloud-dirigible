@@ -41,6 +41,21 @@ public class ZipImporter {
 	public static void importZip(IRepository repository,
 			ZipInputStream zipInputStream, String relativeRoot)
 			throws IOException {
+		importZip(repository, zipInputStream, relativeRoot, false);
+	}
+	/**
+	 * Import all the content from a given zip to the target repository instance
+	 * within the given path, overrides files during the pass
+	 * 
+	 * @param repository
+	 * @param zipInputStream
+	 * @param relativeRoot
+	 * @param override
+	 * @throws IOException
+	 */
+	public static void importZip(IRepository repository,
+			ZipInputStream zipInputStream, String relativeRoot, boolean override)
+			throws IOException {
 		try {
 
 			byte[] buffer = new byte[2048];
@@ -66,7 +81,7 @@ public class ZipImporter {
 							repository.createResource(outpath,
 									output.toByteArray(),
 									ContentTypeHelper.isBinary(mimeType),
-									mimeType);
+									mimeType, override);
 						} else {
 							repository.createResource(outpath,
 									output.toByteArray());

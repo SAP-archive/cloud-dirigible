@@ -93,6 +93,15 @@ public interface IRepository {
 			String contentType) throws IOException;
 
 	/**
+	 * This method creates a new empty, or override resource at the specified path.
+	 * <p>
+	 * The returned value is an instance of <code>IResource</code> that
+	 * represents the newly created resource.
+	 */
+	public IResource createResource(String path, byte[] content, boolean isBinary,
+			String contentType, boolean override) throws IOException;
+
+	/**
 	 * Returns an instance of <code>IResource</code> which represents the
 	 * resource located at the specified path.
 	 * <p>
@@ -136,12 +145,34 @@ public interface IRepository {
 	 * Imports content from zip file to the repository, based on the relative
 	 * root
 	 * 
+	 * @param zipInputStream
+	 * @param relativeRoot
+	 * @param override
+	 * @throws IOException
+	 */
+	public void importZip(ZipInputStream zipInputStream, String relativeRoot, boolean override) throws IOException;
+
+	/**
+	 * Imports content from zip file to the repository, based on the relative
+	 * root
+	 * 
 	 * @param data
 	 *            the Zip file as byte array
 	 * @param relativeRoot
 	 * @throws IOException
 	 */
 	public void importZip(byte[] data, String relativeRoot) throws IOException;
+
+	/**
+	 * Imports content from zip file to the repository, based on the relative
+	 * root
+	 * 
+	 * @param data
+	 *            the Zip file as byte array
+	 * @param relativeRoot
+	 * @throws IOException
+	 */
+	public void importZip(byte[] data, String relativeRoot, boolean override) throws IOException;
 
 	/**
 	 * Export all the content under the given path(s) with the target repository

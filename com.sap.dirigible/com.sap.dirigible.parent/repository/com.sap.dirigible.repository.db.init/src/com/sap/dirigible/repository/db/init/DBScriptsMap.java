@@ -70,4 +70,6 @@ public class DBScriptsMap {
 	public static final String SCRIPT_RENAME_DOCUMENT = "/com/sap/dirigible/repository/db/sql/rename_document.sql"; //$NON-NLS-1$
 
 	public static final String SCRIPT_SET_MODIFIED = "/com/sap/dirigible/repository/db/sql/set_modified.sql"; //$NON-NLS-1$
+
+	public static final String SCRIPT_UPDATE_FILE = "/com/sap/dirigible/repository/db/sql/update_file.sql"; //$NON-NLS-1$
 }

@@ -136,13 +136,21 @@ public class BaseContentServlet extends HttpServlet {
 	 * @param content
 	 */
 	public void importZipAndUpdate(InputStream content, HttpServletRequest request) {
-		importZipAndUpdate(content, DEFAULT_PATH_FOR_IMPORT, request);
+		importZipAndUpdate(content, request, false);
 	}
-	
+
+	public void importZipAndUpdate(InputStream content, HttpServletRequest request, boolean override) {
+		importZipAndUpdate(content, DEFAULT_PATH_FOR_IMPORT, request, override);
+	}
+
 	public void importZipAndUpdate(InputStream content, String pathForImport, HttpServletRequest request) {
+		importZipAndUpdate(content, pathForImport, request, false);
+	}
+
+	public void importZipAndUpdate(InputStream content, String pathForImport, HttpServletRequest request, boolean override) {
 		try {
 			// 1. Import content.zip into repository
-			getRepository(request).importZip(new ZipInputStream(content), pathForImport);
+			getRepository(request).importZip(new ZipInputStream(content), pathForImport, override);
 
 			postImport(request);
 

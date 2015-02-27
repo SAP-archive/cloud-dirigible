@@ -157,6 +157,12 @@ public class RCPRepository implements IRepository {
 	@Override
 	public IResource createResource(String path, byte[] content,
 			boolean isBinary, String contentType) throws IOException {
+		return createResource(path, content, isBinary, contentType, false);
+	}
+
+	@Override
+	public IResource createResource(String path, byte[] content,
+			boolean isBinary, String contentType, boolean override) throws IOException {
 		logger.debug("entering createResource with Content"); //$NON-NLS-1$
 		try {
 			getRepositoryDAO().createFile(path, content, isBinary, contentType);
@@ -208,19 +214,32 @@ public class RCPRepository implements IRepository {
 	@Override
 	public void importZip(ZipInputStream zipInputStream, String path)
 			throws IOException {
+		importZip(zipInputStream, path, false); 
+	}
+
+	@Override
+	public void importZip(ZipInputStream zipInputStream, String path, boolean override)
+			throws IOException {
 		if (zipInputStream == null) {
 			logger.error(PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL);
 			throw new IOException(PROVIDED_ZIP_INPUT_STREAM_CANNOT_BE_NULL);
 		}
+		// TODO make use of override argument?
 		ZipImporter.unzip(path,zipInputStream);
 	}
 
 	@Override
 	public void importZip(byte[] data, String path) throws IOException {
+		importZip(data, path, false);
+	}
+
+	@Override
+	public void importZip(byte[] data, String path, boolean override) throws IOException {
 		if (data == null) {
 			logger.error(PROVIDED_ZIP_DATA_CANNOT_BE_NULL);
 			throw new IOException(PROVIDED_ZIP_DATA_CANNOT_BE_NULL);
 		}
+		// TODO make use of override argument?
 		ZipImporter.unzip(path, new ZipInputStream(
 				new ByteArrayInputStream(data)));
 	}
