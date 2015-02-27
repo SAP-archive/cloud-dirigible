@@ -150,7 +150,19 @@
 		</form-login-config>
 	</login-config>
   	-->
-	
+
+	<!-- Registry Import/Export Services -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Registry Import/Export Services</web-resource-name>
+			<url-pattern>/import</url-pattern>
+			<url-pattern>/export</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>Operator</role-name>
+		</auth-constraint>
+	</security-constraint>
+
 	<!-- Registry Services -->
 	<security-constraint>
 		<web-resource-collection>
