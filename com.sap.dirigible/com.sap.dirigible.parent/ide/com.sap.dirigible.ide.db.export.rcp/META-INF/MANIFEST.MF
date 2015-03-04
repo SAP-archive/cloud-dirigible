@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Database Viewer
 Bundle-SymbolicName: com.sap.dirigible.ide.db.export.rcp;singleton:=true
-Bundle-Version: 2.0.150223
+Bundle-Version: 2.0.150305
 Bundle-Vendor: SAP
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui;resolution:=optional,

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible IDE - Bridge Servlet Enhancement
 Bundle-SymbolicName: com.sap.dirigible.bridge
-Bundle-Version: 2.0.150223
+Bundle-Version: 2.0.150305
 Bundle-Vendor: SAP
 Require-Bundle: org.eclipse.equinox.servletbridge
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

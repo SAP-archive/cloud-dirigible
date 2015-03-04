@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible - Runtime Core
 Bundle-SymbolicName: com.sap.dirigible.runtime.core;singleton:=true
-Bundle-Version: 2.0.150223
+Bundle-Version: 2.0.150305
 Bundle-Vendor: SAP
 Require-Bundle: de.matrixweb.osgi.wrapped.osgi-wrapped-rhino,
  com.sap.dirigible.repository.api,

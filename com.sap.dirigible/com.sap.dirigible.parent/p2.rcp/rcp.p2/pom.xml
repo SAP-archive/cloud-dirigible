@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.sap.dirigible.p2.rcp</groupId>
 		<artifactId>com.sap.dirigible.p2.rcp.parent</artifactId>
-		<version>2.0.150223</version>
+		<version>2.0.150305</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 

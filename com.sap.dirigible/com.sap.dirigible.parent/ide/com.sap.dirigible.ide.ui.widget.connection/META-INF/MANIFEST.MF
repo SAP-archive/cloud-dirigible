@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible - IDE - UI - Connection
 Bundle-SymbolicName: com.sap.dirigible.ide.ui.widget.connection
-Bundle-Version: 2.0.150223
+Bundle-Version: 2.0.150305
 Bundle-Vendor: SAP
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.dirigible.ide.ui.widgets.connection;version="1.0.0"

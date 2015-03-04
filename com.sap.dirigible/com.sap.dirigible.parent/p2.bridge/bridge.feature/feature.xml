@@ -2,7 +2,7 @@
 <feature
       id="com.sap.dirigible.bridge.feature"
       label="Dirigible Bridge Bundles Feature"
-      version="2.0.150223"
+      version="2.0.150305"
       provider-name="SAP">
 
    <description url="http://www.dirigible.io/">

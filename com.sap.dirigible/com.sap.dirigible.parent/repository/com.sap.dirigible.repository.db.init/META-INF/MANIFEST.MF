@@ -5,7 +5,7 @@ Bundle-Name: Dirigible Repository RDBMS Initialization
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: SAP
 Build-Jdk: 1.6.0_33
-Bundle-Version: 2.0.150223
+Bundle-Version: 2.0.150305
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sap.dirigible.repository.db.init;singleton:=true
 Require-Bundle: com.sap.dirigible.repository.api,
