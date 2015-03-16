@@ -1,0 +1,10 @@
+# folders
+target/
+bin/
+derby/
+
+# files
+*.bak
+*.class
+*.jar
+derby.log
