@@ -3,6 +3,6 @@
     <Resource name="jdbc/DefaultDB"
               auth="Container"
               type="javax.sql.DataSource"
-              factory="org.eclipse.jpaas.service.persistence.core.JNDIDataSourceFactory"/>
+              factory="com.sap.jpaas.service.persistence.core.JNDIDataSourceFactory"/>
 
 </Context>
