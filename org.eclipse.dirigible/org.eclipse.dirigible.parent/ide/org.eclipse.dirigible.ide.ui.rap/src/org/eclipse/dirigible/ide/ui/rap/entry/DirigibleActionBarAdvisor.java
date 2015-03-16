@@ -239,7 +239,8 @@ public class DirigibleActionBarAdvisor extends ActionBarAdvisor {
 				ICommonConstants.DIRIGIBLE_PRODUCT_NAME + WORKBENCH,
 				ICommonConstants.DIRIGIBLE_PRODUCT_NAME + " " //$NON-NLS-1$
 						+ ICommonConstants.DIRIGIBLE_PRODUCT_VERSION + "\n" //$NON-NLS-1$
-						+ RUNNING_ON_RAP_VERSION + version);
+						+ RUNNING_ON_RAP_VERSION + version + "\n"
+						+ "under Eclipse Public License v1.0");
 
 	}
 
