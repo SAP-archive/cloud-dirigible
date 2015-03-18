@@ -3,7 +3,10 @@
       id="org.eclipse.dirigible.external.feature"
       label="Dirigible External Bundles Feature"
       version="2.0.150316"
-      provider-name="SAP">
+      provider-name="SAP"
+      os="linux,macosx,win32"
+      ws="cocoa,gtk,win32"
+      arch="x86,x86_64">
 
    <description url="http://www.dirigible.io/">
       Dirigible is an open source project that provides Integrated Development Environment as a Service (IDEaaS) as well as the runtime engines integration for the running applications
@@ -263,90 +266,82 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.mylyn.wikitext.confluence.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.mylyn.wikitext.markdown.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-   <!--      
-   <plugin
-         id="org.eclipse.mylyn.wikitext.mediawiki.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-   -->    
+
    <plugin
          id="org.eclipse.mylyn.wikitext.textile.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.mylyn.wikitext.tracwiki.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.mylyn.wikitext.twiki.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="com.google.guava"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>         
+         unpack="false"/>
 
    <plugin
          id="org.everit.osgi.bundles.org.json"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>         
-         
+         unpack="false"/>
+
    <plugin
          id="groovy"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-  <plugin
+
+   <plugin
          id="org.eclipse.equinox.launcher"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-  <plugin
+
+   <plugin
          id="org.apache.servicemix.bundles.quartz"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-  <plugin
+
+   <plugin
          id="org.eclipse.equinox.event"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
 
 </feature>

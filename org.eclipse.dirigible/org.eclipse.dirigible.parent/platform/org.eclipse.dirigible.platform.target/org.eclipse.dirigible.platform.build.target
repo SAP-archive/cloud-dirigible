@@ -22,6 +22,7 @@
 <unit id="org.eclipse.jst.web_ui.feature.feature.group" version="3.5.2.v201311051900-7F7GFVuC27Svmclpwjkc0enMD7nrQ9V2nvprn2h2"/>
 <unit id="org.eclipse.wst.jsdt.feature.feature.group" version="1.5.2.v201401171657-7H7FFhXFC7sReuSlgtfhew"/>
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.9.2.v20140203-1126"/>
+
 <repository location="http://download.eclipse.org/releases/kepler/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">

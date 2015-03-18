@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Dirigible Runtime - latest release" sequenceNumber="246">
+<?pde version="3.8"?><target name="Dirigible Runtime - latest release" sequenceNumber="260">
 <locations>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.examples.feature.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.rap.sdk.feature.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="0.0.0"/>
@@ -12,7 +12,7 @@
 <unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/releases/kepler/"/>
 </location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.apache.commons.io" version="2.0.1.v201105210651"/>
 <unit id="org.slf4j.log4j" version="1.7.2.v20130115-1340"/>
 <unit id="org.apache.commons.httpclient" version="3.1.0.v201012070820"/>
@@ -41,16 +41,19 @@
 <unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository"/>
 </location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.jgit.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.jgit.http.apache.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/egit/updates/"/>
 </location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.mylyn.wikitext_feature.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/mylyn/releases/latest"/>
 </location>
 </locations>
+<environment>
+<os>linux,macosx,win32</os>
+</environment>
 <launcherArgs>
 <vmArgs>-Dosgi.noShutdown=true -Declipse.ignoreApp=true</vmArgs>
 <programArgs>-console -consolelog</programArgs>
