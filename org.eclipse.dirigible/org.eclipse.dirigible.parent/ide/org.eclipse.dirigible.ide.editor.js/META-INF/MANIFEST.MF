@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: JavaScript Editor Widget
 Bundle-SymbolicName: org.eclipse.dirigible.ide.editor.js;singleton:=true
 Bundle-Version: 2.0.150316
-Bundle-Vendor: SAP
+Bundle-Vendor: Eclipse.org - Dirigible
 Require-Bundle: 
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

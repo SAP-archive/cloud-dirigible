@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Text Editor
 Bundle-SymbolicName: org.eclipse.dirigible.ide.editor.text;singleton:=true
 Bundle-Version: 2.0.150316
-Bundle-Vendor: SAP
+Bundle-Vendor: Eclipse.org - Dirigible
 Require-Bundle: org.eclipse.core.resources,
  org.eclipse.ui.ide;resolution:=optional,
  org.eclipse.dirigible.org.eclipse.ui.ide;resolution:=optional,

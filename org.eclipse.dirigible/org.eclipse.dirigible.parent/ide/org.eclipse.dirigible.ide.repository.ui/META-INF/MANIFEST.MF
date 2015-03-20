@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible - IDE - Repository UI
 Bundle-SymbolicName: org.eclipse.dirigible.ide.repository.ui;singleton:=true
 Bundle-Version: 2.0.150316
-Bundle-Vendor: SAP
+Bundle-Vendor: Eclipse.org - Dirigible
 Require-Bundle: org.eclipse.ui;resolution:=optional,
  org.eclipse.rap.ui;resolution:=optional,
  org.eclipse.ui.views;resolution:=optional,

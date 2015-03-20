@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Dirigible - IDE - Publish
 Bundle-SymbolicName: org.eclipse.dirigible.ide.publish;singleton:=true
 Bundle-Version: 2.0.150316
-Bundle-Vendor: SAP
+Bundle-Vendor: Eclipse.org - Dirigible
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.dirigible.ide.common,
  org.eclipse.dirigible.ide.common.io,

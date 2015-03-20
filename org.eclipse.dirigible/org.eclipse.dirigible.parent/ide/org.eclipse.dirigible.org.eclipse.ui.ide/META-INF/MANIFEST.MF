@@ -27,3 +27,4 @@ Require-Bundle: com.ibm.icu,
  org.eclipse.dirigible.ide.workspace
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Bundle-Vendor: Eclipse.org - Dirigible
