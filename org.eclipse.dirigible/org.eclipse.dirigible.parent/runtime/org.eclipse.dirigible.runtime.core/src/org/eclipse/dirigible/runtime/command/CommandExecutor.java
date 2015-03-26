@@ -73,7 +73,7 @@ public class CommandExecutor extends AbstractScriptExecutor {
 		try {
 			commandData = CommandDataParser.parseCommandData(commandSource);
 		} catch (IllegalArgumentException e2) {
-			logger.error(e2.getMessage());
+			logger.error(e2.getMessage(), e2);
 			throw new IOException(e2);
 		}
 		
@@ -83,7 +83,7 @@ public class CommandExecutor extends AbstractScriptExecutor {
 		try {
 			args = ProcessUtils.translateCommandline(commandLine);
 		} catch (Exception e1) {
-			logger.error(e1.getMessage());
+			logger.error(e1.getMessage(), e1);
 			throw new IOException(e1);
 		}
 		
@@ -143,11 +143,11 @@ public class CommandExecutor extends AbstractScriptExecutor {
 			    } while (!deadYet);
 			    
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
 				throw new IOException(e);
 			}
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			throw new IOException(e);
 		}
 		result = new String(out.toByteArray());

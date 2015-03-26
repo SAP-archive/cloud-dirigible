@@ -135,13 +135,15 @@ public class DBRepositoryInitializer {
 					INITIALIZING_SCRIPT_VERSION_S_FROM_S_ABOUT_S,
 					scriptDescriptor.version, scriptDescriptor.location,
 					scriptDescriptor.description));
+			String script = null;
 			try {
-				String script = this.dbUtils.readScript(connection,
+				script = this.dbUtils.readScript(connection,
 						scriptDescriptor.location, this.getClass());
 				result = this.dbUtils.executeUpdate(connection,
 						script);
 			} catch (IOException e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
+				logger.error(script);
 			}
 			if (!result) {
 				break;
@@ -162,9 +164,10 @@ public class DBRepositoryInitializer {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		String script = null;
 		try {
 			connection = this.dbUtils.getConnection();
-			String script = this.dbUtils.readScript(connection,
+			script = this.dbUtils.readScript(connection,
 					DBScriptsMap.SCRIPT_GET_SCHEMA_VERSION, this.getClass());
 			if (versionExists()) {
 
@@ -204,9 +207,11 @@ public class DBRepositoryInitializer {
 			}
 
 		} catch (SQLException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
+			logger.error(script);
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
+			logger.error(script);
 		} finally {
 			this.dbUtils.closeStatement(preparedStatement);
 			this.dbUtils.closeConnection(connection);

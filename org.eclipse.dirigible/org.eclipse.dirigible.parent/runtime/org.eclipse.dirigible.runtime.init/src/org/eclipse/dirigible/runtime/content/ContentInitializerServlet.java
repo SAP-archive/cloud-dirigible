@@ -122,7 +122,7 @@ public class ContentInitializerServlet extends HttpServlet {
 			}
 			//--
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		
 		return true;

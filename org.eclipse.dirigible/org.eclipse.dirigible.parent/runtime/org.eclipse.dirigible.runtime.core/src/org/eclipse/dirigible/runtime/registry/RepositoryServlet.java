@@ -85,10 +85,10 @@ public class RepositoryServlet extends RegistryServlet {
 				}
 			}
 		} catch (IllegalArgumentException ex) {
-			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		} catch (MissingResourceException ex) {
-			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
 		} finally {
 			out.flush();
@@ -121,10 +121,10 @@ public class RepositoryServlet extends RegistryServlet {
 				}
 			}
 		} catch (IllegalArgumentException ex) {
-			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		} catch (MissingResourceException ex) {
-			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
 		} finally {
 			out.flush();
@@ -144,10 +144,10 @@ public class RepositoryServlet extends RegistryServlet {
 				getRepository(request).removeResource(repositoryPath);
 			}
 		} catch (IllegalArgumentException ex) {
-			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		} catch (MissingResourceException ex) {
-			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, repositoryPath) + ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
 		} finally {
 			out.flush();

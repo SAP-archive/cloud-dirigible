@@ -135,7 +135,7 @@ public class TerminalView extends ViewPart {
             } while (!deadYet);
             
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			return e.getMessage();
 		}
 		return new String(out.toByteArray());

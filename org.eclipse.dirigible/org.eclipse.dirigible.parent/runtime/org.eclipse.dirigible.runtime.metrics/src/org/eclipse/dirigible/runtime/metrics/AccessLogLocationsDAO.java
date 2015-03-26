@@ -158,7 +158,7 @@ public class AccessLogLocationsDAO {
 			try {
 				stmt.executeQuery(SELECT_COUNT_FROM_DGB_ACCESS_LOG_LOCATIONS);
 			} catch (Exception e) {
-				logger.error("DGB_ACCESS_LOG does not exist?" + e.getMessage());
+				logger.error("DGB_ACCESS_LOG does not exist?" + e.getMessage(), e);
 				// Create Access Log Table
 				stmt.executeUpdate(CREATE_TABLE_DGB_ACCESS_LOG_LOCATIONS);
 			}

@@ -134,7 +134,7 @@ public class NewProjectWizardModel {
 		try {
 			project.create(null);
 		} catch(CoreException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		
 		project.open(null);

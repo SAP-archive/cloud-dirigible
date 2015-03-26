@@ -81,10 +81,10 @@ public class SearchServlet extends AbstractRegistryServlet {
 
 			enumeratePaths(response, paths);
 		} catch (final IllegalArgumentException ex) {
-			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, searchTerm) + ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, searchTerm) + ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		} catch (final MissingResourceException ex) {
-			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, searchTerm) + ex.getMessage());
+			logger.error(String.format(REQUEST_PROCESSING_FAILED_S, searchTerm) + ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
 		}
 	}

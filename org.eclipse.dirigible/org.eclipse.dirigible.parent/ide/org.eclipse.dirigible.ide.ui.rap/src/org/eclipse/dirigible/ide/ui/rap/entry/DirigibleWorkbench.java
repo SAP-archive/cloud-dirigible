@@ -40,7 +40,7 @@ public class DirigibleWorkbench implements EntryPoint {
 		try {
 			ProxyUtils.setProxySettings();
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		
 		return PlatformUI.createAndRunWorkbench(display,

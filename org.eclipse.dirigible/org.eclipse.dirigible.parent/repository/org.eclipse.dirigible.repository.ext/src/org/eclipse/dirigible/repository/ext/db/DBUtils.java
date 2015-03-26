@@ -48,21 +48,13 @@ public class DBUtils {
 	public static final String SCRIPT_DELIMITER = ";"; //$NON-NLS-1$
 	
 
-	private static Logger logger = Logger.getLogger(DBUtils.class
-			.getCanonicalName());
-
-//	private IRepository repository;
+	private static Logger logger = Logger.getLogger(DBUtils.class.getCanonicalName());
 
 	private DataSource dataSource;
 
 	public DBUtils(DataSource dataSource) {
-//		this.repository = repository;
 		this.dataSource = dataSource;
 	}
-
-//	IRepository getRepository() {
-//		return repository;
-//	}
 
 	/**
 	 * Read whole SQL script from the class path. It can contain multiple
@@ -102,17 +94,17 @@ public class DBUtils {
 			sql = dialectSpecifier.specify(sql);
 
 		} catch (FileNotFoundException ex) {
-			logger.error(ex.getMessage());
+			logger.error(ex.getMessage(), ex);
 		} catch (IOException ex) {
-			logger.error(ex.getMessage());
+			logger.error(ex.getMessage(), ex);
 		} catch (SQLException ex) {
-			logger.error(ex.getMessage());
+			logger.error(ex.getMessage(), ex);
 		} finally {
 			try {
 				if (bufferedInput != null)
 					bufferedInput.close();
 			} catch (IOException ex) {
-				logger.error(ex.getMessage());
+				logger.error(ex.getMessage(), ex);
 			}
 		}
 
@@ -144,13 +136,14 @@ public class DBUtils {
 				preparedStatement = connection.prepareStatement(line);
 				preparedStatement.execute();
 			} catch (SQLException e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
+				logger.error(line);
 			} finally {
 				if (preparedStatement != null) {
 					try {
 						preparedStatement.close();
 					} catch (SQLException e) {
-						logger.error(e.getMessage());
+						logger.error(e.getMessage(), e);
 					}
 				}
 			}
@@ -181,7 +174,7 @@ public class DBUtils {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
 			}
 		}
 		logger.debug("exiting closeConnection"); //$NON-NLS-1$
@@ -193,7 +186,7 @@ public class DBUtils {
 			try {
 				statement.close();
 			} catch (SQLException e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
 			}
 		}
 		logger.debug("exiting closeStatement"); //$NON-NLS-1$

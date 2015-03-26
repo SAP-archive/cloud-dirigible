@@ -50,11 +50,11 @@ public abstract class AbstractRegistryServiceServlet extends AbstractRegistrySer
 					request, response);
 		} catch (final IllegalArgumentException ex) {
 			logger.error(String.format(getRequestProcessingFailedMessage(), repositoryPath)
-					+ ex.getMessage());
+					+ ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		} catch (final MissingResourceException ex) {
 			logger.error(String.format(getRequestProcessingFailedMessage(), repositoryPath)
-					+ ex.getMessage());
+					+ ex.getMessage(), ex);
 			response.sendError(HttpServletResponse.SC_NO_CONTENT, ex.getMessage());
 		}
 	}

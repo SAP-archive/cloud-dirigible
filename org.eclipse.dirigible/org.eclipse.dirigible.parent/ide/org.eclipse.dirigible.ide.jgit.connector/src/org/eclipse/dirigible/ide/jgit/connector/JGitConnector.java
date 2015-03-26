@@ -75,7 +75,7 @@ public class JGitConnector {
 			// ProxyUtils.setProxySettings();
 			deleteTempDirectories();
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 	}
 

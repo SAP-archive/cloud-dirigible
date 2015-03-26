@@ -79,7 +79,7 @@ public class BaseContentServlet extends HttpServlet {
 //			getServletContext().setAttribute(REPOSITORY_ATTRIBUTE, repository);
 			return repository;
 		} catch (Exception ex) {
-			logger.error("Exception in initRepository(): " + ex.getMessage()); //$NON-NLS-1$
+			logger.error("Exception in initRepository(): " + ex.getMessage(), ex); //$NON-NLS-1$
 			throw new ServletException(COULD_NOT_INITIALIZE_REPOSITORY, ex);
 		}
 	}
@@ -97,7 +97,7 @@ public class BaseContentServlet extends HttpServlet {
 			try {
 				return initRepository(request);
 			} catch (ServletException e) {
-				logger.error("Exception in getRepository(): " + e.getMessage()); //$NON-NLS-1$
+				logger.error("Exception in getRepository(): " + e.getMessage(), e); //$NON-NLS-1$
 				throw new IOException(e);
 			}
 //		}
@@ -166,11 +166,11 @@ public class BaseContentServlet extends HttpServlet {
 			postImport(request);
 
 		} catch (NamingException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 	}
 

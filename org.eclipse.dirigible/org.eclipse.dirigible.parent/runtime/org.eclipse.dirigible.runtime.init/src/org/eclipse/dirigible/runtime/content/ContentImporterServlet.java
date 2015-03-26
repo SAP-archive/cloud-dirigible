@@ -63,7 +63,7 @@ public class ContentImporterServlet extends BaseContentServlet {
 					logger.debug("Content imported.");
 				}
 			} catch (FileUploadException e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 		} else {

@@ -149,8 +149,8 @@ public class RepositoryFacade {
 			}
 			return new WrappedDataSource(datasource);
 		} catch (Throwable e) {
-			logger.error(COULD_NOT_FIND_DATA_SOURCE);
-			logger.error(e.getMessage());
+			logger.error(COULD_NOT_FIND_DATA_SOURCE, e);
+			logger.error(e.getMessage(), e);
 		}
 		
 //		} finally {

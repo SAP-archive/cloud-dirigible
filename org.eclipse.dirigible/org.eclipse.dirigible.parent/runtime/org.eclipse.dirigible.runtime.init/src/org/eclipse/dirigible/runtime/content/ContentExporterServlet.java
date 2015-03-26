@@ -84,7 +84,7 @@ public class ContentExporterServlet extends BaseContentServlet {
 			bos.close();
 			fis.close();
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -108,7 +108,7 @@ public class ContentExporterServlet extends BaseContentServlet {
 			IRepository repository = getRepository(request);
 			zippedContent = repository.exportZip(DEFAULT_PATH_FOR_EXPORT, true);
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 		return zippedContent;
 	}
