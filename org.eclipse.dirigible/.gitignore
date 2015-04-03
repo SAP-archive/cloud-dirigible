@@ -8,3 +8,4 @@ derby/
 *.class
 *.jar
 derby.log
+.DS_Store

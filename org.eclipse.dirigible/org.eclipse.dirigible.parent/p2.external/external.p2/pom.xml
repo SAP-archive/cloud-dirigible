@@ -29,13 +29,14 @@
 			<scope>compile</scope>
 		</dependency>
 		
-		
+		<!-- 
 		<dependency>
 			<groupId>de.matrixweb.osgi.wrapped</groupId>
 			<artifactId>osgi-wrapped-rhino</artifactId>
 			<version>1.0.1.7R4</version>
 		</dependency>
-	
+		-->
+		
 		<dependency>
 			<groupId>org.jibx.config.osgi.wrapped</groupId>
 			<artifactId>org.jibx.config.osgi.wrapped.joda-time</artifactId>

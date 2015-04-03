@@ -160,16 +160,9 @@ public class CommandExecutor extends AbstractScriptExecutor {
 		return result;
 	}
 
-	protected void beforeExecution(HttpServletRequest request, HttpServletResponse response,
-			String module, Context context) {
-	}
-
 	@Override
 	protected void registerDefaultVariable(Object scope, String name, Object value) {
-		if (scope instanceof ScriptableObject) {
-			ScriptableObject local = (ScriptableObject) scope;
-			local.put(name, local, value);
-		}
+		//
 	}
 	
 	@Override
