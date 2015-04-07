@@ -29,11 +29,6 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>org.eclipse.dirigible.platform.external.target</file>
-									<type>target</type>
-									<classifier>org.eclipse.dirigible.platform.external</classifier>
-								</artifact>
-								<artifact>
 									<file>org.eclipse.dirigible.platform.base.target</file>
 									<type>target</type>
 									<classifier>org.eclipse.dirigible.platform.base</classifier>

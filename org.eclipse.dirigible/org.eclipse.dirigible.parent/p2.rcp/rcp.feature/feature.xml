@@ -128,13 +128,6 @@ Contributors:
          unpack="false"/>
 
    <plugin
-         id="log4j"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.apache.lucene.analysis"
          download-size="0"
          install-size="0"
@@ -170,42 +163,7 @@ Contributors:
          unpack="false"/>
 
    <plugin
-         id="de.matrixweb.osgi.wrapped.osgi-wrapped-rhino"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.jibx.config.osgi.wrapped.org.jibx.config.osgi.wrapped.joda-time"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.google.guava"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.everit.osgi.bundles.org.json"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="groovy"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.servicemix.bundles.quartz"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -513,13 +471,6 @@ Contributors:
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.dirigible.runtime.groovy"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.dirigible.runtime.init"
          download-size="0"
          install-size="0"
@@ -626,6 +577,33 @@ Contributors:
 
    <plugin
          id="org.eclipse.dirigible.ide.repository.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.dirigible.org.mozilla.javascript"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.log4j"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.quartz"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.json"
          download-size="0"
          install-size="0"
          version="0.0.0"

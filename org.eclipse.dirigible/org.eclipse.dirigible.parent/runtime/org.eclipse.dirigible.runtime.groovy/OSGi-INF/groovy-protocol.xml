@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="RepositoryURLStreamHandler">
-   <service>
-      <provide interface="org.osgi.service.url.URLStreamHandlerService"/>
-   </service>
-   <implementation class="org.eclipse.dirigible.runtime.groovy.RepositoryURLStreamHandlerService"/>
-   <property name="url.handler.protocol" type="String" value="groovy"/>
-</scr:component>

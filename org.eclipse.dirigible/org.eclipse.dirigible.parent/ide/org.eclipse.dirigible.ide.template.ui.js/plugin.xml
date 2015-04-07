@@ -72,13 +72,14 @@
             location="/org/eclipse/dirigible/ide/template/ui/js/templates/ruby-service.rb"
             text="Ruby Service">
       </template>
-      -->
+      
       <template
             category="ScriptingServices"
             image="/icons/groovy-service.png"
             location="/org/eclipse/dirigible/ide/template/ui/js/templates/groovy-service.groovy"
             text="Groovy Service">
       </template>
+      -->
       <template
             category="ScriptingServices"
             image="/icons/terminal-command.png"
