@@ -24,6 +24,7 @@ import org.eclipse.dirigible.ide.debug.model.DebugModel;
 import org.eclipse.dirigible.ide.debug.model.DebugModelFacade;
 import org.eclipse.dirigible.ide.editor.text.editor.ContentProviderException;
 import org.eclipse.dirigible.ide.editor.text.editor.EditorMode;
+import org.eclipse.dirigible.ide.editor.text.editor.IEditorWidgetListener;
 import org.eclipse.dirigible.ide.editor.text.editor.TextEditor;
 import org.eclipse.dirigible.ide.shared.editor.SourceFileEditorInput;
 import org.eclipse.dirigible.repository.api.ICommonConstants;

@@ -9,15 +9,16 @@
  *   SAP - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.dirigible.ide.editor.js;
+package org.eclipse.dirigible.ide.editor.orion;
 
-public interface IEditorWidgetListener {
+import org.eclipse.dirigible.ide.editor.text.command.TextEditorHandler;
 
-	void dirtyStateChanged(boolean dirty);
+public class EditorHandler extends TextEditorHandler {
 
-	void save();
+	private static final String EDITOR_ID = "org.eclipse.dirigible.ide.editor.orion.OrionEditor"; //$NON-NLS-1$
 
-	void setBreakpoint(int row);
-
-	void clearBreakpoint(int row);
+	@Override
+	protected String getEditorId() {
+		return EDITOR_ID;
+	}
 }
