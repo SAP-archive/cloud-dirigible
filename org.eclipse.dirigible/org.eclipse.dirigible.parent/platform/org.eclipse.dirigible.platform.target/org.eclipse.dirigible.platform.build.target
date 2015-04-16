@@ -51,7 +51,7 @@
 
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.apache.commons.io" version="2.0.1.v201105210651"/>
-<unit id="org.slf4j.log4j" version="1.7.2.v20130115-1340"/>
+<unit id="org.slf4j.impl.log4j12" version="1.7.2.v20131105-2200"/>
 <unit id="org.apache.httpcomponents.httpclient" version="4.3.6.v201411290715"/>
 <unit id="javax.activation" version="0.0.0"/>
 <unit id="javax.mail" version="0.0.0"/>
