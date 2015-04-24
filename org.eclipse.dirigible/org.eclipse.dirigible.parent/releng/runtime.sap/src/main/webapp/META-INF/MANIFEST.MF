@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.dirigible.all.sap
 Bundle-SymbolicName: org.eclipse.dirigible.runtime.sap
-Bundle-Version: 2.0.150316
+Bundle-Version: 2.0.150424
 Bundle-ClassPath: WEB-INF/classes/,
  WEB-INF/lib/org.eclipse.equinox.servletbridge-1.2.200.v20120912-130548.jar,
  WEB-INF/lib/org.eclipse.dirigible.ide.bridge-1.0.0-SNAPSHOT.jar
