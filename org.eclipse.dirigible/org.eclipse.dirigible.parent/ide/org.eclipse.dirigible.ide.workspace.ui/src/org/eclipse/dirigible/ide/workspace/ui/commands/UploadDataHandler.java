@@ -88,8 +88,8 @@ public class UploadDataHandler extends AbstractHandler {
 				multiStatus.add(new Status(IStatus.OK, PLUGIN_ID,
 						SUCCESSFULLY_IMPORTED_FILE + fileName));
 			} catch (Exception e) {
-				logger.error(CANNOT_STORE_DATA_FROM + fileName, e);
 				String errMessage = CANNOT_STORE_DATA_FROM + fileName;
+				logger.error(errMessage, e);
 				multiStatus.add(new Status(IStatus.ERROR, PLUGIN_ID,
 						errMessage, e));
 			} finally {

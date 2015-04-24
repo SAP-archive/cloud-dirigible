@@ -26,7 +26,11 @@ import java.util.StringTokenizer;
 
 import javax.sql.DataSource;
 
+import org.eclipse.dirigible.repository.logging.Logger;
+
 public class DBTableDataInserter {
+	
+	private static final Logger logger = Logger.getLogger(DBTableDataInserter.class);
 
 	private static final String INVALID_NUMBER_D_OF_ELEMENTS_AT_LINE_D_INITIAL_COLUMNS_NUMBER_D = Messages.DBTableDataInserter_INVALID_NUMBER_D_OF_ELEMENTS_AT_LINE_D_INITIAL_COLUMNS_NUMBER_D;
 
@@ -153,10 +157,14 @@ public class DBTableDataInserter {
 			if (item_count == -1) {
 				item_count = items.length;
 			} else if (item_count != items.length) {
-				throw new InvalidNumberOfElementsException(
+				logger.error(line);
+				String errMessage = items != null ? String.format(
+						INVALID_NUMBER_D_OF_ELEMENTS_AT_LINE_D_INITIAL_COLUMNS_NUMBER_D,
+						items.length, line_number, item_count) :
 						String.format(
 								INVALID_NUMBER_D_OF_ELEMENTS_AT_LINE_D_INITIAL_COLUMNS_NUMBER_D,
-								items.length, line_number, item_count));
+								0, line_number, item_count);
+				throw new InvalidNumberOfElementsException(errMessage);
 			}
 			data.add(items);
 		}

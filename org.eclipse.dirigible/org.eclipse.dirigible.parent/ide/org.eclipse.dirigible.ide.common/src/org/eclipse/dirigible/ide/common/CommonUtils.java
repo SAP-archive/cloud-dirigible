@@ -55,7 +55,7 @@ public class CommonUtils {
 	public static String concatenateListOfStrings(List<String> list, String separator) {
 		StringBuffer buff = new StringBuffer();
 		for (String s : list) {
-			buff.append(s).append(separator);
+			buff.append(s==null?"":s).append(separator);
 		}
 		return buff.toString();
 	}
