@@ -10,7 +10,7 @@
 		<script src="../../requirejs/require.js"></script>
 		<script type="text/javascript">
 		 /*eslint-env browser, amd*/
-		/*	require({
+			require({
 			  baseUrl: '../..',
 			  paths: {
 				  text: 'requirejs/text',
@@ -19,7 +19,7 @@
 			      csslint: "csslint/csslint",
 			  }
 			});
-			require(["examples/editor/embeddededitor"]); */
+			require(["examples/editor/embeddededitor"]);
 		</script>
    </head>
 
@@ -39,7 +39,7 @@
         	contentType = mode;
         	
         	/*eslint-env browser, amd*/
-			require({
+			/* require({
 			  baseUrl: '../..',
 			  paths: {
 				  text: 'requirejs/text',
@@ -48,12 +48,14 @@
 			      csslint: "csslint/csslint",
 			  }
 			});
+			 */
+        	
 			require(["examples/editor/embeddededitor"]);
         	
-        	
-        	
-        	
-        	editor.setText(text);        	
+        	while (editor == null) {
+        		wait(1000);
+        	}
+        	editor.setText(text);
 		}
 
 		function getText() {
