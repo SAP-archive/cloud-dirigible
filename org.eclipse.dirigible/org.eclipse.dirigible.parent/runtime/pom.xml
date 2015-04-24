@@ -56,7 +56,7 @@
 	<modules>
         
         
-        <module>org.eclipse.dirigible.org.mozilla.javascript</module>
+        
         
 		<module>org.eclipse.dirigible.runtime.content</module>
 		<module>org.eclipse.dirigible.runtime.ui</module>
