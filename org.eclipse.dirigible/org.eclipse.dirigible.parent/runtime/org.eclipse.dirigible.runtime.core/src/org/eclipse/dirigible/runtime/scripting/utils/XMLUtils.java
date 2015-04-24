@@ -11,18 +11,19 @@
 
 package org.eclipse.dirigible.runtime.scripting.utils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
 public class XMLUtils {
 	
-	public String fromJson(String jsonString) {
+	public String fromJson(String jsonString) throws JSONException {
 		JSONObject json = new JSONObject(jsonString);
 		String xml = XML.toString(json);
 		return xml;
 	}
 	
-	public String toJson(String xmlString) {
+	public String toJson(String xmlString) throws JSONException {
 		JSONObject json  = XML.toJSONObject(xmlString);
 		String result = json.toString();
 		return result;

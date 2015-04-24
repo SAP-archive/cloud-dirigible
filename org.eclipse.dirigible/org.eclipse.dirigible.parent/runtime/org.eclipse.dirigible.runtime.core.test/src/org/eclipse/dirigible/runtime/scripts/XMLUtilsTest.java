@@ -13,14 +13,14 @@ package org.eclipse.dirigible.runtime.scripts;
 
 import static org.junit.Assert.assertEquals;
 
+import org.json.JSONException;
 import org.junit.Test;
-
 import org.eclipse.dirigible.runtime.scripting.utils.XMLUtils;
 
 public class XMLUtilsTest {
 
 	@Test
-	public void testFromJson() {
+	public void testFromJson() throws JSONException {
 		XMLUtils xmlUtils = new XMLUtils();
 		String xml = xmlUtils.fromJson(
 				"{"
@@ -38,7 +38,7 @@ public class XMLUtilsTest {
 	}
 
 	@Test
-	public void testToJson() {
+	public void testToJson() throws JSONException {
 		XMLUtils xmlUtils = new XMLUtils();
 		String json = xmlUtils.toJson(
 				"  <nested>"

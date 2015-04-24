@@ -14,14 +14,13 @@ Require-Bundle: org.eclipse.dirigible.repository.api,
  org.apache.commons.codec,
  org.apache.commons.fileupload,
  org.apache.derby,
- org.jibx.config.osgi.wrapped.org.jibx.config.osgi.wrapped.joda-time,
- org.everit.osgi.bundles.org.json,
  org.eclipse.equinox.http.registry,
  org.eclipse.equinox.http.servlet,
  org.eclipse.core.runtime,
  org.eclipse.dirigible.runtime.core,
  org.eclipse.dirigible.runtime.security,
- org.eclipse.dirigible.repository.logging
+ org.eclipse.dirigible.repository.logging,
+ org.json
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.mail,
  javax.mail.event,

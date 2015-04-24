@@ -54,6 +54,10 @@
 	</build>
 
 	<modules>
+        
+        
+        
+        
 		<module>org.eclipse.dirigible.runtime.content</module>
 		<module>org.eclipse.dirigible.runtime.ui</module>
 		<module>org.eclipse.dirigible.runtime.core</module>
@@ -64,9 +68,11 @@
 		<module>org.eclipse.dirigible.runtime.java</module>
 		<!--
 		<module>org.eclipse.dirigible.runtime.java.test</module>
-		-->
+		
 		<module>org.eclipse.dirigible.runtime.groovy</module>
 		<module>org.eclipse.dirigible.runtime.groovy.test</module>
+		-->
+		
 		<module>org.eclipse.dirigible.runtime.flow</module>
 		<module>org.eclipse.dirigible.runtime.metrics</module>
 		<module>org.eclipse.dirigible.runtime.init</module>

@@ -108,13 +108,13 @@ defaultControllers.controller('JavaScriptCtrl', function($scope, $resource) {
   $scope.restService = $resource('../scripting/javascript');
 });
 
-defaultControllers.controller('GroovyCtrl', function($scope, $resource) {
-  $scope.restService = $resource('../scripting/groovy');
-});
+//defaultControllers.controller('GroovyCtrl', function($scope, $resource) {
+//  $scope.restService = $resource('../scripting/groovy');
+//});
 
-defaultControllers.controller('RubyCtrl', function($scope, $resource) {
-  $scope.restService = $resource('../scripting/ruby');
-});
+//defaultControllers.controller('RubyCtrl', function($scope, $resource) {
+//  $scope.restService = $resource('../scripting/ruby');
+//});
 
 defaultControllers.controller('JavaCtrl', function($scope, $resource) {
 	  $scope.restService = $resource('../scripting/java');
@@ -128,9 +128,9 @@ defaultControllers.controller('TestsCtrl', function($scope, $resource) {
   $scope.restService = $resource('../scripting/tests');
 });
 
-defaultControllers.controller('RoutesCtrl', function($scope, $resource) {
-  $scope.restService = $resource('../routes');
-});
+//defaultControllers.controller('RoutesCtrl', function($scope, $resource) {
+//  $scope.restService = $resource('../routes');
+//});
 
 defaultControllers.controller('FlowCtrl', function($scope, $resource) {
   $scope.restService = $resource('../flow/flow');

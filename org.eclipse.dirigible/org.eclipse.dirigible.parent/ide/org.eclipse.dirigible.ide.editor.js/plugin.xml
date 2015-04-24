@@ -8,7 +8,7 @@
             extensions="js,xml,xsl,sql,html,odata,json,jslib,routes,ws,wsdl,table,view,entity,menu,txt,flow,job"
             icon="icons/editor-icon.png"
             id="org.eclipse.dirigible.ide.editor.SourceCodeEditor"
-            name="Source Editor">
+            name="ACE Editor">
       </editor>
    </extension>
    <extension
@@ -16,7 +16,7 @@
       <command
             id="org.eclipse.dirigible.ide.editor.js.EditorHandler"
             defaultHandler="org.eclipse.dirigible.ide.editor.js.EditorHandler"
-            name="Source Editor">
+            name="ACE Editor">
       </command>
    </extension>
    <extension
@@ -33,7 +33,7 @@
          <command
                commandId="org.eclipse.dirigible.ide.editor.js.EditorHandler"
                icon="icons/editor-icon.png"
-               label="Source Editor"
+               label="ACE Editor"
                style="push">
          </command>
       </menuContribution>

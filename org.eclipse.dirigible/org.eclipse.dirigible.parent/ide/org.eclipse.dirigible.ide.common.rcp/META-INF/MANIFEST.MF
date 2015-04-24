@@ -6,8 +6,8 @@ Bundle-Version: 2.0.150316
 Bundle-Vendor: SAP
 Export-Package: org.eclipse.dirigible.ide.common.dual
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.apache.httpcomponents.httpclient;bundle-version="4.1.3",
- org.apache.httpcomponents.httpcore;bundle-version="4.1.4",
+Require-Bundle: org.apache.httpcomponents.httpclient,
+ org.apache.httpcomponents.httpcore,
  org.eclipse.dirigible.repository.logging,
  org.eclipse.dirigible.repository.api,
  org.eclipse.core.runtime

@@ -22,9 +22,9 @@ fileApp.config(function($routeProvider) {
     }).when('/scripting/javascript', {
       controller: 'JavaScriptCtrl',
       templateUrl: 'templates/scripting/javascript/javascript.html'
-    }).when('/scripting/groovy', {
-      controller: 'GroovyCtrl',
-      templateUrl: 'templates/scripting/groovy/groovy.html'
+//    }).when('/scripting/groovy', {
+//      controller: 'GroovyCtrl',
+//      templateUrl: 'templates/scripting/groovy/groovy.html'
     }).when('/scripting/java', {
       controller: 'JavaCtrl',
       templateUrl: 'templates/scripting/java/java.html'
@@ -131,11 +131,11 @@ menuControllers.controller('HomeCtrl', ['$scope',
       path: "#/scripting/javascript",
       title: "JavaScript",
       description: "JavaScript Services Endpoints"
-    }, {
-      image: "images/java-groovy.png",
-      path: "#/scripting/groovy",
-      title: "Groovy",
-      description: "Groovy Services Endpoints"
+//    }, {
+//      image: "images/java-groovy.png",
+//      path: "#/scripting/groovy",
+//      title: "Groovy",
+//      description: "Groovy Services Endpoints"
     }, {
       image: "images/java.png",
       path: "#/scripting/java",

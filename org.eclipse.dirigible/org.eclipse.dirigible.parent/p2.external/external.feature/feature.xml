@@ -115,13 +115,6 @@ Contributors:
          unpack="false"/>
 
    <plugin
-         id="org.slf4j.log4j"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.apache.commons.collections"
          download-size="0"
          install-size="0"
@@ -144,13 +137,6 @@ Contributors:
 
    <plugin
          id="org.apache.derby"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="log4j"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -255,20 +241,6 @@ Contributors:
          unpack="false"/>
 
    <plugin
-         id="de.matrixweb.osgi.wrapped.osgi-wrapped-rhino"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.jibx.config.osgi.wrapped.org.jibx.config.osgi.wrapped.joda-time"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.mylyn.wikitext.core"
          download-size="0"
          install-size="0"
@@ -318,20 +290,6 @@ Contributors:
          unpack="false"/>
 
    <plugin
-         id="org.everit.osgi.bundles.org.json"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="groovy"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.equinox.launcher"
          download-size="0"
          install-size="0"
@@ -339,14 +297,50 @@ Contributors:
          unpack="false"/>
 
    <plugin
-         id="org.apache.servicemix.bundles.quartz"
+         id="org.eclipse.equinox.event"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.equinox.event"
+         id="org.quartz"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.json"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jsoup"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.log4j"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.slf4j.impl.log4j12"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.mozilla.javascript"
          download-size="0"
          install-size="0"
          version="0.0.0"

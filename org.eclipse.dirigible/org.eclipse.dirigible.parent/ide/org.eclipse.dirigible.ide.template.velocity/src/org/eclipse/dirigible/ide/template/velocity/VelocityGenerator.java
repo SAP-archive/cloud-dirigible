@@ -33,7 +33,7 @@ public class VelocityGenerator {
 		engine = new VelocityEngine();
 		try {
 			engine.init();
-		} catch (Exception e) {
+		} catch (Throwable e) {
 //			logger.error(e.getMessage(), e);
 			e.printStackTrace();
 		}
