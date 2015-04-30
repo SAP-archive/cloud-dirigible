@@ -38,24 +38,9 @@
         	
         	contentType = mode;
         	
-        	/*eslint-env browser, amd*/
-			/* require({
-			  baseUrl: '../..',
-			  paths: {
-				  text: 'requirejs/text',
-				  i18n: 'requirejs/i18n',
-			      domReady: 'requirejs/domReady',
-			      csslint: "csslint/csslint",
-			  }
+			require(["examples/editor/embeddededitor"], function() {
+				editor.setText(text);
 			});
-			 */
-        	
-			require(["examples/editor/embeddededitor"]);
-        	
-        	while (editor == null) {
-        		wait(1000);
-        	}
-        	editor.setText(text);
 		}
 
 		function getText() {
