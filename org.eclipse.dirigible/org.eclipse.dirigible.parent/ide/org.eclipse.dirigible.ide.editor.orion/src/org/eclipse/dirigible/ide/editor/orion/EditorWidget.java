@@ -36,7 +36,7 @@ public class EditorWidget extends AbstractTextEditorWidget {
 
 	private static final Logger logger = Logger.getLogger(EditorWidget.class);
 	private static final String SCRIPT_EVALUATION_FAILED = Messages.EditorWidget_SCRIPT_EVALUATION_FAILED;
-	private static final int EVALUATE_ATTEMPTS = 5;
+	private static final int EVALUATE_ATTEMPTS = 15;
 	private static final String EDITOR_URL = "/orion/examples/editor/embeddededitor.html"; //$NON-NLS-1$
 	private Browser browser;
 	private String text;

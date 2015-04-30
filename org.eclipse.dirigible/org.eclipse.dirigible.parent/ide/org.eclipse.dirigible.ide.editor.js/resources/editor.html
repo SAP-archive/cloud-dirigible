@@ -70,14 +70,20 @@
 
 			function setText(text, mode, readOnlyStatus, breakpointsenabledStatus, row) {
 				beforeSaveText = text;
-				editor.getSession().setValue(text, -1);
-				editor.getSession().setMode("ace/mode/" + mode);
-				editor.getSession().getUndoManager().reset();
-				
-				setReadOnly(readOnlyStatus);
-				setBreakpointsEnabled(breakpointsenabledStatus);
-				
-				editor.gotoLine(row, 0, true);
+				setTimeout(function() {
+					try {
+						editor.getSession().setValue(text, -1);
+					} catch (e) {
+						console(e);
+					}
+					editor.getSession().setMode("ace/mode/" + mode);
+					editor.getSession().getUndoManager().reset();
+					
+					setReadOnly(readOnlyStatus);
+					setBreakpointsEnabled(breakpointsenabledStatus);
+					
+					editor.gotoLine(row, 0, true);
+				}, 500);
 			}
 
 			function getText() {

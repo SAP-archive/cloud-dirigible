@@ -36,7 +36,6 @@ public class EditorWidget extends AbstractTextEditorWidget {
 
 	private static final Logger logger = Logger.getLogger(EditorWidget.class);
 	private static final String SCRIPT_EVALUATION_FAILED = Messages.EditorWidget_SCRIPT_EVALUATION_FAILED;
-	private static final int EVALUATE_ATTEMPTS = 5;
 	private static final String EDITOR_URL = "/aceeditor/editor.html"; //$NON-NLS-1$
 	private Browser browser;
 	private String text;
@@ -198,12 +197,10 @@ public class EditorWidget extends AbstractTextEditorWidget {
 
 	private Object evaluate(final String function, final Object... arguments) {
 		final String script = buildFunctionCall(function, arguments);
-		for (int i = 0; i < EVALUATE_ATTEMPTS; i++) {
-			try {
-				return browser.evaluate(script);
-			} catch (final Exception ex) {
-				logger.debug(ex.getMessage(), ex);
-			}
+		try {
+			return browser.evaluate(script);
+		} catch (final Exception ex) {
+			logger.debug(ex.getMessage(), ex);
 		}
 
 		throw new IllegalStateException(SCRIPT_EVALUATION_FAILED + script);

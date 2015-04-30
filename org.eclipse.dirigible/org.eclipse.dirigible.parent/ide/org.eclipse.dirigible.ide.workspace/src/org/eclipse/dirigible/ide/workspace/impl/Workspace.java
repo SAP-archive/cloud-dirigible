@@ -39,7 +39,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceDescription;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.WorkspaceLock;
+//import org.eclipse.core.resources.WorkspaceLock;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -511,11 +511,11 @@ public class Workspace implements IWorkspace {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
-	@Deprecated
-	public void setWorkspaceLock(WorkspaceLock arg0) {
-		throw new UnsupportedOperationException();
-	}
+//	@Override
+//	@Deprecated
+//	public void setWorkspaceLock(WorkspaceLock arg0) {
+//		throw new UnsupportedOperationException();
+//	}
 
 	/**
 	 * {@inheritDoc}
